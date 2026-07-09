@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_salon_appointments_temp">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family: 'Outfit', 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #2c3e50; font-size: 13px;">
+                    <!-- Top Accent Border -->
+                    <div style="border-top: 4px solid #00acc1; margin-bottom: 20px;"/>
+
+                    <!-- Title Header -->
+                    <div class="text-center mb-4">
+                        <h2 style="color: #00838f; font-weight: bold; margin-bottom: 20px; font-size: 28px;">Appointments &amp; Sales Report</h2>
+                    </div>
+
+                    <!-- Metadata Section -->
+                    <div class="row mb-4" style="background-color: #f8f9fa; border: 1px solid #eaeaea; border-radius: 6px; padding: 12px 15px; margin: 0 0 25px 0;">
+                        <div class="col-6">
+                            <strong>Date Range:</strong> <span t-out="data.get('date_from')"/> to <span t-out="data.get('date_to')"/><br/>
+                            <strong>Branches Filtered:</strong> 
+                            <t t-if="data.get('branch_ids')">
+                                <t t-set="brs" t-value="[branch_summary[bid]['name'] for bid in data.get('branch_ids') if bid in branch_summary]"/>
+                                <span t-out="', '.join(brs)"/>
+                            </t>
+                            <t t-else="">
+                                <span>All Branches</span>
+                            </t><br/>
+                            <strong>Employees Filtered:</strong> 
+                            <t t-if="data.get('staff_ids')">
+                                <t t-set="stfs" t-value="[staff_summary[sid]['name'] for sid in data.get('staff_ids') if sid in staff_summary]"/>
+                                <span t-out="', '.join(stfs)"/>
+                            </t>
+                            <t t-else="">
+                                <span>All Employees</span>
+                            </t>
+                        </div>
+                        <div class="col-6 text-right" style="text-align: right;">
+                            <strong>Printed On:</strong> <span t-out="datetime.date.today().strftime('%Y-%m-%d')"/><br/>
+                            <strong>Total Appointments:</strong> <span t-out="len(appointments)"/>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Summary Cards -->
+                    <div class="row mb-4">
+                        <!-- Card 1: Total Appointments -->
+                        <div class="col-6">
+                            <div style="border: 1px solid #eaeaea; border-radius: 6px; padding: 15px; background-color: #e0f7fa; text-align: center; height: 100px;">
+                                <div style="font-size: 14px; color: #006064; font-weight: bold; text-transform: uppercase;">Total Bookings</div>
+                                <div style="font-size: 32px; font-weight: bold; color: #00838f; margin-top: 5px;">
+                                    <span t-out="len(appointments)"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2: Total Revenue -->
+                        <div class="col-6">
+                            <div style="border: 1px solid #eaeaea; border-radius: 6px; padding: 15px; background-color: #e8f5e9; text-align: center; height: 100px;">
+                                <div style="font-size: 14px; color: #1b5e20; font-weight: bold; text-transform: uppercase;">Total Revenue</div>
+                                <div style="font-size: 32px; font-weight: bold; color: #2e7d32; margin-top: 5px;">
+                                    QAR <span t-out="total_revenue" t-options='{"widget": "float", "precision": 2}'/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Breakdowns Section -->
+                    <div class="row mb-5">
+                        <!-- State-wise Breakdown -->
+                        <div class="col-6" style="padding-right: 15px;">
+                            <h5 style="color: #00838f; font-weight: 600; border-bottom: 2px solid #e0f2f1; padding-bottom: 5px; margin-bottom: 10px;">State-Wise Summary</h5>
+                            <table class="table table-sm table-bordered" style="width: 100%;">
+                                <thead style="background-color: #f1f3f5;">
+                                    <tr>
+                                        <th>State</th>
+                                        <th style="text-align: center; width: 25%;">Count</th>
+                                        <th style="text-align: right; width: 35%;">Revenue (QAR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state_summary.items()" t-as="state_item">
+                                        <t t-set="state_key" t-value="state_item[0]"/>
+                                        <t t-set="state_data" t-value="state_item[1]"/>
+                                        <t t-if="state_data['count'] &gt; 0">
+                                            <tr>
+                                                <td><span t-out="state_labels.get(state_key, state_key)"/></td>
+                                                <td style="text-align: center;"><span t-out="state_data['count']"/></td>
+                                                <td style="text-align: right;">
+                                                    <span t-out="state_data['revenue']" t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Branch-wise Breakdown -->
+                        <div class="col-6" style="padding-left: 15px;">
+                            <h5 style="color: #00838f; font-weight: 600; border-bottom: 2px solid #e0f2f1; padding-bottom: 5px; margin-bottom: 10px;">Branch-Wise Summary</h5>
+                            <table class="table table-sm table-bordered" style="width: 100%;">
+                                <thead style="background-color: #f1f3f5;">
+                                    <tr>
+                                        <th>Branch</th>
+                                        <th style="text-align: center; width: 25%;">Count</th>
+                                        <th style="text-align: right; width: 35%;">Revenue (QAR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="branch_summary.items()" t-as="branch_item">
+                                        <t t-set="branch_data" t-value="branch_item[1]"/>
+                                        <t t-if="branch_data['count'] &gt; 0">
+                                            <tr>
+                                                <td><span t-out="branch_data['name']"/></td>
+                                                <td style="text-align: center;"><span t-out="branch_data['count']"/></td>
+                                                <td style="text-align: right;">
+                                                    <span t-out="branch_data['revenue']" t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Details Section Grouped by Branch -->
+                    <h3 style="color: #00838f; font-weight: bold; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #00acc1; padding-bottom: 5px;">Detailed Appointments</h3>
+                    
+                    <t t-foreach="branch_summary.items()" t-as="branch_item">
+                        <t t-set="branch_data" t-value="branch_item[1]"/>
+                        <t t-if="branch_data['count'] &gt; 0">
+                            <div style="page-break-inside: avoid; margin-bottom: 30px;">
+                                <h4 style="color: #00838f; font-weight: 600; margin-bottom: 10px; background-color: #f1f3f5; padding: 6px 12px; border-radius: 4px; font-size: 15px;">
+                                    Branch: <span t-out="branch_data['name']"/>
+                                </h4>
+                                
+                                <table class="table table-sm table-striped" style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid #ccc; background-color: #fafafa;">
+                                            <th style="padding: 8px; text-align: left; width: 15%;">ID</th>
+                                            <th style="padding: 8px; text-align: left; width: 18%;">Customer</th>
+                                            <th style="padding: 8px; text-align: left; width: 28%;">Services Booked</th>
+                                            <th style="padding: 8px; text-align: left; width: 16%;">Beautician</th>
+                                            <th style="padding: 8px; text-align: left; width: 13%;">Date &amp; Time</th>
+                                            <th style="padding: 8px; text-align: center; width: 10%;">State</th>
+                                            <th style="padding: 8px; text-align: right; width: 10%;">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="branch_data['appointments']" t-as="appt">
+                                            <tr style="border-bottom: 1px solid #eee;">
+                                                <td style="padding: 8px;"><span t-out="appt.name"/></td>
+                                                <td style="padding: 8px;"><span t-out="appt.partner_id.name"/></td>
+                                                <td style="padding: 8px;">
+                                                    <span t-out="appt.service_id.name"/>
+                                                    <t t-if="appt.line_ids">
+                                                        <div style="font-size: 10px; color: #666; padding-left: 5px;">
+                                                            <t t-foreach="appt.line_ids" t-as="line">
+                                                                + <span t-out="line.service_id.name"/> (QAR <span t-out="line.price_unit"/>)<br/>
+                                                            </t>
+                                                        </div>
+                                                    </t>
+                                                </td>
+                                                <td style="padding: 8px;"><span t-out="appt.staff_id.name"/></td>
+                                                <td style="padding: 8px;"><span t-out="appt.start_datetime" t-options='{"widget": "datetime", "format": "yyyy-MM-dd HH:mm"}'/></td>
+                                                <td style="padding: 8px; text-align: center;">
+                                                    <t t-set="badge_style" t-value="'padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;'"/>
+                                                    <t t-if="appt.state == 'done'">
+                                                        <span t-att-style="badge_style + ' background-color: #ebfbee; color: #2b8a3e;'"><span t-out="state_labels.get(appt.state)"/></span>
+                                                    </t>
+                                                    <t t-elif="appt.state == 'progress'">
+                                                        <span t-att-style="badge_style + ' background-color: #e7f5ff; color: #1864ab;'"><span t-out="state_labels.get(appt.state)"/></span>
+                                                    </t>
+                                                    <t t-elif="appt.state == 'confirmed'">
+                                                        <span t-att-style="badge_style + ' background-color: #fff9db; color: #e67700;'"><span t-out="state_labels.get(appt.state)"/></span>
+                                                    </t>
+                                                    <t t-elif="appt.state == 'draft'">
+                                                        <span t-att-style="badge_style + ' background-color: #f1f3f5; color: #495057;'"><span t-out="state_labels.get(appt.state)"/></span>
+                                                    </t>
+                                                    <t t-elif="appt.state == 'cancel'">
+                                                        <span t-att-style="badge_style + ' background-color: #fff5f5; color: #c92a2a;'"><span t-out="state_labels.get(appt.state)"/></span>
+                                                    </t>
+                                                </td>
+                                                <td style="padding: 8px; text-align: right; font-weight: 600;">
+                                                    <t t-set="appt_total" t-value="appt.service_id.list_price + sum(line.price_unit for line in appt.line_ids)"/>
+                                                    QAR <span t-out="appt_total" t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <!-- Branch Subtotal Row -->
+                                        <tr style="border-top: 1.5px solid #00acc1; background-color: #fafafa; font-weight: bold;">
+                                            <td colspan="5" style="padding: 8px; text-align: right; color: #00838f;">Branch Subtotal:</td>
+                                            <td style="padding: 8px; text-align: center;"><span t-out="branch_data['count']"/> Bookings</td>
+                                            <td style="padding: 8px; text-align: right; color: #00838f;">
+                                                QAR <span t-out="branch_data['revenue']" t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_salon_appointment_single_temp">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Outfit', 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #2c3e50; font-size: 14px;">
+                        <!-- Top Accent Border -->
+                        <div style="border-top: 4px solid #00acc1; margin-bottom: 20px;"/>
+
+                        <!-- Title Header -->
+                        <div class="row mb-4">
+                            <div class="col-8">
+                                <h2 style="color: #00838f; font-weight: 700; margin: 0; font-size: 26px;">APPOINTMENT DETAILS</h2>
+                                <p style="color: #7f8c8d; font-size: 14px; margin-top: 5px;">Reference: <strong style="color: #2c3e50;"><span t-field="o.name"/></strong></p>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div style="padding: 6px 12px; display: inline-block; border-radius: 4px; font-weight: bold; font-size: 13px; text-transform: uppercase; background-color: #e0f7fa; color: #006064;">
+                                    <span t-field="o.state"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Details Box -->
+                        <div style="background-color: #fcfcfc; border: 1px solid #eaeaea; border-radius: 6px; padding: 20px; margin-bottom: 30px;">
+                            <div class="row">
+                                <!-- Left Column: Customer & Location -->
+                                <div class="col-6" style="border-right: 1px solid #eee;">
+                                    <h5 style="color: #00838f; font-weight: 600; margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid #e0f2f1; padding-bottom: 5px;">Customer &amp; Location</h5>
+                                    <table class="table table-sm table-borderless" style="margin-bottom: 0;">
+                                        <tr>
+                                            <td style="color: #7f8c8d; width: 35%; padding: 4px 0;">Customer:</td>
+                                            <td style="font-weight: 600; padding: 4px 0;"><span t-field="o.partner_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">Phone:</td>
+                                            <td style="padding: 4px 0;"><span t-field="o.phone"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">Branch:</td>
+                                            <td style="padding: 4px 0;"><span t-field="o.branch_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">Room/Chair:</td>
+                                            <td style="padding: 4px 0;"><span t-field="o.room_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">Walk-in Queue:</td>
+                                            <td style="padding: 4px 0;">
+                                                <span t-if="o.is_walkin" class="badge bg-info text-white">Yes</span>
+                                                <span t-else="" class="text-muted">No</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <!-- Right Column: Date & Assignment -->
+                                <div class="col-6" style="padding-left: 25px;">
+                                    <h5 style="color: #00838f; font-weight: 600; margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid #e0f2f1; padding-bottom: 5px;">Schedule &amp; Assignment</h5>
+                                    <table class="table table-sm table-borderless" style="margin-bottom: 0;">
+                                        <tr>
+                                            <td style="color: #7f8c8d; width: 35%; padding: 4px 0;">Start Time:</td>
+                                            <td style="font-weight: 600; padding: 4px 0;"><span t-field="o.start_datetime" t-options='{"widget": "datetime", "format": "yyyy-MM-dd HH:mm"}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">End Time:</td>
+                                            <td style="padding: 4px 0;"><span t-field="o.end_datetime" t-options='{"widget": "datetime", "format": "yyyy-MM-dd HH:mm"}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">Duration:</td>
+                                            <td style="padding: 4px 0;"><span t-field="o.duration" t-options='{"widget": "float", "precision": 2}'/> Hours</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">Beautician:</td>
+                                            <td style="padding: 4px 0;"><span t-field="o.staff_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color: #7f8c8d; padding: 4px 0;">Payment:</td>
+                                            <td style="padding: 4px 0;">
+                                                <span t-if="o.payment_state == 'paid'" style="color: #2e7d32; font-weight: bold; background-color: #e8f5e9; padding: 2px 8px; border-radius: 4px;">PAID</span>
+                                                <span t-else="" style="color: #c62828; font-weight: bold; background-color: #ffebee; padding: 2px 8px; border-radius: 4px;">NOT PAID</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Services Table -->
+                        <h5 style="color: #00838f; font-weight: 600; margin-bottom: 12px; font-size: 16px;">Services Booked</h5>
+                        <table class="table table-sm mt-2" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #e0f7fa; color: #006064; font-weight: bold; border-bottom: 2px solid #00acc1;">
+                                    <th style="padding: 10px 8px; text-align: left; width: 50%;">Service Description</th>
+                                    <th style="padding: 10px 8px; text-align: left; width: 30%;">Beautician/Staff</th>
+                                    <th style="padding: 10px 8px; text-align: right; width: 20%;">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Primary Service Row -->
+                                <tr style="border-bottom: 1px solid #eaeaea;">
+                                    <td style="padding: 12px 8px; font-weight: 600;">
+                                        <span t-field="o.service_id.name"/> <span class="badge bg-secondary text-white" style="font-size: 10px; padding: 2px 5px; margin-left: 5px;">Primary</span>
+                                    </td>
+                                    <td style="padding: 12px 8px;">
+                                        <span t-field="o.staff_id.name"/>
+                                    </td>
+                                    <td style="padding: 12px 8px; text-align: right; font-weight: 600;">
+                                        <span t-field="o.service_id.list_price" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Additional Services Rows -->
+                                <t t-if="o.line_ids">
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <tr style="border-bottom: 1px solid #eaeaea;">
+                                            <td style="padding: 10px 8px; padding-left: 20px; color: #555;">
+                                                + <span t-field="line.service_id.name"/>
+                                            </td>
+                                            <td style="padding: 10px 8px; color: #555;">
+                                                <span t-field="line.staff_id.name"/>
+                                            </td>
+                                            <td style="padding: 10px 8px; text-align: right; color: #555;">
+                                                <span t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                
+                                <!-- Total Calculation Row -->
+                                <tr style="border-top: 2px solid #00acc1; font-weight: bold; background-color: #fafafa;">
+                                    <td colspan="2" style="padding: 12px 8px; text-align: right; font-size: 15px; color: #006064;">Total Amount:</td>
+                                    <td style="padding: 12px 8px; text-align: right; font-size: 16px; color: #006064;">
+                                        <t t-set="total_price" t-value="o.service_id.list_price + sum(line.price_unit for line in o.line_ids)"/>
+                                        <span t-out="total_price" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Note Section -->
+                        <t t-if="o.note">
+                            <div class="mt-4" style="page-break-inside: avoid;">
+                                <h5 style="color: #00838f; font-weight: 600; margin-bottom: 8px; font-size: 15px;">Appointment Notes</h5>
+                                <div style="border-left: 3px solid #00acc1; background-color: #f9f9f9; padding: 12px; border-radius: 0 4px 4px 0; color: #555; font-style: italic;">
+                                    <span t-field="o.note"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <!-- Footer Thank You Note -->
+                        <div class="text-center" style="margin-top: 60px; page-break-inside: avoid;">
+                            <p style="font-size: 15px; font-weight: 600; color: #00838f; margin-bottom: 2px;">Thank you for choosing <t t-out="o.env.company.name"/>!</p>
+                            <p style="font-size: 12px; color: #95a5a6; margin: 0;">If you need to reschedule, please notify us at least 24 hours in advance.</p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

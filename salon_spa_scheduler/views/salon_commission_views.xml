@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salon_commission_tree" model="ir.ui.view">
+        <field name="name">salon.commission.list</field>
+        <field name="model">salon.commission</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="staff_id"/>
+                <field name="appointment_id"/>
+                <field name="commission_amount" sum="Total Commissions"/>
+                <field name="date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_salon_commission_form" model="ir.ui.view">
+        <field name="name">salon.commission.form</field>
+        <field name="model">salon.commission</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_pay" string="Mark Paid" type="object" class="btn-primary" invisible="state == 'paid'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="staff_id" readonly="appointment_id"/>
+                            <field name="appointment_id"/>
+                        </group>
+                        <group>
+                            <field name="commission_amount"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_salon_commission" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="res_model">salon.commission</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

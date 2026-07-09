@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Tip Staff Button Extension -->
+    <t t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//InternalNoteButton" position="after">
+            <button t-if="!props.showRemainingButtons" class="btn btn-secondary btn-lg flex-shrink-0 control-button fw-bolder" t-on-click="clickTipStaff" style="border: 0;">
+                <i class="fa fa-heart me-1" role="img" aria-label="Tip Staff" title="Tip Staff"/>
+                Tip Staff
+            </button>
+        </xpath>
+        <xpath expr="//div[hasclass('control-buttons')]" position="inside">
+            <button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="clickTipStaff">
+                <i class="fa fa-heart me-1" role="img" aria-label="Tip Staff" title="Tip Staff"/>
+                Tip Staff
+            </button>
+        </xpath>
+    </t>
+
+    <!-- Tip Staff Popup -->
+    <t t-name="salon_spa_scheduler.TipStaffPopup">
+        <Dialog title="props.title" size="'sm'">
+            <div class="row mt-3">
+                <label class="col-sm-4 col-form-label">Select Staff</label>
+                <div class="col-sm-8">
+                    <select class="form-select" t-model="state.selectedStaffId">
+                        <t t-foreach="state.staffList" t-as="staff" t-key="staff.id">
+                            <option t-att-value="staff.id"><t t-esc="staff.name" /></option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <label class="col-sm-4 col-form-label">Tip Amount</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" t-model="state.tipAmount" placeholder="Enter amount..." />
+                </div>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary btn-lg lh-lg o-default-button me-2 flex-fill" t-on-click="confirm">
+                    Confirm
+                </button>
+                <button class="btn btn-secondary btn-lg lh-lg o-default-button flex-fill" t-on-click="cancel">
+                    Cancel
+                </button>
+            </t>
+        </Dialog>
+    </t>
+</templates>

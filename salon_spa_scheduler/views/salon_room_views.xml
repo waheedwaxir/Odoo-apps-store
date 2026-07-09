@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salon_room_tree" model="ir.ui.view">
+        <field name="name">salon.room.list</field>
+        <field name="model">salon.room</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="branch_id"/>
+                <field name="room_type"/>
+                <field name="capacity"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_salon_room_form" model="ir.ui.view">
+        <field name="name">salon.room.form</field>
+        <field name="model">salon.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="branch_id"/>
+                        </group>
+                        <group>
+                            <field name="room_type"/>
+                            <field name="capacity"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_salon_room" model="ir.actions.act_window">
+        <field name="name">Chairs</field>
+        <field name="res_model">salon.room</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

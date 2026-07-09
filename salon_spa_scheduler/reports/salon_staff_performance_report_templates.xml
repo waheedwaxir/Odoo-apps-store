@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_salon_staff_performance_temp">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family: 'Outfit', 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #1e293b; font-size: 13px;">
+                    <!-- Top Accent Border -->
+                    <div style="border-top: 4px solid #0d9488; margin-bottom: 20px;"/>
+
+                    <!-- Title Header -->
+                    <div class="text-center mb-4">
+                        <h2 style="color: #0f172a; font-weight: 800; margin-bottom: 5px; font-size: 26px;">Executive Employee Performance Report</h2>
+                        <div style="color: #64748b; font-size: 14px;">Earnings, Service Completion, Tips &amp; Client Satisfaction Audit</div>
+                    </div>
+
+                    <!-- Metadata Section -->
+                    <div class="row mb-4" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin: 0 0 25px 0;">
+                        <div class="col-6">
+                            <strong>Audit Period:</strong> <span t-out="data.get('date_from')"/> to <span t-out="data.get('date_to')"/><br/>
+                            <strong>Branches Filtered:</strong> <span t-out="branch_names_str"/><br/>
+                            <strong>Staff Filtered:</strong> 
+                            <t t-if="data.get('staff_ids')">
+                                <t t-set="stf_names" t-value="[sp['name'] for sp in staff_performance]"/>
+                                <span t-out="', '.join(stf_names)"/>
+                            </t>
+                            <t t-else="">
+                                <span>All Active Employees</span>
+                            </t>
+                        </div>
+                        <div class="col-6 text-right" style="text-align: right;">
+                            <strong>Report Generated:</strong> <span t-out="print_date"/><br/>
+                            <strong>Total Staff Evaluated:</strong> <span t-out="len(staff_performance)"/> Employees
+                        </div>
+                    </div>
+
+                    <!-- 4-Column KPI Summary Cards -->
+                    <div class="row mb-5">
+                        <div class="col-3">
+                            <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background-color: #ecfdf5; text-align: center; min-height: 95px;">
+                                <div style="font-size: 12px; color: #065f46; font-weight: bold; text-transform: uppercase;">Total Revenue</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #059669; margin-top: 6px;">
+                                    QAR <span t-out="grand_total_revenue" t-options='{"widget": "float", "precision": 2}'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background-color: #eff6ff; text-align: center; min-height: 95px;">
+                                <div style="font-size: 12px; color: #1e40af; font-weight: bold; text-transform: uppercase;">Tips Collected</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #2563eb; margin-top: 6px;">
+                                    QAR <span t-out="grand_total_tips" t-options='{"widget": "float", "precision": 2}'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background-color: #fffbeb; text-align: center; min-height: 95px;">
+                                <div style="font-size: 12px; color: #92400e; font-weight: bold; text-transform: uppercase;">Commissions Earned</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #d97706; margin-top: 6px;">
+                                    QAR <span t-out="grand_total_commissions" t-options='{"widget": "float", "precision": 2}'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background-color: #f0fdf4; text-align: center; min-height: 95px;">
+                                <div style="font-size: 12px; color: #166534; font-weight: bold; text-transform: uppercase;">Completed Jobs</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #15803d; margin-top: 6px;">
+                                    <span t-out="grand_total_done"/> <span style="font-size: 14px; color: #4b5563;">(<span t-out="grand_avg_rating"/> ★)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Executive Staff Comparison Table -->
+                    <h3 style="color: #0f172a; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #0d9488; padding-bottom: 5px; font-size: 18px;">
+                        Employee Performance Overview Table
+                    </h3>
+                    <table class="table table-sm table-bordered mb-5" style="width: 100%; border-collapse: collapse;">
+                        <thead style="background-color: #f1f5f9; color: #334155; font-weight: bold;">
+                            <tr>
+                                <th style="padding: 10px;">Employee Name</th>
+                                <th style="padding: 10px;">Role &amp; Branch</th>
+                                <th style="padding: 10px; text-align: center;">Total Bookings</th>
+                                <th style="padding: 10px; text-align: center;">Done</th>
+                                <th style="padding: 10px; text-align: center;">Cancel Rate</th>
+                                <th style="padding: 10px; text-align: center;">Rating</th>
+                                <th style="padding: 10px; text-align: right;">Revenue (QAR)</th>
+                                <th style="padding: 10px; text-align: right;">Tips (QAR)</th>
+                                <th style="padding: 10px; text-align: right;">Commission (QAR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="staff_performance" t-as="sp">
+                                <tr style="border-bottom: 1px solid #e2e8f0;">
+                                    <td style="padding: 10px; font-weight: 600;"><span t-out="sp['name']"/></td>
+                                    <td style="padding: 10px; color: #64748b;"><span t-out="sp['role']"/> (<span t-out="sp['branch_name']"/>)</td>
+                                    <td style="padding: 10px; text-align: center;"><span t-out="sp['total_appts']"/></td>
+                                    <td style="padding: 10px; text-align: center; color: #10b981; font-weight: bold;"><span t-out="sp['done_appts']"/></td>
+                                    <td style="padding: 10px; text-align: center;">
+                                        <t t-if="sp['cancel_rate'] &gt; 20.0">
+                                            <span style="color: #ef4444; font-weight: bold;"><span t-out="sp['cancel_rate']"/>%</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span style="color: #64748b;"><span t-out="sp['cancel_rate']"/>%</span>
+                                        </t>
+                                    </td>
+                                    <td style="padding: 10px; text-align: center; font-weight: bold; color: #f59e0b;">
+                                        <t t-if="sp['review_count'] &gt; 0">
+                                            <span t-out="sp['avg_rating']"/> ★
+                                        </t>
+                                        <t t-else="">
+                                            <span style="color: #94a3b8;">N/A</span>
+                                        </t>
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; font-weight: 700; color: #059669;">
+                                        <span t-out="sp['revenue']" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; font-weight: 600; color: #2563eb;">
+                                        <span t-out="sp['total_tips']" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; font-weight: 600; color: #d97706;">
+                                        <span t-out="sp['total_comm']" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <!-- Grand Totals Row -->
+                            <tr style="background-color: #f8fafc; font-weight: 800; border-top: 2px solid #0d9488;">
+                                <td colspan="2" style="padding: 10px; text-align: right; color: #0f172a;">GRAND TOTALS:</td>
+                                <td style="padding: 10px; text-align: center;"><span t-out="sum(sp['total_appts'] for sp in staff_performance)"/></td>
+                                <td style="padding: 10px; text-align: center; color: #10b981;"><span t-out="grand_total_done"/></td>
+                                <td style="padding: 10px; text-align: center;">-</td>
+                                <td style="padding: 10px; text-align: center; color: #f59e0b;"><span t-out="grand_avg_rating"/> ★</td>
+                                <td style="padding: 10px; text-align: right; color: #059669;">QAR <span t-out="grand_total_revenue" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="padding: 10px; text-align: right; color: #2563eb;">QAR <span t-out="grand_total_tips" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="padding: 10px; text-align: right; color: #d97706;">QAR <span t-out="grand_total_commissions" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Individual Detailed Employee Sections -->
+                    <h3 style="color: #0f172a; font-weight: bold; margin-top: 35px; margin-bottom: 20px; border-bottom: 2px solid #0d9488; padding-bottom: 5px; font-size: 18px;">
+                        Detailed Employee Activity &amp; Earnings Audit
+                    </h3>
+
+                    <t t-foreach="staff_performance" t-as="sp">
+                        <div style="page-break-inside: avoid; margin-bottom: 40px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 18px; background-color: #ffffff;">
+                            <div class="row mb-3" style="border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+                                <div class="col-6">
+                                    <h4 style="color: #0f172a; font-weight: 800; margin: 0; font-size: 18px;"><span t-out="sp['name']"/></h4>
+                                    <div style="color: #64748b; font-size: 13px; margin-top: 3px;"><span t-out="sp['role']"/> | Assigned Branch: <strong><span t-out="sp['branch_name']"/></strong></div>
+                                </div>
+                                <div class="col-6 text-right" style="text-align: right;">
+                                    <span style="background-color: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; padding: 5px 10px; border-radius: 6px; font-weight: bold; font-size: 13px; margin-left: 8px;">
+                                        Done: <span t-out="sp['done_appts']"/>
+                                    </span>
+                                    <span style="background-color: #fffbeb; color: #b45309; border: 1px solid #fde68a; padding: 5px 10px; border-radius: 6px; font-weight: bold; font-size: 13px; margin-left: 8px;">
+                                        Rating: <span t-out="sp['avg_rating']"/> ★
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Mini Earnings Breakdown -->
+                            <div class="row mb-3" style="background-color: #f8fafc; border-radius: 6px; padding: 10px; margin: 0 0 15px 0;">
+                                <div class="col-4">
+                                    <div style="font-size: 11px; color: #64748b; text-transform: uppercase;">Service Revenue Generated</div>
+                                    <div style="font-size: 16px; font-weight: bold; color: #059669;">QAR <span t-out="sp['revenue']" t-options='{"widget": "float", "precision": 2}'/></div>
+                                </div>
+                                <div class="col-4">
+                                    <div style="font-size: 11px; color: #64748b; text-transform: uppercase;">Tips Collected (Paid vs Pending)</div>
+                                    <div style="font-size: 16px; font-weight: bold; color: #2563eb;">
+                                        QAR <span t-out="sp['total_tips']" t-options='{"widget": "float", "precision": 2}'/> 
+                                        <span style="font-size: 11px; font-weight: normal; color: #64748b;">(Unpaid: QAR <span t-out="sp['unpaid_tips']" t-options='{"widget": "float", "precision": 2}'/>)</span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div style="font-size: 11px; color: #64748b; text-transform: uppercase;">Commissions Earned</div>
+                                    <div style="font-size: 16px; font-weight: bold; color: #d97706;">
+                                        QAR <span t-out="sp['total_comm']" t-options='{"widget": "float", "precision": 2}'/>
+                                        <span style="font-size: 11px; font-weight: normal; color: #64748b;">(Paid: QAR <span t-out="sp['paid_comm']" t-options='{"widget": "float", "precision": 2}'/>)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Job Log Table -->
+                            <t t-if="sp['services_log']">
+                                <div style="font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #334155;">Treatment &amp; Service History Log:</div>
+                                <table class="table table-sm table-striped" style="width: 100%; font-size: 12px; border-collapse: collapse;">
+                                    <thead style="background-color: #f1f5f9; color: #475569;">
+                                        <tr>
+                                            <th style="padding: 6px;">Booking ID</th>
+                                            <th style="padding: 6px;">Customer</th>
+                                            <th style="padding: 6px;">Service / Treatment</th>
+                                            <th style="padding: 6px;">Date &amp; Time</th>
+                                            <th style="padding: 6px; text-align: center;">State</th>
+                                            <th style="padding: 6px; text-align: right;">Service Price (QAR)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="sp['services_log']" t-as="slog">
+                                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                                <td style="padding: 6px; font-weight: 600;"><span t-out="slog['appt_name']"/></td>
+                                                <td style="padding: 6px;"><span t-out="slog['customer']"/></td>
+                                                <td style="padding: 6px;"><span t-out="slog['service']"/></td>
+                                                <td style="padding: 6px;"><span t-out="slog['date']"/></td>
+                                                <td style="padding: 6px; text-align: center;">
+                                                    <t t-if="slog['state'] == 'done'">
+                                                        <span style="color: #10b981; font-weight: bold;">DONE</span>
+                                                    </t>
+                                                    <t t-elif="slog['state'] == 'cancel'">
+                                                        <span style="color: #ef4444; font-weight: bold;">CANCELLED</span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span style="color: #3b82f6; font-weight: bold; text-transform: uppercase;"><span t-out="slog['state']"/></span>
+                                                    </t>
+                                                </td>
+                                                <td style="padding: 6px; text-align: right; font-weight: 600;">
+                                                    QAR <span t-out="slog['revenue']" t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <div style="color: #94a3b8; font-style: italic; padding: 10px 0;">No recorded treatments or appointments for this employee in the selected date range.</div>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

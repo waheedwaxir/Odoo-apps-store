@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salon_package_tree" model="ir.ui.view">
+        <field name="name">salon.package.list</field>
+        <field name="model">salon.package</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="price"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_salon_package_form" model="ir.ui.view">
+        <field name="name">salon.package.form</field>
+        <field name="model">salon.package</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Services In Package">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="service_id"/>
+                                    <field name="quantity"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_salon_package" model="ir.actions.act_window">
+        <field name="name">Service Packages</field>
+        <field name="res_model">salon.package</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

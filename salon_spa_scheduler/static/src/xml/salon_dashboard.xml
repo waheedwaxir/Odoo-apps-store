@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="salon_spa_scheduler.Dashboard">
+        <div class="o_salon_dashboard">
+            <!-- Header Panel -->
+            <div class="o_dashboard_header">
+                <div class="header_left">
+                    <div class="logo_glow"></div>
+                    <div class="title_container">
+                        <h1><t t-out="env.company ? env.company.name : 'Salon &amp; Spa'"/> Analytics</h1>
+                        <p class="subtitle text-muted">Advanced Real-time Salon Performance &amp; Operational Insights</p>
+                    </div>
+                </div>
+                
+                <div class="header_actions">
+                    <!-- Filter Buttons -->
+                    <div class="btn-group filter_group">
+                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'all' ? 'active' : '')" t-on-click="() => this.changeFilter('all')">All Time</button>
+                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'today' ? 'active' : '')" t-on-click="() => this.changeFilter('today')">Today</button>
+                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'this_week' ? 'active' : '')" t-on-click="() => this.changeFilter('this_week')">This Week</button>
+                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'this_month' ? 'active' : '')" t-on-click="() => this.changeFilter('this_month')">This Month</button>
+                    </div>
+
+                    <!-- Action Shortcuts -->
+                    <button class="btn shortcut_btn scheduler_link" t-on-click="() => this.action.doAction('salon_spa_scheduler.action_salon_scheduler_client')">
+                        <i class="fa fa-calendar-check-o"></i> Timeline
+                    </button>
+                    <button class="btn shortcut_btn pos_link" t-on-click="openPOS">
+                        <i class="fa fa-shopping-cart"></i> Go to POS
+                    </button>
+                    <button class="btn refresh_btn" t-on-click="loadData">
+                        <i class="fa fa-refresh"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Scrollable Body -->
+            <div class="o_dashboard_body">
+                <!-- Row 1: KPI Cards -->
+                <div class="kpi_cards_grid">
+                    <!-- Card 1: Total Appointments -->
+                    <div class="kpi_card glass_panel" t-on-click="() => this.openAppointments()">
+                        <div class="kpi_icon icon_blue">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Total Bookings</span>
+                            <h2 class="kpi_value"><t t-esc="state.data.total_count"/></h2>
+                            <div class="kpi_sub_info">
+                                <span class="badge badge_draft"><t t-esc="state.data.draft_count"/> draft</span>
+                                <span class="badge badge_cancel"><t t-esc="state.data.cancel_count"/> cancelled</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Completed -->
+                    <div class="kpi_card glass_panel" t-on-click="() => this.openAppointments('done')">
+                        <div class="kpi_icon icon_green">
+                            <i class="fa fa-check-circle"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Completed Services</span>
+                            <h2 class="kpi_value"><t t-esc="state.data.done_count"/></h2>
+                            <div class="kpi_sub_info">
+                                <span class="text_success font_semibold">
+                                    <t t-esc="formatPercent(state.data.done_count, state.data.total_count)"/>
+                                </span> completion rate
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Active Ongoing -->
+                    <div class="kpi_card glass_panel" t-on-click="() => this.openAppointments('progress')">
+                        <div class="kpi_icon icon_orange">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Ongoing Sessions</span>
+                            <h2 class="kpi_value"><t t-esc="state.data.ongoing_count"/></h2>
+                            <div class="kpi_sub_info">
+                                <span class="badge badge_confirmed"><t t-esc="state.data.confirmed_count"/> confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Total Revenue -->
+                    <div class="kpi_card glass_panel">
+                        <div class="kpi_icon icon_gold">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Booked Financials</span>
+                            <h2 class="kpi_value text_gold"><t t-esc="formatMonetary(state.data.total_revenue)"/></h2>
+                            <div class="kpi_sub_info">
+                                <span>Total subtotal revenue</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Realized vs Pending Payments -->
+                    <div class="kpi_card glass_panel" t-on-click="() => this.openAppointments()">
+                        <div class="kpi_icon icon_purple">
+                            <i class="fa fa-credit-card"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Payments Status</span>
+                            <div class="dual_values">
+                                <div class="val_col">
+                                    <span class="val_lbl">Paid</span>
+                                    <span class="val_num text_success"><t t-esc="formatMonetary(state.data.paid_revenue)"/></span>
+                                </div>
+                                <div class="val_col">
+                                    <span class="val_lbl">Unpaid</span>
+                                    <span class="val_num text_warning"><t t-esc="formatMonetary(state.data.unpaid_revenue)"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Average Booking value -->
+                    <div class="kpi_card glass_panel">
+                        <div class="kpi_icon icon_cyan">
+                            <i class="fa fa-calculator"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Avg. Ticket Value</span>
+                            <h2 class="kpi_value"><t t-esc="formatMonetary(state.data.avg_value)"/></h2>
+                            <div class="kpi_sub_info">
+                                <span>Per appointment spend</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Staff Tips -->
+                    <div class="kpi_card glass_panel" t-on-click="openTips">
+                        <div class="kpi_icon icon_green">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Staff Tips</span>
+                            <h2 class="kpi_value text_success"><t t-esc="formatMonetary(state.data.total_tips)"/></h2>
+                            <div class="kpi_sub_info">
+                                <span class="text_success font_semibold"><t t-esc="formatMonetary(state.data.paid_tips)"/> paid</span> • <span class="text_warning font_semibold"><t t-esc="formatMonetary(state.data.unpaid_tips)"/> unpaid</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Charts & Leaderboard Split Grid -->
+                <div class="dashboard_split_grid">
+                    <!-- Left Section: Status & Services -->
+                    <div class="split_left_col">
+                        <!-- Appointments Status Distribution -->
+                        <div class="dashboard_widget glass_panel">
+                            <div class="widget_header">
+                                <h3>Appointments Distribution</h3>
+                            </div>
+                            <div class="widget_body">
+                                <div class="status_bars_list">
+                                    <!-- Done -->
+                                    <div class="status_bar_item" t-on-click="() => this.openAppointments('done')">
+                                        <div class="status_info">
+                                            <span class="status_name"><i class="fa fa-circle text_success"></i> Done</span>
+                                            <span class="status_count"><t t-esc="state.data.done_count"/> (<t t-esc="formatPercent(state.data.done_count, state.data.total_count)"/>)</span>
+                                        </div>
+                                        <div class="progress_track">
+                                            <div class="progress_bar bg_success" t-att-style="'width: ' + formatPercent(state.data.done_count, state.data.total_count)"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Ongoing -->
+                                    <div class="status_bar_item" t-on-click="() => this.openAppointments('progress')">
+                                        <div class="status_info">
+                                            <span class="status_name"><i class="fa fa-circle text_warning"></i> In Progress</span>
+                                            <span class="status_count"><t t-esc="state.data.ongoing_count"/> (<t t-esc="formatPercent(state.data.ongoing_count, state.data.total_count)"/>)</span>
+                                        </div>
+                                        <div class="progress_track">
+                                            <div class="progress_bar bg_warning" t-att-style="'width: ' + formatPercent(state.data.ongoing_count, state.data.total_count)"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Confirmed -->
+                                    <div class="status_bar_item" t-on-click="() => this.openAppointments('confirmed')">
+                                        <div class="status_info">
+                                            <span class="status_name"><i class="fa fa-circle text_info"></i> Confirmed</span>
+                                            <span class="status_count"><t t-esc="state.data.confirmed_count"/> (<t t-esc="formatPercent(state.data.confirmed_count, state.data.total_count)"/>)</span>
+                                        </div>
+                                        <div class="progress_track">
+                                            <div class="progress_bar bg_info" t-att-style="'width: ' + formatPercent(state.data.confirmed_count, state.data.total_count)"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Draft -->
+                                    <div class="status_bar_item" t-on-click="() => this.openAppointments('draft')">
+                                        <div class="status_info">
+                                            <span class="status_name"><i class="fa fa-circle text_muted"></i> Draft</span>
+                                            <span class="status_count"><t t-esc="state.data.draft_count"/> (<t t-esc="formatPercent(state.data.draft_count, state.data.total_count)"/>)</span>
+                                        </div>
+                                        <div class="progress_track">
+                                            <div class="progress_bar bg_secondary" t-att-style="'width: ' + formatPercent(state.data.draft_count, state.data.total_count)"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Cancelled -->
+                                    <div class="status_bar_item" t-on-click="() => this.openAppointments('cancel')">
+                                        <div class="status_info">
+                                            <span class="status_name"><i class="fa fa-circle text_danger"></i> Cancelled</span>
+                                            <span class="status_count"><t t-esc="state.data.cancel_count"/> (<t t-esc="formatPercent(state.data.cancel_count, state.data.total_count)"/>)</span>
+                                        </div>
+                                        <div class="progress_track">
+                                            <div class="progress_bar bg_danger" t-att-style="'width: ' + formatPercent(state.data.cancel_count, state.data.total_count)"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Popularity -->
+                        <div class="dashboard_widget glass_panel">
+                            <div class="widget_header">
+                                <h3>Top Booked Services</h3>
+                            </div>
+                            <div class="widget_body">
+                                <t t-if="state.data.service_stats.length === 0">
+                                    <p class="empty_text">No service bookings registered for this period.</p>
+                                </t>
+                                <t t-else="">
+                                    <div class="service_popularity_list">
+                                        <t t-foreach="state.data.service_stats" t-as="svc" t-key="svc.name">
+                                            <div class="service_popularity_item">
+                                                <div class="svc_name_row">
+                                                    <span class="svc_name font_semibold"><t t-esc="svc.name"/></span>
+                                                    <span class="svc_stat"><t t-esc="svc.count"/> bookings • <t t-esc="formatMonetary(svc.revenue)"/></span>
+                                                </div>
+                                                <div class="progress_track">
+                                                    <!-- Width relative to the top service count -->
+                                                    <div class="progress_bar bg_gold" t-att-style="'width: ' + formatPercent(svc.count, state.data.total_count)"></div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Section: Staff Leaderboard -->
+                    <div class="split_right_col">
+                        <div class="dashboard_widget glass_panel height_100">
+                            <div class="widget_header d-flex justify-content-between align-items-center">
+                                <h3>Beauticians &amp; Staff Performance</h3>
+                                <button class="btn view_all_btn" t-on-click="() => this.openStaff()"><i class="fa fa-users"></i> View All</button>
+                            </div>
+                            <div class="widget_body">
+                                <t t-if="state.data.staff_stats.length === 0">
+                                    <p class="empty_text">No staff performance logs for this period.</p>
+                                </t>
+                                <t t-else="">
+                                    <div class="table_responsive">
+                                        <table class="leaderboard_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Staff Member</th>
+                                                    <th class="text-center">Bookings</th>
+                                                    <th class="text-right">Revenue</th>
+                                                    <th class="text-right">Commissions</th>
+                                                    <th class="text-right">Tips</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="state.data.staff_stats" t-as="stf" t-key="stf.id">
+                                                    <tr class="leaderboard_row" t-on-click="() => this.openStaff(stf.id)">
+                                                        <td>
+                                                            <div class="staff_cell_profile">
+                                                                <img t-att-src="'/web/image?model=salon.staff&amp;id=' + stf.id + '&amp;field=image_1920'" class="staff_small_avatar" alt="Profile"/>
+                                                                <span class="font_semibold text_light"><t t-esc="stf.name"/></span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center text_muted">
+                                                            <span class="text_highlight font_semibold"><t t-esc="stf.done_count"/></span> / <t t-esc="stf.appt_count"/> done
+                                                        </td>
+                                                        <td class="text-right text_gold font_semibold">
+                                                            <t t-esc="formatMonetary(stf.revenue)"/>
+                                                        </td>
+                                                        <td class="text-right text_success font_semibold">
+                                                            <t t-esc="formatMonetary(stf.commissions)"/>
+                                                        </td>
+                                                        <td class="text-right text_gold font_semibold">
+                                                            <t t-esc="formatMonetary(stf.tips)"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Recent Activity, Waitlist, Reviews -->
+                <div class="dashboard_bottom_grid">
+                    <!-- Left: Recent Appointments Feed -->
+                    <div class="bottom_left_col glass_panel">
+                        <div class="widget_header">
+                            <h3>Recent &amp; Upcoming Bookings</h3>
+                        </div>
+                        <div class="widget_body">
+                            <t t-if="state.data.recent_appointments.length === 0">
+                                <p class="empty_text">No recent appointments recorded.</p>
+                            </t>
+                            <t t-else="">
+                                <div class="appointments_feed">
+                                    <div class="feed_header">
+                                        <span class="f_ref">Ref</span>
+                                        <span class="f_cust">Customer</span>
+                                        <span class="f_staff">Staff</span>
+                                        <span class="f_svc">Services</span>
+                                        <span class="f_time">Date &amp; Time</span>
+                                        <span class="f_state text-center">Status</span>
+                                        <span class="f_amt text-right">Subtotal</span>
+                                        <span class="f_act"></span>
+                                    </div>
+                                    <t t-foreach="state.data.recent_appointments" t-as="appt" t-key="appt.id">
+                                        <div class="feed_row" t-on-click="() => this.openAppointment(appt.id)">
+                                            <span class="f_ref font_semibold text_light"><t t-esc="appt.name"/></span>
+                                            <span class="f_cust"><t t-esc="appt.customer"/></span>
+                                            <span class="f_staff text_muted"><t t-esc="appt.staff"/></span>
+                                            <span class="f_svc text_light text_truncate" t-att-title="appt.service"><t t-esc="appt.service"/></span>
+                                            <span class="f_time text_muted"><t t-esc="appt.start"/></span>
+                                            <span class="f_state text-center">
+                                                <span t-att-class="'state_badge badge_' + appt.state"><t t-esc="appt.state"/></span>
+                                                <t t-if="appt.payment_state === 'paid'">
+                                                    <span class="state_badge badge_paid">Paid</span>
+                                                </t>
+                                            </span>
+                                            <span class="f_amt text-right text_gold font_semibold"><t t-esc="formatMonetary(appt.amount)"/></span>
+                                            <span class="f_act text-center">
+                                                <button class="btn btn-sm btn_action" t-on-click.stop="() => this.openAppointment(appt.id)"><i class="fa fa-eye"></i></button>
+                                            </span>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Right: Feedback & Commissions summary -->
+                    <div class="bottom_right_col">
+
+                        <!-- Feedback Panel -->
+                        <div class="small_dashboard_card glass_panel" t-on-click="openReviews">
+                            <div class="card_icon icon_gold">
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="card_info">
+                                <span class="card_label">Customer Ratings</span>
+                                <div class="rating_stars">
+                                    <span class="star_text font_semibold text_light mr-2"><t t-esc="state.data.avg_rating"/></span>
+                                    <span class="text_gold stars_symbol"><t t-esc="getStars(state.data.avg_rating)"/></span>
+                                </div>
+                                <p class="card_desc">Based on verified reviews</p>
+                            </div>
+                        </div>
+
+                        <!-- Commissions Panel -->
+                        <div class="small_dashboard_card glass_panel" t-on-click="openCommissions">
+                            <div class="card_icon icon_purple">
+                                <i class="fa fa-percent"></i>
+                            </div>
+                            <div class="card_info">
+                                <span class="card_label">Staff Commissions</span>
+                                <h3 class="card_value text_success"><t t-esc="formatMonetary(state.data.total_commissions)"/></h3>
+                                <div class="comm_details">
+                                    <span class="text_muted font_semibold"><t t-esc="formatMonetary(state.data.paid_commissions)"/> paid</span> • 
+                                    <span class="text_warning font_semibold"><t t-esc="formatMonetary(state.data.pending_commissions)"/> draft</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Staff Tips Panel -->
+                        <div class="small_dashboard_card glass_panel" t-on-click="openTips">
+                            <div class="card_icon icon_green">
+                                <i class="fa fa-gift"></i>
+                            </div>
+                            <div class="card_info">
+                                <span class="card_label">Staff Tips</span>
+                                <h3 class="card_value text_success"><t t-esc="formatMonetary(state.data.total_tips)"/></h3>
+                                <div class="comm_details">
+                                    <span class="text_success font_semibold"><t t-esc="formatMonetary(state.data.paid_tips)"/> paid</span> • 
+                                    <span class="text_warning font_semibold"><t t-esc="formatMonetary(state.data.unpaid_tips)"/> unpaid</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

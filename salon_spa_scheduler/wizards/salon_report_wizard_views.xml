@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salon_report_wizard_form" model="ir.ui.view">
+        <field name="name">salon.report.wizard.form</field>
+        <field name="model">salon.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Print Salon Report">
+                <sheet>
+                    <group>
+                        <group string="Date Range">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group string="Filters">
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="staff_ids" widget="many2many_tags" options="{'no_create': True}" placeholder="Select Employees..."/>
+                        </group>
+                    </group>
+                    <group string="Appointment States">
+                        <group>
+                            <field name="filter_draft"/>
+                            <field name="filter_confirmed"/>
+                            <field name="filter_progress"/>
+                        </group>
+                        <group>
+                            <field name="filter_done"/>
+                            <field name="filter_cancel"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_print_report" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_salon_report_wizard" model="ir.actions.act_window">
+        <field name="name">Print Sales &amp; Appointments Report</field>
+        <field name="res_model">salon.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

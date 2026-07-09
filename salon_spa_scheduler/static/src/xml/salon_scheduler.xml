@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="salon_spa_scheduler.Scheduler">
+        <div class="o_salon_scheduler">
+            <!-- Header Controls -->
+            <div class="o_salon_header">
+                <div class="header_left">
+                    <button class="btn nav_btn" t-on-click="previousDay" title="Previous Day">
+                        <i class="fa fa-chevron-left"></i>
+                    </button>
+                    <button class="btn nav_btn" t-on-click="nextDay" title="Next Day">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
+                    <button class="btn today_btn" t-on-click="today">Today</button>
+                    
+                    <div class="header_date_picker">
+                        <span class="current_date_display"><t t-esc="formattedDate()"/></span>
+                        <input type="date" t-att-value="state.date" t-on-change="onDateChange" class="header_date_input"/>
+                    </div>
+
+                    <!-- Branch Selector -->
+                    <t t-if="state.branches.length &gt; 0">
+                        <div class="header_branch_picker">
+                            <i class="fa fa-building branch_icon"></i>
+                            <select class="header_branch_input" t-on-change="onBranchChange">
+                                <option value="0">All Branches</option>
+                                <t t-foreach="state.branches" t-as="branch" t-key="branch.id">
+                                    <option t-att-value="branch.id" t-att-selected="state.selectedBranchId == branch.id"><t t-esc="branch.name"/></option>
+                                </t>
+                            </select>
+                        </div>
+                    </t>
+
+                    <!-- Customer Search Bar -->
+                    <div class="header_customer_search">
+                        <i class="fa fa-search search_icon"></i>
+                        <input type="text" placeholder="Search customer (Name/Phone)..." class="header_search_input" t-on-input="onCustomerSearchInput" t-att-value="state.searchQuery"/>
+                        
+                        <!-- Search Results Dropdown -->
+                        <t t-if="state.searchResults.length &gt; 0">
+                            <div class="search_results_dropdown">
+                                <t t-foreach="state.searchResults" t-as="customer" t-key="customer.id">
+                                    <div class="search_result_item" t-on-click="() => this.selectCustomer(customer)">
+                                        <div class="customer_name"><t t-esc="customer.name"/></div>
+                                        <div class="customer_phone" t-if="customer.phone">
+                                            <t t-esc="customer.phone"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="header_right">
+                    <button class="btn refresh_btn" t-on-click="loadData">
+                        <i class="fa fa-refresh"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <div class="o_salon_body">
+                <div class="o_salon_main">
+                    <div class="o_salon_grid_wrapper">
+                        <!-- Current Time Line Indicator -->
+                        <t t-if="state.currentTimeTop &gt;= 0">
+                            <div class="o_salon_current_time_line" t-att-style="'top: ' + (state.currentTimeTop + 70) + 'px;'">
+                                <div class="time_indicator_dot"></div>
+                                <div class="time_indicator_bar"></div>
+                            </div>
+                        </t>
+                        <table class="o_salon_grid">
+                            <thead>
+                                <tr>
+                                    <th class="time_col">Time</th>
+                                    <t t-foreach="state.staff" t-as="staff" t-key="staff.id">
+                                        <th>
+                                            <div class="staff_header">
+                                                <div class="staff_avatar_wrapper">
+                                                    <img t-att-src="'/web/image?model=salon.staff&amp;id=' + staff.id + '&amp;field=image_1920'" class="staff_avatar" alt="Staff"/>
+                                                    <div class="staff_status"></div>
+                                                </div>
+                                                <span class="staff_name"><t t-esc="staff.name"/></span>
+                                            </div>
+                                        </th>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.slots" t-as="slot" t-key="slot.key">
+                                    <tr>
+                                        <td class="time_col"><t t-esc="slot.label"/></td>
+                                        <t t-foreach="state.staff" t-as="staff" t-key="staff.id">
+                                            <td class="slot_cell" t-att-data-staff-id="staff.id" t-att-data-start="slot.datetime" t-on-click="quickCreate" t-on-dragover.prevent="() => {}" t-on-drop="dropAppointment">
+                                                <t t-foreach="appointmentsFor(staff.id, slot.datetime)" t-as="appt" t-key="appt.id">
+                                                    <div t-att-class="'appt_block color_' + appt.color + ' state_' + appt.state" t-att-style="'height: ' + (appt.duration * 4 * 40 - 2) + 'px;'" draggable="true" t-att-data-id="appt.id" t-on-dragstart="dragStart" t-on-click.stop="openAppointment">
+                                                        <div class="appt_status_strip"></div>
+                                                        <div class="appt_content">
+                                                            <div class="appt_title" t-att-title="appt.customer">
+                                                                <i class="fa fa-user appt_icon"></i>
+                                                                <span class="appt_customer_name"><t t-esc="appt.customer"/></span>
+                                                            </div>
+                                                            <div class="appt_service" t-att-title="appt.service">
+                                                                <i class="fa fa-scissors appt_icon"></i>
+                                                                <span class="appt_service_name"><t t-esc="appt.service"/></span>
+                                                            </div>
+                                                            <div class="appt_footer">
+                                                                <t t-if="appt.phone">
+                                                                    <span class="appt_phone"><i class="fa fa-phone appt_icon"></i> <t t-esc="appt.phone"/></span>
+                                                                </t>
+                                                                <div class="appt_badges">
+                                                                    <span t-att-class="'appt_badge badge_' + appt.state"><t t-esc="appt.state"/></span>
+                                                                    <t t-if="appt.payment_state == 'paid'">
+                                                                        <span class="appt_badge badge_paid"><i class="fa fa-check"></i> Paid</span>
+                                                                    </t>
+                                                                    <t t-if="appt.is_arrived">
+                                                                        <span class="appt_badge badge_arrived" style="background-color: #17a2b8; color: white;"><i class="fa fa-check-square"></i> Arrived</span>
+                                                                    </t>
+                                                                    <t t-else="">
+                                                                        <button class="appt_badge badge_arrived_btn" t-on-click.stop="markArrived" t-att-data-id="appt.id" style="background-color: #6c757d; color: white; border: none; cursor: pointer;">Mark Arrived</button>
+                                                                    </t>
+                                                                </div>
+                                                            </div>
+                                                            <div class="appt_resize_handle" t-on-mousedown.stop="startResize" t-att-data-id="appt.id" style="height: 8px; width: 100%; position: absolute; bottom: 0; left: 0; cursor: ns-resize; z-index: 10;"></div>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Customer Detail Modal -->
+            <t t-if="state.showCustomerModal">
+                <div class="customer_modal_backdrop" t-on-click="closeCustomerModal">
+                    <div class="customer_modal_content" t-on-click.stop="">
+                        <div class="customer_modal_header">
+                            <h3>Customer Profile &amp; History</h3>
+                            <button class="modal_close_btn" t-on-click="closeCustomerModal">&amp;times;</button>
+                        </div>
+                        <div class="customer_modal_body">
+                            <!-- Customer Info Card -->
+                            <div class="modal_section_card">
+                                <div class="card_title">
+                                    <i class="fa fa-user"></i> Profile Details
+                                </div>
+                                <div class="profile_info_grid">
+                                    <div class="info_item">
+                                        <span class="info_label">Name</span>
+                                        <span class="info_value"><t t-esc="state.selectedCustomer.name"/></span>
+                                    </div>
+                                    <div class="info_item">
+                                        <span class="info_label">Phone</span>
+                                        <span class="info_value"><t t-esc="state.selectedCustomer.phone || 'N/A'"/></span>
+                                    </div>
+                                    <div class="info_item">
+                                        <span class="info_label">Email</span>
+                                        <span class="info_value"><t t-esc="state.selectedCustomer.email || 'N/A'"/></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notes, Allergies & Preferences (Editable) -->
+                            <div class="modal_section_card">
+                                <div class="card_title">
+                                    <i class="fa fa-pencil-square-o"></i> Allergies &amp; Preferences (Direct Edit)
+                                </div>
+                                <div class="profile_info_grid">
+                                    <div class="info_item" style="grid-column: span 1;">
+                                        <span class="info_label" style="margin-bottom: 4px;">Allergies / Medical Notes</span>
+                                        <textarea class="editable_textarea" t-model="state.selectedCustomer.salon_allergies" placeholder="Describe any allergies..."></textarea>
+                                    </div>
+                                    <div class="info_item" style="grid-column: span 1;">
+                                        <span class="info_label" style="margin-bottom: 4px;">Preferences / Styling Notes</span>
+                                        <textarea class="editable_textarea" t-model="state.selectedCustomer.salon_preferences" placeholder="Describe styling preferences..."></textarea>
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                                    <button class="modal_btn btn_primary" t-on-click="saveCustomerProfile" style="padding: 5px 12px; font-size: 12px;">
+                                        <i class="fa fa-save"></i> Save Notes
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Service History Card -->
+                            <div class="modal_section_card">
+                                <div class="card_title">
+                                    <i class="fa fa-history"></i> Past History
+                                </div>
+                                <div class="history_table_wrapper" style="overflow-x: auto; max-height: 250px; overflow-y: auto;">
+                                    <table class="modal_history_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Service/Product</th>
+                                                <th>Served By</th>
+                                                <th>Status</th>
+                                                <th>Price</th>
+                                                <th>Notes</th>
+                                                <th>Source</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-if="state.customerHistory.length === 0">
+                                                <tr>
+                                                    <td colspan="7" style="text-align: center; color: #64748b; padding: 20px;">
+                                                        No past history found for this customer.
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-foreach="state.customerHistory" t-as="history" t-key="history.id">
+                                                    <tr>
+                                                        <td><t t-esc="history.date"/></td>
+                                                        <td style="font-weight: 500;"><t t-esc="history.service_name"/></td>
+                                                        <td><t t-esc="history.staff_name || 'N/A'"/></td>
+                                                        <td>
+                                                            <span t-att-class="'status_badge ' + (history.state === 'Completed' ? 'status_completed' : 'status_paid')">
+                                                                <t t-esc="history.state"/>
+                                                            </span>
+                                                        </td>
+                                                        <td style="font-weight: 600;"><t t-esc="history.price_unit"/></td>
+                                                        <td><t t-esc="history.notes || ''"/></td>
+                                                        <td><t t-esc="history.origin"/></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="customer_modal_footer">
+                            <button class="modal_btn btn_primary" t-on-click="bookForCustomer">
+                                <i class="fa fa-calendar-plus-o"></i> Book Appointment
+                            </button>
+                            <button class="modal_btn" t-on-click="closeCustomerModal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

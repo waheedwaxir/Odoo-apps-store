@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_salon_appointments_pdf" model="ir.actions.report">
+        <field name="name">Appointments &amp; Sales Report</field>
+        <field name="model">salon.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">salon_spa_scheduler.report_salon_appointments_temp</field>
+        <field name="report_file">salon_spa_scheduler.report_salon_appointments_temp</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+
+    <record id="action_report_salon_appointment_single" model="ir.actions.report">
+        <field name="name">Appointment details</field>
+        <field name="model">salon.appointment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">salon_spa_scheduler.report_salon_appointment_single_temp</field>
+        <field name="report_file">salon_spa_scheduler.report_salon_appointment_single_temp</field>
+        <field name="binding_model_id" ref="salon_spa_scheduler.model_salon_appointment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_salon_staff_performance_pdf" model="ir.actions.report">
+        <field name="name">Employee Performance Report</field>
+        <field name="model">salon.staff.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">salon_spa_scheduler.report_salon_staff_performance_temp</field>
+        <field name="report_file">salon_spa_scheduler.report_salon_staff_performance_temp</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+</odoo>

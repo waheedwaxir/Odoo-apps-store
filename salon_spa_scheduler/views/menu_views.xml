@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_salon_root" name="Salon &amp; Spa" sequence="5" web_icon="salon_spa_scheduler,static/description/icon.png"/>
+
+    <!-- Left Submenus -->
+    <menuitem id="menu_salon_dashboard" name="Dashboard" parent="menu_salon_root" action="action_salon_dashboard_client" sequence="0"/>
+    <menuitem id="menu_salon_scheduler" name="Scheduler" parent="menu_salon_root" action="action_salon_scheduler_client" sequence="1"/>
+    <menuitem id="menu_salon_appointments" name="Appointments" parent="menu_salon_root" action="action_salon_appointment" sequence="2"/>
+    <menuitem id="menu_salon_customers" name="Customers" parent="menu_salon_root" action="contacts.action_contacts" sequence="3"/>
+    <menuitem id="menu_salon_products" name="Products" parent="menu_salon_root" action="product.product_template_action_all" sequence="4"/>
+
+    <!-- Configurations & Tables -->
+    <menuitem id="menu_salon_config" name="Configuration" parent="menu_salon_root" sequence="90"/>
+    <menuitem id="menu_salon_settings" name="Settings" parent="menu_salon_config" action="action_salon_config_settings" sequence="0"/>
+    <menuitem id="menu_salon_branches" name="Branches" parent="menu_salon_config" action="action_salon_branch" sequence="1"/>
+    <menuitem id="menu_salon_rooms" name="Chairs" parent="menu_salon_config" action="action_salon_room" sequence="2"/>
+    <menuitem id="menu_salon_staff" name="Beauticians / Staff" parent="menu_salon_config" action="action_salon_staff" sequence="3"/>
+    <menuitem id="menu_salon_staff_tips" name="Staff Tips" parent="menu_salon_config" action="action_salon_staff_tip" sequence="20"/>
+    <menuitem id="menu_salon_services" name="Services" parent="menu_salon_config" action="action_salon_service" sequence="4"/>
+    <menuitem id="menu_salon_packages" name="Packages" parent="menu_salon_config" action="action_salon_package" sequence="5"/>
+    
+    <!-- Memberships & Loyalty -->
+    <menuitem id="menu_salon_membership_root" name="Memberships &amp; Loyalty" parent="menu_salon_config" sequence="10"/>
+    <menuitem id="menu_salon_membership_plans" name="Membership Plans" parent="menu_salon_membership_root" action="action_salon_membership" sequence="1"/>
+    <menuitem id="menu_salon_membership_lines" name="Customer Memberships" parent="menu_salon_membership_root" action="action_salon_membership_line" sequence="2"/>
+    <!-- <menuitem id="menu_salon_loyalty" name="Loyalty Ledger" parent="menu_salon_membership_root" action="action_salon_loyalty" sequence="3"/> -->
+
+    <!-- Commissions, Waitlist & Reviews -->
+    <menuitem id="menu_salon_commissions" name="Commissions" parent="menu_salon_config" action="action_salon_commission" sequence="15"/>
+    <!-- <menuitem id="menu_salon_waitlist" name="Waitlist" parent="menu_salon_config" action="action_salon_waitlist" sequence="20"/> -->
+    <menuitem id="menu_salon_reviews" name="Reviews" parent="menu_salon_config" action="action_salon_review" sequence="25"/>
+    
+    <!-- Reports Submenu -->
+    <menuitem id="menu_salon_report_root" name="Reports" parent="menu_salon_root" sequence="30"/>
+    <menuitem id="menu_salon_sales_report" name="Sales &amp; Appointments Report" parent="menu_salon_report_root" action="action_salon_report_wizard" sequence="1"/>
+    <menuitem id="menu_salon_staff_performance_report" name="Employee Performance Report" parent="menu_salon_report_root" action="action_salon_staff_report_wizard" sequence="2"/>
+</odoo>

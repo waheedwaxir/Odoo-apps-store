@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_booking_page" name="Techman Salon Booking Page">
+        <t t-call="website.layout">
+            <style>
+                .cursor-pointer {
+                    cursor: pointer !important;
+                }
+                .bg-teal {
+                    background-color: #00bcd4 !important;
+                }
+                .service-card, .branch-card, .staff-card {
+                    border: 1px solid #dee2e6;
+                    border-radius: 8px;
+                    background-color: #fff;
+                    transition: all 0.2s ease-in-out;
+                    position: relative;
+                }
+                .service-card:hover, .branch-card:hover, .staff-card:hover {
+                    border-color: #00bcd4 !important;
+                    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.15);
+                    transform: translateY(-2px);
+                }
+                .service-checkbox:checked + .service-card,
+                .branch-radio:checked + .branch-card,
+                .staff-radio:checked + .staff-card {
+                    border-color: #00bcd4 !important;
+                    border-width: 2px !important;
+                    background-color: rgba(0, 188, 212, 0.05) !important;
+                    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2);
+                }
+                .service-checkbox:checked + .service-card::after,
+                .branch-radio:checked + .branch-card::after,
+                .staff-radio:checked + .staff-card::after {
+                    content: "\f00c";
+                    font-family: FontAwesome;
+                    position: absolute;
+                    top: 10px;
+                    right: 12px;
+                    color: #00bcd4;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+                .avatar-circle {
+                    transition: all 0.2s ease-in-out;
+                }
+                .staff-card:hover .avatar-circle {
+                    transform: scale(1.05);
+                }
+            </style>
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="pt32 pb32">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10 card shadow-lg p-5 border-0 rounded-4" style="background: #fafafa;">
+                                <h1 class="text-center mb-2 fw-bold" style="color: #1a1a1a;">Book an Appointment</h1>
+                                <p class="text-center text-muted mb-5">Select your preferred branch, services, and beauty specialists to schedule your luxury treatment.</p>
+                                
+                                <t t-if="error">
+                                    <div class="alert alert-danger rounded-3" role="alert">
+                                        <t t-esc="error"/>
+                                    </div>
+                                </t>
+                                <t t-if="success">
+                                    <div class="alert alert-success rounded-3" role="alert">
+                                        <t t-esc="success"/>
+                                    </div>
+                                </t>
+
+                                <form action="/salon/booking/submit" method="post" enctype="multipart/form-data" class="o_mark_required">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    
+                                    <!-- SECTION 1: PERSONAL INFORMATION -->
+                                    <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-user-circle-o me-2"></i>1. Personal Information</h4>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-semibold" for="customer_name">Your Name</label>
+                                            <input type="text" class="form-control form-control-lg rounded-3" name="customer_name" required="1" placeholder="e.g. John Doe"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-semibold" for="phone">Phone Number</label>
+                                            <input type="tel" class="form-control form-control-lg rounded-3" name="phone" required="1" placeholder="e.g. +974 5555 5555"/>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label fw-semibold" for="email">Email (Optional)</label>
+                                            <input type="email" class="form-control form-control-lg rounded-3" name="email" placeholder="e.g. john.doe@example.com"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- SECTION 2: SELECT BRANCH -->
+                                    <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-building-o me-2"></i>2. Select Branch</h4>
+                                    <div class="row mb-5">
+                                        <t t-foreach="branches" t-as="branch">
+                                            <div class="col-md-6 mb-3">
+                                                <input type="radio" name="branch_id" class="branch-radio d-none" t-att-value="branch.id" t-att-id="'branch_' + str(branch.id)" required="1"/>
+                                                <label t-att-for="'branch_' + str(branch.id)" class="branch-card p-3 d-block border rounded-3 cursor-pointer">
+                                                    <div class="fw-bold fs-5 text-dark"><t t-esc="branch.name"/></div>
+                                                    <div class="text-muted mt-1" style="font-size: 0.85em;"><i class="fa fa-map-marker me-1 text-teal"></i> Salon &amp; Spa Branch</div>
+                                                </label>
+                                            </div>
+                                        </t>
+                                    </div>
+
+                                    <!-- SECTION 3: SELECT SERVICES -->
+                                    <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-scissors me-2"></i>3. Select Services</h4>
+                                    <div class="row mb-5">
+                                        <t t-foreach="services" t-as="service">
+                                            <div class="col-md-6 mb-3">
+                                                <input type="checkbox" name="service_ids" class="service-checkbox d-none" t-att-value="service.id" t-att-id="'service_' + str(service.id)"/>
+                                                <label t-att-for="'service_' + str(service.id)" class="service-card p-3 d-block border rounded-3 cursor-pointer">
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <span class="service-name fw-bold text-dark fs-5"><t t-esc="service.name"/></span>
+                                                        <span class="service-price badge bg-teal px-3 py-2 fs-6 rounded-pill">QAR <t t-esc="service.list_price"/></span>
+                                                    </div>
+                                                    <div class="service-meta text-muted" style="font-size: 0.85em;">
+                                                        <i class="fa fa-clock-o me-1"></i> <t t-esc="service.duration"/> hrs duration
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </t>
+                                    </div>
+
+                                    <!-- SECTION 4: SELECT BEAUTICIAN -->
+                                    <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-user-md me-2"></i>4. Select Beautician</h4>
+                                    <div class="row mb-5">
+                                        <t t-foreach="beauticians" t-as="staff">
+                                            <div class="col-md-4 col-sm-6 mb-3">
+                                                <input type="radio" name="staff_id" class="staff-radio d-none" t-att-value="staff.id" t-att-id="'staff_' + str(staff.id)" required="1"/>
+                                                <label t-att-for="'staff_' + str(staff.id)" class="staff-card p-4 d-block border rounded-3 text-center cursor-pointer">
+                                                    <div class="avatar-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 188, 212, 0.15); color: #00bcd4;">
+                                                        <i class="fa fa-user-md" style="font-size: 28px;"></i>
+                                                    </div>
+                                                    <div class="fw-bold text-dark fs-5"><t t-esc="staff.name"/></div>
+                                                    <div class="text-muted mt-1" style="font-size: 0.85em;">Stylist &amp; Therapist</div>
+                                                </label>
+                                            </div>
+                                        </t>
+                                    </div>
+
+                                    <!-- SECTION 5: PREFERRED DATE & TIME -->
+                                    <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-calendar me-2"></i>5. Preferred Date &amp; Time</h4>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-semibold">Select Date</label>
+                                            <input type="date" class="form-control form-control-lg rounded-3" name="booking_date" required="1"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-semibold">Select Time</label>
+                                            <input type="time" class="form-control form-control-lg rounded-3" name="booking_time" required="1"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- SUBMIT BUTTON -->
+                                    <div class="form-group row mb-0">
+                                        <div class="col-12 text-center">
+                                            <button type="submit" class="btn btn-primary btn-lg px-5 py-3 shadow fs-5 rounded-pill" style="background-color: #00bcd4; border-color: #00bcd4; font-weight: bold;">Confirm Booking</button>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const form = document.querySelector("form");
+                                            if (form) {
+                                                form.addEventListener("submit", function(e) {
+                                                    const checkboxes = document.querySelectorAll('input[name="service_ids"]:checked');
+                                                    if (checkboxes.length === 0) {
+                                                        e.preventDefault();
+                                                        alert("Please select at least one service.");
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Website Main Menu Link -->
+    <record id="menu_website_salon_booking" model="website.menu">
+        <field name="name">Book Online</field>
+        <field name="url">/salon/booking</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+</odoo>

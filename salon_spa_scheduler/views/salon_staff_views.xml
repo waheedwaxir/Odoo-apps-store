@@ -1,0 +1,56 @@
+<odoo>
+    <record id="view_salon_staff_tree" model="ir.ui.view">
+        <field name="name">salon.staff.list</field>
+        <field name="model">salon.staff</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="job_title"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_salon_staff_form" model="ir.ui.view">
+        <field name="name">salon.staff.form</field>
+        <field name="model">salon.staff</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(salon_spa_scheduler.action_salon_staff_tip)d" icon="fa-money" context="{'search_default_staff_id': id, 'default_staff_id': id}">
+                            <field string="Unpaid Tips" name="total_unpaid_tips" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <group>
+                        <group string="Employee Info">
+                            <field name="employee_id"/>
+                            <field name="job_title"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group string="System Links &amp; Status">
+                            <field name="partner_id"/>
+                            <field name="name"/>
+                            <field name="user_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="service_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_salon_staff" model="ir.actions.act_window">
+        <field name="name">Staff</field>
+        <field name="res_model">salon.staff</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

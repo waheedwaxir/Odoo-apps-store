@@ -1,0 +1,11 @@
+<odoo>
+    <record id="action_salon_scheduler_client" model="ir.actions.client">
+        <field name="name">Salon Scheduler</field>
+        <field name="tag">salon_spa_scheduler.scheduler</field>
+    </record>
+
+    <record id="action_salon_dashboard_client" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">salon_spa_scheduler.dashboard</field>
+    </record>
+</odoo>
