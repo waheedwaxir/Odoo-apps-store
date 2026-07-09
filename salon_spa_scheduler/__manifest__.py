@@ -33,7 +33,8 @@ Key Features:
         'static/description/screenshots/02_analytics_dashboard.png',
         'static/description/screenshots/03_timeline_scheduler.png',
         'static/description/screenshots/13_security_groups_access.png',
-        'static/description/screenshots/14_website_online_booking.png'
+        'static/description/screenshots/14_website_online_booking.png',
+        'static/description/screenshots/15_services_steps.png'
     ],
     'depends': ['base', 'mail', 'calendar', 'contacts', 'hr', 'point_of_sale', 'product', 'stock', 'website'],
     'data': [

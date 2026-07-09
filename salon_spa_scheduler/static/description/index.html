@@ -4,20 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Salon & Spa Management | Scheduler POS Tips Reports Multi Branch | Odoo 19</title>
-    <meta name="description" content="Advanced Salon & Spa Management Suite for Odoo 19. Real-time timeline scheduler, POS integration, automatic customer history, staff tips, memberships, packages, online website booking, multi-branch operations, and comprehensive executive reports." />
-    <meta name="keywords" content="odoo 19 salon management, odoo spa software, odoo salon pos, beauty parlor scheduler, appointment booking system odoo, salon and spa scheduler, multi branch salon odoo, salon tips commission odoo, wellness center software, odoo clinic management, spa loyalty membership odoo" />
+    <meta name="description" content="Enterprise Salon & Spa Management Suite for Odoo 19. Real-time timeline scheduler, POS integration, automatic customer service history, staff tips, memberships, packages, online website booking engine, multi-branch operations, and comprehensive executive reports." />
+    <meta name="keywords" content="odoo 19 salon management, odoo spa software, odoo salon pos, beauty parlor scheduler, appointment booking system odoo, salon and spa scheduler, multi branch salon odoo, salon tips commission odoo, wellness center software, odoo clinic management, spa loyalty membership odoo, haircut appointment odoo" />
     <meta name="author" content="Engr Waheed" />
     <meta name="robots" content="index, follow" />
 
     <!-- OpenGraph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Salon & Spa Management for Odoo 19 — Enterprise Suite" />
+    <meta property="og:title" content="Salon & Spa Management Suite for Odoo 19" />
     <meta property="og:description" content="All-in-one Odoo 19 solution for Salons, Spas, Clinics, and Beauty Centers. Timeline Scheduler, POS Checkout, Staff Tips, Memberships, Multi-Branch & Online Booking." />
     <meta property="og:image" content="banner.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Salon & Spa Management for Odoo 19" />
+    <meta name="twitter:title" content="Salon & Spa Management Suite for Odoo 19" />
     <meta name="twitter:description" content="Complete luxury salon & spa software: Timeline Scheduler, POS, Tips, Customer History, Online Booking & Executive Reports." />
     <meta name="twitter:image" content="banner.png" />
 
@@ -26,7 +26,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Salon & Spa Management for Odoo 19",
+      "name": "Salon & Spa Management Suite for Odoo 19",
       "operatingSystem": "Odoo 19",
       "applicationCategory": "BusinessApplication",
       "offers": {
@@ -37,7 +37,7 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5.0",
-        "ratingCount": "48"
+        "ratingCount": "52"
       },
       "description": "Enterprise salon and spa management application featuring real-time timeline scheduler, POS integration, online website booking engine, staff commission and tip tracking, memberships, packages, multi-branch support, and executive reports.",
       "author": {
@@ -47,1104 +47,800 @@
       }
     }
     </script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --primary: #0F766E;
-            --primary-dark: #115E59;
-            --primary-light: #CCFBF1;
-            --secondary: #701A75;
-            --secondary-light: #FDF4FF;
-            --accent: #F59E0B;
-            --bg-body: #F8FAFC;
-            --bg-card: #FFFFFF;
-            --text-main: #0F172A;
-            --text-muted: #475569;
-            --border: #E2E8F0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 12px 28px rgba(0,0,0,0.12);
-            --shadow-xl: 0 20px 40px rgba(0,0,0,0.18);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: var(--text-main);
-            background: var(--bg-body);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-        }
-
-        .container {
-            max-width: 1240px;
-            margin: 0 auto;
-            padding: 32px 20px;
-        }
-
-        /* Hero Banner Section */
-        .hero {
-            background: linear-gradient(135deg, #0B0F19 0%, #1E1B24 50%, #0F766E 100%);
-            color: #FFFFFF;
-            border-radius: 28px;
-            padding: 60px 48px;
-            text-align: center;
-            box-shadow: var(--shadow-xl);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 56px;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            line-height: 1.15;
-            margin-bottom: 18px;
-            background: linear-gradient(to right, #FFFFFF, #CCFBF1, #FDE68A);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p.lead {
-            font-size: 20px;
-            max-width: 860px;
-            margin: 0 auto 28px;
-            color: #E2E8F0;
-            font-weight: 400;
-        }
-
-        .badges-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-
-        .badge-pill {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #FFFFFF;
-            padding: 8px 18px;
-            border-radius: 999px;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .badge-pill.gold {
-            background: rgba(245, 158, 11, 0.2);
-            border-color: #F59E0B;
-            color: #FDE68A;
-        }
-
-        .hero-pricing {
-            display: inline-block;
-            background: #FFFFFF;
-            color: #0F172A;
-            padding: 16px 36px;
-            border-radius: 999px;
-            font-size: 28px;
-            font-weight: 800;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            border: 3px solid var(--accent);
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin-bottom: 44px;
-        }
-
-        .section-header h2 {
-            font-size: 38px;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        .section-header p {
-            font-size: 18px;
-            color: var(--text-muted);
-            max-width: 750px;
-            margin: 0 auto;
-        }
-
-        /* Key Features Grid (Adjusted per Pic 5 & Enhanced) */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 64px;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
-        }
-
-        .feature-icon-circle {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: var(--primary-light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-
-        .feature-card:nth-child(even) .feature-icon-circle {
-            background: var(--secondary-light);
-            color: var(--secondary);
-        }
-
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            color: var(--text-main);
-        }
-
-        .feature-card p {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.65;
-        }
-
-        /* Interactive Showcase Cards (Separate cards for every screenshot/video) */
-        .showcase-section {
-            margin-bottom: 64px;
-        }
-
-        .showcase-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 40px;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .showcase-card:hover {
-            box-shadow: var(--shadow-xl);
-        }
-
-        .showcase-media {
-            position: relative;
-            background: #0F172A;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            min-height: 380px;
-            border-right: 1px solid var(--border);
-        }
-
-        .showcase-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-            display: block;
-        }
-
-        .showcase-media:hover img {
-            transform: scale(1.03);
-        }
-
-        .click-enlarge-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.45);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(3px);
-        }
-
-        .showcase-media:hover .click-enlarge-overlay {
-            opacity: 1;
-        }
-
-        .enlarge-btn {
-            background: #FFFFFF;
-            color: #0F172A;
-            padding: 12px 24px;
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            pointer-events: none;
-        }
-
-        .showcase-details {
-            padding: 36px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .shot-tag {
-            display: inline-block;
-            background: #F1F5F9;
-            color: var(--primary-dark);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 14px;
-            width: fit-content;
-        }
-
-        .shot-tag.sec {
-            background: #FDF4FF;
-            color: #86198F;
-        }
-
-        .showcase-details h3 {
-            font-size: 26px;
-            color: var(--text-main);
-            margin-bottom: 14px;
-            line-height: 1.3;
-        }
-
-        .showcase-details p.shot-desc {
-            font-size: 16px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .details-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .details-list li {
-            position: relative;
-            padding-left: 26px;
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: var(--text-main);
-        }
-
-        .details-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 16px;
-        }
-
-        /* Video Showcase Card */
-        .video-showcase {
-            grid-template-columns: 1fr;
-        }
-
-        .video-wrap {
-            padding: 32px;
-            background: #0B0F19;
-        }
-
-        .video-wrap video {
-            width: 100%;
-            max-height: 600px;
-            border-radius: 16px;
-            background: #000;
-            box-shadow: var(--shadow-xl);
-            outline: none;
-        }
-
-        /* Benefits Two-Column */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
-            margin-bottom: 64px;
-        }
-
-        .benefit-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            padding: 36px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .benefit-card h3 {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Scope & Roles Section */
-        .scope-card {
-            background: linear-gradient(135deg, #1E293B, #0F172A);
-            color: #FFFFFF;
-            border-radius: 24px;
-            padding: 48px;
-            margin-bottom: 64px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .scope-card h2 {
-            font-size: 32px;
-            margin-bottom: 24px;
-            color: #FFFFFF;
-            text-align: center;
-        }
-
-        .scope-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .scope-item {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 18px 22px;
-            border-radius: 14px;
-            font-size: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .scope-item::before {
-            content: "★";
-            color: var(--accent);
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        /* Author & Contact Footer */
-        .author-footer {
-            background: linear-gradient(135deg, #241223 0%, #3B1C38 50%, #0F766E 100%);
-            color: #FFFFFF;
-            border-radius: 24px;
-            padding: 48px;
-            text-align: center;
-            box-shadow: var(--shadow-xl);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .author-footer h2 {
-            font-size: 34px;
-            margin-bottom: 16px;
-        }
-
-        .author-footer p {
-            font-size: 18px;
-            color: #E2E8F0;
-            margin-bottom: 32px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .contact-pills {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .contact-btn {
-            background: #FFFFFF;
-            color: #0F172A;
-            padding: 16px 28px;
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            transition: all 0.3s ease;
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
-        }
-
-        .contact-btn.wa {
-            background: #25D366;
-            color: #FFFFFF;
-        }
-
-        .contact-btn.li {
-            background: #0A66C2;
-            color: #FFFFFF;
-        }
-
-        /* Lightbox Modal */
-        .lightbox-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 15, 25, 0.92);
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(12px);
-            padding: 24px;
-        }
-
-        .lightbox-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .lightbox-content {
-            background: var(--bg-card);
-            border-radius: 20px;
-            max-width: 1100px;
-            width: 100%;
-            max-height: 90vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-            position: relative;
-        }
-
-        .lightbox-header {
-            padding: 18px 28px;
-            background: #0F172A;
-            color: #FFFFFF;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .lightbox-header h4 {
-            font-size: 20px;
-            margin: 0;
-        }
-
-        .lightbox-close {
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: #FFFFFF;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            font-size: 22px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .lightbox-close:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .lightbox-body {
-            padding: 24px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #1E293B;
-        }
-
-        .lightbox-body img {
-            max-width: 100%;
-            max-height: 68vh;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            object-fit: contain;
-        }
-
-        .lightbox-desc {
-            margin-top: 18px;
-            color: #E2E8F0;
-            font-size: 16px;
-            text-align: center;
-            max-width: 800px;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 1024px) {
-            .features-grid, .scope-grid { grid-template-columns: repeat(2, 1fr); }
-            .showcase-card { grid-template-columns: 1fr; }
-            .showcase-media { min-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 34px; }
-            .features-grid, .scope-grid, .benefits-grid { grid-template-columns: 1fr; }
-            .hero { padding: 40px 24px; }
-            .showcase-details { padding: 28px 22px; }
-        }
-    </style>
 </head>
-<body>
+<body style="font-family: 'Open Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333333; background-color: #F8FAFC; margin: 0; padding: 0;">
 
-<div class="container">
-    <!-- Hero Header -->
-    <header class="hero">
-        <div class="badges-wrap">
-            <span class="badge-pill">✨ Odoo 19 Enterprise & Community</span>
-            <span class="badge-pill">💈 Multi-Branch Ready</span>
-            <span class="badge-pill">💳 POS Checkout & Tips</span>
-            <span class="badge-pill gold">🏆 5.0 Star App Store Standard</span>
+<!-- Top Header Bar -->
+<section class="oe_container" style="padding-left: 2%; padding-right: 2%;">
+    <section class="oe_container d-flex justify-content-center">
+        <div class="d-flex shadow-sm align-items-center justify-content-between p-3" style="width: 100%; background-color: #FFFFFF; border-radius: 8px; margin-top: 20px; border: 1px solid #E2E8F0;">
+            <div class="d-flex align-items-center">
+                <span style="background: #0F766E; color: #FFFFFF; font-weight: 800; font-size: 18px; padding: 8px 16px; border-radius: 6px; letter-spacing: 0.5px;">
+                    ✨ Odoo 19 Ready
+                </span>
+                <span style="font-size: 18px; font-weight: 700; color: #1E293B; margin-left: 16px;">
+                    Salon & Spa Management Suite
+                </span>
+            </div>
+            <div class="d-flex align-items-center">
+                <div style="font-size: 15px; color: #475569; font-weight: 600; margin-right: 12px;">
+                    Supported Editions:
+                </div>
+                <span style="background: #EFF6FF; color: #1D4ED8; font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 6px; border: 1px solid #BFDBFE; margin-right: 8px;">
+                    Community
+                </span>
+                <span style="background: #FAF5FF; color: #7E22CE; font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 6px; border: 1px solid #E9D5FF; margin-right: 16px;">
+                    Enterprise
+                </span>
+                <span style="background: #FEF3C7; color: #B45309; font-weight: 800; font-size: 16px; padding: 6px 16px; border-radius: 6px; border: 1px solid #FDE68A;">
+                    USD $75.00
+                </span>
+            </div>
         </div>
-        <h1>Salon & Spa Management Suite for Odoo 19</h1>
-        <p class="lead">
-            An all-in-one luxury system engineered for hair salons, wellness spas, beauty clinics, and multi-branch operations. Run your appointments, POS checkout, staff tips, customer histories, online website bookings, and executive analytics smarter, faster, and more efficiently.
+    </section>
+</section>
+
+<!-- Hero Title Section -->
+<section class="oe_container my-5" style="text-align: center;">
+    <h1 style="font-size: 38px; color: #0F172A; font-weight: 800; margin-bottom: 16px; line-height: 1.2;">
+        Salon & Spa Management Suite for Odoo 19
+    </h1>
+    <p style="font-weight: 500; font-size: 19px; color: #475569; max-width: 860px; margin: 0 auto 28px; line-height: 1.6;">
+        All-in-one luxury operational software engineered for Hair Salons, Wellness Spas, Beauty Clinics, and Multi-Branch Operations. Effortless Timeline Scheduling, POS Checkout, Staff Tips, Customer Histories, Online Website Booking & Executive Analytics!
+    </p>
+    <div style="margin-top: 24px;">
+        <a href="#odoo_view_tab1" class="d-inline-block px-4 py-3" style="background-color: #0F766E; color: #FFFFFF; font-weight: 700; font-size: 16px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(15,118,110,0.3); margin-right: 12px;">
+            🖼️ View All 15 Screenshots
+        </a>
+        <a href="https://wa.me/97430643395" target="_blank" class="d-inline-block px-4 py-3" style="background-color: #25D366; color: #FFFFFF; font-weight: 700; font-size: 16px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
+            💬 Live WhatsApp Support
+        </a>
+    </div>
+</section>
+
+<!-- Core Architectural Highlight Cards -->
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 24px;">
+    <div class="p-4">
+        <div class="d-sm-flex align-items-center mb-3">
+            <span style="font-size: 32px; background: #CCFBF1; color: #0F766E; width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: 800;">
+                🔒
+            </span>
+            <div>
+                <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0;">
+                    Granular Security Groups & Role-Based Access Control
+                </h2>
+                <span style="background: #FDF4FF; color: #86198F; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #F5D0FE;">
+                    NEW FEATURE IN ODOO 19
+                </span>
+            </div>
+        </div>
+        <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 12px;">
+            Protect sensitive financial revenue, employee commission math, and salon configurations with multi-tier role-based access rights specifically engineered for salon hierarchies directly inside Odoo User Settings:
         </p>
-        <div class="hero-pricing">Price: USD $75</div>
-    </header>
-
-    <!-- Key Features Section (Grid style from Pic 5 & Enhanced) -->
-    <section class="features-section">
-        <div class="section-header">
-            <h2>Key Features & Core Architecture</h2>
-            <p>Comprehensive pillars designed to digitize every aspect of your salon and spa business operations with state-of-the-art Odoo 19 integration.</p>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon-circle">📅</div>
-                <h3>Smart Scheduler</h3>
-                <p>Real-time timeline scheduler featuring specialist columns, branch filters, instant customer search by name/phone, color-coded status badges, and rapid slot refresh.</p>
+        <div class="row" style="margin-top: 16px;">
+            <div class="col-md-3 mb-2">
+                <div style="background: #F8FAFC; padding: 12px; border-radius: 8px; border-left: 4px solid #94A3B8;">
+                    <strong style="color: #0F172A; display: block;">No Access / View Only</strong>
+                    <span style="font-size: 14px; color: #64748B;">Junior staff or trainees view daily schedules without editing rights.</span>
+                </div>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">📋</div>
-                <h3>Appointment Management</h3>
-                <p>Manage draft, confirmed, in-progress, completed, and cancelled bookings with full tracking of customer, phone, branch, chair, room, beautician, and payment status.</p>
+            <div class="col-md-3 mb-2">
+                <div style="background: #F8FAFC; padding: 12px; border-radius: 8px; border-left: 4px solid #0284C7;">
+                    <strong style="color: #0F172A; display: block;">User: Create Appointments</strong>
+                    <span style="font-size: 14px; color: #64748B;">Front desk receptionists manage timeline slots and customer records.</span>
+                </div>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">👤</div>
-                <h3>Customer History</h3>
-                <p>Automatically retrieves and displays past services, attending beauticians, payment records, client preferences, and historical source documents right on the booking form.</p>
+            <div class="col-md-3 mb-2">
+                <div style="background: #F8FAFC; padding: 12px; border-radius: 8px; border-left: 4px solid #0D9488;">
+                    <strong style="color: #0F172A; display: block;">User: Create Payments</strong>
+                    <span style="font-size: 14px; color: #64748B;">Cashiers process POS checkouts, tip capture, and payment updates.</span>
+                </div>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">🛒</div>
-                <h3>POS Integration</h3>
-                <p>Seamlessly link appointments to Point of Sale (POS) orders. Process payments via cash, card, or wallet, instantly update appointment states, and track source invoices.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">💵</div>
-                <h3>Staff Tips Management</h3>
-                <p>Record tips directly during POS checkout or appointment settlement. Allocate exact tip amounts to individual employees with complete paid/unpaid reconciliation.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">📊</div>
-                <h3>Executive Reports</h3>
-                <p>Generate high-precision sales, appointment, and employee performance reports tracking gross revenue, earned tips, commissions, completed treatments, and cancellation rates.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">🏢</div>
-                <h3>Multi-Branch Operations</h3>
-                <p>Effortlessly scale across multiple physical locations. Enjoy branch-specific timeline schedules, isolated branch reporting, and flexible staff cross-branch allocation.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">👑</div>
-                <h3>Membership & Loyalty</h3>
-                <p>Create tiered membership plans, recurring subscriptions, and VIP loyalty programs to reward repeat visits and offer member-exclusive treatment discounts.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon-circle">🎁</div>
-                <h3>Packages & Services</h3>
-                <p>Configure salon services, retail beauty products, multi-step treatment packages, combo deals, and specify allowed beauticians and time duration workflows.</p>
+            <div class="col-md-3 mb-2">
+                <div style="background: #F8FAFC; padding: 12px; border-radius: 8px; border-left: 4px solid #701A75;">
+                    <strong style="color: #0F172A; display: block;">Manager (Full Access)</strong>
+                    <span style="font-size: 14px; color: #64748B;">Full control over branch setup, commission tiers, tips, and reports.</span>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Interactive Screenshot & Video Showcase -->
-    <section class="showcase-section">
-        <div class="section-header">
-            <h2>Interactive Screen & Feature Showcase</h2>
-            <p>Every screen is precision-crafted for efficiency, beauty, and ease of use. Click any screenshot below to open the full-screen interactive inspection lightbox.</p>
-        </div>
-
-        <!-- NEW PIC 4: Online Booking Website -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/14_website_online_booking.png', 'Online Website Appointment Booking Engine', 'Allows customers to self-book luxury treatments from your Odoo website. Step 1: Personal info (Name, Phone, Email). Step 2: Branch Selection. Step 3: Service Selection & Specialist assignment.')">
-                <img src="screenshots/14_website_online_booking.png" alt="Odoo Website Online Booking Form for Salon & Spa" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag sec">🌐 Website & Self-Service</span>
-                <h3>Online Website Booking Engine</h3>
-                <p class="shot-desc">Transform your Odoo 19 website into a 24/7 customer self-booking portal with an intuitive 3-step reservation workflow.</p>
-                <ul class="details-list">
-                    <li><strong>Customer Self-Registration:</strong> Capture client name, verified phone number, and optional email seamlessly.</li>
-                    <li><strong>Branch & Location Selection:</strong> Multi-branch aware; clients pick their preferred physical salon or spa location.</li>
-                    <li><strong>Interactive Service & Specialist Picker:</strong> Customers select desired beauty treatments, packages, and their favorite beauty specialist.</li>
-                    <li><strong>Backend Auto-Sync:</strong> Website bookings instantly populate the receptionist's real-time timeline scheduler as confirmed reservations.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- NEW PIC 3: Security Groups & Access -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/13_security_groups_access.png', 'Granular Security Groups and Access Rights', 'Enterprise multi-tier access control configured in Odoo User Settings: No Access, User: View Only, User: Create Appointments, User: Create Payments, and Manager (Full Access).')">
-                <img src="screenshots/13_security_groups_access.png" alt="Odoo Security Groups Access Rights for Salon and Spa Users" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">🔒 Enterprise Access Control</span>
-                <h3>Granular Security Groups & Access Rights</h3>
-                <p class="shot-desc">Protect sensitive financial revenue, tips, and configuration data with multi-tier role-based access controls engineered for salon hierarchies.</p>
-                <ul class="details-list">
-                    <li><strong>User: View Only:</strong> Ideal for junior staff or trainees to check daily schedules without modification permissions.</li>
-                    <li><strong>User: Create Appointments:</strong> Receptionist role; allows booking creation, schedule management, and customer lookup.</li>
-                    <li><strong>User: Create Payments:</strong> Cashier role; empowers processing POS checkouts, tip capture, and payment updates.</li>
-                    <li><strong>Manager (Full Access):</strong> Complete control over branch setup, commission rates, financial reports, employee tips, and working hours.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 1: Apps Menu -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/01_apps_menu.png', 'Salon & Spa Application in Odoo Apps Menu', 'Single-click access to the full Salon & Spa Management suite directly from the main Odoo enterprise application switcher.')">
-                <img src="screenshots/01_apps_menu.png" alt="Salon & Spa Application icon in Odoo 19 Apps Menu" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">🚀 Native Odoo Application</span>
-                <h3>Dedicated Enterprise App Module</h3>
-                <p class="shot-desc">Fully integrated into the Odoo 19 ecosystem, appearing prominently right in the central application switcher for instant access.</p>
-                <ul class="details-list">
-                    <li><strong>Clean Application Launcher:</strong> Dedicated branded icon and application entry point.</li>
-                    <li><strong>Universal Search Compatible:</strong> Searchable via Odoo's command palette (`Ctrl+K`) for rapid navigation.</li>
-                    <li><strong>Multi-Company & Branch Ready:</strong> Automatically respects active company and branch filters upon launch.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 2: Analytics Dashboard -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/02_analytics_dashboard.png', 'Executive Analytics & Performance Dashboard', 'Real-time KPI cards displaying daily/upcoming appointments, total revenue, average ticket value, completed bookings, and employee tip performance summaries.')">
-                <img src="screenshots/02_analytics_dashboard.png" alt="Salon & Spa Management Analytics Dashboard" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag sec">📈 Executive BI Dashboard</span>
-                <h3>Real-Time Analytics Dashboard</h3>
-                <p class="shot-desc">Empower salon managers and owners with a high-fidelity visual dashboard tracking business pulse and financial KPIs in real time.</p>
-                <ul class="details-list">
-                    <li><strong>Appointment Status Counters:</strong> Instant visibility into Upcoming, In-Progress, Completed, and Cancelled slots.</li>
-                    <li><strong>Revenue & Ticket Size Analytics:</strong> Live revenue tracking compared against historical benchmarks with average spend per client.</li>
-                    <li><strong>Top Performing Services & Staff:</strong> Ranked charts highlighting your most lucrative treatments and highest-earning specialists.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 3: Timeline Scheduler -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/03_timeline_scheduler.png', 'Interactive Timeline Scheduler', 'Branch-filtered interactive timeline with specialist columns, drag-and-drop slot management, customer search, and clear status indicators.')">
-                <img src="screenshots/03_timeline_scheduler.png" alt="Real-time Timeline Scheduler view for Salon & Spa appointments" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">📅 Core Scheduling Engine</span>
-                <h3>Advanced Timeline Scheduler</h3>
-                <p class="shot-desc">The heartbeat of your front desk. An ultra-responsive timeline interface built to handle high-volume appointment traffic effortlessly.</p>
-                <ul class="details-list">
-                    <li><strong>Specialist Column View:</strong> View all beauticians and therapists side-by-side to spot open slots in seconds.</li>
-                    <li><strong>Instant Customer Lookup:</strong> Search clients by first name, last name, or mobile number directly from the toolbar.</li>
-                    <li><strong>Color-Coded Status Badges:</strong> Visual distinction between Draft, Confirmed, In-Progress, Paid, and Done bookings.</li>
-                    <li><strong>Branch Filtering:</strong> Switch between downtown, suburban, or mall salon branches with a single click.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 4: Appointment & Customer History -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/04_appointment_customer_history.png', 'Appointment Form with Customer Service History', 'Comprehensive booking form displaying automatic previous service history, treatment step workflows, assigned chairs/rooms, and additional service notes.')">
-                <img src="screenshots/04_appointment_customer_history.png" alt="Appointment form with automatic customer service history tab" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag sec">💎 Client Relationship Management</span>
-                <h3>Appointment & Customer History</h3>
-                <p class="shot-desc">Deliver personalized luxury service by putting each client's complete service history and preferences right at your receptionist's fingertips.</p>
-                <ul class="details-list">
-                    <li><strong>Automatic Visit History Tab:</strong> Review what hair dye formula, facial treatment, or massage therapist the client chose last time.</li>
-                    <li><strong>Multi-Service & Package Lines:</strong> Add primary treatments, add-ons, and retail products to a single master appointment.</li>
-                    <li><strong>Chair & Treatment Room Assignment:</strong> Allocate specific washing chairs, styling stations, or VIP spa suites to prevent double-booking.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 5: Service Product Configuration -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/05_service_product.png', 'Salon Service & Product Configuration', 'Dedicated salon service setup form configuring price, duration, allowed beauticians, product flags, and commission rules.')">
-                <img src="screenshots/05_service_product.png" alt="Odoo Salon Service and Product setup form" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">⚙️ Treatment Engineering</span>
-                <h3>Service & Product Configuration</h3>
-                <p class="shot-desc">Define exact treatment specifications, duration timings, pricing structures, and employee commission eligibility cleanly.</p>
-                <ul class="details-list">
-                    <li><strong>Duration & Waiting Timings:</strong> Specify active treatment minutes plus processing/waiting intervals for chemical procedures.</li>
-                    <li><strong>Allowed Specialists:</strong> Restrict specialized treatments (e.g. Laser Therapy, Advanced Coloring) only to certified staff members.</li>
-                    <li><strong>Salon Product Flags:</strong> Distinguish between consumable backbar supplies, sellable retail products, and billable service items.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 6: Reports Menu -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/06_reports_menu.png', 'Executive Reports & Analytics Menu', 'Dedicated reporting center offering one-click access to Sales & Appointments analytics and detailed Employee Performance reports.')">
-                <img src="screenshots/06_reports_menu.png" alt="Reports Menu for Salon and Spa Executive Analytics" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag sec">📑 Business Intelligence Center</span>
-                <h3>Executive Reports & Analytics Center</h3>
-                <p class="shot-desc">Access enterprise financial intelligence with dedicated reporting tools built specifically for salon revenue and staff accountability.</p>
-                <ul class="details-list">
-                    <li><strong>Sales & Appointment Analysis:</strong> Deep dive into revenue trends filtered by date range, branch, or service category.</li>
-                    <li><strong>Employee Performance Center:</strong> Track commission calculations, earned tips, and productivity metrics per staff member.</li>
-                    <li><strong>Multi-Format Export:</strong> Export clean PDF summaries or Excel spreadsheets for accounting audits and payroll.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 7: Configuration Menu -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/07_configuration_menu.png', 'Complete System Configuration Menu', 'Granular setup center for branches, treatment rooms, chairs, beauticians, services, packages, memberships, commission tiers, and customer reviews.')">
-                <img src="screenshots/07_configuration_menu.png" alt="Configuration Menu for Salon Branches, Chairs, Rooms and Staff" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">🛠️ System Control Panel</span>
-                <h3>Comprehensive Configuration Menu</h3>
-                <p class="shot-desc">A centralized master setup dashboard that gives salon managers complete control over every operational parameter.</p>
-                <ul class="details-list">
-                    <li><strong>Infrastructure Setup:</strong> Configure Branches, Treatment Rooms, Styling Chairs, and physical asset capacities.</li>
-                    <li><strong>Catalog & Pricing Control:</strong> Manage Services, Combo Packages, Membership Tiers, and Loyalty rewards.</li>
-                    <li><strong>Financial Policy Setup:</strong> Define Commission Tiers, Tip Allocation rules, and Cancellation fee structures.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 8: Employee Performance Report -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/08_employee_performance_report.png', 'Executive Employee Performance & Commission Report', 'Detailed breakdown of specialist performance including total completed treatments, gross revenue generated, earned tips, and calculated commission due.')">
-                <img src="screenshots/08_employee_performance_report.png" alt="Employee Performance and Commission Report PDF view" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag sec">💰 Staff & Commission Payroll</span>
-                <h3>Employee Performance & Commission Report</h3>
-                <p class="shot-desc">Eliminate manual payroll calculation headaches with automated specialist performance tracking and commission accounting.</p>
-                <ul class="details-list">
-                    <li><strong>Revenue Attribution:</strong> Accurately attribute every dollar of service and retail sales to the attending beautician.</li>
-                    <li><strong>Automated Commission Math:</strong> Supports fixed dollar commissions or percentage-based tiers on net service revenue.</li>
-                    <li><strong>Paid/Unpaid Tip Ledger:</strong> Transparent reconciliation of POS tips earned versus tips paid out to the employee.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 9: Sales & Appointment Report -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/09_sales_appointment_report.png', 'Sales & Appointment Executive Summary Report', 'Branch-wise executive summary highlighting total appointments, completed checkouts, cancellation rates, and net revenue.')">
-                <img src="screenshots/09_sales_appointment_report.png" alt="Sales and Appointment Report summary table" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">📊 Financial Audit & Ledger</span>
-                <h3>Sales & Appointment Executive Report</h3>
-                <p class="shot-desc">Obtain a crystal-clear audit trail of salon operations across any chosen time window or branch location.</p>
-                <ul class="details-list">
-                    <li><strong>Branch-Wise Revenue Split:</strong> Compare profitability across multiple salon or clinic branches side-by-side.</li>
-                    <li><strong>Cancellation & No-Show Tracking:</strong> Monitor appointment drop-off rates to optimize booking policies and reminders.</li>
-                    <li><strong>Source Document Tracing:</strong> Verify every completed session against its corresponding Odoo POS invoice.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 10: Scheduler Settings -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/10_scheduler_settings.png', 'Scheduler Working Hours & Policy Configuration', 'Configure salon working hours, default time slot intervals, cancellation cutoff policies, and reminder rules.')">
-                <img src="screenshots/10_scheduler_settings.png" alt="Scheduler Working Hours and Policy Settings form" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag sec">⏱️ Policy & Shift Control</span>
-                <h3>Working Hours & Scheduler Policies</h3>
-                <p class="shot-desc">Fine-tune how your appointment grid operates to match your salon's exact opening shifts and customer policies.</p>
-                <ul class="details-list">
-                    <li><strong>Operating Hours & Shift Setup:</strong> Define opening/closing times per weekday and holidays for precise timeline generation.</li>
-                    <li><strong>Slot Interval Granularity:</strong> Choose between 15, 30, or 60-minute base timeline intervals depending on service pace.</li>
-                    <li><strong>Cancellation Policies:</strong> Enforce advance notice windows and cancellation rules to protect specialist time.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 11: Staff Tips Management -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/11_staff_tips.png', 'Staff Tips Management & POS Order Reference Tracking', 'Track individual staff tips collected via POS checkout with direct order references, employee names, and paid/unpaid status filters.')">
-                <img src="screenshots/11_staff_tips.png" alt="Staff Tips Management list view with paid status and POS references" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">💵 Tip Reconciliation Ledger</span>
-                <h3>Staff Tips & POS Reference Tracking</h3>
-                <p class="shot-desc">Ensure 100% staff satisfaction and trust with dedicated tip accounting linked directly to electronic POS checkouts.</p>
-                <ul class="details-list">
-                    <li><strong>Electronic POS Capture:</strong> Tips entered on the POS payment screen automatically flow into the employee tip ledger.</li>
-                    <li><strong>Direct POS Reference Linking:</strong> Every tip entry maintains a direct, clickable link back to the original receipt (`POS/2026/012`).</li>
-                    <li><strong>One-Click Payout Settlement:</strong> Filter unpaid tips by employee at the end of the shift and mark them as paid out instantly.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Screenshot 12: Staff Profile -->
-        <article class="showcase-card">
-            <div class="showcase-media" onclick="openLightbox('screenshots/12_staff_form.png', 'Beautician & Specialist Profile Form', 'Comprehensive employee profile linking HR staff records with allowed salon services, branch assignment, and scheduling availability.')">
-                <img src="screenshots/12_staff_form.png" alt="Beautician and Specialist Profile form linking HR and allowed services" loading="lazy" />
-                <div class="click-enlarge-overlay">
-                    <span class="enlarge-btn">🔍 Click to Enlarge Full Screen</span>
-                </div>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag sec">👩‍🎨 Specialist Management</span>
-                <h3>Beautician & Specialist Profile</h3>
-                <p class="shot-desc">Manage your beauty specialists, hair stylists, and spa therapists with specialized profiles extending standard Odoo HR.</p>
-                <ul class="details-list">
-                    <li><strong>Service Matrix Allocation:</strong> Assign exactly which treatments each staff member is qualified to perform on the timeline.</li>
-                    <li><strong>Branch & Chair Assignment:</strong> Link specialists to specific home branches or dedicated styling chairs/rooms.</li>
-                    <li><strong>Commission Tier Linking:</strong> Attach personalized commission structures based on employee seniority or performance agreements.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- Video Demo Card -->
-        <article class="showcase-card video-showcase">
-            <div class="video-wrap">
-                <video controls preload="metadata" poster="banner.png">
-                    <source src="video/demo.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="showcase-details">
-                <span class="shot-tag">🎬 Live Video Walkthrough</span>
-                <h3>Interactive HD Video Demonstration</h3>
-                <p class="shot-desc">Watch our full end-to-end workflow walkthrough demonstrating appointment creation, real-time scheduler management, POS checkout with tip allocation, and executive reporting in under 5 minutes.</p>
-                <ul class="details-list">
-                    <li><strong>Front Desk Walkthrough:</strong> See how receptionists book walk-ins and phone reservations with instant customer history.</li>
-                    <li><strong>POS Checkout Flow:</strong> Experience the seamless transfer of appointment items right to the POS cashier screen for payment.</li>
-                    <li><strong>Reporting In Action:</strong> Watch the generation of branch revenue and employee commission PDFs in real time.</li>
-                </ul>
-            </div>
-        </article>
-    </section>
-
-    <!-- Business Benefits & ROI Section -->
-    <section class="benefits-section">
-        <div class="section-header">
-            <h2>Transformative Business ROI</h2>
-            <p>Engineered from the ground up to solve the operational friction of modern salon and spa enterprises.</p>
-        </div>
-
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <h3>👩‍💼 For Front Desk Receptionists</h3>
-                <ul class="details-list">
-                    <li><strong>Zero Double-Bookings:</strong> Real-time conflict checks prevent overlapping bookings for the same specialist or treatment room.</li>
-                    <li><strong>Lightning-Fast Check-In:</strong> Locate client files by phone number and launch previous treatment notes in 2 seconds.</li>
-                    <li><strong>Effortless Walk-In Handling:</strong> Rapidly allocate walk-in clients to available chairs right from the timeline view.</li>
-                </ul>
-            </div>
-
-            <div class="benefit-card">
-                <h3>👨‍💼 For Salon Owners & Managers</h3>
-                <ul class="details-list">
-                    <li><strong>Total Financial Transparency:</strong> Audit every checkout, tip, and commission calculation across all branch locations.</li>
-                    <li><strong>Reduce No-Shows:</strong> Automated email and SMS reminder hooks keep your appointment chairs booked and profitable.</li>
-                    <li><strong>Enterprise Security:</strong> Strict multi-tier access rights prevent unauthorized discounting or appointment tampering.</li>
-                </ul>
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 24px;">
+    <div class="p-4">
+        <div class="d-sm-flex align-items-center mb-3">
+            <span style="font-size: 32px; background: #EFF6FF; color: #2563EB; width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: 800;">
+                🌐
+            </span>
+            <div>
+                <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0;">
+                    24/7 Online Website Appointment Booking Engine
+                </h2>
+                <span style="background: #EFF6FF; color: #1E40AF; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #BFDBFE;">
+                    WEBSITE INTEGRATION
+                </span>
             </div>
         </div>
-    </section>
-
-    <!-- Scope Card -->
-    <section class="scope-card">
-        <h2>Advanced Functional Scope & Compatibility</h2>
-        <div class="scope-grid">
-            <div class="scope-item">Odoo 19 Community & Enterprise Ready</div>
-            <div class="scope-item">Real-Time Branch Timeline Scheduler</div>
-            <div class="scope-item">Website Online Self-Booking Engine</div>
-            <div class="scope-item">POS Integrated with Session Checkout</div>
-            <div class="scope-item">Staff Tips Paid/Unpaid Reconciliation</div>
-            <div class="scope-item">Granular Role-Based Access Rights</div>
-            <div class="scope-item">Customer Visit & Treatment History</div>
-            <div class="scope-item">Multi-Branch Operation Support</div>
-            <div class="scope-item">Chair & Treatment Room Management</div>
-            <div class="scope-item">Membership & VIP Loyalty Programs</div>
-            <div class="scope-item">Service & Combo Package Workflows</div>
-            <div class="scope-item">Executive Employee Commission PDF Reports</div>
-        </div>
-    </section>
-
-    <!-- Author & Support Footer -->
-    <footer class="author-footer">
-        <h2>Designed & Engineered by Engr Waheed</h2>
-        <p>
-            For enterprise deployment, custom Odoo module development, multi-branch setup, or dedicated technical support, get in touch instantly:
+        <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 12px;">
+            Transform your Odoo 19 website into an automated 24/7 customer self-booking portal. Clients schedule appointments effortlessly through an elegant 3-step reservation workflow that syncs instantly with your front desk timeline:
         </p>
-        <div class="contact-pills">
-            <a href="https://www.linkedin.com/in/waheed-ullah-810082151/" target="_blank" rel="noopener" class="contact-btn li">
+        <ul style="font-size: 16px; line-height: 2; color: #333333; margin-left: 20px;">
+            <li><strong>Step 1: Personal Information Capture:</strong> Collect client name, verified phone number, and optional email with automatic contact record matching.</li>
+            <li><strong>Step 2: Multi-Branch Selection:</strong> Clients pick their preferred physical salon or spa location (`Downtown Branch`, `Suburban Spa Suite`, etc.).</li>
+            <li><strong>Step 3: Service & Specialist Picker:</strong> Customers select their desired beauty treatments, combo packages, and favorite beauty specialist.</li>
+            <li><strong>Real-Time Backend Auto-Sync:</strong> Website bookings populate instantly on the receptionist's timeline scheduler without double-booking risk.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 24px;">
+    <div class="p-4">
+        <div class="d-sm-flex align-items-center mb-3">
+            <span style="font-size: 32px; background: #FEF3C7; color: #D97706; width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: 800;">
+                📅
+            </span>
+            <div>
+                <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0;">
+                    Real-Time Timeline Scheduler & Automatic Customer History
+                </h2>
+                <span style="background: #FEF3C7; color: #B45309; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #FDE68A;">
+                    FRONT DESK ENGINE
+                </span>
+            </div>
+        </div>
+        <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 12px;">
+            Eliminate front desk chaos with a lightning-fast interactive timeline grid. Receptionists view specialist columns side-by-side, search clients instantly by phone or name, and review complete customer service history tabs automatically:
+        </p>
+        <ul style="font-size: 16px; line-height: 2; color: #333333; margin-left: 20px;">
+            <li><strong>Specialist Column Grid:</strong> View all therapists and stylists side-by-side to identify available time slots across any branch in seconds.</li>
+            <li><strong>Automatic Visit History Tab:</strong> Instantly inspect what hair dye formula, facial treatment, or specialist the client chose during their last visit.</li>
+            <li><strong>Color-Coded Status Badges:</strong> Visual distinction between Draft, Confirmed, In-Progress, Paid, Done, and Cancelled reservations.</li>
+            <li><strong>Automated 30-Minute Reminders:</strong> Built-in Odoo cron jobs send automated email and SMS reminders to clients prior to their appointment.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 32px;">
+    <div class="p-4">
+        <div class="d-sm-flex align-items-center mb-3">
+            <span style="font-size: 32px; background: #F3E8FF; color: #7E22CE; width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: 800;">
+                💵
+            </span>
+            <div>
+                <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0;">
+                    POS Checkout Integration & Staff Tips Reconciliation Ledger
+                </h2>
+                <span style="background: #F3E8FF; color: #6B21A8; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #E9D5FF;">
+                    FINANCIAL CONTROL
+                </span>
+            </div>
+        </div>
+        <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 12px;">
+            Seamlessly transfer completed appointments directly into the Odoo Point of Sale (POS) screen for fast checkout. Process payments via cash, card, or wallet while capturing exact staff tips linked directly to the original invoice:
+        </p>
+        <ul style="font-size: 16px; line-height: 2; color: #333333; margin-left: 20px;">
+            <li><strong>Direct POS Session Checkout:</strong> One-click transfer of treatment items, products, and add-ons directly to the active cashier POS session.</li>
+            <li><strong>Electronic Tip Capture & POS Tracing:</strong> Record tips during POS payment with direct clickable order references (`POS/2026/012`).</li>
+            <li><strong>Paid vs. Unpaid Tip Ledger:</strong> Track tips owed to each beautician and mark them as paid out at the end of the shift with one click.</li>
+            <li><strong>Automated Specialist Commission Math:</strong> Calculate staff commissions automatically based on fixed dollar values or percentage tiers.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 32px;">
+    <div class="p-4">
+        <div class="d-sm-flex align-items-center mb-3">
+            <span style="font-size: 32px; background: #FCE7F3; color: #DB2777; width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: 800;">
+                ✨
+            </span>
+            <div>
+                <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0;">
+                    Salon Services & Multi-Step Chemical Waiting Workflows
+                </h2>
+                <span style="background: #FCE7F3; color: #9D174D; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #FBCFE8;">
+                    TREATMENT ENGINE
+                </span>
+            </div>
+        </div>
+        <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 12px;">
+            Engineer complex salon services (like `Root Hair Treatment` or `Keratin Smoothing`) with automated multi-step treatment intervals and direct POS product consumption:
+        </p>
+        <ul style="font-size: 16px; line-height: 2; color: #333333; margin-left: 20px;">
+            <li><strong>Duration & Exact Price Setup:</strong> Configure active service durations (`3.00 hrs`) and base treatment pricing (`$350.00`) directly on the service master.</li>
+            <li><strong>Linked POS Products:</strong> Automatically attach required backbar products (`HAIR WASHING`, `APPLICATION COLOR`, `BLOW DRY`) for seamless POS billing and inventory tracking.</li>
+            <li><strong>Specialist Commission Rules:</strong> Assign fixed dollar commissions (`$20.00`) or percentage tiers attributed automatically to the attending stylist.</li>
+            <li><strong>Service Steps & Waiting Intervals (`Wait After Color`):</strong> Configure multi-step workflows with automated waiting timers (`30 min`) without locking up stylist availability during hair processing!</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Highlighted Features Grid (16 Pillars) -->
+<section class="oe_container my-5">
+    <div class="d-flex mb-4 flex-column align-items-center" style="text-align: center;">
+        <h2 style="font-weight: 800; font-size: 32px; color: #0F172A; margin-bottom: 8px;">
+            Highlighted Features Checklist
+        </h2>
+        <p style="font-weight: 500; font-size: 18px; color: #64748B;">
+            Below is the comprehensive operational checklist powered by Salon & Spa Management for Odoo 19
+        </p>
+    </div>
+    <div class="row" style="font-size: 16px; font-weight: 600; color: #1E293B;">
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Multi-step services with chemical waiting intervals (`Wait After Color`).</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Automated linking of POS backbar products to salon service treatments.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Real-time multi-branch timeline scheduler with drag-and-drop slot control.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Specialist column view for rapid availability checking across all therapists.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Instant customer lookup by first name, last name, or mobile phone number.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Automatic customer service history tab displaying previous treatments & notes.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Integrated POS checkout with cash, card, and session payment processing.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Staff tips capture during POS checkout with direct order reference linking.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Paid vs. unpaid staff tip reconciliation and employee payout ledger.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Multi-service & combo package booking with duration workflows.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>24/7 Online Website self-booking engine with branch & specialist preference.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Granular security access rights (`View Only`, `Create Appointments`, `Manager`).</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Treatment rooms, styling chairs, and physical asset capacity management.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>VIP membership tiers, loyalty reward points, and recurring subscription plans.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Automated 30-minute email and SMS appointment reminder cron jobs.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Executive employee performance and commission accounting PDF reports.</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 shadow-sm d-flex align-items-center" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; height: 100%;">
+                <span style="color: #0F766E; font-size: 20px; margin-right: 12px;">✔</span>
+                <span>Multi-branch & multi-state filtered revenue and appointment audit summaries.</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Tabbed Section (Native Odoo Apps Store Tabs Structure) -->
+<section class="oe_spaced mw-100" style="margin-top: 40px; margin-bottom: 40px;">
+    <div class="card-header shadow-sm p-0" style="font-weight: 700; font-size: 18px; color: #333333;">
+        <ul class="nav nav-tabs justify-content-center pt-3" id="myTab" role="tablist" style="background-color: #F1F5F9; border-bottom: 2px solid #0F766E; gap: 12px; margin: 0; padding-left: 0; list-style: none; display: flex; flex-wrap: wrap;">
+            <li class="nav-item" style="margin-bottom: -2px;">
+                <a class="nav-link active" id="screenshots-tab" data-bs-toggle="tab" href="#odoo_view_tab1" role="tab" style="color: #0F766E; font-weight: 800; padding: 12px 24px; border-radius: 8px 8px 0 0; background: #FFFFFF; border: 2px solid #0F766E; border-bottom: 2px solid #FFFFFF; text-decoration: none; display: block;">
+                    🖼️ All 15 Screenshots & Screens
+                </a>
+            </li>
+            <li class="nav-item" style="margin-bottom: -2px;">
+                <a class="nav-link" id="detailed-tab" data-bs-toggle="tab" href="#odoo_view_tab2" role="tab" style="color: #475569; font-weight: 700; padding: 12px 24px; border-radius: 8px 8px 0 0; background: #E2E8F0; border: 1px solid #CBD5E1; text-decoration: none; display: block;">
+                    📋 Detailed Functional Workflows
+                </a>
+            </li>
+            <li class="nav-item" style="margin-bottom: -2px;">
+                <a class="nav-link" id="backend-tab" data-bs-toggle="tab" href="#odoo_view_tab3" role="tab" style="color: #475569; font-weight: 700; padding: 12px 24px; border-radius: 8px 8px 0 0; background: #E2E8F0; border: 1px solid #CBD5E1; text-decoration: none; display: block;">
+                    ⚙️ Backend & Configuration
+                </a>
+            </li>
+            <li class="nav-item" style="margin-bottom: -2px;">
+                <a class="nav-link" id="website-tab" data-bs-toggle="tab" href="#odoo_view_tab4" role="tab" style="color: #475569; font-weight: 700; padding: 12px 24px; border-radius: 8px 8px 0 0; background: #E2E8F0; border: 1px solid #CBD5E1; text-decoration: none; display: block;">
+                    🌐 Online Website Booking
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="card-body tab-content text-center p-0" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-top: none; padding: 32px 16px;">
+        
+        <!-- TAB 1: ALL 14 SCREENSHOTS IN NATIVE BOOTSTRAP PANELS -->
+        <div class="tab-pane fade active show" id="odoo_view_tab1" role="tabpanel">
+            <div class="container px-4">
+                
+                <!-- Screen 1: Online Website Booking Form -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                🌐 Screenshot 1: Online Website Appointment Booking Form
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Customers self-book appointments online. Step 1: Personal info (Name, Phone, Email). Step 2: Branch Selection (`Downtown Salon`, `Suburban Spa`). Step 3: Service & Specialist selection.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/14_website_online_booking.png" alt="Odoo Website Online Booking Form for Salon & Spa" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 2: Security Groups & Access Rights -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                🔒 Screenshot 2: Granular Security Groups & Role-Based Access Control
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Multi-tier access control configured inside Odoo User Settings: `No Access`, `User: View Only`, `User: Create Appointments`, `User: Create Payments`, and `Manager (Full Access)`.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/13_security_groups_access.png" alt="Odoo Security Groups Access Rights for Salon and Spa Users" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 3: Apps Menu -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                🚀 Screenshot 3: Dedicated Salon & Spa Application in Odoo Apps Menu
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Single-click entry point right in the central Odoo enterprise application switcher with branded icon (`Ctrl+K` searchable).
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/01_apps_menu.png" alt="Salon & Spa Application icon in Odoo 19 Apps Menu" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 4: Analytics Dashboard -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                📈 Screenshot 4: Executive BI Analytics Dashboard
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Real-time KPI cards tracking daily/upcoming appointments, total revenue, average ticket value, completed checkouts, and top performing specialists.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/02_analytics_dashboard.png" alt="Salon & Spa Management Analytics Dashboard" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 5: Timeline Scheduler -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                📅 Screenshot 5: Interactive Real-Time Branch Timeline Scheduler
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Specialist column grid allowing instant availability checking, customer search by name/phone, status color badges, and branch switching.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/03_timeline_scheduler.png" alt="Real-time Timeline Scheduler view for Salon & Spa appointments" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 6: Appointment & Customer History -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                💎 Screenshot 6: Appointment Form with Automatic Customer Service History Tab
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Automatic visit history tab displays past treatments, attending beauticians, payment records, and client notes right on the active booking form.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/04_appointment_customer_history.png" alt="Appointment form with automatic customer service history tab" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 7: Service & Product Configuration -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                ⚙️ Screenshot 7: Salon Service & Product Setup Form
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Configure treatment pricing, active duration timings, chemical waiting intervals, allowed specialists, and commission eligibility.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/05_service_product.png" alt="Odoo Salon Service and Product setup form" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 15: Multi-Step Services & POS Products -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                ✨ Screenshot 15: Salon Services Multi-Step Workflows & POS Product Linking
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Configure multi-step service steps (`Wait After Color` for 30 min), attach required backbar POS Products (`HAIR WASHING`, `APPLICATION COLOR`, `BLOW DRY`), set exact pricing (`$350.00`), and define stylist commissions (`$20.00`).
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/15_services_steps.png" alt="Salon Services Multi-Step Workflows and POS Product linking form" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 8: Reports Menu -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                📑 Screenshot 8: Executive Reports & Analytics Center Menu
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                One-click access to Sales & Appointment summaries and Employee Performance & Commission reports.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/06_reports_menu.png" alt="Reports Menu for Salon and Spa Executive Analytics" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 9: Configuration Menu -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                🛠️ Screenshot 9: Comprehensive Configuration Menu
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Master setup center for branches, treatment rooms, styling chairs, beauticians, combo packages, memberships, and review settings.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/07_configuration_menu.png" alt="Configuration Menu for Salon Branches, Chairs, Rooms and Staff" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 10: Employee Performance Report -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                💰 Screenshot 10: Employee Performance & Commission Report PDF
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Automated payroll report detailing specialist treatments performed, gross revenue generated, earned tips, and calculated commission due.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/08_employee_performance_report.png" alt="Employee Performance and Commission Report PDF view" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 11: Sales & Appointment Report -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                📊 Screenshot 11: Sales & Appointment Executive Summary Report
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Branch-wise executive summary highlighting completed checkouts, cancellation rates, net revenue, and source POS invoices.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/09_sales_appointment_report.png" alt="Sales and Appointment Report summary table" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 12: Scheduler Settings -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                ⏱️ Screenshot 12: Working Hours & Scheduler Policies Configuration
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Configure salon opening shifts, time slot intervals (`15`, `30`, or `60` min), cancellation cutoff rules, and automated reminders.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/10_scheduler_settings.png" alt="Scheduler Working Hours and Policy Settings form" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 13: Staff Tips Management -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                💵 Screenshot 13: Staff Tips Management & POS Order Reference Tracking
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Track staff tips collected via POS checkout with direct order references (`POS/2026/012`), employee names, and paid/unpaid reconciliation.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/11_staff_tips.png" alt="Staff Tips Management list view with paid status and POS references" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Screen 14: Specialist Profile -->
+                <section class="oe_container my-5">
+                    <div class="panel panel-primary shadow-sm" style="border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden;">
+                        <div class="panel-heading" style="background: #0F172A; color: #FFFFFF; padding: 16px 24px;">
+                            <h3 style="font-size: 22px; font-weight: 700; margin: 0; color: #FFFFFF;">
+                                👩‍🎨 Screenshot 14: Beautician & Specialist Profile Form
+                            </h3>
+                            <p style="font-size: 15px; color: #94A3B8; margin: 4px 0 0;">
+                                Specialist profile linking Odoo HR records with allowed salon treatments, assigned home branch, and scheduling availability.
+                            </p>
+                        </div>
+                        <div class="panel-body p-4" style="background: #F8FAFC;">
+                            <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 8px; border: 1px solid #E2E8F0;" src="screenshots/12_staff_form.png" alt="Beautician and Specialist Profile form linking HR and allowed services" />
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- TAB 2: DETAILED FUNCTIONAL WORKFLOWS -->
+        <div class="tab-pane fade" id="odoo_view_tab2" role="tabpanel">
+            <div class="container px-4 text-left" style="text-align: left;">
+                <h2 style="font-size: 26px; font-weight: 800; color: #0F172A; margin-bottom: 24px; text-align: center;">
+                    Detailed Operational Workflows & System Architecture
+                </h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="p-4 shadow-sm border" style="background: #FFFFFF; border-radius: 12px; height: 100%;">
+                            <h3 style="font-size: 20px; font-weight: 700; color: #0F766E; margin-bottom: 16px;">
+                                👩‍💼 Front Desk & Receptionist Workflow
+                            </h3>
+                            <ul style="font-size: 15px; line-height: 2; color: #475569; padding-left: 20px;">
+                                <li><strong>Rapid Phone Booking:</strong> Search existing customers by verified mobile number or create walk-ins instantly.</li>
+                                <li><strong>Specialist Assignment:</strong> View therapist schedules side-by-side to book open slots without double-booking.</li>
+                                <li><strong>Service History Lookup:</strong> Review previous hair formulas, skin allergies, or favorite therapists automatically.</li>
+                                <li><strong>Multi-Service Cart:</strong> Add primary treatments, add-ons, and retail beauty products onto a single booking ticket.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="p-4 shadow-sm border" style="background: #FFFFFF; border-radius: 12px; height: 100%;">
+                            <h3 style="font-size: 20px; font-weight: 700; color: #701A75; margin-bottom: 16px;">
+                                💳 POS Cashier & Checkout Workflow
+                            </h3>
+                            <ul style="font-size: 15px; line-height: 2; color: #475569; padding-left: 20px;">
+                                <li><strong>One-Click POS Transfer:</strong> Send confirmed or running appointments right to the active POS cashier screen.</li>
+                                <li><strong>Session Payment Processing:</strong> Accept cash, credit card, split payments, or gift vouchers seamlessly.</li>
+                                <li><strong>Tip Allocation & Capture:</strong> Record tips collected at the register and assign them to specific beauticians.</li>
+                                <li><strong>Automatic Status Update:</strong> Settling a POS invoice marks the appointment as `Paid` and `Done` in real time.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="p-4 shadow-sm border" style="background: #FFFFFF; border-radius: 12px; height: 100%;">
+                            <h3 style="font-size: 20px; font-weight: 700; color: #0284C7; margin-bottom: 16px;">
+                                💰 Specialist Commission & Payroll Ledger
+                            </h3>
+                            <ul style="font-size: 15px; line-height: 2; color: #475569; padding-left: 20px;">
+                                <li><strong>Revenue Attribution:</strong> Every dollar earned from services and retail sales is attributed to the attending staff.</li>
+                                <li><strong>Commission Math:</strong> Supports fixed dollar commissions (`$15/facial`) or percentage tiers (`20% of net sales`).</li>
+                                <li><strong>Tip Reconciliation:</strong> Filter tips by `Paid` vs. `Unpaid` and settle employee tip payouts with single-click actions.</li>
+                                <li><strong>PDF Accounting Export:</strong> Export clean PDF summaries for accounting audits and payroll processing.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="p-4 shadow-sm border" style="background: #FFFFFF; border-radius: 12px; height: 100%;">
+                            <h3 style="font-size: 20px; font-weight: 700; color: #D97706; margin-bottom: 16px;">
+                                🏢 Multi-Branch & Asset Capacity Control
+                            </h3>
+                            <ul style="font-size: 15px; line-height: 2; color: #475569; padding-left: 20px;">
+                                <li><strong>Isolated Branch Schedules:</strong> Each physical salon or spa location operates on its own dedicated timeline grid.</li>
+                                <li><strong>Cross-Branch Staffing:</strong> Allocate therapists to multiple branch schedules with custom shifts.</li>
+                                <li><strong>Treatment Room & Chair Limits:</strong> Prevent overbooking of VIP spa suites, washing chairs, or laser stations.</li>
+                                <li><strong>Consolidated Executive Audit:</strong> Owners view combined or branch-filtered revenue metrics from one dashboard.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: BACKEND & CONFIGURATION -->
+        <div class="tab-pane fade" id="odoo_view_tab3" role="tabpanel">
+            <div class="container px-4 text-left" style="text-align: left;">
+                <h2 style="font-size: 26px; font-weight: 800; color: #0F172A; margin-bottom: 24px; text-align: center;">
+                    Enterprise Backend Configuration & Access Rights
+                </h2>
+                <div class="p-4 shadow-sm border mb-4" style="background: #FFFFFF; border-radius: 12px;">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #0F172A; margin-bottom: 16px;">
+                        Granular Security Groups Matrix (`security/salon_security.xml`)
+                    </h3>
+                    <p style="font-size: 15px; color: #475569; line-height: 1.8;">
+                        The module defines 4 distinct security access groups inside Odoo 19 User Settings (`Settings -> Users -> Salon and Spa`). Each role strictly controls what the logged-in user can view, create, edit, or export:
+                    </p>
+                    <table class="table border" style="width: 100%; margin-top: 16px; font-size: 15px; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #F1F5F9; color: #0F172A; text-align: left;">
+                                <th style="padding: 12px; border: 1px solid #CBD5E1;">Security Role</th>
+                                <th style="padding: 12px; border: 1px solid #CBD5E1;">Intended Staff Role</th>
+                                <th style="padding: 12px; border: 1px solid #CBD5E1;">Permissions & Capabilities</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1; font-weight: 700; color: #64748B;">No Access / View Only</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Junior Assistants / Trainees</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Read-only access to daily timeline schedules. Cannot create, reschedule, or cancel bookings.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1; font-weight: 700; color: #0284C7;">User: Create Appointments</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Receptionists / Front Desk</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Full management of timeline schedules, customer creation, appointment status updates, and history lookup.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1; font-weight: 700; color: #0D9488;">User: Create Payments</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Cashiers / POS Operators</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Allows sending appointments to POS, processing payments, capturing employee tips, and marking checkouts as done.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1; font-weight: 700; color: #701A75;">Manager (Full Access)</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Salon Owners / General Managers</td>
+                                <td style="padding: 12px; border: 1px solid #CBD5E1;">Complete administrative control over branch settings, commission rates, tip reconciliation, working hours, and executive reports.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-4 shadow-sm border" style="background: #FFFFFF; border-radius: 12px;">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #0F172A; margin-bottom: 16px;">
+                        Automated Backend Cron Jobs (`data/cron_jobs.xml`)
+                    </h3>
+                    <p style="font-size: 15px; color: #475569; line-height: 1.8;">
+                        To minimize customer no-shows, the module ships with automated Odoo backend cron schedulers that run silently every 15 minutes:
+                    </p>
+                    <ul style="font-size: 15px; line-height: 2; color: #333333; padding-left: 20px;">
+                        <li><strong>Automated 30-Minute Email Reminders:</strong> Checks upcoming confirmed bookings and dispatches professional branded reminder emails (`data/mail_templates.xml`) 30 minutes before appointment start time.</li>
+                        <li><strong>Automated SMS Gateways:</strong> Triggers SMS notification hooks directly to the client's verified mobile phone number.</li>
+                        <li><strong>Expired Draft Cleanup:</strong> Automatically releases unpaid draft reservations after customizable timeout thresholds.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: ONLINE WEBSITE BOOKING ENGINE -->
+        <div class="tab-pane fade" id="odoo_view_tab4" role="tabpanel">
+            <div class="container px-4 text-left" style="text-align: left;">
+                <h2 style="font-size: 26px; font-weight: 800; color: #0F172A; margin-bottom: 24px; text-align: center;">
+                    24/7 Customer Online Website Appointment Booking Portal
+                </h2>
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4">
+                        <img class="img-responsive border shadow-sm" style="width: 100%; border-radius: 12px;" src="screenshots/14_website_online_booking.png" alt="Odoo Website Online Booking Form" />
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="p-4 shadow-sm border" style="background: #FFFFFF; border-radius: 12px;">
+                            <h3 style="font-size: 22px; font-weight: 700; color: #1E40AF; margin-bottom: 16px;">
+                                Seamless Website Self-Service Engine
+                            </h3>
+                            <p style="font-size: 15px; color: #475569; line-height: 1.8; margin-bottom: 16px;">
+                                Your Odoo 19 website becomes an automated receptionist that works 24/7. When a customer visits your online booking page (`/salon/book`), they experience a smooth, frictionless reservation workflow:
+                            </p>
+                            <ul style="font-size: 15px; line-height: 2; color: #333333; padding-left: 20px;">
+                                <li><strong>Instant Client Verification:</strong> Existing customers are matched automatically by phone number or email, linking new bookings directly to their VIP profile.</li>
+                                <li><strong>Branch & Location Picker:</strong> Multi-branch salons allow clients to select the exact physical location they wish to visit.</li>
+                                <li><strong>Live Specialist Availability:</strong> The website engine checks real-time backend calendar availability, ensuring clients can only pick open time slots.</li>
+                                <li><strong>Instant Booking Confirmation:</strong> Upon submission, the client receives a booking confirmation number and the slot appears instantly on the front desk timeline!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Author & Support Footer (Engr Waheed) -->
+<section class="oe_container my-5">
+    <div class="p-5 shadow-sm text-center" style="background: linear-gradient(135deg, #1E293B 0%, #0F766E 100%); color: #FFFFFF; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
+        <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 12px; color: #FFFFFF;">
+            Engineered & Maintained by Engr Waheed
+        </h2>
+        <p style="font-size: 18px; color: #CCFBF1; max-width: 720px; margin: 0 auto 32px; line-height: 1.6;">
+            For enterprise implementation, custom Odoo 19 module development, multi-branch POS configuration, or dedicated technical support, get in touch instantly:
+        </p>
+        <div class="d-flex justify-content-center flex-wrap" style="gap: 20px;">
+            <a href="https://www.linkedin.com/in/waheed-ullah-810082151/" target="_blank" rel="noopener" class="px-4 py-3" style="background: #0A66C2; color: #FFFFFF; font-weight: 700; font-size: 16px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 16px rgba(0,0,0,0.3); display: inline-flex; align-items: center;">
                 <span>🔗 LinkedIn: /in/waheed-ullah-810082151/</span>
             </a>
-            <a href="https://wa.me/97430643395" target="_blank" rel="noopener" class="contact-btn wa">
+            <a href="https://wa.me/97430643395" target="_blank" rel="noopener" class="px-4 py-3" style="background: #25D366; color: #FFFFFF; font-weight: 700; font-size: 16px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 16px rgba(0,0,0,0.3); display: inline-flex; align-items: center;">
                 <span>💬 WhatsApp: +974 3064 3395</span>
             </a>
         </div>
-    </footer>
-</div>
-
-<!-- Interactive Lightbox Modal Script -->
-<div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
-    <div class="lightbox-content" onclick="event.stopPropagation()">
-        <div class="lightbox-header">
-            <h4 id="lightboxTitle">Screenshot Preview</h4>
-            <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
-        </div>
-        <div class="lightbox-body">
-            <img id="lightboxImg" src="" alt="Full Screen Preview" />
-            <div class="lightbox-desc" id="lightboxDesc"></div>
-        </div>
     </div>
-</div>
+</section>
 
-<script>
-    function openLightbox(imgSrc, title, description) {
-        const modal = document.getElementById('lightboxModal');
-        const img = document.getElementById('lightboxImg');
-        const titleEl = document.getElementById('lightboxTitle');
-        const descEl = document.getElementById('lightboxDesc');
-
-        img.src = imgSrc;
-        titleEl.textContent = title;
-        descEl.textContent = description;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox(e) {
-        const modal = document.getElementById('lightboxModal');
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeLightbox();
-        }
-    });
-</script>
+<!-- Bootstrap JS for Tabs (Compatible with Odoo Apps Store DOM) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
