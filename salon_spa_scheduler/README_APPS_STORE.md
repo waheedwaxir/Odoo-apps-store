@@ -24,3 +24,9 @@ Advanced Salon and Spa Management for Odoo 19 with timeline scheduler, POS integ
 
 ## Suggested App Store Title
 Salon & Spa Management | Scheduler | POS | Tips | Reports | Multi Branch | Odoo 19
+
+## Author & Support
+- **Author**: Engr Waheed
+- **LinkedIn**: https://www.linkedin.com/in/waheed-ullah-810082151/
+- **WhatsApp**: +974 3064 3395
+
