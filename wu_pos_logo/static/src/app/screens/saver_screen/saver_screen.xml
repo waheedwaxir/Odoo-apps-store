@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.SaverScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('login-overlay')]" position="attributes">
+            <attribute name="t-att-style">this.wuScreenSaverStyle</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('timer-hours')]" position="attributes">
+            <attribute name="t-att-style">this.wuTimerColorStyle</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('timer-date-container')]" position="attributes">
+            <attribute name="t-att-style">this.wuTimerColorStyle</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('pos-logo')]" position="replace">
+            <t t-if="this.wuShowPosLogo">
+                <div t-if="this.wuLogoUrl" class="w-100 h-25 d-flex justify-content-center align-items-center">
+                    <img t-att-src="this.wuLogoUrl" alt="POS Logo" class="pos-saverscreen-custom-logo" style="max-height: 100%; max-width: 60%; object-fit: contain;"/>
+                </div>
+                <div t-elif="!this.pos.config.enable_screen_saver_bg and !this.pos.config.enable_pos_logo" class="pos-logo w-100 h-25"/>
+                <div t-else="" class="d-none"/>
+            </t>
+            <div t-else="" class="d-none"/>
+        </xpath>
+    </t>
+</templates>

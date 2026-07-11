@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_wu_pos_logo" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.wu_pos_logo</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='restaurant_section']" position="after">
+                <block title="POS Logo &amp; Screen Saver Configuration" id="pos_logo_screen_saver_section">
+                    <setting id="pos_logo_setting" help="Replace the default Odoo POS logo with your company logo, a custom image, or choose to hide it entirely.">
+                        <field name="pos_enable_pos_logo" string="POS Logo"/>
+                        <div class="content-group mt-3" invisible="not pos_enable_pos_logo">
+                            <div class="row mt16">
+                                <field name="pos_pos_logo_option" widget="radio"/>
+                            </div>
+                            <div class="row mt16" invisible="pos_pos_logo_option != 'custom_image'">
+                                <div class="col-12">
+                                    <field name="pos_pos_custom_logo" widget="image" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="receipt_logo_setting" help="Replace the default Odoo receipt logo on printed tickets with your company logo, a custom image, or choose to hide it entirely.">
+                        <field name="pos_enable_receipt_logo" string="Receipt Logo"/>
+                        <div class="content-group mt-3" invisible="not pos_enable_receipt_logo">
+                            <div class="row mt16">
+                                <field name="pos_receipt_logo_option" widget="radio"/>
+                            </div>
+                            <div class="row mt16" invisible="pos_receipt_logo_option != 'custom_image'">
+                                <div class="col-12">
+                                    <field name="pos_receipt_custom_logo" widget="image" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="screen_saver_bg_setting" help="Set a custom screen saver background image or GIF and configure idle timer settings.">
+                        <field name="pos_enable_screen_saver_bg" string="Screen Saver Background"/>
+                        <div class="content-group mt-3" invisible="not pos_enable_screen_saver_bg">
+                            <div class="row mt16">
+                                <div class="col-12">
+                                    <field name="pos_pos_screen_saver_image" widget="image" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="row mt16 align-items-center">
+                                <label for="pos_pos_timer_color" class="col-lg-4 o_light_label" string="Timer Color"/>
+                                <div class="col-lg-8">
+                                    <field name="pos_pos_timer_color" widget="color"/>
+                                </div>
+                            </div>
+                            <div class="row mt16 align-items-center">
+                                <label for="pos_pos_screen_timer" class="col-lg-4 o_light_label" string="Screen Timer"/>
+                                <div class="col-lg-8">
+                                    <field name="pos_pos_screen_timer" class="oe_inline"/>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12 text-muted smaller">
+                                    Specify the screen timer duration in minutes only.
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('pos-centerheader')]" position="replace">
+            <div t-if="this.wuShowPosLogo" class="pos-centerheader d-none d-xl-flex justify-content-center align-items-center overflow-hidden">
+                <t t-if="this.pos.config.enable_pos_logo and (this.pos.config.pos_logo_option === 'company' or (this.pos.config.pos_logo_option === 'custom_image' and this.pos.config.pos_custom_logo))">
+                    <img t-att-src="this.wuLogoUrl" alt="POS Logo" class="pos-custom-navbar-logo" style="max-height: 38px; max-width: 160px; object-fit: contain;"/>
+                </t>
+                <t t-else="">
+                    <div class="pos-logo mw-100" />
+                </t>
+            </div>
+        </xpath>
+    </t>
+</templates>
