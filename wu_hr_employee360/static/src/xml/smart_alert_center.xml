@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.SmartAlertCenter" owl="1">
+        <div class="smart-alert-center">
+
+            <!-- ── Header ── -->
+            <div class="sac-header d-flex align-items-center justify-content-between mb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa fa-bell-o sac-bell-icon"/>
+                    <h5 class="fw-bold m-0">Smart Alert Center</h5>
+                    <span t-if="props.smartAlerts.unread > 0"
+                          t-attf-class="badge bg-danger rounded-pill ms-1">
+                        <t t-esc="props.smartAlerts.unread"/> unread
+                    </span>
+                </div>
+                <button class="btn btn-sm btn-outline-primary rounded-pill px-3"
+                        t-on-click="() => props.onRefresh()"
+                        title="Regenerate and refresh all alerts">
+                    <i class="fa fa-refresh me-1"/>Refresh Alerts
+                </button>
+            </div>
+
+            <!-- ── Section Tabs ── -->
+            <div class="sac-tabs d-flex gap-2 mb-3 flex-wrap">
+                <button t-attf-class="sac-tab-btn {{ state.activeSection === 'critical' ? 'active critical' : '' }}"
+                        t-on-click="() => this.setSection('critical')">
+                    <i class="fa fa-exclamation-circle me-1 text-danger"/>
+                    Critical
+                    <span class="badge bg-danger rounded-pill ms-1">
+                        <t t-esc="(props.smartAlerts.critical || []).length"/>
+                    </span>
+                </button>
+                <button t-attf-class="sac-tab-btn {{ state.activeSection === 'warning' ? 'active warning' : '' }}"
+                        t-on-click="() => this.setSection('warning')">
+                    <i class="fa fa-exclamation-triangle me-1 text-warning"/>
+                    Warning
+                    <span class="badge bg-warning text-dark rounded-pill ms-1">
+                        <t t-esc="(props.smartAlerts.warning || []).length"/>
+                    </span>
+                </button>
+                <button t-attf-class="sac-tab-btn {{ state.activeSection === 'info' ? 'active info' : '' }}"
+                        t-on-click="() => this.setSection('info')">
+                    <i class="fa fa-info-circle me-1 text-info"/>
+                    Info
+                    <span class="badge bg-info text-white rounded-pill ms-1">
+                        <t t-esc="(props.smartAlerts.info || []).length"/>
+                    </span>
+                </button>
+                <button t-attf-class="sac-tab-btn {{ state.activeSection === 'all' ? 'active' : '' }}"
+                        t-on-click="() => this.setSection('all')">
+                    <i class="fa fa-list me-1"/>
+                    All
+                    <span class="badge bg-secondary rounded-pill ms-1">
+                        <t t-esc="props.smartAlerts.total || 0"/>
+                    </span>
+                </button>
+            </div>
+
+            <!-- ── Alert List ── -->
+            <div class="sac-alerts-list">
+                <!-- Empty state -->
+                <div t-if="!this.displayedAlerts || this.displayedAlerts.length === 0"
+                     class="sac-empty-state text-center py-5">
+                    <i class="fa fa-check-circle fa-3x text-success mb-3 d-block"/>
+                    <h6 class="fw-bold text-success">All Clear!</h6>
+                    <p class="text-muted fs-7 m-0">No
+                        <t t-esc="state.activeSection"/>
+                        alerts at this time. Your workforce compliance looks great.
+                    </p>
+                </div>
+
+                <!-- Alert Cards -->
+                <div t-foreach="this.displayedAlerts" t-as="alert" t-key="alert.id"
+                     t-attf-class="sac-alert-card sac-alert-{{ alert.severity || 'info' }} mb-2">
+                    <div class="d-flex align-items-start gap-3">
+                        <!-- Employee Avatar -->
+                        <div class="sac-avatar-wrap flex-shrink-0">
+                            <img t-if="alert.photo_url"
+                                 t-att-src="alert.photo_url"
+                                 class="sac-avatar"
+                                 t-att-alt="alert.employee_name || 'Employee'"
+                                 t-on-click="() => this.openEmployeeDrawer(alert.employee_id)"
+                                 t-att-title="'Open 360° Profile: ' + (alert.employee_name || '')"/>
+                            <div t-else="" class="sac-avatar-placeholder">
+                                <i class="fa fa-user"/>
+                            </div>
+                            <!-- Severity dot -->
+                            <span t-attf-class="sac-severity-dot sac-dot-{{ alert.severity || 'info' }}"/>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-grow-1 min-w-0">
+                            <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+                                <div class="min-w-0">
+                                    <!-- Alert Type Badge -->
+                                    <span t-attf-class="badge sac-type-badge me-1 mb-1">
+                                        <i t-attf-class="fa {{ this.alertTypeIcon(alert.alert_type) }} me-1"/>
+                                        <t t-esc="this.formatAlertType(alert.alert_type)"/>
+                                    </span>
+                                    <!-- Message -->
+                                    <div class="fw-semibold text-dark sac-alert-message" t-esc="alert.message"/>
+                                    <!-- Detail -->
+                                    <div t-if="alert.detail" class="fs-8 text-muted mt-1 sac-alert-detail" t-esc="alert.detail"/>
+                                </div>
+
+                                <!-- Right side: days left + dismiss -->
+                                <div class="d-flex flex-column align-items-end gap-1 flex-shrink-0">
+                                    <span t-attf-class="fs-8 {{ this.daysLeftClass(alert.days_left, alert.severity) }}">
+                                        <i class="fa fa-clock-o me-1"/>
+                                        <t t-esc="this.daysLeftLabel(alert.days_left)"/>
+                                    </span>
+                                    <div class="d-flex gap-1 mt-1">
+                                        <!-- Open employee profile -->
+                                        <button t-if="alert.employee_id"
+                                                class="btn btn-xs btn-outline-secondary sac-btn-profile"
+                                                t-on-click="() => this.openEmployeeDrawer(alert.employee_id)"
+                                                title="Open Employee 360° Profile">
+                                            <i class="fa fa-user-circle-o"/>
+                                        </button>
+                                        <!-- Dismiss -->
+                                        <button class="btn btn-xs sac-btn-dismiss"
+                                                t-att-disabled="state.dismissing === alert.id"
+                                                t-on-click="() => this.dismissAlert(alert.id)"
+                                                title="Acknowledge and dismiss this alert">
+                                            <i t-attf-class="fa {{ state.dismissing === alert.id ? 'fa-spinner fa-spin' : 'fa-check' }}"/>
+                                            Dismiss
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer: employee + dept chips -->
+                            <div t-if="alert.employee_name" class="d-flex gap-2 mt-2 flex-wrap">
+                                <span class="sac-chip sac-chip-emp">
+                                    <i class="fa fa-user-o me-1"/>
+                                    <t t-esc="alert.employee_name"/>
+                                </span>
+                                <span t-if="alert.department" class="sac-chip sac-chip-dept">
+                                    <i class="fa fa-building-o me-1"/>
+                                    <t t-esc="alert.department"/>
+                                </span>
+                                <span t-if="alert.due_date" class="sac-chip sac-chip-date">
+                                    <i class="fa fa-calendar me-1"/>
+                                    <t t-esc="alert.due_date"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End alert cards -->
+            </div>
+            <!-- End sac-alerts-list -->
+
+        </div>
+    </t>
+</templates>

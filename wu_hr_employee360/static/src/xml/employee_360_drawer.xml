@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.Employee360Drawer" owl="1">
+        <div class="drawer-backdrop" t-on-click="props.onClose"/>
+        <div class="employee-360-drawer">
+            <div t-if="state.loading or !state.data" class="d-flex flex-column align-items-center justify-content-center h-100 p-5 text-center">
+                <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"/>
+                <h5 class="fw-bold text-dark">Loading Employee 360° Profile...</h5>
+                <p class="text-muted fs-7">Gathering comprehensive workforce records and metrics</p>
+                <button class="btn btn-sm btn-outline-secondary mt-3 px-4 rounded-pill" t-on-click="props.onClose">Close</button>
+            </div>
+            <t t-else="">
+                <!-- Header -->
+            <div class="drawer-header">
+                <div class="d-flex align-items-center gap-3">
+                    <img t-att-src="state.data.personal.photo_url" class="emp-avatar" alt="Avatar"/>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h4 class="fw-bold m-0 text-white"><t t-esc="state.data.personal.name"/></h4>
+                            <span class="badge bg-primary px-2 py-1 fs-8"><t t-esc="state.data.personal.employee_id"/></span>
+                        </div>
+                        <div class="fs-7 opacity-75 mt-1"><t t-esc="state.data.personal.job_title"/> | <t t-esc="state.data.employment.department"/></div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <button t-if="!state.data.timesheet_only" class="btn btn-sm btn-outline-light rounded-pill px-3 fw-bold" t-on-click="() => this.openEmployeeForm(state.data.personal.id)" title="Open Full Odoo Employee Form View (Pic 1)">
+                        <i class="fa fa-external-link me-1"/> Odoo Profile
+                    </button>
+                    <button class="btn btn-sm btn-outline-light rounded-circle p-2" t-on-click="props.onClose" title="Close Drawer">
+                        <i class="fa fa-times fa-lg"/>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Employee profile navigation -->
+            <div class="drawer-tabs">
+                <t t-if="!state.data.timesheet_only">
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'personal' ? 'active' : '' }}" t-on-click="() => this.setTab('personal')">👤 Personal</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'employment' ? 'active' : '' }}" t-on-click="() => this.setTab('employment')">🏢 Employment</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'documents' ? 'active' : '' }}" t-on-click="() => this.setTab('documents')">📁 Documents (<t t-esc="state.data.documents.length"/>)</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'attendance' ? 'active' : '' }}" t-on-click="() => this.setTab('attendance')">⏱️ Attendance</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'leave' ? 'active' : '' }}" t-on-click="() => this.setTab('leave')">🌴 Leaves</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'payroll' ? 'active' : '' }}" t-on-click="() => this.setTab('payroll')">💰 Payroll</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'performance' ? 'active' : '' }}" t-on-click="() => this.setTab('performance')">📈 Performance</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'skills' ? 'active' : '' }}" t-on-click="() => this.setTab('skills')">🎓 Skills</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'assets' ? 'active' : '' }}" t-on-click="() => this.setTab('assets')">💻 Assets (<t t-esc="state.data.assets.length"/>)</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'projects' ? 'active' : '' }}" t-on-click="() => this.setTab('projects')">🚀 Projects</button>
+                </t>
+                <button t-attf-class="tab-btn {{ state.activeTab === 'timesheets' ? 'active' : '' }}" t-on-click="() => this.setTab('timesheets')">Timesheets</button>
+                <t t-if="!state.data.timesheet_only">
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'notes' ? 'active' : '' }}" t-on-click="() => this.setTab('notes')">📝 Notes</button>
+                    <button t-attf-class="tab-btn {{ state.activeTab === 'timeline' ? 'active' : '' }}" t-on-click="() => this.setTab('timeline')">⏳ Timeline</button>
+                </t>
+            </div>
+
+            <!-- Tab Content Area -->
+            <div class="drawer-body">
+                <!-- 1. PERSONAL TAB -->
+                <div t-if="state.activeTab === 'personal'" class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0 h-100">
+                            <h6 class="fw-bold border-bottom pb-2 text-primary">Contact &amp; Identification</h6>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Work Email:</strong> <span class="ms-1"><t t-esc="state.data.personal.work_email || '-'"/></span></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Work Phone:</strong> <span class="ms-1"><t t-esc="state.data.personal.work_phone || '-'"/></span></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Private Email:</strong> <span class="ms-1"><t t-esc="state.data.personal.private_email || '-'"/></span></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Home Address:</strong> <span class="ms-1"><t t-esc="state.data.personal.address || '-'"/></span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0 h-100">
+                            <h6 class="fw-bold border-bottom pb-2 text-primary">Biographic &amp; Emergency</h6>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Date of Birth:</strong> <span class="ms-1"><t t-esc="state.data.personal.dob || '-'"/> (<t t-esc="state.data.personal.age"/> Yrs)</span></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Gender &amp; Nationality:</strong> <span class="ms-1"><t t-esc="state.data.personal.gender"/> / <t t-esc="state.data.personal.nationality"/></span></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Blood Group / Religion:</strong> <span class="ms-1"><t t-esc="state.data.personal.blood_group"/> | <t t-esc="state.data.personal.religion"/></span></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Marital Status:</strong> <span class="ms-1"><t t-esc="state.data.personal.marital"/></span></div>
+                            <div class="mt-3 p-2 bg-light border-start border-danger border-3 rounded fs-7">
+                                <strong class="text-danger"><i class="fa fa-phone me-1"/> Emergency Contact:</strong><br/>
+                                <t t-esc="state.data.personal.emergency_contact"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. EMPLOYMENT TAB -->
+                <div t-if="state.activeTab === 'employment'" class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0">
+                            <h6 class="fw-bold border-bottom pb-2 text-primary">Organizational Hierarchy</h6>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Company:</strong> <t t-esc="state.data.employment.company"/></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Department:</strong> <t t-esc="state.data.employment.department"/></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Direct Manager:</strong> <t t-esc="state.data.employment.manager"/></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Mentor / Coach:</strong> <t t-esc="state.data.employment.coach"/></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0">
+                            <h6 class="fw-bold border-bottom pb-2 text-primary">Contract &amp; Working Shift</h6>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Joining Date:</strong> <t t-esc="state.data.employment.joining_date || '-'"/></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Work Schedule:</strong> <t t-esc="state.data.employment.resource_calendar"/></div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Contract Type:</strong>
+                                <span class="badge bg-info bg-opacity-15 text-info ms-1 px-2 py-1 rounded-pill" style="font-size:11px;">
+                                    <t t-esc="state.data.employment.contract_type || 'Not Set'"/>
+                                </span>
+                            </div>
+                            <div class="mt-2 fs-7"><strong class="text-muted">Contract Status:</strong>
+                                <span t-attf-class="badge ms-1 px-2 py-1 rounded-pill {{ state.data.employment.contract_status === 'On Probation' ? 'bg-warning text-dark' : (state.data.employment.contract_status === 'Permanent' ? 'bg-primary' : 'bg-success') }}" style="font-size:11px;">
+                                    <t t-esc="state.data.employment.contract_status || 'Active'"/>
+                                </span>
+                            </div>
+                            <t t-if="state.data.employment.trial_date_end">
+                                <div class="mt-2 fs-7"><strong class="text-muted">Probation End:</strong>
+                                    <span t-attf-class="ms-1 fw-bold {{ state.data.employment.is_on_probation ? 'text-warning' : 'text-muted' }}">
+                                        <t t-esc="state.data.employment.trial_date_end"/>
+                                        <t t-if="state.data.employment.is_on_probation"> <span class="badge bg-warning text-dark ms-1" style="font-size:10px;">Active</span></t>
+                                        <t t-else=""> <span class="badge bg-secondary ms-1" style="font-size:10px;">Completed</span></t>
+                                    </span>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. DOCUMENTS TAB -->
+                <div t-if="state.activeTab === 'documents'" class="card p-3 shadow-sm border-0">
+                    <h6 class="fw-bold border-bottom pb-2 text-primary d-flex justify-content-between">
+                        <span>Compliance Document Matrix</span>
+                        <button class="btn btn-xs btn-primary" t-on-click="() => this.onSendReminder()"><i class="fa fa-bell me-1"/> Remind Expiry</button>
+                    </h6>
+                    <table class="table table-sm mt-2">
+                        <thead>
+                            <tr class="text-muted fs-7">
+                                <th>Document Title</th>
+                                <th>ID / Number</th>
+                                <th>Expiry Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.data.documents" t-as="doc" t-key="doc_index">
+                                <td class="fw-bold fs-7"><t t-esc="doc.name"/></td>
+                                <td class="fs-7"><t t-esc="doc.number"/></td>
+                                <td class="fs-7"><t t-esc="doc.expiry_date"/></td>
+                                <td>
+                                    <span t-attf-class="badge rounded-pill {{ doc.status === 'red' ? 'bg-danger' : (doc.status === 'yellow' ? 'bg-warning text-dark' : 'bg-success') }}">
+                                        <t t-esc="doc.status_label"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 4. ATTENDANCE TAB -->
+                <div t-if="state.activeTab === 'attendance'" class="row g-3">
+                    <div class="col-md-12">
+                        <div class="card p-3 shadow-sm border-0 d-flex flex-row justify-content-between align-items-center bg-light">
+                            <div>
+                                <h6 class="m-0 fw-bold">Live Status: <span t-attf-class="badge {{ state.data.attendance.present_today ? 'bg-success' : 'bg-secondary' }}"><t t-esc="state.data.attendance.present_today ? 'Checked In' : 'Not Checked In Today'"/></span></h6>
+                                <div class="fs-7 text-muted mt-1">Check-in: <strong class="text-dark"><t t-esc="state.data.attendance.check_in_time"/></strong> | Check-out: <strong class="text-dark"><t t-esc="state.data.attendance.check_out_time"/></strong></div>
+                            </div>
+                            <button class="btn btn-primary btn-sm px-3" t-on-click="() => this.onToggleCheckin()">
+                                <i class="fa fa-clock-o me-1"/> Toggle Check-in / Out
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 text-center border-0 shadow-sm">
+                            <span class="fs-8 text-muted">Weekly Hours</span>
+                            <h4 class="fw-bold mt-1 mb-0 text-primary"><t t-esc="state.data.attendance.weekly_hours"/>h</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 text-center border-0 shadow-sm">
+                            <span class="fs-8 text-muted">Monthly Hours</span>
+                            <h4 class="fw-bold mt-1 mb-0 text-primary"><t t-esc="state.data.attendance.monthly_hours"/>h</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 text-center border-0 shadow-sm">
+                            <span class="fs-8 text-muted">Overtime Balance</span>
+                            <h4 class="fw-bold mt-1 mb-0 text-success"><t t-esc="state.data.attendance.overtime_balance"/></h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 text-center border-0 shadow-sm">
+                            <span class="fs-8 text-muted">Attendance Rate</span>
+                            <h4 class="fw-bold mt-1 mb-0 text-dark"><t t-esc="state.data.attendance.attendance_rate"/></h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. LEAVE TAB -->
+                <div t-if="state.activeTab === 'leave'" class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0 text-center bg-primary text-white">
+                            <span class="fs-8 opacity-75">Annual Leave Balance</span>
+                            <h2 class="fw-bold my-1"><t t-esc="state.data.leave.annual_balance"/> Days</h2>
+                            <span class="fs-8">Available to schedule immediately</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0 text-center bg-info text-white">
+                            <span class="fs-8 opacity-75">Sick Leave Balance</span>
+                            <h2 class="fw-bold my-1"><t t-esc="state.data.leave.sick_balance"/> Days</h2>
+                            <span class="fs-8">Medical compliance allocation</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card p-3 shadow-sm border-0">
+                            <h6 class="fw-bold border-bottom pb-2 text-primary">Pending Approval Requests</h6>
+                            <table t-if="state.data.leave.pending_requests.length > 0" class="table table-sm mt-2">
+                                <thead>
+                                    <tr class="fs-7 text-muted"><th>Type</th><th>Days</th><th>Dates</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="state.data.leave.pending_requests" t-as="req" t-key="req_index">
+                                        <td class="fs-7"><t t-esc="req.type"/></td>
+                                        <td class="fs-7 fw-bold"><t t-esc="req.days"/></td>
+                                        <td class="fs-7"><t t-esc="req.from_date"/> -> <t t-esc="req.to_date"/></td>
+                                        <td><button class="btn btn-xs btn-success" t-on-click="() => this.onApproveLeave(req.id)">Approve</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div t-else="" class="text-muted fs-7 text-center py-3">No pending time-off requests.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. PAYROLL TAB -->
+                <div t-if="state.activeTab === 'payroll'" class="card p-3 shadow-sm border-0">
+                    <h6 class="fw-bold border-bottom pb-2 text-primary">Compensation &amp; Payslips</h6>
+                    <div t-if="state.data.payroll.has_access">
+                        <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-3">
+                            <div>
+                                <span class="fs-7 text-muted">Current Basic Monthly Wage:</span>
+                                <h4 class="fw-bold m-0 text-dark"><t t-esc="state.data.payroll.currency"/> <t t-esc="state.data.payroll.current_salary"/></h4>
+                            </div>
+                            <span class="badge bg-success px-3 py-2">Verified Contract</span>
+                        </div>
+                        <h6 class="fw-bold mt-3">Recent Payslip Archives</h6>
+                        <list class="list-group list-group-flush mt-2">
+                            <div t-foreach="state.data.payroll.payslips" t-as="slip" t-key="slip_index" class="list-group-item d-flex justify-content-between align-items-center fs-7">
+                                <div><strong class="text-primary"><t t-esc="slip.name"/></strong> (<t t-esc="slip.date"/>)</div>
+                                <span class="badge bg-secondary"><t t-esc="slip.state.toUpperCase()"/></span>
+                            </div>
+                        </list>
+                    </div>
+                    <div t-else="" class="alert alert-warning m-0">
+                        <i class="fa fa-lock me-2"/> Confidential: Only HR Officers or the employee directly can view detailed payroll wages.
+                    </div>
+                </div>
+
+                <!-- 7. PERFORMANCE TAB -->
+                <div t-if="state.activeTab === 'performance'" class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0 text-center">
+                            <span class="fs-8 text-muted">Overall Appraisal Rating</span>
+                            <h2 class="fw-bold text-warning my-1">⭐ <t t-esc="state.data.performance.rating"/> / 5.0</h2>
+                            <span class="badge bg-success mx-auto"><t t-esc="state.data.performance.rating_label"/></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm border-0 text-center">
+                            <span class="fs-8 text-muted">Annual KPI Goals Attained</span>
+                            <h2 class="fw-bold text-primary my-1"><t t-esc="state.data.performance.goals_completed"/>%</h2>
+                            <span class="text-muted fs-8">Warnings: <t t-esc="state.data.performance.warnings_count"/> | Rewards: <t t-esc="state.data.performance.rewards_count"/></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. SKILLS TAB -->
+                <div t-if="state.activeTab === 'skills'" class="card p-3 shadow-sm border-0">
+                    <h6 class="fw-bold border-bottom pb-2 text-primary">Competency &amp; Skill Matrix</h6>
+                    <div t-foreach="state.data.skills" t-as="skill" t-key="skill.name" class="my-2">
+                        <div class="d-flex justify-content-between fs-7 mb-1">
+                            <strong class="text-dark"><t t-esc="skill.name"/></strong>
+                            <span class="badge bg-light text-dark border"><t t-esc="skill.level"/></span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-primary" t-attf-style="width: {{ skill.progress }}%"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. ASSETS TAB -->
+                <div t-if="state.activeTab === 'assets'" class="card p-3 shadow-sm border-0">
+                    <h6 class="fw-bold border-bottom pb-2 text-primary">Assigned Company Equipment &amp; Assets</h6>
+                    <table class="table table-sm mt-2">
+                        <thead><tr class="fs-7 text-muted"><th>Asset Item</th><th>Serial / IMEI</th><th>Assigned Date</th><th>Condition</th></tr></thead>
+                        <tbody>
+                            <tr t-foreach="state.data.assets" t-as="ast" t-key="ast.serial">
+                                <td class="fs-7 fw-bold"><t t-esc="ast.name"/></td>
+                                <td class="fs-7"><t t-esc="ast.serial"/></td>
+                                <td class="fs-7"><t t-esc="ast.assigned_date"/></td>
+                                <td><span class="badge bg-success"><t t-esc="ast.status"/></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 10. PROJECTS TAB -->
+                <div t-if="state.activeTab === 'projects'" class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card p-3 text-center shadow-sm border-0"><span class="fs-8 text-muted">Active Projects</span><h4 class="fw-bold mt-1 mb-0 text-primary"><t t-esc="state.data.projects.active_projects_count"/></h4></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 text-center shadow-sm border-0"><span class="fs-8 text-muted">Open Tasks</span><h4 class="fw-bold mt-1 mb-0 text-warning"><t t-esc="state.data.projects.open_tasks_count"/></h4></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 text-center shadow-sm border-0 h-100"><span class="fs-8 text-muted">Time Tracking</span><button class="btn btn-sm btn-outline-success mt-2" t-on-click="() => this.setTab('timesheets')"><i class="fa fa-clock-o me-1"/>Open Timesheets</button></div>
+                    </div>
+                </div>
+
+                <!-- 11. TIMESHEETS TAB -->
+                <div t-if="state.activeTab === 'timesheets'">
+                    <div t-if="state.timesheetLoading" class="d-flex flex-column align-items-center justify-content-center py-5">
+                        <div class="spinner-border text-primary mb-3" role="status"/>
+                        <span class="text-muted fs-7">Loading employee timesheets...</span>
+                    </div>
+                    <t t-else="">
+                        <div t-if="state.timesheetData?.allowed" class="employee-timesheet-dashboard">
+                            <div class="employee-timesheet-header mb-3">
+                                <div>
+                                    <span class="employee-timesheet-eyebrow"><i class="fa fa-line-chart me-1"/> Time intelligence</span>
+                                    <h6 class="fw-bold text-dark m-0 mt-1">Employee worklog analytics</h6>
+                                    <span class="fs-8 text-muted"><t t-esc="state.timesheetData.period.date_from"/> to <t t-esc="state.timesheetData.period.date_to"/></span>
+                                </div>
+                                <div class="d-flex flex-wrap align-items-center gap-2">
+                                    <select class="form-select form-select-sm" t-model="state.timesheetPeriod" t-on-change="() => this.loadTimesheets()">
+                                        <option value="this_week">This week</option>
+                                        <option value="this_month">This month</option>
+                                        <option value="last_month">Last month</option>
+                                        <option value="this_quarter">This quarter</option>
+                                        <option value="last_30">Last 30 days</option>
+                                    </select>
+                                    <button class="btn btn-sm btn-primary" t-on-click="() => this.openEmployeeTimesheets()"><i class="fa fa-external-link me-1"/>Open Timesheets</button>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-3 col-6"><div class="employee-timesheet-stat"><span>Logged Hours</span><strong class="text-primary"><t t-esc="state.timesheetData.summary.total_hours"/>h</strong></div></div>
+                                <div class="col-md-3 col-6"><div class="employee-timesheet-stat"><span>Entries</span><strong class="text-info"><t t-esc="state.timesheetData.summary.entry_count"/></strong></div></div>
+                                <div class="col-md-3 col-6"><div class="employee-timesheet-stat"><span>Projects</span><strong class="text-success"><t t-esc="state.timesheetData.by_project.length"/></strong></div></div>
+                                <div class="col-md-3 col-6"><div class="employee-timesheet-stat"><span>Average Entry</span><strong class="text-warning"><t t-esc="state.timesheetData.summary.average_hours_per_entry"/>h</strong></div></div>
+                            </div>
+
+                            <div class="card border-0 shadow-sm p-3 mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2"><h6 class="fw-bold fs-7 m-0">Daily worklog rhythm</h6><span class="fs-8 text-muted"><t t-esc="state.timesheetData.period_label"/></span></div>
+                                <div t-if="state.timesheetData.daily.length" class="employee-timesheet-trend">
+                                    <div t-foreach="state.timesheetData.daily" t-as="day" t-key="day.date" class="employee-timesheet-bar-item">
+                                        <span><t t-esc="day.hours"/></span>
+                                        <div class="employee-timesheet-bar-track"><div class="employee-timesheet-bar-fill" t-att-style="this.timesheetDailyBarStyle(day.hours)"/></div>
+                                        <small><t t-esc="day.label"/></small>
+                                    </div>
+                                </div>
+                                <div t-else="" class="text-center text-muted fs-7 py-3">No time logged in this period.</div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-5">
+                                    <div class="card border-0 shadow-sm p-3 h-100">
+                                        <h6 class="fw-bold fs-7 border-bottom pb-2">Project allocation</h6>
+                                        <div t-foreach="state.timesheetData.by_project" t-as="project" t-key="project.project_id" class="d-flex justify-content-between align-items-center py-2 border-bottom fs-7">
+                                            <span class="text-truncate me-2"><t t-esc="project.name"/></span><strong class="text-primary"><t t-esc="project.hours"/>h</strong>
+                                        </div>
+                                        <div t-if="state.timesheetData.by_project.length === 0" class="text-center text-muted fs-7 py-3">No project allocation found.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card border-0 shadow-sm p-3 h-100">
+                                        <h6 class="fw-bold fs-7 border-bottom pb-2">Recent entries</h6>
+                                        <div t-foreach="state.timesheetData.recent_entries" t-as="entry" t-key="entry.id" class="employee-timesheet-entry" t-on-click="() => this.openTimesheetEntry(entry.id)">
+                                            <div class="overflow-hidden"><strong class="d-block fs-7 text-truncate"><t t-esc="entry.description || entry.project"/></strong><span class="d-block text-muted fs-8 text-truncate"><t t-esc="entry.project"/><t t-if="entry.task"> / <t t-esc="entry.task"/></t> | <t t-esc="entry.date"/></span></div>
+                                            <strong class="text-primary fs-7"><t t-esc="entry.hours"/>h</strong>
+                                        </div>
+                                        <div t-if="state.timesheetData.recent_entries.length === 0" class="text-center text-muted fs-7 py-3">No time entries found.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div t-else="" class="alert alert-warning border-0 shadow-sm m-0">
+                            <i class="fa fa-lock me-2"/><t t-esc="state.timesheetData?.message || 'You need Timesheets access to view this worklog.'"/>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- 12. NOTES TAB -->
+                <div t-if="state.activeTab === 'notes'" class="card p-3 shadow-sm border-0">
+                    <h6 class="fw-bold border-bottom pb-2 text-primary">Confidential HR Notes &amp; Logs</h6>
+                    <p class="fs-7 text-dark m-0 white-space-pre-wrap"><t t-esc="state.data.notes"/></p>
+                </div>
+
+                <!-- 13. TIMELINE TAB: Full Employee History -->
+                <div t-if="state.activeTab === 'timeline'" class="card p-3 shadow-sm border-0">
+                    <!-- Header + Sync button -->
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                        <h6 class="fw-bold text-primary m-0">
+                            ⏳ Chronological Milestone Journal
+                            <span class="badge bg-light text-dark border ms-2 fs-8">
+                                <t t-esc="(state.data.timeline || []).length"/> events
+                            </span>
+                        </h6>
+                        <button class="btn btn-xs btn-outline-primary" t-on-click="() => this.loadData()" title="Re-sync timeline">
+                            <i class="fa fa-refresh me-1"/>Sync
+                        </button>
+                    </div>
+
+                    <!-- Category Filter Chips -->
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                        <button t-attf-class="btn btn-xs {{ state.timelineFilter === 'all' ? 'btn-primary' : 'btn-outline-secondary' }}"
+                                t-on-click="() => this.setTimelineFilter('all')">
+                            📋 All (<t t-esc="(state.data.timeline || []).length"/>)
+                        </button>
+                        <button t-attf-class="btn btn-xs {{ state.timelineFilter === 'employment' ? 'btn-success' : 'btn-outline-secondary' }}"
+                                t-on-click="() => this.setTimelineFilter('employment')">
+                            🏢 Employment
+                        </button>
+                        <button t-attf-class="btn btn-xs {{ state.timelineFilter === 'salary' ? 'btn-primary' : 'btn-outline-secondary' }}"
+                                t-on-click="() => this.setTimelineFilter('salary')">
+                            💰 Salary
+                        </button>
+                        <button t-attf-class="btn btn-xs {{ state.timelineFilter === 'leave' ? 'btn-info' : 'btn-outline-secondary' }}"
+                                t-on-click="() => this.setTimelineFilter('leave')">
+                            🌴 Leave
+                        </button>
+                        <button t-attf-class="btn btn-xs {{ state.timelineFilter === 'performance' ? 'btn-warning' : 'btn-outline-secondary' }}"
+                                t-on-click="() => this.setTimelineFilter('performance')">
+                            📈 Performance
+                        </button>
+                        <button t-attf-class="btn btn-xs {{ state.timelineFilter === 'disciplinary' ? 'btn-danger' : 'btn-outline-secondary' }}"
+                                t-on-click="() => this.setTimelineFilter('disciplinary')">
+                            🚨 Disciplinary
+                        </button>
+                    </div>
+
+                    <!-- Timeline Feed -->
+                    <div t-if="this.filteredTimeline.length > 0" class="position-relative ps-4 border-start border-2 border-primary ms-2">
+                        <div t-foreach="this.filteredTimeline" t-as="evt" t-key="evt.id || evt_index" class="mb-4 position-relative">
+                            <!-- Colored dot -->
+                            <div class="position-absolute rounded-circle"
+                                 t-att-style="this.dotColorStyle(evt.color) + '; width:14px; height:14px; left:-22px; top:3px; border:2px solid white; box-shadow:0 0 0 2px rgba(0,0,0,0.12);'"/>
+                            <!-- Date row -->
+                            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                <span class="fs-8 text-muted fw-semibold">
+                                    <i class="fa fa-calendar-o me-1"/><t t-esc="evt.date"/>
+                                </span>
+                                <span t-if="evt.days_ago !== undefined" class="fs-8 text-muted opacity-75">
+                                    (<t t-esc="evt.days_ago"/> days ago)
+                                </span>
+                                <span t-if="evt.is_synthetic" class="badge bg-light text-muted border fs-8" title="Auto-generated from Odoo records">
+                                    <i class="fa fa-magic me-1"/>auto
+                                </span>
+                            </div>
+                            <!-- Type badge + Title -->
+                            <div class="d-flex align-items-start gap-2 flex-wrap">
+                                <span t-attf-class="badge {{ this.colorClass(evt.color) }} fs-8 flex-shrink-0">
+                                    <t t-esc="evt.icon || ''"/>
+                                    <t t-esc="evt.type_label || evt.type"/>
+                                </span>
+                                <h6 class="fw-bold m-0 text-dark"><t t-esc="evt.title"/></h6>
+                            </div>
+                            <!-- Description -->
+                            <p t-if="evt.description" class="fs-7 text-muted m-0 mt-1 ps-2 border-start border-2 border-secondary">
+                                <t t-esc="evt.description"/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Empty state -->
+                    <div t-else="" class="text-center py-4">
+                        <i class="fa fa-clock-o fa-2x text-muted mb-2 d-block"/>
+                        <p class="text-muted fs-7 m-0">No <strong><t t-esc="this.timelineFilterLabel"/></strong> events recorded yet.</p>
+                        <p class="text-muted fs-8 mt-1">Events are auto-synthesised from contracts, leaves, and appraisals. Manual events can be added via Quick Actions.</p>
+                    </div>
+                </div> <!-- End timeline tab -->
+            </div> <!-- End drawer-body -->
+        </t> <!-- End t-else -->
+        </div> <!-- End employee-360-drawer -->
+    </t>
+</templates>

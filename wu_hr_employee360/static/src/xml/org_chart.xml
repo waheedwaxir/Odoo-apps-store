@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.OrgChartTree" owl="1">
+        <div class="org-chart-container card border-0 shadow-sm p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                <div>
+                    <h6 class="fw-bold m-0 text-dark"><i class="fa fa-sitemap text-primary me-2"/> Interactive Organization Hierarchy Tree</h6>
+                    <span class="fs-8 text-muted">Click to expand/collapse reports. Double-click any card to launch the 360° Profile Drawer.</span>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-secondary" t-on-click="() => this.expandAll()">Expand All</button>
+                    <button class="btn btn-sm btn-outline-secondary" t-on-click="() => this.collapseAll()">Collapse All</button>
+                </div>
+            </div>
+
+            <div class="org-tree-wrapper overflow-auto py-3 text-center">
+                <OrgNode t-if="state.treeData"
+                         node="state.treeData"
+                         onNodeClick="(node) => this.onNodeClick(node)"
+                         onNodeDblClick="(id) => this.onNodeDblClick(id)"/>
+                <div t-else="" class="text-muted py-5">
+                    Building organizational tree hierarchy...
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="wu_hr_employee360.OrgNode" owl="1">
+        <div class="org-node d-inline-block position-relative my-2 mx-3 text-center">
+            <!-- Node Card -->
+            <div t-attf-class="card border p-3 shadow-sm mx-auto transition-all {{ props.node.is_ceo ? 'border-primary bg-primary text-white' : 'bg-white text-dark' }}"
+                 style="width: 210px; cursor: pointer; border-radius: 12px;"
+                 t-on-click="() => props.onNodeClick(props.node)"
+                 t-on-dblclick="() => props.onNodeDblClick(props.node.id)">
+                <img t-att-src="props.node.photo_url" class="rounded-circle mx-auto mb-2 border border-2 border-white shadow-sm" style="width:54px; height:54px; object-fit:cover;" alt="Avatar"/>
+                <h6 t-attf-class="fw-bold m-0 fs-7 text-truncate {{ props.node.is_ceo ? 'text-white' : 'text-dark' }}" t-att-title="props.node.name"><t t-esc="props.node.name"/></h6>
+                <div t-attf-class="fs-8 text-truncate {{ props.node.is_ceo ? 'text-white opacity-75' : 'text-muted' }}"><t t-esc="props.node.job_title"/></div>
+                <div class="mt-2 d-flex justify-content-between align-items-center border-top pt-1 fs-8">
+                    <span t-attf-class="badge rounded-pill {{ props.node.is_ceo ? 'bg-white text-primary' : 'bg-light text-dark border' }}">
+                        <i class="fa fa-users me-1"/> <t t-esc="props.node.children.length"/> Reports
+                    </span>
+                </div>
+            </div>
+
+            <!-- Children Connector and Nodes -->
+            <div t-if="props.node.expanded and props.node.children and props.node.children.length > 0" class="org-children pt-4 position-relative d-flex justify-content-center gap-3">
+                <div class="position-absolute bg-secondary" style="width: 2px; height: 18px; top: 0; left: 50%;"/>
+                <t t-foreach="props.node.children" t-as="child" t-key="child.id">
+                    <OrgNode node="child"
+                             onNodeClick="props.onNodeClick"
+                             onNodeDblClick="props.onNodeDblClick"/>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

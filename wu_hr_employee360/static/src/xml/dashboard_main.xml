@@ -1,0 +1,1776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.DashboardMain" owl="1">
+        <div t-attf-class="o_wu_360_wrapper o_wu_hr_employee360 {{ state.darkMode ? 'o_dark' : '' }}">
+            <!-- Left Sidebar Navigation -->
+            <div class="dashboard-sidebar-exact">
+                <div>
+                    <div class="sidebar-brand d-flex align-items-center">
+                        <div class="brand-icon me-2"><i class="fa fa-cubes text-white"/></div>
+                        <div class="d-flex flex-column">
+                            <span class="brand-title lh-1">Employee 360 Dashboard</span>
+                            <span class="fs-8 text-white-50 mt-1 lh-1">A Complete 360° Overview of Your Workforce</span>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'overview' ? 'active' : '' }}" t-on-click="() => this.setTab('overview')">
+                            <i class="fa fa-th-large"/><span>Dashboard</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'list' ? 'active' : '' }}" t-on-click="() => this.setTab('list')">
+                            <i class="fa fa-users"/><span>Employees</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'attendance' ? 'active' : '' }}" t-on-click="() => this.setTab('attendance')" t-if="!state.data or state.data.installed_modules?.timesheet !== undefined ? state.data?.installed_modules?.attendance !== false : true">
+                            <i class="fa fa-clock-o"/><span>Attendance</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'timesheets' ? 'active' : '' }}" t-on-click="() => this.setTab('timesheets')" t-if="!state.data or state.data?.installed_modules?.timesheet">
+                            <i class="fa fa-list-alt"/><span>Timesheets</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'leave' ? 'active' : '' }}" t-on-click="() => this.setTab('leave')" t-if="!state.data or state.data?.installed_modules?.leave">
+                            <i class="fa fa-calendar-minus-o"/><span>Leaves</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'analytics' ? 'active' : '' }}" t-on-click="() => this.setTab('analytics')" t-if="!state.data or state.data?.installed_modules?.payroll">
+                            <i class="fa fa-money"/><span>Payroll</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'loan' ? 'active' : '' }}" t-on-click="() => this.setTab('loan')" t-if="state.data?.installed_modules?.loan">
+                            <i class="fa fa-money"/><span>Loans</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'recruitment' ? 'active' : '' }}" t-on-click="() => this.setTab('recruitment')" t-if="!state.data or state.data?.installed_modules?.recruitment">
+                            <i class="fa fa-user-plus"/><span>Recruitment</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'charts_overview' ? 'active' : '' }}" t-on-click="() => this.setTab('charts_overview')" t-if="!state.data or state.data?.installed_modules?.performance">
+                            <i class="fa fa-line-chart"/><span>Performance</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'lifecycle' ? 'active' : '' }}" t-on-click="() => this.setTab('lifecycle')" t-if="!state.data or state.data?.installed_modules?.contracts">
+                            <i class="fa fa-file-text-o"/><span>Contracts</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'compliance' ? 'active' : '' }}" t-on-click="() => this.setTab('compliance')" t-if="!state.data or state.data?.installed_modules?.documents">
+                            <i class="fa fa-folder-open-o"/><span>Documents</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'orgchart' ? 'active' : '' }}" t-on-click="() => this.setTab('orgchart')">
+                            <i class="fa fa-sitemap"/><span>Org Chart</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'analytics' ? 'active' : '' }}" t-on-click="() => this.setTab('analytics')">
+                            <i class="fa fa-bar-chart"/><span>Reports</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'analytics' ? 'active' : '' }}" t-on-click="() => this.setTab('analytics')">
+                            <i class="fa fa-area-chart"/><span>Analytics</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'calendar' ? 'active' : '' }}" t-on-click="() => this.setTab('calendar')">
+                            <i class="fa fa-calendar"/><span>Calendar</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'alerts_actions' ? 'active' : '' }}" t-on-click="() => this.setTab('alerts_actions')">
+                            <i class="fa fa-bell-o"/><span>Alerts</span>
+                            <span class="badge bg-danger ms-auto badge-pill">8</span>
+                        </button>
+                        <button t-attf-class="sidebar-item {{ state.activeTab === 'alerts_actions' ? 'active' : '' }}" t-on-click="() => this.setTab('alerts_actions')">
+                            <i class="fa fa-cog"/><span>Settings</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Main Viewport Area -->
+            <div class="dashboard-main-viewport">
+                <!-- Top Header Row -->
+                <div class="viewport-header">
+                    <div class="header-title-box"/>
+
+                    <div class="header-actions-row">
+                        <div class="search-filter-wrapper position-relative d-flex align-items-center">
+                            <i class="fa fa-search position-absolute text-muted" style="left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 10;"/>
+                            <input type="text" class="filter-dropdown shadow-sm" style="min-width: 220px; height: 38px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 13px; padding-left: 32px !important;" placeholder="Search user / system user..." t-model="state.filters.employee_search" t-on-input="() => this.onFilterChange()"/>
+                        </div>
+                        <select class="filter-dropdown" t-model="state.filters.company_id" t-on-change="() => this.onFilterChange()">
+                            <option value="">Company: All Companies</option>
+                            <option t-foreach="state.meta.companies" t-as="c" t-key="c.id" t-att-value="c.id"><t t-esc="c.name"/></option>
+                        </select>
+                        <select class="filter-dropdown" t-model="state.filters.department_id" t-on-change="() => this.onFilterChange()">
+                            <option value="">Department: All Departments</option>
+                            <option t-foreach="state.meta.departments" t-as="d" t-key="d.id" t-att-value="d.id"><t t-esc="d.name"/></option>
+                        </select>
+                        <select class="filter-dropdown" t-model="state.filters.manager_id" t-on-change="() => this.onFilterChange()">
+                            <option value="">Manager: All Managers</option>
+                        </select>
+                        <!-- Predefined Date Filter (20 options + Custom) -->
+                        <div class="d-flex align-items-center gap-1">
+                            <select class="filter-dropdown" t-model="state.filters.date_filter" t-on-change="() => this.onFilterChange()" style="height: 38px;">
+                                <option value="today">Today</option>
+                                <option value="yesterday">Yesterday</option>
+                                <option value="this_week">This Week</option>
+                                <option value="last_week">Last Week</option>
+                                <option value="this_month">This Month</option>
+                                <option value="last_month">Last Month</option>
+                                <option value="this_quarter">This Quarter</option>
+                                <option value="last_quarter">Last Quarter</option>
+                                <option value="this_year">This Year</option>
+                                <option value="last_year">Last Year</option>
+                                <option value="last_7">Last 7 Days</option>
+                                <option value="last_15">Last 15 Days</option>
+                                <option value="last_30">Last 30 Days</option>
+                                <option value="last_60">Last 60 Days</option>
+                                <option value="last_90">Last 90 Days</option>
+                                <option value="last_180">Last 180 Days</option>
+                                <option value="last_365">Last 365 Days</option>
+                                <option value="next_7">Next 7 Days</option>
+                                <option value="next_30">Next 30 Days</option>
+                                <option value="custom">Custom Date Range...</option>
+                            </select>
+                            
+                            <!-- Custom Date Range Inputs -->
+                            <t t-if="state.filters.date_filter === 'custom'">
+                                <input type="date" class="filter-dropdown px-2 text-dark bg-white border border-light shadow-sm" t-model="state.filters.start_date" t-on-change="() => this.onFilterChange()" style="height: 38px; max-width: 130px; font-size: 11px;"/>
+                                <span class="text-muted fw-bold mx-1" style="font-size: 11px;">to</span>
+                                <input type="date" class="filter-dropdown px-2 text-dark bg-white border border-light shadow-sm" t-model="state.filters.end_date" t-on-change="() => this.onFilterChange()" style="height: 38px; max-width: 130px; font-size: 11px;"/>
+                            </t>
+                        </div>
+                        <button class="btn-refresh" t-on-click="() => this.refreshData()">
+                            <i class="fa fa-refresh"/> Refresh
+                        </button>
+                        <button t-if="state.data?.can_edit and state.data?.is_admin" class="filter-dropdown d-flex align-items-center gap-1 border-0 bg-white shadow-sm" style="height: 38px;" t-on-click="() => this.toggleGlobalAccessControl()" title="Toggle Strict Manager Access Mode">
+                            <i t-attf-class="fa {{ state.data?.access_managers_only ? 'fa-lock text-danger' : 'fa-unlock text-success' }}"/>
+                            <span class="fs-8 fw-bold" t-attf-class="{{ state.data?.access_managers_only ? 'text-danger' : 'text-success' }}">
+                                <t t-esc="state.data?.access_managers_only ? 'Strict Mode' : 'Open Mode'"/>
+                            </span>
+                        </button>
+                        <!-- Config Dropdown -->
+                        <div class="position-relative" t-if="state.data?.can_edit">
+                            <button class="filter-dropdown d-flex align-items-center gap-1 border-0 bg-white shadow-sm" style="height: 38px;" t-on-click="() => this.toggleConfigPopover()">
+                                <i class="fa fa-cog text-secondary"/> Layout
+                            </button>
+                            <div t-if="state.showConfigPopover" class="position-absolute bg-white border shadow p-3 rounded-3" style="right: 0; top: 45px; z-index: 1000; min-width: 250px; text-align: left;">
+                                <h6 class="fw-bold mb-2 border-bottom pb-1 text-dark" style="font-size: 13px;">Toggle Dashboard Widgets</h6>
+                                <div class="d-flex flex-column gap-2" style="max-height: 250px; overflow-y: auto;">
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.attendance_overview" t-on-change="() => this.togglePanelVisibility('attendance_overview')"/> <span>Attendance Overview</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.attendance_trend" t-on-change="() => this.togglePanelVisibility('attendance_trend')"/> <span>Attendance Trend</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.leave_summary" t-on-change="() => this.togglePanelVisibility('leave_summary')"/> <span>Leave Summary</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.payroll_overview" t-on-change="() => this.togglePanelVisibility('payroll_overview')"/> <span>Payroll Overview</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.hr_alerts" t-on-change="() => this.togglePanelVisibility('hr_alerts')"/> <span>HR Alerts</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.dept_overview" t-on-change="() => this.togglePanelVisibility('dept_overview')"/> <span>Department Overview</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.recruitment_overview" t-on-change="() => this.togglePanelVisibility('recruitment_overview')"/> <span>Recruitment Overview</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.employee_distribution" t-on-change="() => this.togglePanelVisibility('employee_distribution')"/> <span>Employee Distribution</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.compliance_overview" t-on-change="() => this.togglePanelVisibility('compliance_overview')"/> <span>Compliance Overview</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.smart_calendar" t-on-change="() => this.togglePanelVisibility('smart_calendar')"/> <span>Smart Calendar</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.todays_activities" t-on-change="() => this.togglePanelVisibility('todays_activities')"/> <span>Today's Activities</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.top_performers" t-on-change="() => this.togglePanelVisibility('top_performers')"/> <span>Top Performers</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.leave_requests" t-on-change="() => this.togglePanelVisibility('leave_requests')"/> <span>Leave Requests</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.quick_actions" t-on-change="() => this.togglePanelVisibility('quick_actions')"/> <span>Quick Actions</span>
+                                    </label>
+                                </div>
+                                <div class="mt-3 pt-2 border-top d-flex gap-2">
+                                    <button class="btn btn-xs btn-primary w-50 d-flex align-items-center justify-content-center gap-1 text-white" t-on-click="() => this.exportDashboardLayout()" style="font-size: 11px; padding: 4px 8px;">
+                                        <i class="fa fa-download"/> <span>Export Layout</span>
+                                    </button>
+                                    <button class="btn btn-xs btn-outline-primary w-50 d-flex align-items-center justify-content-center gap-1" t-on-click="() => this.triggerImportInput()" style="font-size: 11px; padding: 4px 8px;">
+                                        <i class="fa fa-upload"/> <span>Import Layout</span>
+                                    </button>
+                                    <input type="file" t-ref="importLayoutInput" class="d-none" accept=".json" t-on-change="(ev) => this.importDashboardLayout(ev)"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div t-if="!state.loading and state.data" class="tab-contents-container">
+                    <!-- Restricted Access / Empty Personal Dashboard Alert -->
+                    <div t-if="state.data.is_restricted" class="d-flex flex-column align-items-center justify-content-center py-5 my-5 text-center">
+                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center border shadow-sm" style="width: 100px; height: 100px;">
+                            <i class="fa fa-lock text-danger" style="font-size: 48px;"/>
+                        </div>
+                        <h4 class="fw-bold mt-4 text-dark">Your personal dashboard is empty</h4>
+                        <p class="text-muted fs-7 mb-3" style="max-width: 450px;">To add dashboard items, use the edit / add layout options or ask your system administrator for access.</p>
+                        <span class="badge bg-danger rounded-pill px-3 py-1 fw-bold fs-8">Strict Manager Access Mode Active</span>
+                    </div>
+
+                    <!-- Render only if NOT restricted -->
+                    <t t-if="!state.data.is_restricted">
+                        <!-- EXACT REFERENCE OVERVIEW TAB (When Dashboard/Overview is active) -->
+                        <div t-if="state.activeTab === 'overview'" class="mt-2">
+                        <!-- KPI Row 1 (7 Cards) -->
+                        <div class="kpi-row-exact">
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('total_employees')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-blue"><i class="fa fa-users"/></div>
+                                    <span class="kpi-badge badge-up"><t t-esc="state.data?.kpis?.total_emp_vs_last ?? '0% vs last month'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Total Employees</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.total_employees ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('present_today')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-green"><i class="fa fa-user-check"/></div>
+                                    <span t-attf-class="kpi-badge badge-sub {{ (state.data?.kpis?.present_today or 0) > 0 ? 'text-success' : 'text-muted' }}"><t t-esc="state.data?.kpis?.present_pct ?? Math.round(((state.data?.kpis?.present_today || 0) / (state.data?.kpis?.total_employees || 1)) * 100) + '% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Present Today</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.present_today ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('on_leave_today')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-orange"><i class="fa fa-plane"/></div>
+                                    <span t-attf-class="kpi-badge badge-sub {{ (state.data?.kpis?.on_leave_today or 0) > 0 ? 'text-warning' : 'text-muted' }}"><t t-esc="state.data?.kpis?.on_leave_pct ?? Math.round(((state.data?.kpis?.on_leave_today || 0) / (state.data?.kpis?.total_employees || 1)) * 100) + '% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">On Leave</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.on_leave_today ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.setTab('leave')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-blue"><i class="fa fa-sun-o"/></div>
+                                    <span t-attf-class="kpi-badge badge-sub {{ (state.data?.kpis?.on_vacation_today or 0) > 0 ? 'text-info' : 'text-muted' }}"><t t-esc="state.data?.kpis?.on_vacation_pct ?? Math.round(((state.data?.kpis?.on_vacation_today || 0) / (state.data?.kpis?.total_employees || 1)) * 100) + '% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">On Vacation</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.on_vacation_today ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('late_today')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-red"><i class="fa fa-clock-o"/></div>
+                                    <span t-attf-class="kpi-badge badge-sub {{ (state.data?.kpis?.late_today or 0) > 0 ? 'text-danger' : 'text-muted' }}"><t t-esc="state.data?.kpis?.late_pct ?? Math.round(((state.data?.kpis?.late_today || 0) / (state.data?.kpis?.total_employees || 1)) * 100) + '% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Late Today</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.late_today ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('checked_out')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-purple"><i class="fa fa-shield"/></div>
+                                    <span t-attf-class="kpi-badge badge-sub {{ (state.data?.kpis?.early_checkout or 0) > 0 ? 'text-purple' : 'text-muted' }}" style="color: #9333ea;"><t t-esc="state.data?.kpis?.early_checkout_pct ?? Math.round(((state.data?.kpis?.early_checkout || 0) / (state.data?.kpis?.total_employees || 1)) * 100) + '% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Early Checkout</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.early_checkout ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.setTab('attendance')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-orange"><i class="fa fa-history"/></div>
+                                    <span t-attf-class="kpi-badge badge-sub {{ (state.data?.kpis?.overtime_today or 0) > 0 ? 'text-warning' : 'text-muted' }}"><t t-esc="state.data?.kpis?.overtime_pct ?? Math.round(((state.data?.kpis?.overtime_today || 0) / (state.data?.kpis?.total_employees || 1)) * 100) + '% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Overtime Today</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.overtime_today ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- KPI Row 2 (additional cards merged into unified grid) -->
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('new_joiners')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-green"><i class="fa fa-user-plus"/></div>
+                                    <span class="kpi-badge badge-up"><t t-esc="state.data?.kpis?.new_joiners_vs_last ?? '0% vs last month'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">New Joiners (<t t-esc="state.data?.kpis?.date_label ?? 'This Period'"/>)</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.new_joiners ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('resigned_employees')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-red"><i class="fa fa-user-times"/></div>
+                                    <span class="kpi-badge badge-down"><t t-esc="state.data?.kpis?.resigned_vs_last ?? '0% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Leaving (<t t-esc="state.data?.kpis?.date_label ?? 'This Period'"/>)</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.resigned_employees ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('contract_expiring')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-orange"><i class="fa fa-file-text-o"/></div>
+                                    <span class="kpi-badge badge-alert">Alert</span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Contracts Expiring (30 Days)</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.contract_expiring ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('visa_expiring')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-orange"><i class="fa fa-id-card-o"/></div>
+                                    <span class="kpi-badge badge-alert">Alert</span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Visa Expiring (30 Days)</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.visa_expiring ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('birthday_today')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-pink"><i class="fa fa-birthday-cake"/></div>
+                                    <a href="#" class="kpi-link text-purple" t-on-click.prevent="() => this.setTab('calendar')">View All</a>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Birthdays (<t t-esc="state.data?.kpis?.date_label ?? 'This Period'"/>)</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.birthday_today ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kpi-compact-card" t-on-click="() => this.onKpiClick('probation_employees')">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon-circle icon-blue"><i class="fa fa-balance-scale"/></div>
+                                    <span t-attf-class="kpi-badge badge-sub {{ (state.data?.kpis?.probation_employees or 0) > 0 ? 'text-primary' : 'text-muted' }}"><t t-esc="state.data?.kpis?.probation_pct ?? Math.round(((state.data?.kpis?.probation_employees || 0) / (state.data?.kpis?.total_employees || 1)) * 100) + '% of total'"/></span>
+                                </div>
+                                <div class="kpi-bottom">
+                                    <div class="kpi-label">Probation Employees</div>
+                                    <div class="kpi-value-row">
+                                        <span class="kpi-number"><t t-esc="state.data?.kpis?.probation_employees ?? 0"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drag-and-Drop Configurable Panels Row Grid -->
+                        <div class="row g-3 mt-3">
+                            <t t-foreach="state.panelOrder" t-as="panel" t-key="panel">
+                                <t t-if="state.panelVisibility[panel]">
+
+                                    <!-- 1. Attendance Overview -->
+                                    <div t-if="panel === 'attendance_overview'" class="col-xl-3 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'attendance_overview')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'attendance_overview')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Attendance Overview</h6>
+                                                    <span class="badge bg-success bg-opacity-10 text-success fs-8">Live Rate</span>
+                                                </div>
+                                                <div class="svg-donut-wrapper my-3">
+                                                    <div class="donut-circle-box">
+                                                        <svg viewBox="0 0 36 36">
+                                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e2e8f0" stroke-width="3.5"/>
+                                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#10b981" stroke-width="3.5" t-attf-style="stroke-dasharray: {{ state.data.attendance_dashboard.attendance_rate or 0 }}, 100"/>
+                                                        </svg>
+                                                        <div class="center-text"><t t-esc="state.data.attendance_dashboard.attendance_rate or 0"/>%</div>
+                                                    </div>
+                                                    <div class="donut-legend">
+                                                        <div class="legend-item"><span class="dot bg-success"/> Present <t t-esc="state.data.attendance_dashboard.present_today or 0"/> (<t t-esc="state.data.attendance_dashboard.attendance_rate or 0"/>%)</div>
+                                                        <div class="legend-item"><span class="dot bg-danger"/> Absent <t t-esc="state.data.attendance_dashboard.absent_today or 0"/> (<t t-esc="state.data.attendance_dashboard.absent_rate or 0"/>%)</div>
+                                                        <div class="legend-item"><span class="dot bg-warning"/> Leave <t t-esc="state.data.kpis.on_leave_today or 0"/></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-end mt-2">
+                                                <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('attendance')">View Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. Attendance Trend (Weekly) -->
+                                    <div t-if="panel === 'attendance_trend'" class="col-xl-3 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'attendance_trend')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'attendance_trend')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Attendance Trend (Weekly)</h6>
+                                                </div>
+                                                <div class="my-2" style="height: 140px;">
+                                                    <svg viewBox="0 0 200 80" class="w-100 h-100">
+                                                        <!-- Grid lines -->
+                                                        <line x1="0" y1="20" x2="200" y2="20" stroke="#f1f5f9" stroke-width="1"/>
+                                                        <line x1="0" y1="40" x2="200" y2="40" stroke="#f1f5f9" stroke-width="1"/>
+                                                        <line x1="0" y1="60" x2="200" y2="60" stroke="#f1f5f9" stroke-width="1"/>
+                                                        <!-- Dynamic Trend representation -->
+                                                        <polyline fill="none" stroke="#6366f1" stroke-width="2.5" points="5,45 35,38 65,40 95,35 125,22 155,30 190,26"/>
+                                                        <polyline fill="none" stroke="#10b981" stroke-width="2" points="5,65 35,58 65,68 95,62 125,66 155,55 190,60"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="d-flex justify-content-between text-muted fs-8 px-1">
+                                                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center gap-3 fs-8 mt-2">
+                                                <span class="d-flex align-items-center gap-1 fw-bold text-dark"><span class="d-inline-block rounded-circle" style="width: 8px; height: 8px; background: #6366f1;"/> Present %</span>
+                                                <span class="d-flex align-items-center gap-1 fw-bold text-dark"><span class="d-inline-block rounded-circle" style="width: 8px; height: 8px; background: #10b981;"/> Absent %</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. Leave Summary -->
+                                    <div t-if="panel === 'leave_summary'" class="col-xl-2 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'leave_summary')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'leave_summary')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Leave Summary</h6>
+                                                </div>
+                                                <div class="svg-donut-wrapper my-2">
+                                                    <div class="donut-circle-box" style="width: 100px; height: 100px;">
+                                                        <svg viewBox="0 0 36 36">
+                                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#6366f1" stroke-width="4" stroke-dasharray="60, 100"/>
+                                                        </svg>
+                                                        <div class="center-text fs-6"><t t-esc="state.data.leave_dashboard.approved_leave or 0"/><div class="fs-8 text-muted fw-normal">Approved</div></div>
+                                                    </div>
+                                                    <div class="donut-legend">
+                                                        <div class="legend-item"><span class="dot" style="background: #3b82f6;"/> Annual: <t t-esc="state.data.leave_dashboard.annual_leave or 0"/></div>
+                                                        <div class="legend-item"><span class="dot" style="background: #ec4899;"/> Sick: <t t-esc="state.data.leave_dashboard.sick_leave or 0"/></div>
+                                                        <div class="legend-item"><span class="dot" style="background: #f59e0b;"/> Unpaid: <t t-esc="state.data.leave_dashboard.unpaid_leave or 0"/></div>
+                                                        <div class="legend-item"><span class="dot" style="background: #8b5cf6;"/> Pending: <t t-esc="state.data.leave_dashboard.pending_leave or 0"/></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-2">
+                                                <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('leave')">View Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 4. Payroll Overview -->
+                                    <div t-if="panel === 'payroll_overview'" class="col-xl-2 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'payroll_overview')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'payroll_overview')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Payroll Overview</h6>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <div class="fs-8 text-muted fw-bold">Total Payroll Cost</div>
+                                                    <div class="fs-5 fw-bolder text-dark"><t t-esc="state.data.payroll_overview.total_payroll_cost"/></div>
+                                                </div>
+                                                <div style="height: 60px;">
+                                                    <svg viewBox="0 0 100 30" class="w-100 h-100">
+                                                        <polyline fill="none" stroke="#6366f1" stroke-width="2" points="0,25 20,22 40,15 60,18 80,8 100,5"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center fs-8 mt-2 pt-2 border-top">
+                                                    <div>
+                                                        <div class="text-muted">Avg. Cost</div>
+                                                        <div class="fw-bold text-dark"><t t-esc="state.data.payroll_overview.avg_cost_per_employee"/></div>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <div class="text-muted">Payslips</div>
+                                                        <div class="fw-bold text-dark"><t t-esc="state.data.payroll_overview.this_month_payslips or 0"/></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 5. HR Alerts -->
+                                    <div t-if="panel === 'hr_alerts'" class="col-xl-2 col-md-12 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'hr_alerts')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'hr_alerts')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title d-flex align-items-center gap-1"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/><i class="fa fa-exclamation-circle text-danger"/> HR Alerts</h6>
+                                                </div>
+                                                <div class="d-flex flex-column gap-2 fs-8">
+                                                    <div class="d-flex justify-content-between align-items-center"><span class="text-muted"><i class="fa fa-file-text-o text-danger me-1"/> Contracts Expiring</span><span class="badge bg-danger rounded-pill"><t t-esc="state.data.kpis.contract_expiring or 0"/></span></div>
+                                                    <div class="d-flex justify-content-between align-items-center"><span class="text-muted"><i class="fa fa-cc-visa text-danger me-1"/> Visa Expiring</span><span class="badge bg-danger text-white rounded-pill"><t t-esc="state.data.kpis.visa_expiring or 0"/></span></div>
+                                                    <div class="d-flex justify-content-between align-items-center"><span class="text-muted"><i class="fa fa-clock-o text-danger me-1"/> Missing Attendance</span><span class="badge bg-danger rounded-pill"><t t-esc="state.data.kpis.missing_checkout or 0"/></span></div>
+                                                    <div class="d-flex justify-content-between align-items-center"><span class="text-muted"><i class="fa fa-balance-scale text-primary me-1"/> Probation Ending</span><span class="badge bg-primary rounded-pill"><t t-esc="state.data.kpis.probation_employees or 0"/></span></div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-2 pt-2 border-top">
+                                                <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('alerts_actions')">View All Alerts</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 6. Department Overview -->
+                                    <div t-if="panel === 'dept_overview'" class="col-xl-6 col-lg-12 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'dept_overview')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'dept_overview')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div t-attf-class="panel-card-exact {{ state.tileConfigs.dept_overview?.bgColor or 'bg-white' }} {{ state.tileConfigs.dept_overview?.layout or 'layout-1' }}" t-attf-style="font-family: {{ state.tileConfigs.dept_overview?.fontStyle or 'inherit' }}; color: {{ state.tileConfigs.dept_overview?.fontColor or 'inherit' }};">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title">
+                                                        <i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>
+                                                        <t t-if="state.editingTitleInline === 'dept_overview'">
+                                                            <input type="text" class="form-control form-control-sm d-inline-block border-0 border-bottom bg-transparent text-dark p-0 fw-bold" t-att-value="state.tileTitles.dept_overview or 'Department Overview'" t-on-blur="(ev) => this.saveInlineEdit('dept_overview', ev)" t-on-keydown="(ev) => ev.key === 'Enter' ? this.saveInlineEdit('dept_overview', ev) : null" style="max-width: 200px; font-size: 13px; outline: none;"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-on-dblclick="() => this.startInlineEdit('dept_overview')" title="Double-click to edit instantly" class="cursor-pointer">
+                                                                <t t-esc="state.tileTitles.dept_overview or 'Department Overview'"/>
+                                                            </span>
+                                                        </t>
+                                                        <i class="fa fa-pencil text-muted cursor-pointer hover-accent ms-2" t-on-click="() => this.openTileConfigurator('dept_overview')" title="Configure Tile"/>
+                                                    </h6>
+                                                </div>
+                                                <table class="clean-table">
+                                                    <thead>
+                                                        <tr><th>Department</th><th>Emp</th><th>Att %</th><th>Leave %</th><th class="text-end">Cost</th></tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr t-foreach="this.displayedDeptOverview" t-as="dept" t-key="dept_index">
+                                                            <td class="fw-bold"><t t-esc="dept.dept"/></td>
+                                                            <td><t t-esc="dept.emp"/></td>
+                                                            <td><span class="text-success fw-bold"><t t-esc="dept.att_pct"/></span></td>
+                                                            <td><t t-esc="dept.leave_pct"/></td>
+                                                            <td class="text-end"><t t-esc="dept.cost"/></td>
+                                                        </tr>
+                                                        <tr t-if="!this.displayedDeptOverview or this.displayedDeptOverview.length === 0">
+                                                            <td colspan="5" class="text-center text-muted py-3">No department data found.</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="text-center mt-2">
+                                                <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('charts_overview')">View All</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 7. Recruitment Overview -->
+                                    <div t-if="panel === 'recruitment_overview'" class="col-xl-6 col-lg-12 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'recruitment_overview')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'recruitment_overview')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Recruitment Overview</h6>
+                                                    <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('recruitment')">View Details</a>
+                                                </div>
+                                                <div class="d-flex justify-content-between text-center mb-3">
+                                                    <div><div class="fs-8 text-muted">Open Positions</div><div class="fs-5 fw-bold text-primary"><t t-esc="state.data.recruitment_dashboard.open_positions or 0"/></div></div>
+                                                    <div><div class="fs-8 text-muted">Candidates</div><div class="fs-5 fw-bold text-dark"><t t-esc="state.data.recruitment_dashboard.candidates or 0"/></div></div>
+                                                    <div><div class="fs-8 text-muted">Interviews Today</div><div class="fs-5 fw-bold text-info"><t t-esc="state.data.recruitment_dashboard.interviews_today or 0"/></div></div>
+                                                    <div><div class="fs-8 text-muted">Hired (Month)</div><div class="fs-5 fw-bold text-success"><t t-esc="state.data.recruitment_dashboard.hired_month or 0"/></div></div>
+                                                </div>
+                                                <div class="fs-8 text-muted fw-bold mb-1">Hiring Trend</div>
+                                                <div class="d-flex justify-content-between align-items-end" style="height: 80px;">
+                                                    <div class="d-flex flex-column align-items-center gap-1 w-100"><div class="bg-primary rounded-top" style="width: 14px; height: 35px;"/><span class="fs-8 text-muted">M-5</span></div>
+                                                    <div class="d-flex flex-column align-items-center gap-1 w-100"><div class="bg-primary rounded-top" style="width: 14px; height: 45px;"/><span class="fs-8 text-muted">M-4</span></div>
+                                                    <div class="d-flex flex-column align-items-center gap-1 w-100"><div class="bg-primary rounded-top" style="width: 14px; height: 30px;"/><span class="fs-8 text-muted">M-3</span></div>
+                                                    <div class="d-flex flex-column align-items-center gap-1 w-100"><div class="bg-primary rounded-top" style="width: 14px; height: 60px;"/><span class="fs-8 text-muted">M-2</span></div>
+                                                    <div class="d-flex flex-column align-items-center gap-1 w-100"><div class="bg-primary rounded-top" style="width: 14px; height: 75px;"/><span class="fs-8 text-muted">M-1</span></div>
+                                                    <div class="d-flex flex-column align-items-center gap-1 w-100"><div class="bg-primary rounded-top" style="width: 14px; height: 50px;"/><span class="fs-8 text-muted">Curr</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 8. Employee Distribution -->
+                                    <div t-if="panel === 'employee_distribution'" class="col-xl-4 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'employee_distribution')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'employee_distribution')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Employee Distribution</h6>
+                                                </div>
+                                                <div class="svg-donut-wrapper my-2">
+                                                    <div class="donut-circle-box" style="width: 110px; height: 110px;">
+                                                        <svg viewBox="0 0 36 36">
+                                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#ec4899" stroke-width="4"/>
+                                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#3b82f6" stroke-width="4" t-attf-style="stroke-dasharray: {{ state.data.employee_distribution.male_pct or 0 }}, 100"/>
+                                                        </svg>
+                                                        <div class="center-text fs-6"><t t-esc="state.data.employee_distribution.total or 0"/><div class="fs-8 text-muted fw-normal">Total</div></div>
+                                                    </div>
+                                                    <div class="donut-legend">
+                                                        <div class="legend-item"><span class="dot bg-primary"/> Male <t t-esc="state.data.employee_distribution.male or 0"/> (<t t-esc="state.data.employee_distribution.male_pct or 0"/>%)</div>
+                                                        <div class="legend-item"><span class="dot" style="background: #ec4899;"/> Female <t t-esc="state.data.employee_distribution.female or 0"/> (<t t-esc="state.data.employee_distribution.female_pct or 0"/>%)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-around fs-8 pt-2 border-top text-center mt-2">
+                                                    <div><div class="fw-bold text-success">Locals</div><div class="text-muted"><t t-esc="state.data.employee_distribution.locals or 0"/> (<t t-esc="state.data.employee_distribution.locals_pct or 0"/>%)</div></div>
+                                                    <div><div class="fw-bold text-primary">Expats</div><div class="text-muted"><t t-esc="state.data.employee_distribution.expats or 0"/> (<t t-esc="state.data.employee_distribution.expats_pct or 0"/>%)</div></div>
+                                                    <div><div class="fw-bold text-dark">Nationalities</div><div class="text-muted"><t t-esc="state.data.employee_distribution.nationalities or 0"/></div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 9. Compliance Overview -->
+                                    <div t-if="panel === 'compliance_overview'" class="col-xl-4 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'compliance_overview')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'compliance_overview')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Compliance Overview</h6>
+                                                </div>
+                                                <div class="d-flex flex-column gap-2 fs-8">
+                                                    <div>
+                                                        <div class="d-flex justify-content-between mb-1"><span>Visa Expiring</span><span class="fw-bold text-danger"><t t-esc="state.data.kpis.visa_expiring or 0"/></span></div>
+                                                        <div class="progress" style="height: 6px;"><div class="progress-bar bg-danger" t-attf-style="width: {{ Math.min(100, (state.data.kpis.visa_expiring or 0) * 10) }}%"/></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="d-flex justify-content-between mb-1"><span>Contracts Expiring</span><span class="fw-bold text-info"><t t-esc="state.data.kpis.contract_expiring or 0"/></span></div>
+                                                        <div class="progress" style="height: 6px;"><div class="progress-bar bg-info" t-attf-style="width: {{ Math.min(100, (state.data.kpis.contract_expiring or 0) * 10) }}%"/></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="d-flex justify-content-between mb-1"><span>Probation Ending</span><span class="fw-bold text-primary"><t t-esc="state.data.kpis.probation_employees or 0"/></span></div>
+                                                        <div class="progress" style="height: 6px;"><div class="progress-bar bg-primary" t-attf-style="width: {{ Math.min(100, (state.data.kpis.probation_employees or 0) * 10) }}%"/></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-2 pt-1 border-top">
+                                                <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('compliance')">View All</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 10. Smart Calendar -->
+                                    <div t-if="panel === 'smart_calendar'" class="col-xl-4 col-md-12 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'smart_calendar')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'smart_calendar')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div t-attf-class="panel-card-exact {{ state.tileConfigs.smart_calendar?.bgColor or 'bg-white' }} {{ state.tileConfigs.smart_calendar?.layout or 'layout-1' }}" t-attf-style="font-family: {{ state.tileConfigs.smart_calendar?.fontStyle or 'inherit' }}; color: {{ state.tileConfigs.smart_calendar?.fontColor or 'inherit' }};">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title">
+                                                        <i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>
+                                                        <t t-if="state.editingTitleInline === 'smart_calendar'">
+                                                            <input type="text" class="form-control form-control-sm d-inline-block border-0 border-bottom bg-transparent text-dark p-0 fw-bold" t-att-value="state.tileTitles.smart_calendar or 'Smart Calendar'" t-on-blur="(ev) => this.saveInlineEdit('smart_calendar', ev)" t-on-keydown="(ev) => ev.key === 'Enter' ? this.saveInlineEdit('smart_calendar', ev) : null" style="max-width: 180px; font-size: 13px; outline: none;"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-on-dblclick="() => this.startInlineEdit('smart_calendar')" title="Double-click to edit instantly" class="cursor-pointer">
+                                                                <t t-esc="state.tileTitles.smart_calendar or 'Smart Calendar'"/>
+                                                            </span>
+                                                        </t>
+                                                        <i class="fa fa-pencil text-muted cursor-pointer hover-accent ms-2" t-on-click="() => this.openTileConfigurator('smart_calendar')" title="Configure Tile"/>
+                                                    </h6>
+                                                    <span class="fs-8 fw-bold text-purple">&lt; Live Schedule &gt;</span>
+                                                </div>
+                                                <div class="d-flex flex-column gap-2 py-1" style="max-height: 160px; overflow-y: auto;">
+                                                    <t t-foreach="this.displayedCalendarEvents" t-as="ev" t-key="ev_index">
+                                                        <div class="p-2 border rounded-2 bg-light d-flex align-items-center justify-content-between fs-8" t-att-style="ev.emp_id ? 'cursor: pointer;' : ''" t-on-click="() => ev.emp_id ? this.open360Drawer(ev.emp_id) : null">
+                                                            <div><i t-attf-class="fa {{ ev.icon }} me-1"/><span class="fw-bold text-dark"><t t-esc="ev.title"/></span></div>
+                                                            <span class="text-muted"><t t-esc="ev.date"/></span>
+                                                        </div>
+                                                    </t>
+                                                    <div t-if="!this.displayedCalendarEvents or this.displayedCalendarEvents.length === 0" class="text-center text-muted fs-8 py-3">
+                                                        No upcoming events this week.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 11. Today's Activities -->
+                                    <div t-if="panel === 'todays_activities'" class="col-xl-3 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'todays_activities')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'todays_activities')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Today's Activities</h6>
+                                                </div>
+                                                <div class="d-flex flex-column gap-2">
+                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('birthday_today_exact'); }" title="Show employees with birthday today">
+                                                        <div class="p-2 rounded bg-danger bg-opacity-10 text-danger"><i class="fa fa-birthday-cake"/></div>
+                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.birthdays_today or 0"/> Birthdays</div><div class="text-muted">Today</div></div>
+                                                        <i class="fa fa-chevron-right text-muted" style="font-size:10px;"/>
+                                                    </div>
+                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('interviews_scheduled'); }" title="Show scheduled interviews">
+                                                        <div class="p-2 rounded bg-primary bg-opacity-10 text-primary"><i class="fa fa-handshake-o"/></div>
+                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.interviews_scheduled or 0"/> Interviews</div><div class="text-muted">Scheduled</div></div>
+                                                        <i class="fa fa-chevron-right text-muted" style="font-size:10px;"/>
+                                                    </div>
+                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('work_anniversaries'); }" title="Show work anniversary employees">
+                                                        <div class="p-2 rounded bg-info bg-opacity-10 text-info"><i class="fa fa-trophy"/></div>
+                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.work_anniversaries or 0"/> Anniversaries</div><div class="text-muted">Milestones</div></div>
+                                                        <i class="fa fa-chevron-right text-muted" style="font-size:10px;"/>
+                                                    </div>
+                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('contracts_expiring_today'); }" title="Show expiring contracts">
+                                                        <div class="p-2 rounded bg-warning bg-opacity-10 text-warning"><i class="fa fa-file-text-o"/></div>
+                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.contracts_expiring or 0"/> Contracts</div><div class="text-muted">Expiring</div></div>
+                                                        <i class="fa fa-chevron-right text-muted" style="font-size:10px;"/>
+                                                    </div>
+                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('employees_on_leave_today'); }" title="Show employees on leave today">
+                                                        <div class="p-2 rounded bg-success bg-opacity-10 text-success"><i class="fa fa-plane"/></div>
+                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.employees_on_leave or 0"/> On Leave</div><div class="text-muted">Approved</div></div>
+                                                        <i class="fa fa-chevron-right text-muted" style="font-size:10px;"/>
+                                                    </div>
+                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('attendance_missing'); }" title="Show employees missing checkout">
+                                                        <div class="p-2 rounded bg-danger bg-opacity-10 text-danger"><i class="fa fa-exclamation-triangle"/></div>
+                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.attendance_missing or 0"/> Attendance</div><div class="text-muted">Missing</div></div>
+                                                        <i class="fa fa-chevron-right text-muted" style="font-size:10px;"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 12. Top Performers -->
+                                    <div t-if="panel === 'top_performers'" class="col-xl-3 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'top_performers')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'top_performers')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div t-attf-class="panel-card-exact {{ state.tileConfigs.top_performers?.bgColor or 'bg-white' }} {{ state.tileConfigs.top_performers?.layout or 'layout-1' }}" t-attf-style="font-family: {{ state.tileConfigs.top_performers?.fontStyle or 'inherit' }}; color: {{ state.tileConfigs.top_performers?.fontColor or 'inherit' }};">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title">
+                                                        <i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Top Performers
+                                                        <i class="fa fa-pencil text-muted cursor-pointer hover-accent ms-2" t-on-click="() => this.openTileConfigurator('top_performers')" title="Configure Tile"/>
+                                                    </h6>
+                                                    <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('charts_overview')">View All</a>
+                                                </div>
+                                                <div class="d-flex flex-column gap-2 fs-8">
+                                                    <t t-foreach="this.displayedTopPerformers" t-as="perf" t-key="perf_index">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="d-flex align-items-center gap-2">
+                                                                <div t-attf-class="user-avatar {{ perf.color }} text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px;"><t t-esc="perf.initials"/></div>
+                                                                <div><div class="fw-bold text-dark"><t t-esc="perf.name"/></div><div class="text-muted fs-8"><t t-esc="perf.dept"/></div></div>
+                                                            </div>
+                                                            <span class="badge bg-purple text-white px-2 py-1 rounded-pill"><t t-esc="perf.rating"/> ★</span>
+                                                        </div>
+                                                    </t>
+                                                    <div t-if="!this.displayedTopPerformers or this.displayedTopPerformers.length === 0" class="text-center text-muted fs-8 py-3">
+                                                        No performance evaluation ratings recorded.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 13. Leave Requests -->
+                                    <div t-if="panel === 'leave_requests'" class="col-xl-3 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'leave_requests')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'leave_requests')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div t-attf-class="panel-card-exact {{ state.tileConfigs.leave_requests?.bgColor or 'bg-white' }} {{ state.tileConfigs.leave_requests?.layout or 'layout-1' }}" t-attf-style="font-family: {{ state.tileConfigs.leave_requests?.fontStyle or 'inherit' }}; color: {{ state.tileConfigs.leave_requests?.fontColor or 'inherit' }};">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title">
+                                                        <i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Leave Requests
+                                                        <i class="fa fa-pencil text-muted cursor-pointer hover-accent ms-2" t-on-click="() => this.openTileConfigurator('leave_requests')" title="Configure Tile"/>
+                                                    </h6>
+                                                    <a href="#" class="panel-sub-link" t-on-click.prevent="() => this.setTab('leave')">View All</a>
+                                                </div>
+                                                <table class="clean-table">
+                                                    <tbody>
+                                                        <tr t-foreach="this.displayedLeaveRequests" t-as="req" t-key="req_index">
+                                                            <td><div class="fw-bold text-dark"><t t-esc="req.name"/></div><div class="text-muted fs-8"><t t-esc="req.type"/></div></td>
+                                                            <td class="text-muted fs-8"><t t-esc="req.date"/></td>
+                                                            <td class="text-end"><span class="badge bg-warning bg-opacity-10 text-warning px-2 py-1 rounded-pill"><t t-esc="req.status"/></span></td>
+                                                        </tr>
+                                                        <tr t-if="!this.displayedLeaveRequests or this.displayedLeaveRequests.length === 0">
+                                                            <td colspan="3" class="text-center text-muted fs-8 py-3">No pending leave requests.</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 14. Quick Actions -->
+                                    <div t-if="panel === 'quick_actions' and state.data?.can_edit" class="col-xl-3 col-md-6 panel-card-draggable" draggable="true" t-on-dragstart="(ev) => this.onDragStart(ev, 'quick_actions')" t-on-dragover="(ev) => this.onDragOver(ev)" t-on-drop="(ev) => this.onDrop(ev, 'quick_actions')" t-on-dragend="(ev) => this.onDragEnd(ev)">
+                                        <div class="panel-card-exact">
+                                            <div>
+                                                <div class="panel-header">
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Quick Actions</h6>
+                                                </div>
+                                                <div class="quick-actions-grid">
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('add_employee')"><i class="fa fa-plus text-danger"/> Add Employee</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('leave')"><i class="fa fa-check text-primary"/> Approve Leave</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('attendance')"><i class="fa fa-clock-o text-success"/> Approve Att.</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('payslip')"><i class="fa fa-money text-info"/> Gen. Payroll</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('transfer')"><i class="fa fa-building text-purple"/> Add Dept.</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('promotion')"><i class="fa fa-calendar text-primary"/> Schedule Int.</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('email')"><i class="fa fa-bullhorn text-warning"/> Announcement</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('import')"><i class="fa fa-download text-success"/> Import Emp.</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('birthday')"><i class="fa fa-birthday-cake text-danger"/> Birthday Wishes</button>
+                                                    <button class="quick-action-pill" t-on-click="() => this.onQuickAction('whatsapp')"><i class="fa fa-whatsapp text-success"/> WhatsApp</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- SUB-MODULE CHARTS BREAKDOWN TAB (When Performance / Charts is active) -->
+                    <div t-if="state.activeTab === 'charts_overview'" class="row g-4 mt-2">
+                        <div class="col-md-6 col-xl-4"><ChartManager title="'Employees by Department'" type="'bar'" data="state.data.charts.by_department" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Employees by Company'" type="'bar'" data="state.data.charts.by_company" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Employees by Direct Manager'" type="'bar'" data="state.data.charts.by_manager" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Employees by Job Role'" type="'bar'" data="state.data.charts.by_job" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Gender Diversity Ratio'" type="'donut'" data="state.data.charts.by_gender" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Employees by Nationality'" type="'donut'" data="state.data.charts.by_nationality" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Employment Type Breakdown'" type="'donut'" data="state.data.charts.by_employment_type" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Generational Age Groups'" type="'donut'" data="state.data.charts.by_age_group" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6 col-xl-4"><ChartManager title="'Company Experience Range'" type="'donut'" data="state.data.charts.by_experience" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-12"><ChartManager title="'Employee Health Score Grades Distribution'" type="'bar'" data="state.data.charts.by_grade" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                </div>
+
+                <!-- TAB 2: ATTENDANCE & GPS ANALYTICS -->
+                <div t-if="state.activeTab === 'attendance'" class="row g-4">
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 text-center h-100 bg-light">
+                            <span class="fs-7 text-muted fw-bold">Attendance Rate</span>
+                            <h2 class="fw-bold text-success mt-2"><t t-esc="state.data.attendance_dashboard.attendance_rate"/>%</h2>
+                            <span class="fs-8 text-muted">Present vs Total Headcount</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 text-center h-100 bg-light">
+                            <span class="fs-7 text-muted fw-bold">Absenteeism Rate</span>
+                            <h2 class="fw-bold text-danger mt-2"><t t-esc="state.data.attendance_dashboard.absent_rate"/>%</h2>
+                            <span class="fs-8 text-muted">Unexcused Absences</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 text-center h-100 bg-light">
+                            <span class="fs-7 text-muted fw-bold">Remote / WFH</span>
+                            <h2 class="fw-bold text-info mt-2"><t t-esc="state.data.attendance_dashboard.wfh_today"/></h2>
+                            <span class="fs-8 text-muted">Active Remote Workers</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 text-center h-100 bg-light">
+                            <span class="fs-7 text-muted fw-bold">Late Arrivals</span>
+                            <h2 class="fw-bold text-warning mt-2"><t t-esc="state.data.attendance_dashboard.late_today"/></h2>
+                            <span class="fs-8 text-muted">Checked in after shift</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <ChartManager title="'Weekly Daily Attendance Trend'" type="'bar'" data="state.data.attendance_dashboard.weekly_attendance" onSliceClick="(label) => this.onChartDrilldown(label)"/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm p-3 h-100">
+                            <h6 class="fw-bold text-dark border-bottom pb-2">Top Late Arrivals (Month)</h6>
+                            <table class="table table-sm align-middle fs-7 m-0">
+                                <thead>
+                                    <tr class="text-muted"><th>Employee</th><th>Department</th><th class="text-end">Late Incidents</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="state.data.attendance_dashboard.top_late_employees" t-as="late" t-key="late_index">
+                                        <td><t t-esc="late.name"/></td>
+                                        <td><t t-esc="late.department"/></td>
+                                        <td class="text-end"><span class="badge bg-danger"><t t-esc="late.late_count"/> Times</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <AttendanceMap points="state.data.gps_points"/>
+                    </div>
+                </div>
+
+                <!-- TIMESHEET INTELLIGENCE -->
+                <div t-if="state.activeTab === 'timesheets'" class="timesheet-dashboard row g-4">
+                    <t t-if="this.timesheetDashboard.allowed">
+                        <div class="col-12">
+                            <div class="timesheet-hero">
+                                <div>
+                                    <div class="timesheet-eyebrow"><i class="fa fa-clock-o me-1"/> Time Intelligence</div>
+                                    <h4 class="mb-1">Employee worklog visibility</h4>
+                                    <p class="mb-0 opacity-75 fs-7">
+                                        <t t-esc="this.timesheetDashboard.period.date_from"/> to <t t-esc="this.timesheetDashboard.period.date_to"/>
+                                        <span class="mx-1">|</span><t t-esc="this.timesheetDashboard.scope_label"/>
+                                    </p>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2 align-items-center">
+                                    <span t-attf-class="timesheet-scope-badge {{ this.timesheetDashboard.is_limited ? 'limited' : '' }}">
+                                        <i t-attf-class="fa {{ this.timesheetDashboard.is_limited ? 'fa-eye' : 'fa-users' }} me-1"/>
+                                        <t t-esc="this.timesheetDashboard.is_limited ? 'Access scoped' : 'Team view'"/>
+                                    </span>
+                                    <button class="btn btn-sm btn-light fw-bold" t-on-click="() => this.openTimesheets()">
+                                        <i class="fa fa-external-link me-1"/> Open Timesheets
+                                    </button>
+                                    <button t-if="this.timesheetDashboard.can_create" class="btn btn-sm btn-warning fw-bold" t-on-click="() => this.openTimesheetForm()">
+                                        <i class="fa fa-plus me-1"/> Log Time
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="timesheet-metric-card metric-indigo h-100">
+                                <span class="metric-icon"><i class="fa fa-hourglass-half"/></span>
+                                <span class="metric-label">Logged Hours</span>
+                                <h3><t t-esc="this.timesheetDashboard.summary.total_hours"/>h</h3>
+                                <span class="metric-detail">Selected period total</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="timesheet-metric-card metric-cyan h-100">
+                                <span class="metric-icon"><i class="fa fa-list-ol"/></span>
+                                <span class="metric-label">Worklog Entries</span>
+                                <h3><t t-esc="this.timesheetDashboard.summary.entry_count"/></h3>
+                                <span class="metric-detail">Average <t t-esc="this.timesheetDashboard.summary.average_hours_per_logger"/>h per contributor</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="timesheet-metric-card metric-emerald h-100">
+                                <span class="metric-icon"><i class="fa fa-user-check"/></span>
+                                <span class="metric-label">Contributors</span>
+                                <h3><t t-esc="this.timesheetDashboard.summary.logging_employees"/>/<t t-esc="this.timesheetDashboard.summary.active_employees"/></h3>
+                                <span class="metric-detail">Employees with visible worklogs</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="timesheet-metric-card metric-amber h-100">
+                                <span class="metric-icon"><i class="fa fa-line-chart"/></span>
+                                <span class="metric-label">Logging Coverage</span>
+                                <h3><t t-esc="this.timesheetDashboard.summary.logging_rate"/>%</h3>
+                                <div class="progress mt-2" style="height: 6px;">
+                                    <div class="progress-bar bg-warning" t-attf-style="width: {{ this.timesheetDashboard.summary.logging_rate }}%"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-7">
+                            <div class="card border-0 shadow-sm h-100 p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Daily logging rhythm</h6>
+                                        <span class="fs-8 text-muted">Last 14 days in the selected period, normalized to hours</span>
+                                    </div>
+                                    <span class="badge bg-light text-dark border">Hours</span>
+                                </div>
+                                <div t-if="this.timesheetDashboard.daily.length" class="timesheet-trend">
+                                    <div t-foreach="this.timesheetDashboard.daily" t-as="day" t-key="day.date" class="timesheet-bar-item">
+                                        <span class="timesheet-bar-value"><t t-esc="day.hours"/></span>
+                                        <div class="timesheet-bar-track">
+                                            <div class="timesheet-bar-fill" t-att-style="this.timesheetDailyBarStyle(day.hours)"/>
+                                        </div>
+                                        <span class="timesheet-bar-label"><t t-esc="day.label"/></span>
+                                    </div>
+                                </div>
+                                <div t-else="" class="text-center text-muted py-5 fs-7">No worklogs were recorded in this period.</div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5">
+                            <div class="card border-0 shadow-sm h-100 p-4">
+                                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                                    <h6 class="fw-bold text-dark m-0">Project allocation</h6>
+                                    <span class="fs-8 text-muted">Top projects</span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover align-middle m-0">
+                                        <thead><tr class="fs-8 text-muted"><th>Project</th><th>Entries</th><th class="text-end">Hours</th></tr></thead>
+                                        <tbody>
+                                            <tr t-foreach="this.timesheetDashboard.by_project" t-as="project" t-key="project.project_id">
+                                                <td class="fw-semibold fs-7"><t t-esc="project.name"/></td>
+                                                <td class="fs-7 text-muted"><t t-esc="project.entries"/></td>
+                                                <td class="text-end fw-bold text-primary fs-7"><t t-esc="project.hours"/>h</td>
+                                            </tr>
+                                            <tr t-if="this.timesheetDashboard.by_project.length === 0"><td colspan="3" class="text-center text-muted fs-7 py-4">No project worklogs found.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-5">
+                            <div class="card border-0 shadow-sm h-100 p-4">
+                                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                                    <div>
+                                        <h6 class="fw-bold text-dark m-0">Top contributors</h6>
+                                        <span class="fs-8 text-muted">Based on logged hours</span>
+                                    </div>
+                                </div>
+                                <div t-if="this.timesheetDashboard.by_employee.length" class="d-flex flex-column gap-2">
+                                    <button t-foreach="this.timesheetDashboard.by_employee" t-as="employee" t-key="employee.employee_id" class="timesheet-contributor border-0 text-start" t-on-click="() => this.openEmployeeTimesheets(employee.employee_id)">
+                                        <img t-att-src="employee.photo_url" class="rounded-circle" alt="Avatar"/>
+                                        <span class="flex-grow-1 overflow-hidden">
+                                            <span class="d-block fw-bold text-dark text-truncate fs-7"><t t-esc="employee.name"/></span>
+                                            <span class="d-block text-muted fs-8 text-truncate"><t t-esc="employee.department || 'No department'"/> | <t t-esc="employee.entries"/> entries</span>
+                                        </span>
+                                        <span class="fw-bold text-primary fs-7"><t t-esc="employee.hours"/>h</span>
+                                        <i class="fa fa-chevron-right text-muted fs-8"/>
+                                    </button>
+                                </div>
+                                <div t-else="" class="text-center text-muted py-5 fs-7">No visible employee worklogs found.</div>
+                            </div>
+                        </div>
+                        <div class="col-xl-7">
+                            <div class="card border-0 shadow-sm h-100 p-4">
+                                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                                    <div>
+                                        <h6 class="fw-bold text-dark m-0">Recent time entries</h6>
+                                        <span class="fs-8 text-muted">Open any row to review the original Odoo record</span>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover align-middle m-0">
+                                        <thead><tr class="fs-8 text-muted"><th>Employee</th><th>Worklog</th><th>Date</th><th class="text-end">Hours</th></tr></thead>
+                                        <tbody>
+                                            <tr t-foreach="this.timesheetDashboard.recent_entries" t-as="entry" t-key="entry.id" class="cursor-pointer" t-on-click="() => this.openTimesheetEntry(entry.id)">
+                                                <td class="fs-7 fw-semibold"><t t-esc="entry.employee_name"/></td>
+                                                <td>
+                                                    <div class="fs-7 fw-semibold text-dark text-truncate" style="max-width: 240px;"><t t-esc="entry.description || entry.project"/></div>
+                                                    <div class="fs-8 text-muted"><t t-esc="entry.project"/><t t-if="entry.task"> / <t t-esc="entry.task"/></t></div>
+                                                </td>
+                                                <td class="fs-8 text-muted"><t t-esc="entry.date"/></td>
+                                                <td class="text-end fs-7 fw-bold text-primary"><t t-esc="entry.hours"/>h</td>
+                                            </tr>
+                                            <tr t-if="this.timesheetDashboard.recent_entries.length === 0"><td colspan="4" class="text-center text-muted fs-7 py-4">No time entries found.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div t-if="this.timesheetDashboard.can_view_team" class="col-12">
+                            <div class="card border-0 shadow-sm p-4 timesheet-followup-card">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                                    <div>
+                                        <h6 class="fw-bold text-dark m-0"><i class="fa fa-bell-o text-warning me-2"/>Time entry follow-up</h6>
+                                        <span class="fs-8 text-muted">Employees with no timesheet in the selected period</span>
+                                    </div>
+                                    <span class="badge bg-warning text-dark rounded-pill"><t t-esc="this.timesheetDashboard.missing_loggers.length"/> shown</span>
+                                </div>
+                                <div t-if="this.timesheetDashboard.missing_loggers.length" class="d-flex flex-wrap gap-2">
+                                    <button t-foreach="this.timesheetDashboard.missing_loggers" t-as="employee" t-key="employee.employee_id" class="timesheet-missing-person border-0" t-on-click="() => this.openEmployeeTimesheets(employee.employee_id)">
+                                        <img t-att-src="employee.photo_url" class="rounded-circle" alt="Avatar"/>
+                                        <span class="text-start"><strong class="d-block fs-8"><t t-esc="employee.name"/></strong><small class="text-muted"><t t-esc="employee.department || 'No department'"/></small></span>
+                                    </button>
+                                </div>
+                                <div t-else="" class="text-success fs-7"><i class="fa fa-check-circle me-1"/>All employees in this view have logged time.</div>
+                            </div>
+                        </div>
+                    </t>
+                    <div t-else="" class="col-12">
+                        <div class="card border-0 shadow-sm p-5 text-center timesheet-empty-state">
+                            <div class="timesheet-empty-icon"><i class="fa fa-lock"/></div>
+                            <h5 class="fw-bold text-dark mt-3">Timesheet access is required</h5>
+                            <p class="text-muted fs-7 mb-0"><t t-esc="this.timesheetDashboard.message"/></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: LEAVE CENTER DASHBOARD -->
+                <div t-if="state.activeTab === 'leave'" class="row g-4">
+                    <div class="col-md-2">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-primary text-white h-100 leave-kpi-card {{ state.activeLeaveKpi === 'balance' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLeaveKpiClick('balance')">
+                            <span class="fs-8 fw-bold">Total Leave Balance</span>
+                            <h3 class="fw-bold mt-2"><t t-esc="state.data.leave_dashboard.leave_balance"/></h3>
+                            <span class="fs-8 opacity-75">Days Available</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-success text-white h-100 leave-kpi-card {{ state.activeLeaveKpi === 'approved' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLeaveKpiClick('approved')">
+                            <span class="fs-8 fw-bold">Approved Leaves</span>
+                            <h3 class="fw-bold mt-2"><t t-esc="state.data.leave_dashboard.approved_leave"/></h3>
+                            <span class="fs-8 opacity-75">YTD Approved</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-warning text-dark h-100 leave-kpi-card {{ state.activeLeaveKpi === 'pending' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLeaveKpiClick('pending')">
+                            <span class="fs-8 fw-bold">Pending Approval</span>
+                            <h3 class="fw-bold mt-2"><t t-esc="state.data.leave_dashboard.pending_leave"/></h3>
+                            <span class="fs-8">Awaiting Manager</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-info text-white h-100 leave-kpi-card {{ state.activeLeaveKpi === 'sick' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLeaveKpiClick('sick')">
+                            <span class="fs-8 fw-bold">Sick Leaves</span>
+                            <h3 class="fw-bold mt-2"><t t-esc="state.data.leave_dashboard.sick_leave"/></h3>
+                            <span class="fs-8 opacity-75">Medical Days Taken</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-secondary text-white h-100 leave-kpi-card {{ state.activeLeaveKpi === 'annual' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLeaveKpiClick('annual')">
+                            <span class="fs-8 fw-bold">Annual Leaves</span>
+                            <h3 class="fw-bold mt-2"><t t-esc="state.data.leave_dashboard.annual_leave"/></h3>
+                            <span class="fs-8 opacity-75">Vacation Days</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-danger text-white h-100 leave-kpi-card {{ state.activeLeaveKpi === 'upcoming' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLeaveKpiClick('upcoming')">
+                            <span class="fs-8 fw-bold">Upcoming Leaves</span>
+                            <h3 class="fw-bold mt-2"><t t-esc="state.data.leave_dashboard.upcoming_leave"/></h3>
+                            <span class="fs-8 opacity-75">Next 30 Days</span>
+                        </div>
+                    </div>
+
+                    <!-- Leave Records Drill-Down Table (Leave Requests) -->
+                    <div t-if="state.activeLeaveKpi and state.activeLeaveKpi !== 'balance' and this.displayedLeaveRecords.length > 0" class="col-12">
+                        <div class="card border-0 shadow-sm p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-filter fa-lg text-primary"/>
+                                    <h6 class="fw-bold m-0 text-dark"><i class="fa fa-calendar-check-o me-2"/><t t-esc="this.leaveKpiLabel"/> — <t t-esc="this.displayedLeaveRecords.length"/> Records</h6>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger py-1 px-3 rounded-pill fw-bold" t-on-click="() => this.clearLeaveKpi()">
+                                    <i class="fa fa-times me-1"/> Clear Filter
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle m-0">
+                                    <thead class="bg-light">
+                                        <tr class="fs-7 text-muted">
+                                            <th>Employee</th>
+                                            <th>Leave Type</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>Days</th>
+                                            <th>Status</th>
+                                            <th>Department</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="this.displayedLeaveRecords" t-as="rec" t-key="rec.id">
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <img t-att-src="rec.photo_url" class="rounded-circle" style="width:32px; height:32px; object-fit:cover;" alt="Avatar"/>
+                                                    <span class="fw-bold fs-7 text-dark"><t t-esc="rec.employee_name"/></span>
+                                                </div>
+                                            </td>
+                                            <td class="fs-7"><span class="badge bg-light text-dark border"><t t-esc="rec.leave_type"/></span></td>
+                                            <td class="fs-7 text-muted"><t t-esc="rec.date_from"/></td>
+                                            <td class="fs-7 text-muted"><t t-esc="rec.date_to"/></td>
+                                            <td class="fs-7 fw-bold"><t t-esc="rec.days"/></td>
+                                            <td>
+                                                <span t-attf-class="badge rounded-pill {{ rec.status_label === 'Approved' ? 'bg-success' : (rec.status_label === 'Pending' ? 'bg-warning text-dark' : (rec.status_label === 'Refused' ? 'bg-danger' : 'bg-secondary')) }}">
+                                                    <t t-esc="rec.status_label"/>
+                                                </span>
+                                            </td>
+                                            <td class="fs-7 text-muted"><t t-esc="rec.department"/></td>
+                                            <td class="text-end">
+                                                <button class="btn btn-xs btn-outline-primary rounded-pill px-3" t-on-click.stop="() => this.openLeaveForm(rec.id)" title="Open Leave Form in Odoo">
+                                                    <i class="fa fa-external-link me-1"/> Open
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- No records message -->
+                    <div t-if="state.activeLeaveKpi and state.activeLeaveKpi !== 'balance' and this.displayedLeaveRecords.length === 0" class="col-12">
+                        <div class="card border-0 shadow-sm p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-filter fa-lg text-primary"/>
+                                    <h6 class="fw-bold m-0 text-dark"><t t-esc="this.leaveKpiLabel"/></h6>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger py-1 px-3 rounded-pill fw-bold" t-on-click="() => this.clearLeaveKpi()">
+                                    <i class="fa fa-times me-1"/> Clear Filter
+                                </button>
+                            </div>
+                            <div class="text-center text-muted py-4">
+                                <i class="fa fa-inbox fa-2x mb-2 d-block"/>
+                                No leave records found for this category.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Allocation Records Drill-Down Table (for Total Leave Balance) -->
+                    <div t-if="state.activeLeaveKpi === 'balance'" class="col-12">
+                        <div class="card border-0 shadow-sm p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-filter fa-lg text-primary"/>
+                                    <h6 class="fw-bold m-0 text-dark"><i class="fa fa-database me-2"/>Total Leave Balance — <t t-esc="this.displayedAllocationRecords.length"/> Allocations</h6>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger py-1 px-3 rounded-pill fw-bold" t-on-click="() => this.clearLeaveKpi()">
+                                    <i class="fa fa-times me-1"/> Clear Filter
+                                </button>
+                            </div>
+                            <div t-if="this.displayedAllocationRecords.length > 0" class="table-responsive">
+                                <table class="table table-hover align-middle m-0">
+                                    <thead class="bg-light">
+                                        <tr class="fs-7 text-muted">
+                                            <th>Employee</th>
+                                            <th>Leave Type</th>
+                                            <th>Allocated Days</th>
+                                            <th>Department</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="this.displayedAllocationRecords" t-as="alloc" t-key="alloc.id">
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <img t-att-src="alloc.photo_url" class="rounded-circle" style="width:32px; height:32px; object-fit:cover;" alt="Avatar"/>
+                                                    <span class="fw-bold fs-7 text-dark"><t t-esc="alloc.employee_name"/></span>
+                                                </div>
+                                            </td>
+                                            <td class="fs-7"><span class="badge bg-light text-dark border"><t t-esc="alloc.leave_type"/></span></td>
+                                            <td class="fs-7 fw-bold text-primary"><t t-esc="alloc.allocated_days"/> days</td>
+                                            <td class="fs-7 text-muted"><t t-esc="alloc.department"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div t-if="this.displayedAllocationRecords.length === 0" class="text-center text-muted py-4">
+                                <i class="fa fa-inbox fa-2x mb-2 d-block"/>
+                                No allocation records found.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <ChartManager title="'Monthly Leave Requests Trend'" type="'bar'" data="state.data.leave_dashboard.leave_trend" onSliceClick="(label) => this.onChartDrilldown(label)"/>
+                    </div>
+                    <div class="col-md-6">
+                        <ChartManager title="'Leave Breakdown by Department'" type="'donut'" data="state.data.leave_dashboard.department_leave" onSliceClick="(label) => this.onChartDrilldown(label)"/>
+                    </div>
+                </div>
+
+                <!-- TAB 4: RECRUITMENT CENTER DASHBOARD -->
+                <div t-if="state.activeTab === 'recruitment'" class="row g-4">
+                    <div class="col-md-3">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light h-100 leave-kpi-card {{ state.activeRecruitmentKpi === 'applicants' ? 'leave-kpi-active border-primary' : '' }}" t-on-click="() => this.onRecruitmentKpiClick('applicants')">
+                            <span class="fs-7 text-muted fw-bold">Active Applicants</span>
+                            <h2 class="fw-bold text-primary mt-2"><t t-esc="state.data.recruitment_dashboard.applicants"/></h2>
+                            <span class="fs-8 text-muted">In Pipeline</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light h-100 leave-kpi-card {{ state.activeRecruitmentKpi === 'interview' ? 'leave-kpi-active border-warning' : '' }}" t-on-click="() => this.onRecruitmentKpiClick('interview')">
+                            <span class="fs-7 text-muted fw-bold">In Interview Stage</span>
+                            <h2 class="fw-bold text-warning mt-2"><t t-esc="state.data.recruitment_dashboard.interview"/></h2>
+                            <span class="fs-8 text-muted">Scheduled Interviews</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 text-center bg-light h-100">
+                            <span class="fs-7 text-muted fw-bold">Cost Per Hire</span>
+                            <h2 class="fw-bold text-success mt-2"><t t-esc="state.data.recruitment_dashboard.cost_per_hire"/></h2>
+                            <span class="fs-8 text-muted">Average Acquisition</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 text-center bg-light h-100">
+                            <span class="fs-7 text-muted fw-bold">Time To Hire</span>
+                            <h2 class="fw-bold text-info mt-2"><t t-esc="state.data.recruitment_dashboard.time_to_hire"/></h2>
+                            <span class="fs-8 text-muted">Average Duration</span>
+                        </div>
+                    </div>
+
+                    <!-- Recruitment Drill-Down Table -->
+                    <div t-if="state.activeRecruitmentKpi and this.displayedRecruitmentRecords.length > 0" class="col-12">
+                        <div class="card border-0 shadow-sm p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-filter fa-lg text-primary"/>
+                                    <h6 class="fw-bold m-0 text-dark"><i class="fa fa-users me-2"/><t t-esc="this.recruitmentKpiLabel"/> — <t t-esc="this.displayedRecruitmentRecords.length"/> Applicants</h6>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger py-1 px-3 rounded-pill fw-bold" t-on-click="() => this.clearRecruitmentKpi()">
+                                    <i class="fa fa-times me-1"/> Clear Filter
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle m-0">
+                                    <thead class="bg-light">
+                                        <tr class="fs-7 text-muted">
+                                            <th>Applicant Name</th>
+                                            <th>Applied For Role</th>
+                                            <th>Sourcing Channel</th>
+                                            <th>Current Stage</th>
+                                            <th class="text-end">Application Date</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="this.displayedRecruitmentRecords" t-as="app" t-key="app.id">
+                                            <td class="fw-bold fs-7 text-dark"><i class="fa fa-user-circle text-muted me-2"/><t t-esc="app.name"/></td>
+                                            <td class="fs-7 text-muted"><t t-esc="app.job"/></td>
+                                            <td class="fs-7"><span class="badge bg-light text-dark border"><t t-esc="app.source"/></span></td>
+                                            <td>
+                                                <span t-attf-class="badge rounded-pill {{ app.stage.toLowerCase().includes('hired') ? 'bg-success' : (app.stage.toLowerCase().includes('offer') ? 'bg-primary' : 'bg-info text-dark') }}">
+                                                    <t t-esc="app.stage"/>
+                                                </span>
+                                            </td>
+                                            <td class="text-end fs-7 text-muted"><t t-esc="app.create_date"/></td>
+                                            <td class="text-end">
+                                                <button class="btn btn-xs btn-outline-primary rounded-pill px-3" t-on-click.stop="() => this.openApplicantForm(app.id)" title="Open Applicant Form">
+                                                    <i class="fa fa-external-link me-1"/> Open
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- No Recruitment Records Message -->
+                    <div t-if="state.activeRecruitmentKpi and this.displayedRecruitmentRecords.length === 0" class="col-12">
+                        <div class="card border-0 shadow-sm p-4 text-center py-5">
+                            <i class="fa fa-inbox fa-3x text-muted mb-3"/>
+                            <p class="text-muted mb-3">No applicant records found in this stage.</p>
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill px-4 align-self-center" t-on-click="() => this.clearRecruitmentKpi()">Clear Filter</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <ChartManager title="'Applicant to Offer Trend (Last 6 Months)'" type="'bar'" data="state.data.recruitment_dashboard.recruitment_trend" onSliceClick="(label) => this.onChartDrilldown(label)"/>
+                    </div>
+                    <div class="col-md-6">
+                        <ChartManager title="'Applications by Sourcing Channel'" type="'donut'" data="state.data.recruitment_dashboard.by_source" onSliceClick="(label) => this.onChartDrilldown(label)"/>
+                    </div>
+                </div>
+
+                <!-- TAB 5: EMPLOYEE LIFECYCLE DASHBOARD -->
+                <div t-if="state.activeTab === 'lifecycle'" class="row g-4">
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'onboarding' ? 'leave-kpi-active border-primary' : '' }}" t-on-click="() => this.onLifecycleKpiClick('onboarding')"><span class="fs-8 fw-bold">Onboarding</span><h4 class="fw-bold text-primary mt-1"><t t-esc="state.data.lifecycle_dashboard.onboarding"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'probation' ? 'leave-kpi-active border-warning' : '' }}" t-on-click="() => this.onLifecycleKpiClick('probation')"><span class="fs-8 fw-bold">Probation</span><h4 class="fw-bold text-warning mt-1"><t t-esc="state.data.lifecycle_dashboard.probation"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'confirmation' ? 'leave-kpi-active border-success' : '' }}" t-on-click="() => this.onLifecycleKpiClick('confirmation')"><span class="fs-8 fw-bold">Confirmation</span><h4 class="fw-bold text-success mt-1"><t t-esc="state.data.lifecycle_dashboard.confirmation"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'promotions' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLifecycleKpiClick('promotions')"><span class="fs-8 fw-bold">Promotions</span><h4 class="fw-bold text-info mt-1"><t t-esc="state.data.lifecycle_dashboard.promotions"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'transfers' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLifecycleKpiClick('transfers')"><span class="fs-8 fw-bold">Transfers</span><h4 class="fw-bold text-secondary mt-1"><t t-esc="state.data.lifecycle_dashboard.transfers"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'salary_revisions' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLifecycleKpiClick('salary_revisions')"><span class="fs-8 fw-bold">Salary Revisions</span><h4 class="fw-bold text-success mt-1"><t t-esc="state.data.lifecycle_dashboard.salary_revisions"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'training' ? 'leave-kpi-active border-primary' : '' }}" t-on-click="() => this.onLifecycleKpiClick('training')"><span class="fs-8 fw-bold">Training Enrollments</span><h4 class="fw-bold text-primary mt-1"><t t-esc="state.data.lifecycle_dashboard.training"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'reviews' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLifecycleKpiClick('reviews')"><span class="fs-8 fw-bold">Reviews Pending</span><h4 class="fw-bold text-warning mt-1"><t t-esc="state.data.lifecycle_dashboard.reviews"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'exit_interviews' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLifecycleKpiClick('exit_interviews')"><span class="fs-8 fw-bold">Exit Interviews</span><h4 class="fw-bold text-danger mt-1"><t t-esc="state.data.lifecycle_dashboard.exit_interviews"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'resignations' ? 'leave-kpi-active border-warning' : '' }}" t-on-click="() => this.onLifecycleKpiClick('resignations')"><span class="fs-8 fw-bold">Resignations</span><h4 class="fw-bold text-warning mt-1"><t t-esc="state.data.lifecycle_dashboard.resignations"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'terminations' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLifecycleKpiClick('terminations')"><span class="fs-8 fw-bold">Terminations</span><h4 class="fw-bold text-danger mt-1"><t t-esc="state.data.lifecycle_dashboard.terminations"/></h4></div></div>
+                    <div class="col-md-2"><div t-attf-class="card border-0 shadow-sm p-3 text-center bg-light leave-kpi-card {{ state.activeLifecycleKpi === 'retirements' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onLifecycleKpiClick('retirements')"><span class="fs-8 fw-bold">Retirements</span><h4 class="fw-bold text-secondary mt-1"><t t-esc="state.data.lifecycle_dashboard.retirements"/></h4></div></div>
+
+                    <!-- Lifecycle Drill-Down Table -->
+                    <div t-if="state.activeLifecycleKpi" class="col-12">
+                        <div class="card border-0 shadow-sm p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-filter fa-lg text-primary"/>
+                                    <h6 class="fw-bold m-0 text-dark"><i class="fa fa-retweet me-2"/><t t-esc="this.lifecycleKpiLabel"/> — <t t-esc="this.displayedLifecycleRecords.length"/> Records</h6>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger py-1 px-3 rounded-pill fw-bold" t-on-click="() => this.clearLifecycleKpi()">
+                                    <i class="fa fa-times me-1"/> Clear Filter
+                                </button>
+                            </div>
+                            <div t-if="this.displayedLifecycleRecords.length > 0" class="table-responsive">
+                                <table class="table table-hover align-middle m-0">
+                                    <thead class="bg-light">
+                                        <tr class="fs-7 text-muted">
+                                            <th>Employee</th>
+                                            <th>Job Position</th>
+                                            <th>Department</th>
+                                            <th>Status</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="this.displayedLifecycleRecords" t-as="emp" t-key="emp.id" style="cursor: pointer;" t-on-click="() => this.open360Drawer(emp.id)">
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <img t-att-src="emp.photo_url" class="rounded-circle" style="width:36px; height:36px; object-fit:cover;" alt="Avatar"/>
+                                                    <span class="fw-bold fs-7 text-dark"><t t-esc="emp.name"/></span>
+                                                </div>
+                                            </td>
+                                            <td class="fs-7"><t t-esc="emp.job_title"/></td>
+                                            <td class="fs-7"><t t-esc="emp.department"/></td>
+                                            <td>
+                                                <span t-attf-class="badge {{ emp.status === 'Probation' ? 'bg-warning text-dark' : (emp.status === 'Resigned' ? 'bg-danger' : (emp.status === 'New Joiner' ? 'bg-primary' : 'bg-success')) }}">
+                                                    <t t-esc="emp.status"/>
+                                                </span>
+                                            </td>
+                                            <td class="text-end">
+                                                <button class="btn btn-xs btn-outline-primary rounded-pill px-3" t-on-click.stop="() => this.openEmployeeForm(emp.id)" title="Open Employee Form">
+                                                    <i class="fa fa-external-link me-1"/> Open
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div t-if="this.displayedLifecycleRecords.length === 0" class="text-center text-muted py-4">
+                                <i class="fa fa-inbox fa-2x mb-2 d-block"/>
+                                No records found in this stage category.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <ChartManager title="'Workforce Lifecycle Stage Distribution'" type="'bar'" data="state.data.lifecycle_dashboard.stages" onSliceClick="(label) => this.onChartDrilldown(label)"/>
+                    </div>
+                </div>
+
+                <!-- TAB 6: COMPLIANCE & DOCUMENT EXPIRY CENTER -->
+                <div t-if="state.activeTab === 'compliance'" class="row g-4">
+                    <div class="col-md-3">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-danger text-white leave-kpi-card {{ state.activeComplianceKpi === 'passport' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onComplianceKpiClick('passport')">
+                            <span class="fs-7 fw-bold">Passport Expiring</span>
+                            <h2 class="fw-bold mt-1"><t t-esc="state.data.compliance_dashboard.passport_expiring or 0"/></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-warning text-dark leave-kpi-card {{ state.activeComplianceKpi === 'visa' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onComplianceKpiClick('visa')">
+                            <span class="fs-7 fw-bold">Visa Expiring</span>
+                            <h2 class="fw-bold mt-1"><t t-esc="state.data.compliance_dashboard.visa_expiring"/></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-info text-white leave-kpi-card {{ state.activeComplianceKpi === 'contract' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onComplianceKpiClick('contract')">
+                            <span class="fs-7 fw-bold">Contract Renewal</span>
+                            <h2 class="fw-bold mt-1"><t t-esc="state.data.compliance_dashboard.contract_renewal"/></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div t-attf-class="card border-0 shadow-sm p-3 text-center bg-primary text-white leave-kpi-card {{ state.activeComplianceKpi === 'probation' ? 'leave-kpi-active' : '' }}" t-on-click="() => this.onComplianceKpiClick('probation')">
+                            <span class="fs-7 fw-bold">Probation End</span>
+                            <h2 class="fw-bold mt-1"><t t-esc="state.data.compliance_dashboard.probation_end"/></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card border-0 shadow-sm p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                                <h6 class="fw-bold text-danger m-0">
+                                    <i class="fa fa-exclamation-circle me-1"/> 
+                                    <t t-if="state.activeComplianceKpi">Filtered Expiry List: <t t-esc="this.complianceKpiLabel"/></t>
+                                    <t t-else="">Critical Document Expiry Radar &amp; Actions</t>
+                                </h6>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button t-if="state.activeComplianceKpi" class="btn btn-sm btn-outline-secondary rounded-pill px-3" t-on-click="() => this.clearComplianceKpi()">Clear Filter</button>
+                                    <button class="btn btn-sm btn-danger rounded-pill px-3" t-on-click="() => this.onQuickAction('email')"><i class="fa fa-envelope me-1"/> Send Bulk Reminders to All</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle fs-7 m-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Employee</th>
+                                            <th>Document Type</th>
+                                            <th>Document Number</th>
+                                            <th>Expiry Date</th>
+                                            <th>Days Remaining</th>
+                                            <th>Status</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="this.displayedComplianceRecords" t-as="doc" t-key="doc_index">
+                                            <td class="fw-bold">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <img t-att-src="doc.photo_url" class="rounded-circle" style="width:32px; height:32px; object-fit:cover;" alt="Avatar"/>
+                                                    <t t-esc="doc.emp_name"/>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-secondary"><t t-esc="doc.doc_type"/></span></td>
+                                            <td><t t-esc="doc.doc_number"/></td>
+                                            <td><t t-esc="doc.expiry_date"/></td>
+                                            <td>
+                                                <span t-if="doc.days_left !== '-'" class="badge bg-danger rounded-pill"><t t-esc="doc.days_left"/> Days Left</span>
+                                                <span t-else="" class="text-muted">-</span>
+                                            </td>
+                                            <td class="text-danger fw-bold"><i class="fa fa-warning me-1"/><t t-esc="doc.status"/></td>
+                                            <td class="text-end">
+                                                <button class="btn btn-xs btn-outline-primary rounded-pill px-3" t-on-click.stop="() => this.openEmployeeForm(doc.employee_id)" title="Open Employee Form">
+                                                    <i class="fa fa-external-link me-1"/> Open
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="this.displayedComplianceRecords.length === 0">
+                                            <td colspan="7" class="text-center text-muted py-4">No expiring document records found for this category.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 7: ORG CHART TREE -->
+                <div t-if="state.activeTab === 'orgchart'">
+                    <OrgChartTree employees="state.data.employee_list" onOpenProfile="(id) => this.open360Drawer(id)"/>
+                </div>
+
+                <!-- TAB 8: CALENDAR & EVENTS -->
+                <div t-if="state.activeTab === 'calendar'" class="card border-0 shadow-sm p-4">
+                    <h5 class="fw-bold text-dark border-bottom pb-3 mb-4"><i class="fa fa-calendar me-2 text-primary"/>Upcoming HR Events, Birthdays &amp; Milestones (Next 30 Days)</h5>
+                    <div class="row g-3">
+                        <div t-foreach="state.data.calendar_events" t-as="evt" t-key="evt_index" class="col-md-4">
+                            <div class="card border p-3 rounded-3 shadow-sm d-flex flex-row align-items-center justify-content-between" t-att-style="evt.emp_id ? 'cursor: pointer;' : ''" t-on-click="() => evt.emp_id ? this.open360Drawer(evt.emp_id) : null">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i t-attf-class="fa fa-2x {{ evt.icon }}"/>
+                                    <div>
+                                        <h6 class="fw-bold m-0 fs-7 text-dark"><t t-esc="evt.title"/></h6>
+                                        <span class="badge bg-light text-dark mt-1 border"><t t-esc="evt.type.toUpperCase()"/></span>
+                                    </div>
+                                </div>
+                                <span class="fw-bold text-primary fs-7"><t t-esc="evt.date"/></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 9: SMART ALERT CENTER & QUICK ACTIONS -->
+                <div t-if="state.activeTab === 'alerts_actions'" class="row g-4">
+                    <!-- Left: Smart Alert Center component -->
+                    <div class="col-md-7">
+                        <div class="card border-0 shadow-sm p-3 h-100">
+                            <SmartAlertCenter
+                                smartAlerts="this.smartAlerts"
+                                onOpen360Drawer="(empId) => this.open360Drawer(empId)"
+                                onRefresh="() => this.refreshSmartAlerts()"/>
+                        </div>
+                    </div>
+                    <!-- Right: Quick Actions column -->
+                    <div class="col-md-5" t-if="state.data?.can_edit">
+                        <div class="card border-0 shadow-sm p-3 h-100 bg-light">
+                            <h6 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="fa fa-bolt me-2 text-primary"/>14 Instant Executive Quick Actions</h6>
+                            <div class="d-flex flex-column gap-2">
+                                <button class="btn btn-primary btn-sm text-start shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('leave')"><span><i class="fa fa-plane me-2"/>Create Leave Request</span><i class="fa fa-chevron-right"/></button>
+                                <button class="btn btn-success btn-sm text-start shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('attendance')"><span><i class="fa fa-clock-o me-2"/>Log Manual Check-In / Out</span><i class="fa fa-chevron-right"/></button>
+                                <button class="btn btn-info btn-sm text-white text-start shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('payslip')"><span><i class="fa fa-money me-2"/>Generate Employee Payslip</span><i class="fa fa-chevron-right"/></button>
+                                <button class="btn btn-warning btn-sm text-dark text-start shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('expense')"><span><i class="fa fa-credit-card me-2"/>Create Expense Report</span><i class="fa fa-chevron-right"/></button>
+                                <button class="btn btn-secondary btn-sm text-start shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('loan')"><span><i class="fa fa-bank me-2"/>Issue Employee Loan</span><i class="fa fa-chevron-right"/></button>
+                                <button class="btn btn-danger btn-sm text-start shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('warning')"><span><i class="fa fa-exclamation-triangle me-2"/>Issue Warning Notice</span><i class="fa fa-chevron-right"/></button>
+                                <button class="btn btn-dark btn-sm text-start shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('promotion')"><span><i class="fa fa-level-up me-2"/>Process Promotion</span><i class="fa fa-chevron-right"/></button>
+                                <button class="btn btn-outline-primary btn-sm text-start bg-white shadow-sm d-flex align-items-center justify-content-between" t-on-click="() => this.onQuickAction('transfer')"><span><i class="fa fa-exchange me-2"/>Department Transfer</span><i class="fa fa-chevron-right"/></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 10: HR EXECUTIVE ANALYTICS & TRENDS -->
+                <div t-if="state.activeTab === 'analytics'" class="row g-4">
+                    <div class="col-md-3"><div class="card border-0 shadow-sm p-3 text-center bg-light"><span class="fs-7 text-muted fw-bold">Attrition Rate</span><h2 class="fw-bold text-danger mt-1"><t t-esc="state.data.analytics_dashboard.attrition_rate"/>%</h2><span class="fs-8 text-muted">Annual Turnover</span></div></div>
+                    <div class="col-md-3"><div class="card border-0 shadow-sm p-3 text-center bg-light"><span class="fs-7 text-muted fw-bold">Retention Rate</span><h2 class="fw-bold text-success mt-1"><t t-esc="state.data.analytics_dashboard.retention_rate"/>%</h2><span class="fs-8 text-muted">Core Loyalty Index</span></div></div>
+                    <div class="col-md-3"><div class="card border-0 shadow-sm p-3 text-center bg-light"><span class="fs-7 text-muted fw-bold">Average Monthly Salary</span><h2 class="fw-bold text-primary mt-1"><t t-esc="state.data.analytics_dashboard.avg_salary"/></h2><span class="fs-8 text-muted">Company Mean</span></div></div>
+                    <div class="col-md-3"><div class="card border-0 shadow-sm p-3 text-center bg-light"><span class="fs-7 text-muted fw-bold">Average Employee Tenure</span><h2 class="fw-bold text-info mt-1"><t t-esc="state.data.analytics_dashboard.avg_tenure"/></h2><span class="fs-8 text-muted">Years of Service</span></div></div>
+                    <div class="col-md-6"><ChartManager title="'Headcount Growth Trend (Last 6 Months)'" type="'bar'" data="state.data.analytics_dashboard.headcount_trend" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                    <div class="col-md-6"><ChartManager title="'Monthly Hiring vs Exits Trend'" type="'bar'" data="state.data.analytics_dashboard.hiring_trend" onSliceClick="(label) => this.onChartDrilldown(label)"/></div>
+                </div>
+
+                <!-- TAB 11: EMPLOYEE LIST / DIRECTORY -->
+                <div t-if="state.activeTab === 'list'">
+                    <!-- Active Drill-Down Filter Banner -->
+                    <div t-if="state.activeSlice or state.activeKpi" class="alert alert-info d-flex justify-content-between align-items-center mb-4 py-3 px-4 rounded-3 shadow-sm border-info">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa fa-filter fa-lg text-primary"/>
+                            <div>
+                                <span class="fw-bold text-dark fs-6">Active Drill-Down Filter:</span>
+                                <span class="badge bg-primary fs-7 ms-2 py-1 px-3 rounded-pill"><t t-esc="state.activeSlice or state.activeKpi"/></span>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger py-1 px-3 rounded-pill fw-bold" t-on-click="() => { this.state.activeSlice = null; this.state.activeKpi = null; }">
+                            <i class="fa fa-times me-1"/> Clear Drill-Down Filter
+                        </button>
+                    </div>
+
+                    <!-- Filtered Recruitment Pipeline (Drill-Down) -->
+                    <div t-if="state.activeSlice and this.displayedApplicants and this.displayedApplicants.length > 0" class="card border-0 shadow-sm p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                            <h6 class="fw-bold m-0 text-primary"><i class="fa fa-users me-2"/>Recruitment Pipeline Drill-Down (<t t-esc="this.displayedApplicants.length"/> matching applicants)</h6>
+                            <span class="fs-8 text-muted">Filtered by channel / application date</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle m-0">
+                                <thead class="bg-light">
+                                    <tr class="fs-7 text-muted">
+                                        <th>Applicant Name</th>
+                                        <th>Applied For Role</th>
+                                        <th>Sourcing Channel</th>
+                                        <th>Current Stage</th>
+                                        <th class="text-end">Application Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="this.displayedApplicants" t-as="app" t-key="app.id">
+                                        <td class="fw-bold fs-7 text-dark"><i class="fa fa-user-circle text-muted me-2"/><t t-esc="app.name"/></td>
+                                        <td class="fs-7 text-muted"><t t-esc="app.job"/></td>
+                                        <td class="fs-7"><span class="badge bg-light text-dark border"><t t-esc="app.source"/></span></td>
+                                        <td>
+                                            <span t-attf-class="badge rounded-pill {{ app.stage.toLowerCase().includes('hired') ? 'bg-success' : (app.stage.toLowerCase().includes('offer') ? 'bg-primary' : 'bg-info text-dark') }}">
+                                                <t t-esc="app.stage"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-end fs-7 text-muted"><t t-esc="app.create_date"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Filtered Employee Directory Table -->
+                    <div class="card border-0 shadow-sm p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold m-0 text-dark">Filtered Employee Directory (<t t-esc="this.displayedEmployees.length"/> matching records)</h6>
+                            <span class="fs-8 text-muted">Click any employee row to inspect their 13-Tab 360° Profile Drawer</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle m-0">
+                                <thead class="bg-light">
+                                    <tr class="fs-7 text-muted">
+                                        <th>Employee</th>
+                                        <th>Job Position</th>
+                                        <th>Department</th>
+                                        <th>Direct Manager</th>
+                                        <th>Current Status</th>
+                                        <th class="text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="this.displayedEmployees" t-as="emp" t-key="emp.id" style="cursor: pointer;" t-on-click="() => this.open360Drawer(emp.id)">
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <img t-att-src="emp.photo_url" class="rounded-circle" style="width:36px; height:36px; object-fit:cover;" alt="Avatar"/>
+                                                <span class="fw-bold fs-7 text-dark"><t t-esc="emp.name"/></span>
+                                            </div>
+                                        </td>
+                                        <td class="fs-7"><t t-esc="emp.job_title"/></td>
+                                        <td class="fs-7"><t t-esc="emp.department"/></td>
+                                        <td class="fs-7"><t t-esc="emp.manager"/></td>
+                                        <td>
+                                            <span t-attf-class="badge {{ emp.status === 'Present' ? 'bg-success' : (emp.status === 'On Leave' ? 'bg-warning text-dark' : 'bg-secondary') }}">
+                                                <t t-esc="emp.status"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <button class="btn btn-xs btn-outline-dark rounded-pill px-3 me-2" t-on-click.stop="() => this.openEmployeeForm(emp.id)" title="Open Full Odoo Employee Form View">
+                                                <i class="fa fa-external-link me-1"/> Odoo Profile
+                                            </button>
+                                            <button class="btn btn-xs btn-outline-primary rounded-pill px-3" t-on-click.stop="() => this.open360Drawer(emp.id)" title="Open 13-Tab 360° Drawer">
+                                                <i class="fa fa-arrow-right me-1"/> 360° Drawer
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="this.displayedEmployees.length === 0">
+                                        <td colspan="6" class="text-center text-muted py-4">No employees match the selected filter criteria.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </t>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div t-if="state.loading" class="text-center py-5 my-5">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"/>
+                <p class="text-muted fw-bold mt-3">Computing Employee 360° Enterprise Metrics in <t t-esc="state.filters.company_id or 'All Companies'"/>...</p>
+            </div>
+
+            <!-- Slide-Over 360° Drawer Modal -->
+            <Employee360Drawer t-if="state.selectedEmployeeId"
+                               employeeId="state.selectedEmployeeId"
+                               onClose="() => this.close360Drawer()"/>
+
+            <!-- Omnibar & QR Scanner Modal -->
+            <SmartSearchModal t-if="state.showSearchModal"
+                              employees="state.data ? state.data.employee_list : []"
+                              onSelectEmployee="(id) => this.open360Drawer(id)"
+                              onClose="() => this.closeSmartSearchModal()"/>
+
+            <!-- Dynamic Tile Configurator Modal -->
+            <div t-if="state.editingTile" class="modal d-block text-dark" style="background: rgba(0, 0, 0, 0.55); z-index: 1050;">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg rounded-4" style="background: #ffffff;">
+                        <div class="modal-header border-bottom-0 pb-0">
+                            <h5 class="modal-title fw-bold text-dark"><i class="fa fa-sliders me-2 text-primary"/> Configure Dashboard Tile</h5>
+                            <button type="button" class="btn-close" t-on-click="() => this.closeTileConfigurator()"/>
+                        </div>
+                        <div class="modal-body py-3" style="max-height: 450px; overflow-y: auto;">
+                            <!-- Predefined Styles Section -->
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-2 text-secondary" style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Visual Styling &amp; Layouts</h6>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label class="fs-8 text-muted fw-bold">Font Style</label>
+                                        <select class="form-select form-select-sm" t-model="state.editingConfig.fontStyle">
+                                            <option value="inherit">Default Sans</option>
+                                            <option value="serif">Classic Serif</option>
+                                            <option value="monospace">Developer Mono</option>
+                                            <option value="'Outfit', sans-serif">Premium Outfit</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="fs-8 text-muted fw-bold">Font Color</label>
+                                        <input type="color" class="form-control form-control-sm form-control-color w-100" t-model="state.editingConfig.fontColor"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="fs-8 text-muted fw-bold">Icon Class</label>
+                                        <select class="form-select form-select-sm" t-model="state.editingConfig.icon">
+                                            <option value="">No Icon override</option>
+                                            <option value="fa-users">fa-users (Group)</option>
+                                            <option value="fa-user-check">fa-user-check (Att)</option>
+                                            <option value="fa-plane">fa-plane (Leaves)</option>
+                                            <option value="fa-clock-o">fa-clock-o (Time)</option>
+                                            <option value="fa-money">fa-money (Payroll)</option>
+                                            <option value="fa-exclamation-circle">fa-exclamation (Alerts)</option>
+                                            <option value="fa-sliders">fa-sliders (Settings)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="fs-8 text-muted fw-bold">Background Theme</label>
+                                        <select class="form-select form-select-sm" t-model="state.editingConfig.bgColor">
+                                            <option value="bg-white">Flat White</option>
+                                            <option value="theme-gradient-blue">Deep Indigo Gradient</option>
+                                            <option value="theme-gradient-green">Teal Emerald Gradient</option>
+                                            <option value="theme-gradient-orange">Sunset Amber Gradient</option>
+                                            <option value="theme-gradient-purple">Royal Purple Gradient</option>
+                                            <option value="theme-gradient-dark">Premium Obsidian Slate</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <label class="fs-8 text-muted fw-bold mb-1">Predefined Layout (6 Layouts)</label>
+                                        <div class="d-grid gap-1" style="grid-template-columns: repeat(3, 1fr);">
+                                            <button type="button" class="btn btn-xs btn-outline-secondary py-1" t-att-class="state.editingConfig.layout === 'layout-1' ? 'active btn-primary text-white' : ''" t-on-click="() => this.selectLayout('layout-1')">L1: Default</button>
+                                            <button type="button" class="btn btn-xs btn-outline-secondary py-1" t-att-class="state.editingConfig.layout === 'layout-2' ? 'active btn-primary text-white' : ''" t-on-click="() => this.selectLayout('layout-2')">L2: Minimalist</button>
+                                            <button type="button" class="btn btn-xs btn-outline-secondary py-1" t-att-class="state.editingConfig.layout === 'layout-3' ? 'active btn-primary text-white' : ''" t-on-click="() => this.selectLayout('layout-3')">L3: Accent Left</button>
+                                            <button type="button" class="btn btn-xs btn-outline-secondary py-1" t-att-class="state.editingConfig.layout === 'layout-4' ? 'active btn-primary text-white' : ''" t-on-click="() => this.selectLayout('layout-4')">L4: Dark Card</button>
+                                            <button type="button" class="btn btn-xs btn-outline-secondary py-1" t-att-class="state.editingConfig.layout === 'layout-5' ? 'active btn-primary text-white' : ''" t-on-click="() => this.selectLayout('layout-5')">L5: Glass Accent</button>
+                                            <button type="button" class="btn btn-xs btn-outline-secondary py-1" t-att-class="state.editingConfig.layout === 'layout-6' ? 'active btn-primary text-white' : ''" t-on-click="() => this.selectLayout('layout-6')">L6: Rounded Pill</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Data Filtration Section -->
+                            <div>
+                                <h6 class="fw-bold mb-2 text-secondary" style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Data Filtration &amp; Aggregates</h6>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label class="fs-8 text-muted fw-bold">Sort By</label>
+                                        <select class="form-select form-select-sm" t-model="state.editingConfig.sortBy">
+                                            <option value="">Default Order</option>
+                                            <option value="name_asc">Name (A-Z)</option>
+                                            <option value="name_desc">Name (Z-A)</option>
+                                            <option value="value_desc">Values (High to Low)</option>
+                                            <option value="value_asc">Values (Low to High)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="fs-8 text-muted fw-bold">Limit Records</label>
+                                        <select class="form-select form-select-sm" t-model="state.editingConfig.limit">
+                                            <option value="">No Limit</option>
+                                            <option value="3">3 Records</option>
+                                            <option value="5">5 Records</option>
+                                            <option value="8">8 Records</option>
+                                            <option value="10">10 Records</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="fs-8 text-muted fw-bold">Filter Condition</label>
+                                        <select class="form-select form-select-sm" t-model="state.editingConfig.filterCondition">
+                                            <option value="">No Filter</option>
+                                            <option value="high_cost">High Cost (> $5,000)</option>
+                                            <option value="high_attendance">High Attendance (> 90%)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0 pt-0">
+                            <button type="button" class="btn btn-sm btn-secondary" t-on-click="() => this.closeTileConfigurator()">Cancel</button>
+                            <button type="button" class="btn btn-sm btn-primary text-white" t-on-click="() => this.saveTileConfig()">Apply Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div> <!-- End dashboard-main-viewport -->
+        </div> <!-- End o_wu_360_wrapper -->
+    </t>
+</templates>

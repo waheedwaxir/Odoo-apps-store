@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_wu_hr_employee360" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">wu_hr_employee360.DashboardClientAction</field>
+    </record>
+
+    <!-- Menu Hierarchy -->
+    <menuitem id="menu_hr_employee360_root"
+              name="Dashboard"
+              parent="hr.menu_hr_root"
+              action="action_wu_hr_employee360"
+              sequence="1"
+              groups="wu_hr_employee360.group_hr_dashboard_user"/>
+
+
+</odoo>

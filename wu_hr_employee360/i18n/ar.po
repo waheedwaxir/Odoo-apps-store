@@ -1,0 +1,4433 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wu_hr_employee360
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-16 09:52+0000\n"
+"PO-Revision-Date: 2026-07-16 09:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid " (+%s%s / %s%%)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid " (-%s%s / %s%%)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "%d-Year Work Anniversary this month — %s 🎉"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "%s successfully checked in."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "%s successfully checked out."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "%s — %s day(s)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/smart_alert_center.js:0
+msgid "%sd overdue"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/smart_alert_center.js:0
+msgid "%sd remaining"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.actions.report,print_report_name:wu_hr_employee360.action_report_hr_dashboard_executive
+msgid "'HR_Executive_Dashboard_Summary_%s' % (object.name or 'Company')"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "1. Core Workforce &amp; Attendance Metrics"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "10 Records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "14 Instant Executive Quick Actions"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "2. Department Distribution &amp; Span of Control"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "3 Records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "3. AI Smart Copilot Executive Recommendations"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "360° Drawer"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "5 Records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "8 Records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "< Live Schedule >"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "<i class=\"fa fa-lightbulb-o\"/> Top Predictive Action Items:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "<span class=\"badge bg-success\">Grade A</span>"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.view_employee_form_inherit_dashboard_360_pro
+msgid ""
+"<span class=\"o_stat_value\">360°</span>\n"
+"                        <span class=\"o_stat_text\">Profile</span>"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "<span class=\"text-danger fw-bold\">Check Expiry Center</span>"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "<strong>Average Health Grade</strong>"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "<strong>Contracts Expiring Soon</strong>"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "<strong>On Probation</strong>"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "<strong>Total Active Headcount</strong>"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "A Complete 360° Overview of Your Workforce"
+msgstr "نظرة عامة شاملة 360 درجة على القوى العاملة لديك"
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee__blood_group__ab+
+msgid "AB+"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee__blood_group__ab-
+msgid "AB-"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Absent"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Absent %"
+msgstr "الغياب ٪"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Absenteeism Rate"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "Acknowledge and dismiss this alert"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Action"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Active"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Active Applicants"
+msgstr "المتقدمون النشطون"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Active Drill-Down Filter:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Active Projects"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Active Remote Workers"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Add Dept."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Add Employee"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__detail
+msgid "Additional Detail"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Advanced Filters"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Alert"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__created_date
+msgid "Alert Created"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__message
+msgid "Alert Message"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__alert_type
+msgid "Alert Type"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/smart_alert_center.js:0
+msgid "Alert acknowledged & dismissed."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Alert dismissed."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Alert not found."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Alerts"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "All"
+msgstr "الكل"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "All Clear!"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "All Genders"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "All Statuses"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "All Types"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "All employees in this view have logged time."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Allocated Days"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Allocations"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Analytics"
+msgstr "التحليلات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Anniversaries"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Announcement"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Annual KPI Goals Attained"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Annual Leave Balance"
+msgstr "رصيد الإجازة السنوية"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Annual Leaves"
+msgstr "إجازات سنوية"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Annual Turnover"
+msgstr "الدوران السنوي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Annual:"
+msgstr "سنوي:"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Applicant Name"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Applicants"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Application Date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Applied For Role"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Apply Filters"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Apply Settings"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Appraisal overdue (last: %s) — %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Approve"
+msgstr "موافقة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Approve Att."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Approve Leave"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Approved"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Approved Leaves"
+msgstr "الإجازات المعتمدة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Asset Item"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Assigned Company Equipment & Assets"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Assigned Date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Att %"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Attendance"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Attendance Overview"
+msgstr "نظرة عامة على الحضور"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Attendance Rate"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Attendance Trend"
+msgstr "اتجاه الحضور"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Attendance Trend (Weekly)"
+msgstr "اتجاه الحضور (أسبوعي)"
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Attendance module is not installed."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Attrition Rate"
+msgstr "معدل دوران الموظفين"
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__is_synthetic
+msgid "Auto-Synthesised"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Auto-generated from Odoo records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Available to schedule immediately"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/org_chart.xml:0
+msgid "Avatar"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Average"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Average Acquisition"
+msgstr "متوسط تكلفة الاستحواذ"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Average Duration"
+msgstr "متوسط المدة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Average Employee Tenure"
+msgstr "متوسط مدة خدمة الموظف"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Average Entry"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Average Monthly Salary"
+msgstr "متوسط الراتب الشهري"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Avg. Cost"
+msgstr "متوسط التكلفة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Awaiting Manager"
+msgstr "بانتظار المدير"
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__award
+msgid "Award / Recognition"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Background Theme"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__color
+msgid "Badge Color"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Based on logged hours"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Biographic & Emergency"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Birthday Wishes"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Birthday in %d day(s) — %s 🎂"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Birthdays"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Birthdays ("
+msgstr "أعياد ميلاد ("
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee__blood_group
+msgid "Blood Group"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Blood Group / Religion:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__color__blue
+msgid "Blue   — Informational"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/org_chart.xml:0
+msgid "Building organizational tree hierarchy..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Calendar"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Cancel"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Candidates"
+msgstr "المرشحون"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Check-in:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Checked in after shift"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Classic Serif"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Clear Drill-Down Filter"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Clear Filter"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Click any employee row to inspect their 13-Tab 360° Profile Drawer"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/org_chart.xml:0
+msgid ""
+"Click to expand/collapse reports. Double-click any card to launch the 360° "
+"Profile Drawer."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Close"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Close Drawer"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/org_chart.xml:0
+msgid "Collapse All"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Company Mean"
+msgstr "متوسط الشركة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Company:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Company: All Companies"
+msgstr "الشركة: جميع الشركات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Compensation & Payslips"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Competency & Skill Matrix"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid ""
+"Complete pending visa and labor contract renewals shown in the Traffic-Light"
+" Expiry Matrix before 30-day thresholds."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Completed"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Compliance Document Matrix"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Compliance Overview"
+msgstr "نظرة عامة على الامتثال"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Computing Employee 360° Enterprise Metrics in"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Condition"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Confidential HR Notes & Logs"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid ""
+"Confidential: Only HR Officers or the employee directly can view detailed "
+"payroll wages."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Configure Dashboard Tile"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Configure Tile"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Confirmation"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Consider sending a birthday greeting or scheduling a celebration."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Contact & Identification"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Contract & Working Shift"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Contract End: %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Contract Renewal"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Contract Status:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Contract Type:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Contract expiring in %d day(s) — %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Contract: %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Contract: %s | Wage: %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Contract: %s. Effective %s."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Contracts"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Contracts Expiring"
+msgstr "عقود تنتهي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Contracts Expiring (30 Days)"
+msgstr "عقود تنتهي (30 يوماً)"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Contributors"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Core Loyalty Index"
+msgstr "مؤشر الولاء الأساسي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Cost"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Cost Per Hire"
+msgstr "تكلفة التعيين"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/smart_alert_center.js:0
+msgid "Could not dismiss alert."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Could not fetch dashboard metrics. Verify database connections."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Could not generate WhatsApp link."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/employee_360_drawer.js:0
+msgid "Could not load employee timesheets."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/employee_360_drawer.js:0
+msgid "Could not load this employee profile."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Could not open the Timesheets form. Verify your access."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid ""
+"Could not open this employee's timesheets. Verify your Timesheets access."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+#: code:addons/wu_hr_employee360/static/src/js/employee_360_drawer.js:0
+msgid "Could not open this timesheet entry."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/employee_360_drawer.js:0
+msgid "Could not open timesheets. Verify your Timesheets access."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Create Expense Report"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Create Leave Request"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__create_uid
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__create_date
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Created via Employee 360 Dashboard Pro"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__severity__critical
+msgid "Critical"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Critical Document Expiry Radar & Actions"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Curr"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Current Basic Monthly Wage:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Current Count / Status"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Current Stage"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Current Status"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Custom Date Range..."
+msgstr "نطاق زمني مخصص..."
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Daily logging rhythm"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Daily worklog rhythm"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: model:ir.actions.client,name:wu_hr_employee360.action_wu_hr_employee360
+#: model:ir.ui.menu,name:wu_hr_employee360.menu_hr_employee360_root
+msgid "Dashboard"
+msgstr "لوحة المعلومات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Dashboard layout configuration exported successfully!"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Dashboard layout configuration imported successfully!"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Data Filtration & Aggregates"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Date of Birth:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Dates"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Days"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__days_ago
+msgid "Days Ago"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Days Available"
+msgstr "أيام متاحة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Days Left"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__days_left
+msgid "Days Remaining"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Deep Indigo Gradient"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Default Order"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Default Sans"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__department
+msgid "Department"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Department Manager"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Department Name"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Department Overview"
+msgstr "نظرة عامة على القسم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Department Transfer"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Department:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Department: All Departments"
+msgstr "القسم: جميع الأقسام"
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__description
+msgid "Description / Details"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Developer Mono"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Digest sent to %d HR Manager(s): %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Direct Manager"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Direct Manager:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__disciplinary
+msgid "Disciplinary Action"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__warning
+msgid "Disciplinary Warning"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "Dismiss"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__is_dismissed
+msgid "Dismissed"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__dismissed_by
+msgid "Dismissed By"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_dashboard_metrics__display_name
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__display_name
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Document Number"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Document Title"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Document Type"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Documents"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Double-click to edit instantly"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/chart_panel.xml:0
+msgid "Drill-Down Enabled"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__due_date
+msgid "Due / Event Date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Duration: %s to %s."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid "EMP-2026-001"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Early Checkout"
+msgstr "خروج مبكر"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Email failed."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Email sending error: "
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee__emergency_contact_name
+msgid "Emergency Contact Name"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee__emergency_contact_phone
+msgid "Emergency Contact Phone"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Emergency Contact:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Emp"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: model:ir.model,name:wu_hr_employee360.model_hr_employee
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__employee_id
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__employee_id
+msgid "Employee"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: model:res.groups.privilege,name:wu_hr_employee360.res_groups_privilege_dashboard
+msgid "Employee 360 Dashboard"
+msgstr "لوحة معلومات الموظف الشاملة"
+
+#. module: wu_hr_employee360
+#: model:ir.actions.report,name:wu_hr_employee360.action_report_hr_dashboard_executive
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Employee 360° Executive Summary Report"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Employee Distribution"
+msgstr "توزيع الموظفين"
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__employee_name
+msgid "Employee Name"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model,name:wu_hr_employee360.model_hr_employee_timeline_event
+msgid "Employee Timeline Event"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Employee has an open attendance record with no check-out."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+#: code:addons/wu_hr_employee360/models/hr_employee_ext.py:0
+msgid "Employee is not available."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Employee onboarded. Department: %s."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Employee record does not exist."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Employee worklog analytics"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Employee worklog visibility"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Employees"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Employees with no timesheet in the selected period"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Employees with visible worklogs"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Entries"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/smart_alert_center.js:0
+msgid "Error dismissing alert."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Error reading layout configuration file."
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__event_date
+msgid "Event Date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__title
+msgid "Event Title"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__event_type
+msgid "Event Type"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid ""
+"Events are auto-synthesised from contracts, leaves, and appraisals. Manual "
+"events can be added via Quick Actions."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Excel export failed: "
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Excel file downloaded successfully! Check your Downloads folder."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Exit Interviews"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/org_chart.xml:0
+msgid "Expand All"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Expats"
+msgstr "وافدون"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Expiring"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Expiry Date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/employee_360_drawer.js:0
+msgid "Expiry reminder notifications sent to employee successfully."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Export Layout"
+msgstr "تصدير التخطيط"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Female"
+msgstr "أنثى"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Filter Condition"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Filter Dashboard Data"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Filtered Employee Directory ("
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Filtered Expiry List:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Filtered by channel / application date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Filters reset. Showing full dataset."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Flat White"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Font Color"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Font Style"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Fri"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "From"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "From %s to %s."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Full team visibility"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Gathering comprehensive workforce records and metrics"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Gen. Payroll"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Gender & Nationality:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__note
+msgid "General HR Note"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Generate Employee Payslip"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__color__gray
+msgid "Gray   — General"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__color__green
+msgid "Green  — Positive"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "HR Alerts"
+msgstr "تنبيهات الموارد البشرية"
+
+#. module: wu_hr_employee360
+#: model:ir.model,name:wu_hr_employee360.model_hr_dashboard_metrics
+msgid "HR Employee 360 High-Speed Metrics & Aggregation Engine"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model,name:wu_hr_employee360.model_hr_smart_alert
+msgid "HR Smart Alert"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Headcount"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "High Attendance (> 90%)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "High Cost (> $5,000)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Hired (Month)"
+msgstr "تم تعيينهم (الشهر)"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Hiring Trend"
+msgstr "اتجاه التوظيف"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Home Address:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Hours"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_dashboard_metrics__id
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee__id
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__id
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__id
+msgid "ID"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "ID / Number"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "ID: %s | Dept: %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Icon Class"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Import Emp."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Import Layout"
+msgstr "استيراد التخطيط"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "In Interview Stage"
+msgstr "في مرحلة المقابلة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "In Pipeline"
+msgstr "في قيد المعالجة"
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "Indicator"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__severity__info
+msgid "Info"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/attendance_map.xml:0
+msgid "Interactive Geofence Radar"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/org_chart.xml:0
+msgid "Interactive Organization Hierarchy Tree"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Interviews"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Interviews Today"
+msgstr "مقابلات اليوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Invalid dashboard configuration file. Missing layout parameters."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Issue Employee Loan"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Issue Warning Notice"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Job Position"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Joined on %s. Consider recognition or service award."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Joined the Organisation"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__joining
+msgid "Joining / Onboarding"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Joining Date:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "L1: Default"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "L2: Minimalist"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "L3: Accent Left"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "L4: Dark Card"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "L5: Glass Accent"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "L6: Rounded Pill"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 14 days in the selected period, normalized to hours"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 15 Days"
+msgstr "آخر 15 يوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 180 Days"
+msgstr "آخر 180 يوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 30 Days"
+msgstr "آخر 30 يوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_ext.py:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Last 30 days"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 365 Days"
+msgstr "آخر 365 يوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 60 Days"
+msgstr "آخر 60 يوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 7 Days"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last 90 Days"
+msgstr "آخر 90 يوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last Month"
+msgstr "الشهر الماضي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last Quarter"
+msgstr "الربع الماضي"
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__write_uid
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__write_date
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last Week"
+msgstr "الأسبوع الماضي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Last Year"
+msgstr "العام الماضي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_ext.py:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Last month"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Last performance review was over a year ago. Schedule an appraisal."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Late Arrivals"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Late Incidents"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Late Today"
+msgstr "متأخر اليوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Layout"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Leave"
+msgstr "إجازة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Leave %"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__leave
+msgid "Leave / Absence"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Leave Requests"
+msgstr "طلبات الإجازة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Leave Summary"
+msgstr "ملخص الإجازات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Leave Type"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/employee_360_drawer.js:0
+msgid "Leave approved successfully."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Leave request created successfully."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Leaves"
+msgstr "الإجازات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Leaving ("
+msgstr "مغادرون ("
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Limit Records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/attendance_map.xml:0
+msgid "Live GPS Geofencing & Check-In Radar"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Live Rate"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Live Status:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Live update received from server."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Loading Employee 360° Profile..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Loading employee timesheets..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Loading your profile..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Loans"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Locals"
+msgstr "مواطنون"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Log Manual Check-In / Out"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Log Time"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Logged Hours"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Logging Coverage"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "M-1"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "M-2"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "M-3"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "M-4"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "M-5"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Male"
+msgstr "ذكر"
+
+#. module: wu_hr_employee360
+#: model:res.groups,name:wu_hr_employee360.group_hr_dashboard_manager
+msgid "Manager"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:res.groups,comment:wu_hr_employee360.group_hr_dashboard_manager
+msgid "Manager access for the Employee 360 Dashboard."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Manager: All Managers"
+msgstr "المدير: جميع المدراء"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Marital Status:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Medical Days Taken"
+msgstr "أيام مرضية مأخوذة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Medical compliance allocation"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Mentor / Coach:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Milestones"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Missing"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Missing Attendance"
+msgstr "حضور مفقود"
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Missing check-out since %s — %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Mon"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid ""
+"Monitor department overtime indexes during peak operational weeks to "
+"safeguard overall Employee Health Scores."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Monthly Hours"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "My Attendance Records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "My Photo"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "N/A"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Name (A-Z)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Name (Z-A)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "National ID expiring in %d day(s) — %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Nationalities"
+msgstr "الجنسيات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "New Joiners ("
+msgstr "منضمون جدد ("
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Next 30 Days"
+msgstr "الـ 30 يوم القادمة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Next 7 Days"
+msgstr "الـ 7 أيام القادمة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "No"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No Filter"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No Icon override"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No Limit"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No allocation records found."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No applicant records found in this stage."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_ext.py:0
+msgid "No confidential HR notes logged."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "No data to export. Load the dashboard first."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No department data found."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid "No employee matches found for your search query."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No employees match the selected filter criteria."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No expiring document records found for this category."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/employee_360_drawer.js:0
+msgid "No expiring documents found in the record table."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No leave records found for this category."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No pending leave requests."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "No pending requests."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "No pending time-off requests."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No performance evaluation ratings recorded."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "No project allocation found."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No project worklogs found."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No records found in this stage category."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "No time entries found."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "No time logged in this period."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "No timeline events yet."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "No timesheet access"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No upcoming events this week."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No visible employee worklogs found."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "No worklogs were recorded in this period."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Odoo Profile"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "On Leave"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "On Vacation"
+msgstr "في إجازة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Onboarding"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Only timesheets you are allowed to access"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open 13-Tab 360° Drawer"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open Applicant Form"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "Open Employee 360° Profile"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open Employee Form"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open Full Odoo Employee Form View"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Open Full Odoo Employee Form View (Pic 1)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open Leave Form in Odoo"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open Positions"
+msgstr "الوظائف المفتوحة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Open Tasks"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Open Timesheets"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Open any row to review the original Odoo record"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.view_employee_form_inherit_dashboard_360_pro
+msgid "Open complete interactive 13-Facet Employee 360° Profile Drawer"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Opening Odoo Batch Import Wizard for Employees"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__color__orange
+msgid "Orange — Transfer / Change"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Org Chart"
+msgstr "الهيكل التنظيمي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Organizational Hierarchy"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Other"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/attendance_map.xml:0
+msgid "Out of Bounds Breach"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Overall Appraisal Rating"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Overtime Balance"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Overtime Today"
+msgstr "وقت إضافي اليوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "PDF report opening in new tab..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Passport Expiring"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Payroll"
+msgstr "مسير الرواتب"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Payroll Overview"
+msgstr "نظرة عامة على الرواتب"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Payslips"
+msgstr "قسائم الرواتب"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Pending"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Pending Approval"
+msgstr "بانتظار الموافقة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Pending Approval Requests"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Pending Requests"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Pending:"
+msgstr "قيد الانتظار:"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Performance"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__appraisal
+msgid "Performance Appraisal"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Performance Appraisal Completed"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid "Photo"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__photo_url
+msgid "Photo URL"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Predefined Layout (6 Layouts)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Premium Obsidian Slate"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Premium Outfit"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Present"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Present %"
+msgstr "الحضور ٪"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Present Today"
+msgstr "حاضر اليوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Present vs Total Headcount"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Private Email:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Probation"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Probation Employees"
+msgstr "موظفون تحت التجربة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Probation End"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.view_employee_form_inherit_dashboard_360_pro
+msgid "Probation End Date"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Probation End:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Probation End: %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Probation Ending"
+msgstr "فترة تجربة تنتهي"
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Probation ends in %d day(s) — %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Process Promotion"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Professional Development"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/self_service_portal.js:0
+msgid "Profile refreshed!"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Project"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Project allocation"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Projects"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__promotion
+msgid "Promotion"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Promotions"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__color__purple
+msgid "Purple — Achievement"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Quick Actions"
+msgstr "إجراءات سريعة"
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Rating: %s. State: %s."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Re-sync timeline"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid "Ready for USB Scanner or Camera"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/attendance_map.xml:0
+msgid ""
+"Real-time mobile field employee check-ins vs. branch geofence boundary "
+"(Radius: 500m)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Recent Payslip Archives"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Recent entries"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Recent time entries"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Records"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Recruitment"
+msgstr "التوظيف"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Recruitment Overview"
+msgstr "نظرة عامة على التوظيف"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Recruitment Pipeline Drill-Down ("
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__color__red
+msgid "Red    — Warning / Negative"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Refresh"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "Refresh Alerts"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Refreshing dashboard metrics..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "Regenerate and refresh all alerts"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee__emergency_contact_relation
+msgid "Relation"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee__religion
+msgid "Religion"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Remind Expiry"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Remote / WFH"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/org_chart.xml:0
+msgid "Reports"
+msgstr "التقارير"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Reports to:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Request Leave"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Reset All"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__separation
+msgid "Resignation / Termination"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Resignations"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Retention Rate"
+msgstr "معدل الاستبقاء"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Retirements"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid ""
+"Review salary structures for employees with tenure &gt; 24 months without "
+"wage revision to mitigate turnover risk."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Reviews Pending"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Royal Purple Gradient"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Salary Revised: %s%s%s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__salary_revision
+msgid "Salary Revision"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Salary Revisions"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid "Scan an employee physical badge QR code or type ID number below:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Schedule Int."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Scheduled"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Scheduled Interviews"
+msgstr "مقابلات مجدولة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "Search by name..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid ""
+"Search employee by Name, Work Email, Mobile, National ID, or Passport..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Search user / system user..."
+msgstr "ابحث عن مستخدم / مستخدم نظام..."
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Selected period total"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Send Bulk Reminders to All"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Serial / IMEI"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Settings"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__severity
+msgid "Severity"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__severity_order
+msgid "Severity Order"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Show employees missing checkout"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Show employees on leave today"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Show employees with birthday today"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Show expiring contracts"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Show scheduled interviews"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Show work anniversary employees"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Sick Leave Balance"
+msgstr "رصيد الإجازة المرضية"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "Sick Leave Days Left"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Sick Leaves"
+msgstr "إجازات مرضية"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Sick:"
+msgstr "مرضي:"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "Smart Alert Center"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Smart Alerts refreshed!"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Smart Calendar"
+msgstr "التقويم الذكي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Sort By"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__related_model
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__related_model
+msgid "Source Model"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_employee_timeline_event__related_id
+#: model:ir.model.fields,field_description:wu_hr_employee360.field_hr_smart_alert__related_id
+msgid "Source Record ID"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Sourcing Channel"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Status"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Strict Manager Access Mode Active"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid "Submit"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Sunset Amber Gradient"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Switched to %s Edition View"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Sync"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__color__teal
+msgid "Teal   — Training"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Teal Emerald Gradient"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,help:wu_hr_employee360.field_hr_employee_timeline_event__related_model
+msgid "Technical model name of the originating record"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Terminations"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "The Timesheets application is not installed."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "This Month"
+msgstr "هذا الشهر"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "This Quarter"
+msgstr "هذا الربع"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "This Week"
+msgstr "هذا الأسبوع"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "This Year"
+msgstr "هذا العام"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_ext.py:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "This month"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_ext.py:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "This quarter"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_ext.py:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "This week"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Thu"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Tile customizations applied successfully!"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Time Intelligence"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Time Off / Leave module (hr_holidays) is not installed."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Time To Hire"
+msgstr "وقت التعيين"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Time Tracking"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Time entry follow-up"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Time intelligence"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Times"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Timesheet access is required"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Timesheet data is unavailable while dashboard access is restricted."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Timesheet data is unavailable."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "Timesheet entry is not available."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Timesheets"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "Title updated instantly!"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "To"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid ""
+"To add dashboard items, use the edit / add layout options or ask your system"
+" administrator for access."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/smart_alert_center.js:0
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Today"
+msgstr "اليوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Today's Activities"
+msgstr "أنشطة اليوم"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Toggle Check-in / Out"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Toggle Dashboard Widgets"
+msgstr "تبديل واجهات لوحة المعلومات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Toggle Strict Manager Access Mode"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/smart_alert_center.js:0
+msgid "Tomorrow"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Top Late Arrivals (Month)"
+msgstr "أكثر المتأخرين (الشهر)"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#, odoo-javascript
+msgid "Top Performers"
+msgstr "أفضل الأداء"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Top contributors"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Top projects"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Total"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Total Employees"
+msgstr "إجمالي الموظفين"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Total Leave Balance"
+msgstr "إجمالي رصيد الإجازات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Total Leave Balance —"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Total Payroll Cost"
+msgstr "إجمالي تكلفة الرواتب"
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__training
+msgid "Training / Certification"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Training Enrollments"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_employee_timeline.py:0
+msgid "Training: %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_employee_timeline_event__event_type__transfer
+msgid "Transfer"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Transfers"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields,help:wu_hr_employee360.field_hr_employee_timeline_event__is_synthetic
+msgid "True when this event was generated automatically from other Odoo data"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Tue"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Type"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Unexcused Absences"
+msgstr "غياب بدون عذر"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_search.xml:0
+msgid "Universal Omnibar & ID Badge Scanner (`Cmd + K`)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Unpaid:"
+msgstr "غير مدفوع:"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Upcoming HR Events, Birthdays & Milestones (Next 30 Days)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Upcoming Leaves"
+msgstr "الإجازات القادمة"
+
+#. module: wu_hr_employee360
+#: model:res.groups,name:wu_hr_employee360.group_hr_dashboard_user
+msgid "User"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:res.groups,comment:wu_hr_employee360.group_hr_dashboard_user
+msgid "User access for the Employee 360 Dashboard."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Vacation Days"
+msgstr "أيام إجازة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Values (High to Low)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Values (Low to High)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Verified Contract"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "View All"
+msgstr "عرض الكل"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "View All Alerts"
+msgstr "عرض كافة التنبيهات"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "View Details"
+msgstr "عرض التفاصيل"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "View My Time Off"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Visa Expiring"
+msgstr "تأشيرات تنتهي"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Visa Expiring (30 Days)"
+msgstr "تأشيرات تنتهي (30 يوماً)"
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Visa No: %s | Dept: %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "Visa expiring in %d day(s) — %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Visual Styling & Layouts"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__severity__warning
+msgid "Warning"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Warnings:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Wed"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Weekly Hours"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "WhatsApp"
+msgstr "واتساب"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/js/dashboard_action.js:0
+msgid "WhatsApp link error: "
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "WhatsApp link generated for %s"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/attendance_map.xml:0
+msgid "Within Geofence"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Work Email:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Work Phone:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Work Schedule:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Worklog"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Worklog Entries"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "YTD Approved"
+msgstr "المعتمد منذ بداية العام"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Years of Service"
+msgstr "سنوات الخدمة"
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Yesterday"
+msgstr "أمس"
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "You do not have permission to read these timesheets."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_dashboard_metrics.py:0
+msgid "You need Timesheets access to view work logs."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "Your personal dashboard is empty"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "Yrs)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "active"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "alerts at this time. Your workforce compliance looks great."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "auto"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "days"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "days ago)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "e.g. Engineer, Manager..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "e.g. Finance, IT..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "e.g. Qatari, Indian..."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-python
+#: code:addons/wu_hr_employee360/models/hr_smart_alert.py:0
+msgid "employee"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "entries"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "events"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "events recorded yet."
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "fa-clock-o (Time)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "fa-exclamation (Alerts)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "fa-money (Payroll)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "fa-plane (Leaves)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "fa-sliders (Settings)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "fa-user-check (Att)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "fa-users (Group)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "h per contributor"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "matching applicants)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "matching records)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+msgid "shown"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/dashboard_main.xml:0
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "to"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/smart_alert_center.xml:0
+msgid "unread"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "| Check-out:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model_terms:ir.ui.view,arch_db:wu_hr_employee360.report_hr_dashboard_executive_template
+msgid "| Generated On:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "| Rewards:"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "⏱ Probation"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__probation_end
+msgid "⏱ Probation Period End"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "⏱️ Attendance"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "⏳ Chronological Milestone Journal"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "⏳ My Recent History"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "⏳ Timeline"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__attendance_anomaly
+msgid "⚠️ Attendance Anomaly"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "⚡ Quick Actions"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "⚧ Gender"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "✅ Confirmed"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "🆕 New Joiner (30d)"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "🌍 Nationality"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "🌴 Leave"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__leave_balance_critical
+msgid "🌴 Leave Balance Critical"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "🌴 Leaves"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__birthday
+msgid "🎂 Employee Birthday"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__anniversary
+msgid "🎉 Work Anniversary"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "🎓 Skills"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "🎓 Student / Intern"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__training_due
+msgid "🎓 Training Due"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "🏢 Department"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "🏢 Employment"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "👔 Employee"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "👤 Personal"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "💰 Payroll"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "💰 Salary"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "💻 Assets ("
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "💼 Job Position"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "📁 Documents ("
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "📄 Contract Type"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__document_expiry
+msgid "📄 Document Expiry"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "📅 Hired From"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "📅 Hired To"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__appraisal_due
+msgid "📈 Appraisal Due"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "📈 Performance"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "📋 All ("
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__contract_renewal
+msgid "📋 Contract Renewal"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "📋 Employment Status"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/self_service_portal.xml:0
+msgid "📋 My Pending Requests"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "📝 Notes"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "🔍 Employee Name"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/filter_panel.xml:0
+msgid "🖥 Freelance"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "🚀 Projects"
+msgstr ""
+
+#. module: wu_hr_employee360
+#. odoo-javascript
+#: code:addons/wu_hr_employee360/static/src/xml/employee_360_drawer.xml:0
+msgid "🚨 Disciplinary"
+msgstr ""
+
+#. module: wu_hr_employee360
+#: model:ir.model.fields.selection,name:wu_hr_employee360.selection__hr_smart_alert__alert_type__disciplinary_followup
+msgid "🚨 Disciplinary Follow-up"
+msgstr ""
+
+#. odoo-python
+#: models/hr_dashboard_metrics.py:0
+msgid "%s%% of total"
+msgstr "%s%% من الإجمالي"
+
+#. odoo-python
+#: models/hr_dashboard_metrics.py:0
+msgid "%s %s%% vs last month"
+msgstr "%s %s%% مقارنة بالشهر الماضي"
+
+#. odoo-python
+#: models/hr_dashboard_metrics.py:0
+msgid "%s %s%% of total"
+msgstr "%s %s%% من الإجمالي"
+
+#. odoo-python
+#: models/hr_dashboard_metrics.py:0
+msgid "0%% of total"
+msgstr "0%% من الإجمالي"

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_hr_dashboard_executive_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="company">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center text-primary fw-bold mb-4">
+                            Employee 360° Executive Summary Report
+                        </h2>
+                        <p class="text-center text-muted mb-5">
+                            Company: <t t-esc="company.name"/> | Generated On: <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+                        </p>
+
+                        <!-- High Level KPI Table -->
+                        <h4 class="border-bottom pb-2 text-dark">1. Core Workforce &amp; Attendance Metrics</h4>
+                        <table class="table table-bordered table-striped mt-3 mb-5">
+                            <thead class="bg-primary text-white">
+                                <tr>
+                                    <th>Indicator</th>
+                                    <th>Current Count / Status</th>
+                                    <th>Indicator</th>
+                                    <th>Current Count / Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Total Active Headcount</strong></td>
+                                    <td><t t-esc="len(company.employee_ids.filtered(lambda e: e.active))"/> Employees</td>
+                                    <td><strong>Average Health Grade</strong></td>
+                                    <td><span class="badge bg-success">Grade A</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>On Probation</strong></td>
+                                    <td><t t-esc="len(company.employee_ids.filtered(lambda e: hasattr(e, 'contract_id') and e.contract_id and e.contract_id.trial_date_end and e.contract_id.trial_date_end >= datetime.date.today()))"/> Employees</td>
+                                    <td><strong>Contracts Expiring Soon</strong></td>
+                                    <td><span class="text-danger fw-bold">Check Expiry Center</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Department Headcount Table -->
+                        <h4 class="border-bottom pb-2 text-dark">2. Department Distribution &amp; Span of Control</h4>
+                        <table class="table table-sm table-hover mt-3 mb-5">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Department Name</th>
+                                    <th>Department Manager</th>
+                                    <th class="text-end">Headcount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="request.env['hr.department'].search([('company_id', 'in', [company.id, False])])" t-as="dept">
+                                    <td><t t-esc="dept.name"/></td>
+                                    <td><t t-esc="dept.manager_id.name if dept.manager_id else 'Unassigned'"/></td>
+                                    <td class="text-end fw-bold"><t t-esc="len(dept.member_ids)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- AI Anomaly & Flight Risk Summary -->
+                        <h4 class="border-bottom pb-2 text-dark">3. AI Smart Copilot Executive Recommendations</h4>
+                        <div class="alert alert-warning mt-3">
+                            <h5 class="alert-heading"><i class="fa fa-lightbulb-o"/> Top Predictive Action Items:</h5>
+                            <ul class="mb-0 mt-2">
+                                <li>Review salary structures for employees with tenure > 24 months without wage revision to mitigate turnover risk.</li>
+                                <li>Monitor department overtime indexes during peak operational weeks to safeguard overall Employee Health Scores.</li>
+                                <li>Complete pending visa and labor contract renewals shown in the Traffic-Light Expiry Matrix before 30-day thresholds.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_dashboard_metrics_360,hr.dashboard.metrics access 360,model_hr_dashboard_metrics,wu_hr_employee360.group_hr_dashboard_manager,1,1,1,1
+access_hr_dashboard_metrics_emp_360,hr.dashboard.metrics emp access 360,model_hr_dashboard_metrics,wu_hr_employee360.group_hr_dashboard_user,1,0,0,0
+access_hr_employee_timeline_event_manager,hr.employee.timeline.event manager,model_hr_employee_timeline_event,wu_hr_employee360.group_hr_dashboard_manager,1,1,1,1
+access_hr_employee_timeline_event_user,hr.employee.timeline.event user,model_hr_employee_timeline_event,wu_hr_employee360.group_hr_dashboard_user,1,0,0,0
+access_hr_smart_alert_manager,hr.smart.alert manager,model_hr_smart_alert,wu_hr_employee360.group_hr_dashboard_manager,1,1,1,1
+access_hr_smart_alert_user,hr.smart.alert user,model_hr_smart_alert,wu_hr_employee360.group_hr_dashboard_user,1,0,0,0

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.SmartSearchModal" owl="1">
+        <div class="drawer-backdrop" t-on-click="props.onClose"/>
+        <div class="modal d-block" tabindex="-1" style="z-index: 2005;">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="modal-header bg-dark text-white p-3 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa fa-search fa-lg text-primary"/>
+                            <h5 class="m-0 fw-bold">Universal Omnibar &amp; ID Badge Scanner (`Cmd + K`)</h5>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-light rounded-pill px-3" t-on-click="() => this.toggleQrMode()">
+                                <i class="fa fa-qrcode me-1"/> <t t-esc="state.qrMode ? 'Switch to Text Search' : 'Scan Barcode / QR'"/>
+                            </button>
+                            <button type="button" class="btn-close btn-close-white" t-on-click="props.onClose"/>
+                        </div>
+                    </div>
+                    <div class="modal-body p-4 bg-light">
+                        <!-- QR Scanner Mode -->
+                        <div t-if="state.qrMode" class="text-center py-4">
+                            <div class="border border-3 border-primary rounded-4 d-inline-flex align-items-center justify-content-center bg-dark text-white mb-3 position-relative" style="width: 280px; height: 280px;">
+                                <i class="fa fa-qrcode fa-5x text-primary animate-pulse"/>
+                                <div class="position-absolute bottom-0 w-100 bg-black bg-opacity-50 py-2 fs-7">Ready for USB Scanner or Camera</div>
+                            </div>
+                            <p class="text-muted m-0 fs-7">Scan an employee physical badge QR code or type ID number below:</p>
+                            <div class="input-group input-group-lg max-w-400px mx-auto mt-3">
+                                <span class="input-group-text"><i class="fa fa-barcode"/></span>
+                                <input type="text" class="form-control" placeholder="EMP-2026-001" t-model="state.barcodeInput" t-on-keydown="(ev) => this.onBarcodeEnter(ev)" autofocus="1"/>
+                                <button class="btn btn-primary" t-on-click="() => this.onScanSubmit()">Submit</button>
+                            </div>
+                        </div>
+
+                        <!-- Fuzzy Search Mode -->
+                        <div t-else="">
+                            <div class="position-relative mb-3">
+                                <i class="fa fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted fa-lg"/>
+                                <input type="text" class="form-control form-control-lg rounded-pill ps-5 border-0 shadow-sm"
+                                       placeholder="Search employee by Name, Work Email, Mobile, National ID, or Passport..."
+                                       t-model="state.searchQuery"
+                                       t-on-input="(ev) => this.onSearchInput(ev)"
+                                       autofocus="1"/>
+                            </div>
+                            <div class="list-group list-group-flush shadow-sm rounded-3 overflow-hidden">
+                                <t t-if="state.results.length > 0">
+                                    <button t-foreach="state.results" t-as="emp" t-key="emp.id"
+                                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3"
+                                            t-on-click="() => this.onSelectEmployee(emp.id)">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img t-att-src="emp.photo_url" class="rounded-circle" style="width:44px; height:44px; object-fit:cover;" alt="Photo"/>
+                                            <div>
+                                                <h6 class="fw-bold m-0 text-dark"><t t-esc="emp.name"/></h6>
+                                                <span class="fs-8 text-muted"><t t-esc="emp.job_title"/> | <t t-esc="emp.department"/></span>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge bg-light text-dark border px-3 py-1"><t t-esc="emp.status"/></span>
+                                        </div>
+                                    </button>
+                                </t>
+                                <div t-else="" class="text-center py-4 text-muted fs-7">
+                                    No employee matches found for your search query.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

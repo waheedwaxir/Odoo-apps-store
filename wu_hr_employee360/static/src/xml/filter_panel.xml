@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.FilterPanel" owl="1">
+        <!-- Toggle Button (always visible in header) -->
+        <div class="fp-wrapper">
+            <button t-attf-class="btn btn-sm fp-toggle-btn {{ props.isVisible ? 'active' : '' }}"
+                    t-on-click="() => props.onToggle()"
+                    t-att-title="props.isVisible ? 'Hide Filters' : 'Show Advanced Filters'">
+                <i class="fa fa-sliders me-1"/>
+                Advanced Filters
+                <span t-if="this.activeCount > 0" class="badge bg-primary rounded-pill ms-1">
+                    <t t-esc="this.activeCount"/> active
+                </span>
+                <i t-attf-class="fa fa-chevron-{{ props.isVisible ? 'up' : 'down' }} ms-1 fs-8"/>
+            </button>
+
+            <!-- Collapsible Panel -->
+            <div t-if="props.isVisible" class="fp-panel shadow-sm">
+                <div class="fp-panel-header d-flex justify-content-between align-items-center">
+                    <span class="fw-bold fs-7">
+                        <i class="fa fa-filter me-1 text-primary"/>
+                        Filter Dashboard Data
+                    </span>
+                    <button class="btn-close btn-close-sm" t-on-click="() => props.onToggle()"/>
+                </div>
+
+                <div class="fp-panel-body row g-3">
+                    <!-- Employee Name Search -->
+                    <div class="col-md-4">
+                        <label class="fp-label">🔍 Employee Name</label>
+                        <input type="text" class="form-control form-control-sm fp-input"
+                               placeholder="Search by name..."
+                               t-att-value="state.employee_search"
+                               t-on-input="(e) => this.updateField('employee_search', e.target.value)"/>
+                    </div>
+
+                    <!-- Department -->
+                    <div class="col-md-4">
+                        <label class="fp-label">🏢 Department</label>
+                        <input type="text" class="form-control form-control-sm fp-input"
+                               placeholder="e.g. Finance, IT..."
+                               t-att-value="state.department_id"
+                               t-on-input="(e) => this.updateField('department_id', e.target.value)"/>
+                    </div>
+
+                    <!-- Job Position -->
+                    <div class="col-md-4">
+                        <label class="fp-label">💼 Job Position</label>
+                        <input type="text" class="form-control form-control-sm fp-input"
+                               placeholder="e.g. Engineer, Manager..."
+                               t-att-value="state.job_id"
+                               t-on-input="(e) => this.updateField('job_id', e.target.value)"/>
+                    </div>
+
+                    <!-- Employment Status -->
+                    <div class="col-md-3">
+                        <label class="fp-label">📋 Employment Status</label>
+                        <select class="form-select form-select-sm fp-input"
+                                t-on-change="(e) => this.updateField('employment_status', e.target.value)">
+                            <option value="">All Statuses</option>
+                            <option value="confirmed"   t-att-selected="state.employment_status === 'confirmed'">✅ Confirmed</option>
+                            <option value="probation"   t-att-selected="state.employment_status === 'probation'">⏱ Probation</option>
+                            <option value="new_joiner"  t-att-selected="state.employment_status === 'new_joiner'">🆕 New Joiner (30d)</option>
+                        </select>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-3">
+                        <label class="fp-label">⚧ Gender</label>
+                        <select class="form-select form-select-sm fp-input"
+                                t-on-change="(e) => this.updateField('gender', e.target.value)">
+                            <option value="">All Genders</option>
+                            <option value="male"   t-att-selected="state.gender === 'male'">Male</option>
+                            <option value="female" t-att-selected="state.gender === 'female'">Female</option>
+                            <option value="other"  t-att-selected="state.gender === 'other'">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Nationality -->
+                    <div class="col-md-3">
+                        <label class="fp-label">🌍 Nationality</label>
+                        <input type="text" class="form-control form-control-sm fp-input"
+                               placeholder="e.g. Qatari, Indian..."
+                               t-att-value="state.nationality"
+                               t-on-input="(e) => this.updateField('nationality', e.target.value)"/>
+                    </div>
+
+                    <!-- Employment Type -->
+                    <div class="col-md-3">
+                        <label class="fp-label">📄 Contract Type</label>
+                        <select class="form-select form-select-sm fp-input"
+                                t-on-change="(e) => this.updateField('employment_type', e.target.value)">
+                            <option value="">All Types</option>
+                            <option value="employee"   t-att-selected="state.employment_type === 'employee'">👔 Employee</option>
+                            <option value="student"    t-att-selected="state.employment_type === 'student'">🎓 Student / Intern</option>
+                            <option value="freelance"  t-att-selected="state.employment_type === 'freelance'">🖥 Freelance</option>
+                        </select>
+                    </div>
+
+                    <!-- Hire Date Range -->
+                    <div class="col-md-3">
+                        <label class="fp-label">📅 Hired From</label>
+                        <input type="date" class="form-control form-control-sm fp-input"
+                               t-att-value="state.hire_date_from"
+                               t-on-change="(e) => this.updateField('hire_date_from', e.target.value)"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fp-label">📅 Hired To</label>
+                        <input type="date" class="form-control form-control-sm fp-input"
+                               t-att-value="state.hire_date_to"
+                               t-on-change="(e) => this.updateField('hire_date_to', e.target.value)"/>
+                    </div>
+
+                    <!-- Spacer + Action Buttons -->
+                    <div class="col-md-6 d-flex align-items-end gap-2 justify-content-end">
+                        <button class="btn btn-sm btn-outline-secondary fp-btn-reset"
+                                t-on-click="() => this.resetFilters()">
+                            <i class="fa fa-times me-1"/>Reset All
+                        </button>
+                        <button class="btn btn-sm btn-primary fp-btn-apply"
+                                t-on-click="() => this.applyFilters()">
+                            <i class="fa fa-check me-1"/>Apply Filters
+                            <span t-if="this.activeCount > 0" class="badge bg-white text-primary ms-1">
+                                <t t-esc="this.activeCount"/>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Active Filters Chips Row -->
+                <div t-if="this.activeCount > 0" class="fp-chips-row d-flex flex-wrap gap-2 mt-2 pt-2 border-top">
+                    <t t-foreach="Object.entries(state)" t-as="kv" t-key="kv[0]">
+                        <span t-if="kv[1]" class="badge fp-chip">
+                            <t t-esc="kv[0].replace(/_/g, ' ')"/>:
+                            <strong><t t-esc="kv[1]"/></strong>
+                            <i class="fa fa-times ms-1 fp-chip-remove"
+                               t-on-click="() => this.updateField(kv[0], '')"/>
+                        </span>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

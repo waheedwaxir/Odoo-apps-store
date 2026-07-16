@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.KpiCard" owl="1">
+        <div t-attf-class="kpi-card {{ props.active ? 'active-kpi' : '' }}"
+             t-on-click="onClick">
+            <div class="d-flex justify-content-between align-items-start">
+                <span class="kpi-title"><t t-esc="props.title"/></span>
+                <div t-attf-class="badge rounded-pill {{ props.colorClass || 'bg-light text-dark' }}">
+                    <i t-attf-class="fa {{ props.icon || 'fa-users' }}"/>
+                </div>
+            </div>
+            <div class="kpi-value">
+                <t t-esc="props.value"/>
+                <span t-if="props.trend" t-attf-class="kpi-badge {{ props.trendUp ? 'trend-up' : 'trend-down' }}">
+                    <i t-attf-class="fa {{ props.trendUp ? 'fa-arrow-up' : 'fa-arrow-down' }}"/> <t t-esc="props.trend"/>
+                </span>
+            </div>
+            <div class="text-muted" style="font-size: 0.75rem;">
+                <t t-esc="props.subtitle || 'Vs. previous 30 days'"/>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_hr_employee360.SelfServicePortal" owl="1">
+        <div class="ssp-wrapper">
+            <!-- Loading State -->
+            <div t-if="state.loading" class="d-flex justify-content-center align-items-center" style="min-height:300px;">
+                <div class="text-center">
+                    <i class="fa fa-spinner fa-spin fa-2x text-primary mb-3 d-block"/>
+                    <p class="text-muted">Loading your profile...</p>
+                </div>
+            </div>
+
+            <t t-else="">
+                <!-- ── Greeting Banner ── -->
+                <div class="ssp-hero d-flex align-items-center gap-4 mb-4">
+                    <div class="ssp-avatar-xl">
+                        <img t-if="state.myProfile and state.myProfile.photo_url"
+                             t-att-src="state.myProfile.photo_url"
+                             class="ssp-avatar-img" alt="My Photo"/>
+                        <div t-else="" class="ssp-avatar-placeholder-xl">
+                            <i class="fa fa-user fa-2x"/>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h4 class="fw-bold m-0">
+                            <t t-esc="this.greeting"/>,
+                            <t t-esc="state.myProfile and state.myProfile.name or 'Employee'"/> 👋
+                        </h4>
+                        <div class="d-flex flex-wrap gap-2 mt-2">
+                            <span t-if="state.myProfile and state.myProfile.department"
+                                  class="badge ssp-badge-dept">
+                                <i class="fa fa-building-o me-1"/>
+                                <t t-esc="state.myProfile.department"/>
+                            </span>
+                            <span t-if="state.myProfile and state.myProfile.job"
+                                  class="badge ssp-badge-job">
+                                <i class="fa fa-briefcase me-1"/>
+                                <t t-esc="state.myProfile.job"/>
+                            </span>
+                            <span t-if="state.myProfile and state.myProfile.manager"
+                                  class="badge ssp-badge-mgr">
+                                <i class="fa fa-user-o me-1"/>
+                                Reports to: <t t-esc="state.myProfile.manager"/>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary" t-on-click="() => this.reload()">
+                        <i class="fa fa-refresh me-1"/>Refresh
+                    </button>
+                </div>
+
+                <!-- ── KPI Row ── -->
+                <div class="row g-3 mb-4">
+                    <!-- Attendance Rate -->
+                    <div class="col-6 col-md-3">
+                        <div class="ssp-kpi-card ssp-kpi-green">
+                            <div class="ssp-kpi-icon"><i class="fa fa-clock-o"/></div>
+                            <div class="ssp-kpi-value">
+                                <t t-esc="this.attendanceSummary.present"/>%
+                            </div>
+                            <div class="ssp-kpi-label">Attendance Rate</div>
+                        </div>
+                    </div>
+                    <!-- Annual Leave -->
+                    <div class="col-6 col-md-3">
+                        <div class="ssp-kpi-card ssp-kpi-blue">
+                            <div class="ssp-kpi-icon"><i class="fa fa-plane"/></div>
+                            <div class="ssp-kpi-value">
+                                <t t-esc="this.leaveBalance.annual"/>
+                            </div>
+                            <div class="ssp-kpi-label">Annual Leave Balance</div>
+                        </div>
+                    </div>
+                    <!-- Sick Leave -->
+                    <div class="col-6 col-md-3">
+                        <div class="ssp-kpi-card ssp-kpi-teal">
+                            <div class="ssp-kpi-icon"><i class="fa fa-medkit"/></div>
+                            <div class="ssp-kpi-value">
+                                <t t-esc="this.leaveBalance.sick"/>
+                            </div>
+                            <div class="ssp-kpi-label">Sick Leave Days Left</div>
+                        </div>
+                    </div>
+                    <!-- Pending Requests -->
+                    <div class="col-6 col-md-3">
+                        <div class="ssp-kpi-card ssp-kpi-orange">
+                            <div class="ssp-kpi-icon"><i class="fa fa-hourglass-half"/></div>
+                            <div class="ssp-kpi-value">
+                                <t t-esc="this.leaveBalance.pending"/>
+                            </div>
+                            <div class="ssp-kpi-label">Pending Requests</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Two Column Layout ── -->
+                <div class="row g-4">
+                    <!-- LEFT: My Recent Timeline -->
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-transparent fw-bold border-0 pb-0">
+                                ⏳ My Recent History
+                                <span class="badge bg-light text-dark border ms-1 fs-8">
+                                    <t t-esc="state.myTimeline.length"/> events
+                                </span>
+                            </div>
+                            <div class="card-body pt-2">
+                                <div t-if="state.myTimeline.length > 0"
+                                     class="position-relative ps-4 border-start border-2 border-primary ms-2">
+                                    <div t-foreach="state.myTimeline" t-as="evt" t-key="evt.id || evt_index"
+                                         class="mb-3 position-relative">
+                                        <div class="position-absolute rounded-circle"
+                                             style="width:12px;height:12px;left:-20px;top:3px;background:#3b82f6;border:2px solid #fff;"/>
+                                        <div class="fs-8 text-muted"><t t-esc="evt.date"/></div>
+                                        <span t-attf-class="badge {{ this.timelineColorClass(evt.color) }} fs-8">
+                                            <t t-esc="evt.icon || ''"/>
+                                            <t t-esc="evt.type_label || evt.type"/>
+                                        </span>
+                                        <div class="fw-semibold text-dark fs-7 mt-1"><t t-esc="evt.title"/></div>
+                                    </div>
+                                </div>
+                                <div t-else="" class="text-center py-4">
+                                    <i class="fa fa-clock-o fa-2x text-muted mb-2 d-block"/>
+                                    <p class="text-muted fs-7 m-0">No timeline events yet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Quick Actions + Pending Requests -->
+                    <div class="col-md-6 d-flex flex-column gap-3">
+                        <!-- Quick Actions -->
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-transparent fw-bold border-0 pb-0">⚡ Quick Actions</div>
+                            <div class="card-body pt-2 d-flex flex-column gap-2">
+                                <button class="btn btn-primary btn-sm d-flex align-items-center gap-2"
+                                        t-on-click="() => this.openLeaveRequest()">
+                                    <i class="fa fa-plane"/> Request Leave
+                                </button>
+                                <a class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2"
+                                   href="/odoo/time-off" target="_self">
+                                    <i class="fa fa-calendar-check-o"/> View My Time Off
+                                </a>
+                                <a class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2"
+                                   href="/odoo/attendances" target="_self">
+                                    <i class="fa fa-clock-o"/> My Attendance Records
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Pending Leave Requests -->
+                        <div class="card border-0 shadow-sm flex-grow-1">
+                            <div class="card-header bg-transparent fw-bold border-0 pb-0">
+                                📋 My Pending Requests
+                            </div>
+                            <div class="card-body pt-2">
+                                <div t-if="this.pendingRequests.length > 0">
+                                    <div t-foreach="this.pendingRequests" t-as="req" t-key="req_index"
+                                         class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                        <div>
+                                            <div class="fw-semibold fs-7"><t t-esc="req.leave_type || 'Leave Request'"/></div>
+                                            <div class="fs-8 text-muted">
+                                                <t t-esc="req.date_from || ''"/> →
+                                                <t t-esc="req.date_to || ''"/>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    </div>
+                                </div>
+                                <div t-else="" class="text-center py-3">
+                                    <i class="fa fa-check-circle text-success fa-lg mb-1 d-block"/>
+                                    <p class="text-muted fs-8 m-0">No pending requests.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </t><!-- end t-else -->
+        </div>
+    </t>
+</templates>
