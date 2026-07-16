@@ -71,6 +71,8 @@ Key Features:
         'static/description/thumbnail.png',
         'static/description/icon.png',
     ],
+    'price': '99.00',
+    'currency': 'USD',
     'installable': True,
     'application': True,
     'auto_install': False,

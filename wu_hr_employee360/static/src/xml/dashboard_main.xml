@@ -172,7 +172,7 @@
                                         <input type="checkbox" t-att-checked="state.panelVisibility.smart_calendar" t-on-change="() => this.togglePanelVisibility('smart_calendar')"/> <span>Smart Calendar</span>
                                     </label>
                                     <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
-                                        <input type="checkbox" t-att-checked="state.panelVisibility.todays_activities" t-on-change="() => this.togglePanelVisibility('todays_activities')"/> <span>Today's Activities</span>
+                                        <input type="checkbox" t-att-checked="state.panelVisibility.todays_activities" t-on-change="() => this.togglePanelVisibility('todays_activities')"/> <span>Period Activities</span>
                                     </label>
                                     <label class="d-flex align-items-center gap-2 fs-8 text-dark cursor-pointer">
                                         <input type="checkbox" t-att-checked="state.panelVisibility.top_performers" t-on-change="() => this.togglePanelVisibility('top_performers')"/> <span>Top Performers</span>
@@ -681,12 +681,12 @@
                                         <div class="panel-card-exact">
                                             <div>
                                                 <div class="panel-header">
-                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/>Today's Activities</h6>
+                                                    <h6 class="panel-title"><i class="fa fa-ellipsis-v text-muted me-2" style="cursor: move;"/><t t-esc="state.data.kpis.date_label"/> Activities</h6>
                                                 </div>
                                                 <div class="d-flex flex-column gap-2">
-                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('birthday_today_exact'); }" title="Show employees with birthday today">
+                                                    <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('birthday_today_exact'); }" title="Show employees with birthday in period">
                                                         <div class="p-2 rounded bg-danger bg-opacity-10 text-danger"><i class="fa fa-birthday-cake"/></div>
-                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.birthdays_today or 0"/> Birthdays</div><div class="text-muted">Today</div></div>
+                                                        <div class="fs-8 flex-grow-1"><div class="fw-bold text-dark"><t t-esc="state.data.today_activities.birthdays_today or 0"/> Birthdays</div><div class="text-muted"><t t-esc="state.data.kpis.date_label"/></div></div>
                                                         <i class="fa fa-chevron-right text-muted" style="font-size:10px;"/>
                                                     </div>
                                                     <div class="p-2 rounded-3 border bg-light d-flex align-items-center gap-2" style="cursor:pointer;" t-on-click="() => { this.onKpiClick('interviews_scheduled'); }" title="Show scheduled interviews">

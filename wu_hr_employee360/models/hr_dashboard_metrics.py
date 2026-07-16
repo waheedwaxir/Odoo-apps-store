@@ -653,6 +653,7 @@ class HrDashboardMetrics(models.Model):
 
         # Work Anniversaries: employees whose join date (create_date) anniversary falls on today
         work_anniversary_emp_ids = set()
+        work_anniversary_period_emp_ids = set()
         for emp in employees:
             if not (getattr(emp, 'create_date', False) and emp.create_date):
                 continue
@@ -665,6 +666,8 @@ class HrDashboardMetrics(models.Model):
                 anniv_this_year = join_date.replace(year=today.year, day=28)
             if anniv_this_year == today:
                 work_anniversary_emp_ids.add(emp.id)
+            if start_date <= anniv_this_year <= end_date:
+                work_anniversary_period_emp_ids.add(emp.id)
 
         # New Joiners: employees whose join date (create_date) falls within the selected date range.
         new_joiner_emp_ids = set(employees.filtered(
@@ -1214,10 +1217,10 @@ class HrDashboardMetrics(models.Model):
         }
 
         today_activities = {
-            'birthdays_today': len(birthday_today_exact_emp_ids),
-            'work_anniversaries': len(work_anniversary_emp_ids),
+            'birthdays_today': birthday_today_count,
+            'work_anniversaries': len(work_anniversary_period_emp_ids),
             'employees_on_leave': kpis['on_leave_today'],
-            'interviews_scheduled': interviews_today_cnt,
+            'interviews_scheduled': stage_map['interview'],
             'contracts_expiring': kpis['contract_expiring'],
             'attendance_missing': kpis['missing_checkout']
         }
