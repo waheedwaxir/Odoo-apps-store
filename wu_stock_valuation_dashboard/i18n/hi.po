@@ -1,0 +1,307 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wu_employee_document_expiry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:33+0000\n"
+"PO-Revision-Date: 2026-07-01 04:33+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction
+msgid "Action Needed"
+msgstr "कार्रवाई की ज़रूरत है"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_attachment_count
+msgid "Attachment Count"
+msgstr "अटैचमेंट की संख्या"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__certificate
+msgid "Certificate"
+msgstr "सर्टिफ़िकेट"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__company_id
+msgid "Company"
+msgstr "कंपनी"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__contract
+msgid "Contract"
+msgstr "कॉन्ट्रैक्ट"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__create_uid
+msgid "Created by"
+msgstr "इन्होंने बनाया"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__create_date
+msgid "Created on"
+msgstr "इस तारीख को बनाया गया"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__status
+msgid ""
+"Current validity of the document, worked out automatically from the expiry "
+"date."
+msgstr ""
+"दस्तावेज़ की वर्तमान वैधता, समाप्ति तिथि से स्वचालित रूप से निर्धारित।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__expiry_date
+msgid "Date the document expires; leave blank if it never expires."
+msgstr ""
+"वह तिथि जब दस्तावेज़ समाप्त होता है; यदि यह कभी समाप्त नहीं होता तो खाली "
+"छोड़ दें।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__issue_date
+msgid "Date the document was issued."
+msgstr "वह तिथि जब दस्तावेज़ जारी किया गया था।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__days_to_expiry
+msgid "Days To Expiry"
+msgstr "समाप्ति तक दिन"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__display_name
+msgid "Display Name"
+msgstr "डिस्प्ले का नाम"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_number
+msgid "Doc Number"
+msgstr "दस्तावेज़ संख्या"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_type
+msgid "Doc Type"
+msgstr "दस्तावेज़ प्रकार"
+
+#. module: wu_employee_document_expiry
+#: model:ir.actions.act_window,name:wu_employee_document_expiry.action_document
+#: model:ir.ui.menu,name:wu_employee_document_expiry.menu_hr_employee_documents
+msgid "Documents"
+msgstr "डॉक्यूमेंट्स"
+
+#. module: wu_employee_document_expiry
+#: model:ir.actions.server,name:wu_employee_document_expiry.cron_document_expiry_ir_actions_server
+msgid "EH HR: document expiry check"
+msgstr "EH HR: दस्तावेज़ समाप्ति जाँच"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__employee_id
+msgid "Employee"
+msgstr "कर्मचारी"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model,name:wu_employee_document_expiry.model_wu_employee_document_expiry
+msgid "Employee document"
+msgstr "कर्मचारी दस्तावेज़"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__employee_id
+msgid "Employee this document belongs to."
+msgstr "वह कर्मचारी जिसका यह दस्तावेज़ है।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__expired
+msgid "Expired"
+msgstr "खत्म हो चुका"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__expiring
+msgid "Expiring soon"
+msgstr "जल्द समाप्त हो रहा"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__expiry_date
+msgid "Expiry Date"
+msgstr "समाप्ति तिथि"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_follower_ids
+msgid "Followers"
+msgstr "फ़ॉलोवर"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "फ़ॉलोवर (पार्टनर)"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__has_message
+msgid "Has Message"
+msgstr "मैसेज है"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__id
+msgid "ID"
+msgstr "आईडी"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "अगर यह बॉक्स चेक है, तो नए मैसेज देखने ज़रूरी हैं।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "अगर बॉक्स पर टिक है, तो कुछ मैसेज भेजने में गलती हुई है।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_is_follower
+msgid "Is Follower"
+msgstr "फ़ॉलोवर है"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__issue_date
+msgid "Issue Date"
+msgstr "जारी करने की तिथि"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_type
+msgid "Kind of document being recorded, such as a passport, visa or contract."
+msgstr ""
+"रिकॉर्ड किया जा रहा दस्तावेज़ का प्रकार, जैसे पासपोर्ट, वीज़ा या अनुबंध।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__write_uid
+msgid "Last Updated by"
+msgstr "इन्होंने आखिरी बार अपडेट किया"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__write_date
+msgid "Last Updated on"
+msgstr "आखिरी बार अपडेट हुआ"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__licence
+msgid "Licence"
+msgstr "लाइसेंस"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error
+msgid "Message Delivery error"
+msgstr "मैसेज डिलीवरी में गड़बड़ी"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_ids
+msgid "Messages"
+msgstr "संदेश"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__name
+msgid "Name"
+msgstr "नाम"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__none
+msgid "No expiry"
+msgstr "कोई समाप्ति नहीं"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction_counter
+msgid "Number of Actions"
+msgstr "ऐक्शन की संख्या"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__days_to_expiry
+msgid ""
+"Number of days until the document expires; a negative value means it has "
+"already expired."
+msgstr ""
+"दस्तावेज़ के समाप्त होने तक के दिनों की संख्या; ऋणात्मक मान का अर्थ है कि यह"
+" पहले ही समाप्त हो चुका है।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error_counter
+msgid "Number of errors"
+msgstr "गड़बड़ी की संख्या"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "ऐसे मैसेज की संख्या जिनपर कार्रवाई की ज़रूरत है"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "डिलीवरी में गड़बड़ी वाले मैसेज की संख्या"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_number
+msgid ""
+"Official number printed on the document, such as a passport or licence "
+"number."
+msgstr ""
+"दस्तावेज़ पर मुद्रित आधिकारिक संख्या, जैसे पासपोर्ट या लाइसेंस संख्या।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__other
+msgid "Other"
+msgstr "अन्य"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__company_id
+msgid "Owning company. Cross-company access is forbidden by default."
+msgstr "स्वामी कंपनी। क्रॉस-कंपनी एक्सेस डिफ़ॉल्ट रूप से निषिद्ध है।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__passport
+msgid "Passport"
+msgstr "पासपोर्ट"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__rating_ids
+msgid "Ratings"
+msgstr "रेटिंग"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "एसएमएस डिलीवरी में गड़बड़ी"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__status
+msgid "Status"
+msgstr "स्टेटस"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__name
+msgid "Title of the document so it is easy to recognise in the list."
+msgstr "दस्तावेज़ का शीर्षक ताकि इसे सूची में आसानी से पहचाना जा सके।"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__valid
+msgid "Valid"
+msgstr "मान्य"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__visa
+msgid "Visa / permit"
+msgstr "वीज़ा / परमिट"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__website_message_ids
+msgid "Website Messages"
+msgstr "वेबसाइट मैसेज"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__website_message_ids
+msgid "Website communication history"
+msgstr "वेबसाइट कम्यूनिकेशन हिस्ट्री"

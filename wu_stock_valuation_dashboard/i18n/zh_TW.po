@@ -1,0 +1,300 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wu_employee_document_expiry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:33+0000\n"
+"PO-Revision-Date: 2026-07-01 04:33+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction
+msgid "Action Needed"
+msgstr "需要採取行動"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件數目"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__certificate
+msgid "Certificate"
+msgstr "證書"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__contract
+msgid "Contract"
+msgstr "合約"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__create_uid
+msgid "Created by"
+msgstr "建立人員"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__create_date
+msgid "Created on"
+msgstr "建立於"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__status
+msgid ""
+"Current validity of the document, worked out automatically from the expiry "
+"date."
+msgstr "文件的目前有效性，根據到期日期自動計算得出。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__expiry_date
+msgid "Date the document expires; leave blank if it never expires."
+msgstr "文件到期的日期；如果永不過期，請留空。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__issue_date
+msgid "Date the document was issued."
+msgstr "文件核發的日期。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__days_to_expiry
+msgid "Days To Expiry"
+msgstr "距到期天數"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__display_name
+msgid "Display Name"
+msgstr "顯示名稱"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_number
+msgid "Doc Number"
+msgstr "文件編號"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_type
+msgid "Doc Type"
+msgstr "文件類型"
+
+#. module: wu_employee_document_expiry
+#: model:ir.actions.act_window,name:wu_employee_document_expiry.action_document
+#: model:ir.ui.menu,name:wu_employee_document_expiry.menu_hr_employee_documents
+msgid "Documents"
+msgstr "文件"
+
+#. module: wu_employee_document_expiry
+#: model:ir.actions.server,name:wu_employee_document_expiry.cron_document_expiry_ir_actions_server
+msgid "EH HR: document expiry check"
+msgstr "EH HR：文件到期檢查"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__employee_id
+msgid "Employee"
+msgstr "員工"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model,name:wu_employee_document_expiry.model_wu_employee_document_expiry
+msgid "Employee document"
+msgstr "員工文件"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__employee_id
+msgid "Employee this document belongs to."
+msgstr "此文件所屬的員工。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__expired
+msgid "Expired"
+msgstr "到期"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__expiring
+msgid "Expiring soon"
+msgstr "即將到期"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__expiry_date
+msgid "Expiry Date"
+msgstr "到期日期"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_follower_ids
+msgid "Followers"
+msgstr "關注人"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "關注人（業務夥伴）"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__has_message
+msgid "Has Message"
+msgstr "有訊息"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__id
+msgid "ID"
+msgstr "識別號"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "勾選代表有新訊息需要您留意。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "勾選代表有訊息發生傳送錯誤。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_is_follower
+msgid "Is Follower"
+msgstr "是關注人"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__issue_date
+msgid "Issue Date"
+msgstr "簽發日期"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_type
+msgid "Kind of document being recorded, such as a passport, visa or contract."
+msgstr "正在記錄的文件類型，例如護照、簽證或合約。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__write_uid
+msgid "Last Updated by"
+msgstr "最後更新者"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__write_date
+msgid "Last Updated on"
+msgstr "最後更新於"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__licence
+msgid "Licence"
+msgstr "授權"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error
+msgid "Message Delivery error"
+msgstr "訊息遞送錯誤"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_ids
+msgid "Messages"
+msgstr "訊息"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__name
+msgid "Name"
+msgstr "名稱"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__none
+msgid "No expiry"
+msgstr "無到期"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction_counter
+msgid "Number of Actions"
+msgstr "動作數量"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__days_to_expiry
+msgid ""
+"Number of days until the document expires; a negative value means it has "
+"already expired."
+msgstr "文件到期前的天數；負值表示已過期。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error_counter
+msgid "Number of errors"
+msgstr "錯誤數量"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "需要採取行動的訊息數目"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "有發送錯誤的郵件數量"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_number
+msgid ""
+"Official number printed on the document, such as a passport or licence "
+"number."
+msgstr "印在文件上的正式編號，例如護照或執照號碼。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__other
+msgid "Other"
+msgstr "其他"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__company_id
+msgid "Owning company. Cross-company access is forbidden by default."
+msgstr "所屬公司。預設禁止跨公司存取。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__passport
+msgid "Passport"
+msgstr "護照"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__rating_ids
+msgid "Ratings"
+msgstr "評分"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "簡訊發送錯誤"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__status
+msgid "Status"
+msgstr "狀態"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__name
+msgid "Title of the document so it is easy to recognise in the list."
+msgstr "文件的標題，以便在清單中易於識別。"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__valid
+msgid "Valid"
+msgstr "有效"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__visa
+msgid "Visa / permit"
+msgstr "簽證 / 許可證"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__website_message_ids
+msgid "Website Messages"
+msgstr "網站資訊"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__website_message_ids
+msgid "Website communication history"
+msgstr "網站溝通記錄"

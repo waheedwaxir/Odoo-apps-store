@@ -1,0 +1,308 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wu_employee_document_expiry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:33+0000\n"
+"PO-Revision-Date: 2026-07-01 04:33+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Dutch\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction
+msgid "Action Needed"
+msgstr "Actie gevraagd"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_attachment_count
+msgid "Attachment Count"
+msgstr "Aantal bijlagen"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__certificate
+msgid "Certificate"
+msgstr "Certificaat"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__company_id
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__contract
+msgid "Contract"
+msgstr ""
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__status
+msgid ""
+"Current validity of the document, worked out automatically from the expiry "
+"date."
+msgstr ""
+"Huidige geldigheid van het document, automatisch berekend op basis van de "
+"vervaldatum."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__expiry_date
+msgid "Date the document expires; leave blank if it never expires."
+msgstr "Datum waarop het document verloopt; laat leeg als het nooit verloopt."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__issue_date
+msgid "Date the document was issued."
+msgstr "Datum waarop het document is uitgegeven."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__days_to_expiry
+msgid "Days To Expiry"
+msgstr "Dagen tot verval"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__display_name
+msgid "Display Name"
+msgstr "Weergavenaam"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_number
+msgid "Doc Number"
+msgstr "Documentnummer"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_type
+msgid "Doc Type"
+msgstr "Documenttype"
+
+#. module: wu_employee_document_expiry
+#: model:ir.actions.act_window,name:wu_employee_document_expiry.action_document
+#: model:ir.ui.menu,name:wu_employee_document_expiry.menu_hr_employee_documents
+msgid "Documents"
+msgstr "Documenten"
+
+#. module: wu_employee_document_expiry
+#: model:ir.actions.server,name:wu_employee_document_expiry.cron_document_expiry_ir_actions_server
+msgid "EH HR: document expiry check"
+msgstr "EH HR: controle documentvervaldatum"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__employee_id
+msgid "Employee"
+msgstr "Werknemer"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model,name:wu_employee_document_expiry.model_wu_employee_document_expiry
+msgid "Employee document"
+msgstr "Werknemersdocument"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__employee_id
+msgid "Employee this document belongs to."
+msgstr "Werknemer waaraan dit document toebehoort."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__expired
+msgid "Expired"
+msgstr "Vervallen"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__expiring
+msgid "Expiring soon"
+msgstr "Verloopt binnenkort"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__expiry_date
+msgid "Expiry Date"
+msgstr "Vervaldatum"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_follower_ids
+msgid "Followers"
+msgstr "Volgers"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Volgers (Partners)"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__has_message
+msgid "Has Message"
+msgstr "Heeft bericht"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__id
+msgid "ID"
+msgstr ""
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Indien aangevinkt vragen nieuwe berichten je aandacht."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Indien aangevinkt hebben sommige berichten een leveringsfout."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_is_follower
+msgid "Is Follower"
+msgstr "Is een volger"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__issue_date
+msgid "Issue Date"
+msgstr "Uitgiftedatum"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_type
+msgid "Kind of document being recorded, such as a passport, visa or contract."
+msgstr ""
+"Soort document dat wordt vastgelegd, zoals een paspoort, visum of contract."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__licence
+msgid "Licence"
+msgstr "Licentie"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error
+msgid "Message Delivery error"
+msgstr "Bericht afleverfout"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_ids
+msgid "Messages"
+msgstr "Berichten"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__name
+msgid "Name"
+msgstr "Naam"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__none
+msgid "No expiry"
+msgstr "Geen vervaldatum"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Aantal acties"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__days_to_expiry
+msgid ""
+"Number of days until the document expires; a negative value means it has "
+"already expired."
+msgstr ""
+"Aantal dagen tot het document verloopt; een negatieve waarde betekent dat "
+"het al is verlopen."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error_counter
+msgid "Number of errors"
+msgstr "Aantal fouten"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Aantal berichten die actie vereisen"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Aantal berichten met leveringsfout"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__doc_number
+msgid ""
+"Official number printed on the document, such as a passport or licence "
+"number."
+msgstr ""
+"Officieel nummer dat op het document is afgedrukt, zoals een paspoort- of "
+"vergunningsnummer."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__other
+msgid "Other"
+msgstr "Overige"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__company_id
+msgid "Owning company. Cross-company access is forbidden by default."
+msgstr "Eigenaarbedrijf. Toegang tussen bedrijven is standaard verboden."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__passport
+msgid "Passport"
+msgstr "Paspoort"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__rating_ids
+msgid "Ratings"
+msgstr "Beoordelingen"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS fout bij versturen"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__status
+msgid "Status"
+msgstr ""
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__name
+msgid "Title of the document so it is easy to recognise in the list."
+msgstr ""
+"Titel van het document zodat het gemakkelijk te herkennen is in de lijst."
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__status__valid
+msgid "Valid"
+msgstr "Geldig"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields.selection,name:wu_employee_document_expiry.selection__wu_employee_document_expiry__doc_type__visa
+msgid "Visa / permit"
+msgstr "Visum / vergunning"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,field_description:wu_employee_document_expiry.field_wu_employee_document_expiry__website_message_ids
+msgid "Website Messages"
+msgstr "Websiteberichten"
+
+#. module: wu_employee_document_expiry
+#: model:ir.model.fields,help:wu_employee_document_expiry.field_wu_employee_document_expiry__website_message_ids
+msgid "Website communication history"
+msgstr "Website communicatie geschiedenis"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action for Dashboard -->
+        <record id="action_wu_stock_valuation_dashboard" model="ir.actions.client">
+            <field name="name">Inventory Valuation Dashboard</field>
+            <field name="tag">wu_stock_valuation_dashboard.dashboard</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_wu_stock_valuation_dashboard"
+                  name="Dashboard"
+                  parent="stock.menu_stock_root"
+                  action="action_wu_stock_valuation_dashboard"
+                  groups="wu_stock_valuation_dashboard.group_wu_stock_valuation_dashboard_user"
+                  sequence="0"/>
+    </data>
+</odoo>

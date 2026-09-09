@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wu_stock_valuation_dashboard_user,stock.valuation.dashboard,model_stock_valuation_dashboard,wu_stock_valuation_dashboard.group_wu_stock_valuation_dashboard_user,1,0,0,0
+access_wu_stock_valuation_dashboard_manager,stock.valuation.dashboard,model_stock_valuation_dashboard,wu_stock_valuation_dashboard.group_wu_stock_valuation_dashboard_manager,1,1,1,1

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_product_stock_summary" model="ir.actions.report">
+            <field name="name">Product Stock Summary</field>
+            <field name="model">product.product</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">wu_stock_valuation_dashboard.report_product_stock_summary</field>
+            <field name="report_file">wu_stock_valuation_dashboard.report_product_stock_summary</field>
+            <field name="print_report_name">'Product Stock Summary'</field>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="base.paperformat_euro"/>
+        </record>
+
+        <template id="report_product_stock_summary">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <style>
+                        .page { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; color: #333; }
+                        .text-primary-custom { color: #1e1b4b; }
+                        .bg-primary-custom { background-color: #1e3a5f; }
+                        .text-success-custom { color: #10b981; }
+                        .text-danger-custom { color: #ef4444; }
+                        .badge-category { background-color: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: bold; }
+                        
+                        /* Header Styles */
+                        .report-header { margin-bottom: 25px; border-bottom: 2px solid #f3f4f6; padding-bottom: 15px; }
+                        .logo-text { font-size: 28px; font-weight: 800; color: #1e1b4b; margin: 0; line-height: 1; }
+                        .logo-subtext { font-size: 10px; color: #6b7280; font-weight: 500; }
+                        .title-main { font-size: 26px; font-weight: 800; color: #1e1b4b; margin: 0; line-height: 1.2; }
+                        .title-sub { font-size: 12px; color: #6b7280; font-weight: 500; }
+                        .date-box { background-color: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 8px; padding: 8px 12px; }
+                        
+                        /* Cards */
+                        .stat-card { border-radius: 12px; padding: 15px; height: 100%; border: none; }
+                        .card-blue { background-color: #eff6ff; }
+                        .card-teal { background-color: #f0fdfa; }
+                        .card-purple { background-color: #faf5ff; }
+                        .card-orange { background-color: #fff7ed; }
+                        .card-green { background-color: #f0fdf4; }
+                        
+                        .icon-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+                        .icon-blue { background-color: #3b82f6; color: white; }
+                        .icon-teal { background-color: #14b8a6; color: white; }
+                        .icon-purple { background-color: #a855f7; color: white; }
+                        .icon-orange { background-color: #f97316; color: white; }
+                        .icon-green { background-color: #22c55e; color: white; }
+                        
+                        .stat-title { font-size: 11px; color: #1e3a5f; font-weight: 600; margin-bottom: 2px; }
+                        .stat-value { font-size: 20px; font-weight: 800; color: #1e1b4b; }
+                        
+                        /* Table */
+                        .table-custom { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; }
+                        .table-custom thead th { background-color: #1e3a5f; color: white; padding: 10px 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; border: none; }
+                        .table-custom thead th:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+                        .table-custom thead th:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+                        .table-custom tbody td { padding: 10px 8px; vertical-align: middle; border-bottom: 1px solid #f3f4f6; font-size: 11px; font-weight: 500;}
+                        .table-custom tbody tr:nth-child(even) { background-color: #f9fafb; }
+                        
+                        /* Footer */
+                        .table-footer td { padding: 12px 8px; font-weight: 800; font-size: 12px; border-top: 2px solid #e5e7eb !important; background-color: #f8fafc; }
+                        .table-footer td:first-child { border-bottom-left-radius: 8px; }
+                        .table-footer td:last-child { border-bottom-right-radius: 8px; }
+                        
+                        .unit-text { font-size: 9px; color: #6b7280; display: block; margin-top: -2px; }
+                        .product-img { width: 32px; height: 32px; object-fit: contain; background-color: #fff; border-radius: 4px; border: 1px solid #e5e7eb; padding: 2px; }
+                    </style>
+
+                    <div class="page">
+                        <!-- HEADER -->
+                        <div class="row report-header align-items-center">
+                            <div class="col-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-2" style="font-size: 32px; color: #7c3aed;">
+                                        <i class="fa fa-cubes"></i>
+                                    </div>
+                                    <div>
+                                        <h1 class="logo-text">Inventory</h1>
+                                        <div class="logo-subtext">Stock • Products • Better Management</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5 border-start border-2 border-gray-200 ps-4">
+                                <h2 class="title-main text-primary-custom">Product Stock Summary</h2>
+                                <div class="title-sub">Current stock status and value of all products</div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="date-box d-inline-flex align-items-center text-start">
+                                    <i class="fa fa-calendar fs-3 me-3 text-primary" style="color: #6366f1 !important;"></i>
+                                    <div>
+                                        <div style="font-size: 10px; color: #6b7280; font-weight: 600;">Generated On</div>
+                                        <div style="font-size: 12px; font-weight: 700; color: #1e1b4b;" t-esc="time.strftime('%b %d, %Y %I:%M %p')"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARDS -->
+                        <div class="row g-3 mb-4">
+                            <!-- Total Products -->
+                            <div class="col">
+                                <div class="stat-card card-blue d-flex align-items-center">
+                                    <div class="icon-circle icon-blue me-3"><i class="fa fa-cube fs-5"></i></div>
+                                    <div>
+                                        <div class="stat-title">Total Products</div>
+                                        <div class="stat-value"><t t-esc="len(docs)"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Quantity -->
+                            <div class="col">
+                                <div class="stat-card card-teal d-flex align-items-center">
+                                    <div class="icon-circle icon-teal me-3"><i class="fa fa-cubes fs-5"></i></div>
+                                    <div>
+                                        <div class="stat-title">Total Quantity</div>
+                                        <div class="stat-value"><t t-esc="sum(d.qty_available for d in docs)"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Sales Price -->
+                            <div class="col">
+                                <div class="stat-card card-purple d-flex align-items-center">
+                                    <div class="icon-circle icon-purple me-3"><i class="fa fa-dollar fs-5"></i></div>
+                                    <div>
+                                        <div class="stat-title">Total Sales Price</div>
+                                        <div class="stat-value"><t t-esc="sum(d.list_price for d in docs)" t-options='{"widget": "monetary", "display_currency": (docs[0].currency_id or res_company.currency_id) if docs else res_company.currency_id}'/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Cost -->
+                            <div class="col">
+                                <div class="stat-card card-orange d-flex align-items-center">
+                                    <div class="icon-circle icon-orange me-3"><i class="fa fa-database fs-5"></i></div>
+                                    <div>
+                                        <div class="stat-title">Total Cost</div>
+                                        <div class="stat-value"><t t-esc="sum(d.standard_price for d in docs)" t-options='{"widget": "monetary", "display_currency": (docs[0].currency_id or res_company.currency_id) if docs else res_company.currency_id}'/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Inventory Value -->
+                            <div class="col">
+                                <div class="stat-card card-green d-flex align-items-center">
+                                    <div class="icon-circle icon-green me-3"><i class="fa fa-line-chart fs-5"></i></div>
+                                    <div>
+                                        <div class="stat-title">Total Inventory Value</div>
+                                        <div class="stat-value text-success"><t t-esc="sum(d.qty_available * d.standard_price for d in docs)" t-options='{"widget": "monetary", "display_currency": (docs[0].currency_id or res_company.currency_id) if docs else res_company.currency_id}'/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TABLE -->
+                        <table class="table-custom">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="width: 5%;">#</th>
+                                    <th style="width: 12%;"><i class="fa fa-file-text-o me-1"></i> Internal Ref</th>
+                                    <th style="width: 25%;"><i class="fa fa-cube me-1"></i> Product</th>
+                                    <th style="width: 10%;"><i class="fa fa-tag me-1"></i> Category</th>
+                                    <th class="text-end" style="width: 10%;"><i class="fa fa-database me-1"></i> Cost</th>
+                                    <th class="text-end" style="width: 10%;"><i class="fa fa-tags me-1"></i> Sales Price</th>
+                                    <th class="text-end" style="width: 9%;"><i class="fa fa-cubes me-1"></i> On Hand</th>
+                                    <th class="text-end" style="width: 9%;"><i class="fa fa-line-chart me-1"></i> Forecasted</th>
+                                    <th class="text-end" style="width: 10%;"><i class="fa fa-money me-1"></i> Total Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="idx" t-value="1"/>
+                                <t t-foreach="docs" t-as="doc">
+                                    <tr>
+                                        <td class="text-center text-muted"><t t-esc="idx"/></td>
+                                        <td><span t-field="doc.default_code"/></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <t t-if="doc.image_128">
+                                                    <img t-att-src="'data:image/png;base64,' + doc.image_128.decode('utf-8')" class="product-img me-2"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <div class="product-img me-2 d-flex align-items-center justify-content-center text-muted" style="background: #f3f4f6;"><i class="fa fa-image"></i></div>
+                                                </t>
+                                                <div>
+                                                    <div class="fw-bold text-dark"><span t-field="doc.name"/></div>
+                                                    <t t-if="doc.product_template_variant_value_ids">
+                                                        <div class="text-muted" style="font-size: 9px;">
+                                                            (<t t-esc="', '.join(doc.product_template_variant_value_ids.mapped('name'))"/>)
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge-category"><t t-esc="doc.categ_id.name"/></span></td>
+                                        <td class="text-end"><span t-field="doc.standard_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id or res_company.currency_id}'/></td>
+                                        <td class="text-end"><span t-field="doc.list_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id or res_company.currency_id}'/></td>
+                                        <td class="text-end">
+                                            <div t-attf-class="{{ 'text-danger-custom' if doc.qty_available &lt; 0 else 'text-primary-custom' }}">
+                                                <t t-esc="doc.qty_available"/>
+                                            </div>
+                                            <span class="unit-text">Units</span>
+                                        </td>
+                                        <td class="text-end">
+                                            <div t-attf-class="{{ 'text-danger-custom' if doc.virtual_available &lt; 0 else 'text-primary-custom' }}">
+                                                <t t-esc="doc.virtual_available"/>
+                                            </div>
+                                            <span class="unit-text">Units</span>
+                                        </td>
+                                        <td class="text-end text-success-custom fw-bold">
+                                            <span t-out="doc.qty_available * doc.standard_price" t-options='{"widget": "monetary", "display_currency": doc.currency_id or res_company.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="idx" t-value="idx + 1"/>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-footer">
+                                    <td colspan="4" class="text-primary-custom">
+                                        <div class="d-flex align-items-center">
+                                            <span class="text-primary me-2 fw-bold fs-5" style="color: #3b82f6;">&#8721;</span> <span style="font-size: 14px;">Total</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-end"><t t-esc="sum(d.standard_price for d in docs)" t-options='{"widget": "monetary", "display_currency": (docs[0].currency_id or res_company.currency_id) if docs else res_company.currency_id}'/></td>
+                                    <td class="text-end"><t t-esc="sum(d.list_price for d in docs)" t-options='{"widget": "monetary", "display_currency": (docs[0].currency_id or res_company.currency_id) if docs else res_company.currency_id}'/></td>
+                                    <td class="text-end">
+                                        <div class="text-primary-custom"><t t-esc="sum(d.qty_available for d in docs)"/></div>
+                                        <span class="unit-text text-primary">Units</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="text-primary-custom"><t t-esc="sum(d.virtual_available for d in docs)"/></div>
+                                        <span class="unit-text text-primary">Units</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="text-success-custom bg-success bg-opacity-10 py-1 px-2 rounded-2 d-inline-block">
+                                            <t t-esc="sum(d.qty_available * d.standard_price for d in docs)" t-options='{"widget": "monetary", "display_currency": (docs[0].currency_id or res_company.currency_id) if docs else res_company.currency_id}'/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="mt-5 d-flex justify-content-between text-muted" style="font-size: 10px;">
+                            <div><i class="fa fa-cube me-1"></i> Inventory Management</div>
+                            <div><i class="fa fa-building me-1"></i> <t t-esc="res_company.name"/></div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

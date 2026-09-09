@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wu_stock_valuation_dashboard.Dashboard" owl="1">
+        <div class="stock-dashboard-root overflow-auto h-100 w-100 bg-light-pastel">
+            <div class="container-fluid py-4 stock-dashboard">
+                
+                <!-- Loading State -->
+                <div t-if="state.isLoading" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- Dashboard Content -->
+                <div t-else="" class="dashboard-content">
+                    
+                    <!-- Top Control Bar -->
+                    <div class="card shadow-sm border-0 mb-4 rounded-4">
+                        <div class="card-body p-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                            <h4 class="mb-0 fw-bold text-dark d-none d-lg-block d-flex align-items-center">
+                                <span class="d-flex align-items-center justify-content-center me-2 text-primary" style="font-size: 1.5rem;">
+                                    <i class="fa fa-cubes"></i>
+                                </span>
+                                Inventory Valuation Dashboard
+                            </h4>
+                            
+                            <div class="d-flex flex-wrap gap-2 align-items-center justify-content-end flex-grow-1">
+                                <!-- Date Range -->
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="input-group input-group-sm shadow-sm">
+                                        <span class="input-group-text bg-white border-end-0"><i class="fa fa-calendar text-muted"></i></span>
+                                        <select class="form-select border-start-0 text-muted" style="width: 130px; background-color: #f8f9fa;" t-on-change="onDateRangeChange">
+                                            <option value="all" t-att-selected="state.dateRangeMode === 'all'">All Time</option>
+                                            <option value="today" t-att-selected="state.dateRangeMode === 'today'">Today</option>
+                                            <option value="this_week" t-att-selected="state.dateRangeMode === 'this_week'">This Week</option>
+                                            <option value="this_month" t-att-selected="state.dateRangeMode === 'this_month'">This Month</option>
+                                            <option value="last_month" t-att-selected="state.dateRangeMode === 'last_month'">Last Month</option>
+                                            <option value="this_year" t-att-selected="state.dateRangeMode === 'this_year'">This Year</option>
+                                            <option value="custom" t-att-selected="state.dateRangeMode === 'custom'">Custom Range</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- Custom Date Range Inputs -->
+                                    <div t-if="state.dateRangeMode === 'custom'" class="d-flex align-items-center gap-1 shadow-sm rounded-3 bg-white border p-1" style="max-width: 320px;">
+                                        <DateTimeInput type="'date'" value="dateFromObj" onChange.bind="onDateFromChangeObj" />
+                                        <span class="text-muted fw-bold px-1">-</span>
+                                        <DateTimeInput type="'date'" value="dateToObj" onChange.bind="onDateToChangeObj" />
+                                    </div>
+                                </div>
+                                
+                                <!-- Companies Filter -->
+                                <select class="form-select form-select-sm shadow-sm border-0 rounded-3 text-muted" style="max-width: 150px; background-color: #f8f9fa;" t-on-change="onCompanyChange">
+                                    <option value="">All Companies</option>
+                                    <t t-foreach="state.filters.companies" t-as="company" t-key="company.id">
+                                        <option t-att-value="company.id" t-att-selected="state.selectedCompanyId == company.id"><t t-esc="company.name"/></option>
+                                    </t>
+                                </select>
+
+                                <!-- Warehouses Filter -->
+                                <select class="form-select form-select-sm shadow-sm border-0 rounded-3 text-muted" style="max-width: 150px; background-color: #f8f9fa;" t-on-change="onWarehouseChange">
+                                    <option value="">All Warehouses</option>
+                                    <t t-foreach="state.filters.warehouses" t-as="warehouse" t-key="warehouse.id">
+                                        <!-- Only show warehouses for selected company -->
+                                        <t t-if="!state.selectedCompanyId or warehouse.company_id[0] == state.selectedCompanyId">
+                                            <option t-att-value="warehouse.id" t-att-selected="state.selectedWarehouseId == warehouse.id"><t t-esc="warehouse.name"/></option>
+                                        </t>
+                                    </t>
+                                </select>
+
+                                <!-- Categories Filter -->
+                                <select class="form-select form-select-sm shadow-sm border-0 rounded-3 text-muted" style="max-width: 150px; background-color: #f8f9fa;" t-on-change="onCategoryChange">
+                                    <option value="">All Categories</option>
+                                    <t t-foreach="state.filters.categories" t-as="category" t-key="category.id">
+                                        <t t-if="!category.company_id or !state.selectedCompanyId or category.company_id[0] == state.selectedCompanyId">
+                                            <option t-att-value="category.id" t-att-selected="state.selectedCategoryId == category.id"><t t-esc="category.name"/></option>
+                                        </t>
+                                    </t>
+                                </select>
+
+                                <button class="btn btn-sm btn-primary rounded-3 px-3 shadow-sm ms-1" t-on-click="refreshDashboard">
+                                    <i class="fa fa-refresh me-1"></i> Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards (6 Items) -->
+                    <div class="row g-3 mb-4 kpi-row">
+                        <!-- Total Inventory Value -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4 cursor-pointer" style="background: linear-gradient(135deg, #8e86ff, #685cf0); color: white;" t-on-click="() => this.openInventory('valuation')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-money fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Total Inventory Value</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.total_value.toLocaleString()"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.total_value, state.data.prev_total_value)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Total Stock Quantity -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4 cursor-pointer" style="background: linear-gradient(135deg, #2bbaff, #009cf0); color: white;" t-on-click="() => this.openInventory('quantity')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-cubes fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Total Stock Quantity</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.total_qty.toLocaleString()"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.total_qty, state.data.prev_total_qty)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Products -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4" style="background: linear-gradient(135deg, #57d983, #38c86d); color: white; cursor: pointer;" t-on-click="() => this.openInventory('products')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-cube fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Total Products</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.total_products"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.total_products, state.data.prev_total_products)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Low Stock Items -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4 cursor-pointer" style="background: linear-gradient(135deg, #ffb94a, #ff9e22); color: white;" t-on-click="() => this.openInventory('low_stock')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-warning fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Low Stock Items</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.low_stock_count"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.low_stock_count, state.data.prev_low_stock_count)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Incoming (Qty) -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4" style="background: linear-gradient(135deg, #41d3c8, #20bcaf); color: white; cursor: pointer;" t-on-click="() => this.openInventory('incoming')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-arrow-right fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Incoming (Moves)</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.incoming"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.incoming, state.data.prev_incoming)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Outgoing (Qty) -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4" style="background: linear-gradient(135deg, #ff6b7e, #fb455c); color: white; cursor: pointer;" t-on-click="() => this.openInventory('outgoing')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-arrow-left fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Outgoing (Moves)</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.outgoing"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.outgoing, state.data.prev_outgoing)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Internal Transfers -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4" style="background: linear-gradient(135deg, #a05bf2, #8537df); color: white; cursor: pointer;" t-on-click="() => this.openInventory('internal')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-exchange fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Internal Transfers</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.internal_transfers"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.internal_transfers, state.data.prev_internal_transfers)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Returns -->
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="card stat-card-pastel shadow-sm border-0 h-100 rounded-4" style="background: linear-gradient(135deg, #d95ef7, #bf36e3); color: white; cursor: pointer;" t-on-click="() => this.openInventory('returns')">
+                                <div class="card-body d-flex flex-column justify-content-between p-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="icon-box rounded-3 bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                            <i class="fa fa-undo fa-lg text-white"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="text-white-75 mb-1" style="font-size: 0.85rem; font-weight: 500;">Returns</h6>
+                                            <h3 class="mb-0 fw-bold" style="font-size: 1.7rem;"><t t-esc="state.data.returns"/></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" style="font-size: 0.75rem;">
+                                        <t t-set="pct" t-value="getPercentChange(state.data.returns, state.data.prev_returns)"/>
+                                        <t t-if="pct &gt; 0">
+                                            <span class="text-white fw-bold"><i class="fa fa-arrow-up" style="transform: rotate(45deg); display: inline-block;"></i> +<t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-elif="pct &lt; 0">
+                                            <span class="text-white-75 fw-bold"><i class="fa fa-arrow-down" style="transform: rotate(45deg); display: inline-block;"></i> <t t-esc="pct"/>%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-white-50"><i class="fa fa-minus"></i> 0%</span> <span class="text-white-50">vs prev</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Financial Valuation Summary -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-12">
+                            <div class="card shadow-sm border-0 rounded-4">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4 border-bottom">
+                                    <h6 class="mb-0 fw-bold"><i class="fa fa-calculator text-primary me-2"></i> Financial Valuation &amp; Stock Summary</h6>
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="row text-center g-3">
+                                        <div class="col-6 col-md-4 col-xl border-end">
+                                            <div class="text-muted mb-1" style="font-size: 0.75rem; text-transform: uppercase;">Beginning Balance</div>
+                                            <div class="fw-bold fs-5"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.beginning_balance.toLocaleString()"/></div>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-xl border-end">
+                                            <div class="text-muted mb-1" style="font-size: 0.75rem; text-transform: uppercase;">Ending Balance</div>
+                                            <div class="fw-bold fs-5 text-primary"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.ending_balance.toLocaleString()"/></div>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-xl border-end">
+                                            <div class="text-muted mb-1" style="font-size: 0.75rem; text-transform: uppercase;">Internal Balance</div>
+                                            <div class="fw-bold fs-5"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.internal_balance.toLocaleString()"/></div>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-xl border-end">
+                                            <div class="text-muted mb-1" style="font-size: 0.75rem; text-transform: uppercase;">Inventory Adjustments</div>
+                                            <div class="fw-bold fs-5 text-warning"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.inventory_adjustments.toLocaleString()"/></div>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-xl border-end">
+                                            <div class="text-muted mb-1" style="font-size: 0.75rem; text-transform: uppercase;">Exact COGS</div>
+                                            <div class="fw-bold fs-5 text-danger"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.exact_cogs.toLocaleString()"/></div>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-xl border-end">
+                                            <div class="text-muted mb-1" style="font-size: 0.75rem; text-transform: uppercase;">Sales Revenue</div>
+                                            <div class="fw-bold fs-5 text-success"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.total_sales_value.toLocaleString()"/></div>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-xl">
+                                            <div class="text-muted mb-1" style="font-size: 0.75rem; text-transform: uppercase;">Gross Profit</div>
+                                            <div class="fw-bold fs-5 text-success"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.gross_profit.toLocaleString()"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Financial Performance Summary Row -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 mb-1">
+                            <h5 class="fw-bold text-muted mb-0"><i class="fa fa-line-chart me-2"></i>Financial Summary</h5>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="card shadow-sm border-0 h-100 rounded-4 cursor-pointer bg-white" t-on-click="() => this.openInventory('valuation')">
+                                <div class="card-body p-3">
+                                    <div class="text-muted fw-bold mb-1" style="font-size: 0.85rem; font-weight: 500;">Beginning Balance</div>
+                                    <h5 class="mb-0 text-dark fw-bold"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.beginning_balance.toLocaleString()"/></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="card shadow-sm border-0 h-100 rounded-4 cursor-pointer bg-white" t-on-click="() => this.openInventory('adjustments')">
+                                <div class="card-body p-3">
+                                    <div class="text-muted fw-bold mb-1" style="font-size: 0.85rem; font-weight: 500;">Inventory Adjustments</div>
+                                    <h5 class="mb-0 text-info fw-bold"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.inventory_adjustments.toLocaleString()"/></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="card shadow-sm border-0 h-100 rounded-4 cursor-pointer bg-white" t-on-click="() => this.openInventory('cogs')">
+                                <div class="card-body p-3">
+                                    <div class="text-muted fw-bold mb-1" style="font-size: 0.85rem; font-weight: 500;">Exact COGS (Shipped)</div>
+                                    <h5 class="mb-0 text-danger fw-bold"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.exact_cogs.toLocaleString()"/></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="card shadow-sm border-0 h-100 rounded-4 bg-white" title="Potential revenue from current stock minus historical COGS">
+                                <div class="card-body p-3">
+                                    <div class="text-muted fw-bold mb-1" style="font-size: 0.85rem; font-weight: 500;">Gross Profit (Est)</div>
+                                    <h5 class="mb-0 text-success fw-bold"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.gross_profit.toLocaleString()"/></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row 1 -->
+                    <div class="row g-4 mb-4">
+                        <!-- Value by Category -->
+                        <div class="col-12 col-xl-4">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fw-bold">Stock Value by Product Category</h6>
+                                    <select class="form-select form-select-sm border-0 text-muted shadow-sm" style="width: 90px; background-color: #f8f9fa;">
+                                        <option>Value</option>
+                                    </select>
+                                </div>
+                                <div class="card-body pb-4" style="position: relative; height: 260px;">
+                                    <canvas t-ref="categoryChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Value by Warehouse -->
+                        <div class="col-12 col-xl-4">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fw-bold">Stock Value by Warehouse</h6>
+                                    <select class="form-select form-select-sm border-0 text-muted shadow-sm" style="width: 90px; background-color: #f8f9fa;">
+                                        <option>Value</option>
+                                    </select>
+                                </div>
+                                <div class="card-body pb-4" style="position: relative; height: 260px;">
+                                    <canvas t-ref="warehouseChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Incoming & Outgoing -->
+                        <div class="col-12 col-xl-4">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fw-bold">Incoming &amp; Outgoing Stock</h6>
+                                    <select class="form-select form-select-sm border-0 text-muted shadow-sm" style="width: 80px; background-color: #f8f9fa;">
+                                        <option>Qty</option>
+                                    </select>
+                                </div>
+                                <div class="card-body pb-4" style="position: relative; height: 260px;">
+                                    <canvas t-ref="movementChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row 2 -->
+                    <div class="row g-4 mb-4">
+                        <!-- Valuation by Product Table -->
+                        <div class="col-12 col-xl-6">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4 d-flex justify-content-between align-items-center border-bottom">
+                                    <h6 class="mb-0 fw-bold">Inventory Valuation by Product</h6>
+                                    <a href="#" class="text-primary text-decoration-none" style="font-size: 0.85rem;" t-on-click.prevent="() => this.openInventory('products')">View All</a>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0" style="font-size: 0.85rem;">
+                                            <thead class="bg-light text-muted">
+                                                <tr>
+                                                    <th class="ps-4 border-0">Product</th>
+                                                    <th class="border-0">Category</th>
+                                                    <th class="border-0 text-end">Quantity</th>
+                                                    <th class="border-0 text-end">Cost Value</th>
+                                                    <th class="border-0 text-end">Sales Value</th>
+                                                    <th class="border-0 text-end pe-4">Margin %</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="state.data.top_products.slice(0,5)" t-as="product" t-key="product.name">
+                                                    <tr class="cursor-pointer" t-on-click="() => this.openProduct(product.id)">
+                                                        <td class="ps-4 fw-medium"><t t-esc="product.name"/></td>
+                                                        <td class="text-muted"><t t-esc="product.category"/></td>
+                                                        <td class="text-end"><t t-esc="product.qty.toLocaleString()"/></td>
+                                                        <td class="text-end fw-medium"><t t-esc="state.data.currency_symbol"/> <t t-esc="product.total_cost.toLocaleString()"/></td>
+                                                        <td class="text-end text-muted"><t t-esc="state.data.currency_symbol"/> <t t-esc="product.total_sales.toLocaleString()"/></td>
+                                                        <td class="text-end pe-4">
+                                                            <t t-set="margin" t-value="product.total_sales > 0 ? ((product.total_sales - product.total_cost) / product.total_sales * 100).toFixed(1) : 0"/>
+                                                            <span class="badge bg-light text-dark shadow-sm"><t t-esc="margin"/>%</span>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cost vs Sales -->
+                        <div class="col-12 col-xl-3">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fw-bold">Cost vs. Sales Value</h6>
+                                    <i class="fa fa-ellipsis-v text-muted cursor-pointer"></i>
+                                </div>
+                                <div class="card-body pb-4" style="position: relative; height: 260px;">
+                                    <canvas t-ref="costSalesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notifications & Alerts -->
+                        <div class="col-12 col-xl-3">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4 d-flex justify-content-between align-items-center border-bottom">
+                                    <h6 class="mb-0 fw-bold">Stock Alerts &amp; Notifications</h6>
+                                    <a href="#" class="text-primary text-decoration-none" style="font-size: 0.85rem;" t-on-click.prevent="() => this.openInventory('low_stock')">View All</a>
+                                </div>
+                                <div class="card-body p-0 overflow-auto" style="max-height: 280px;">
+                                    <t t-if="state.data.notifications.length">
+                                        <ul class="list-group list-group-flush">
+                                            <t t-foreach="state.data.notifications" t-as="notif" t-key="notif.title">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center p-3 border-0 border-bottom">
+                                                    <div class="d-flex align-items-center gap-3">
+                                                        <div t-attf-class="icon-box rounded-3 bg-{{notif.type}} bg-opacity-10 text-{{notif.type}} d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                                            <i t-attf-class="fa {{notif.icon}}"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="fw-bold" style="font-size: 0.85rem;"><t t-esc="notif.title"/></div>
+                                                            <div class="text-muted" style="font-size: 0.75rem;"><t t-esc="notif.desc"/></div>
+                                                        </div>
+                                                    </div>
+                                                    <span t-attf-class="fw-bold text-{{notif.type}}"><t t-esc="notif.value"/></span>
+                                                </li>
+                                            </t>
+                                        </ul>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="p-4 text-center text-muted">
+                                            <i class="fa fa-check-circle fa-2x mb-2 text-success"></i>
+                                            <p class="mb-0" style="font-size: 0.85rem;">All stock levels look healthy!</p>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row 3 -->
+                    <div class="row g-4 mb-4">
+                        <!-- Daily/Monthly Trend -->
+                        <div class="col-12 col-xl-4">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 pb-0 rounded-top-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="mb-0 fw-bold">Daily / Monthly / Yearly Valuation</h6>
+                                    </div>
+                                    <div class="d-flex rounded-3 p-1 w-100 mb-3" style="background-color: #f3f4f6;">
+                                        <button type="button" t-attf-class="btn btn-sm flex-grow-1 border-0 fw-bold {{ state.timeframe === 'daily' ? 'text-white' : 'text-muted' }}" t-attf-style="{{ state.timeframe === 'daily' ? 'background-color: #9270CA; border-radius: 8px;' : 'background-color: transparent;' }}" t-on-click="() => this.changeTimeframe('daily')">Daily</button>
+                                        <button type="button" t-attf-class="btn btn-sm flex-grow-1 border-0 fw-bold {{ state.timeframe === 'monthly' ? 'text-white' : 'text-muted' }}" t-attf-style="{{ state.timeframe === 'monthly' ? 'background-color: #9270CA; border-radius: 8px;' : 'background-color: transparent;' }}" t-on-click="() => this.changeTimeframe('monthly')">Monthly</button>
+                                        <button type="button" t-attf-class="btn btn-sm flex-grow-1 border-0 fw-bold {{ state.timeframe === 'yearly' ? 'text-white' : 'text-muted' }}" t-attf-style="{{ state.timeframe === 'yearly' ? 'background-color: #9270CA; border-radius: 8px;' : 'background-color: transparent;' }}" t-on-click="() => this.changeTimeframe('yearly')">Yearly</button>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-3 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div class="d-flex align-items-center fw-bold" style="color: #4b5563;">
+                                            <i class="fa fa-cubes me-2" style="color: #9270CA; font-size: 1.2rem;"></i> Inventory Value
+                                        </div>
+                                        <div class="d-flex align-items-center text-muted" style="font-size: 0.8rem;">
+                                            <span class="d-inline-block rounded-pill me-2" style="width: 12px; height: 3px; background-color: #9270CA;"></span> Inventory Value
+                                        </div>
+                                    </div>
+                                    <div class="text-end mb-3">
+                                        <span class="badge rounded-pill text-white px-3 py-2 shadow-sm" style="background-color: #9270CA; font-size: 0.85rem;"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.total_value.toLocaleString()"/></span>
+                                    </div>
+                                    <div style="position: relative; height: 130px;">
+                                        <canvas t-ref="trendChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aging Analysis -->
+                        <div class="col-12 col-xl-4">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 pb-0 rounded-top-4">
+                                    <h6 class="mb-3 fw-bold d-flex align-items-center">
+                                        <i class="fa fa-clock-o me-2" style="color: #6a67f0; font-size: 1.2rem;"></i> Aging Analysis
+                                    </h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted" style="font-size: 0.75rem;">
+                                        <span class="d-flex align-items-center"><span class="rounded-circle me-1" style="width:8px; height:8px; background-color: #5b8ff9;"></span> 0-30 days</span>
+                                        <span class="d-flex align-items-center"><span class="rounded-circle me-1" style="width:8px; height:8px; background-color: #5ad8a6;"></span> 31-60 days</span>
+                                        <span class="d-flex align-items-center"><span class="rounded-circle me-1" style="width:8px; height:8px; background-color: #f6bd16;"></span> 61-90 days</span>
+                                        <span class="d-flex align-items-center"><span class="rounded-circle me-1" style="width:8px; height:8px; background-color: #e8684a;"></span> 90+ days</span>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-4 pt-3 d-flex align-items-center">
+                                    <div class="position-relative" style="width: 50%; height: 160px;">
+                                        <canvas t-ref="agingChart"></canvas>
+                                        <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                            <span class="d-block text-muted" style="font-size: 0.8rem;">Total</span>
+                                            <h5 class="mb-0 fw-bold"><t t-esc="state.data.total_products"/></h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center h-100 w-50 ps-3 gap-3">
+                                        <t t-set="aging_colors" t-value="['#5b8ff9', '#5ad8a6', '#f6bd16', '#e8684a']"/>
+                                        <t t-foreach="state.data.aging_analysis" t-as="item" t-key="item.label">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
+                                                    <span class="rounded-circle me-2" t-attf-style="width:10px; height:10px; background-color: {{ aging_colors[item_index] }};"></span> <t t-esc="item.label"/>
+                                                </div>
+                                                <div class="fw-bold" style="font-size: 0.9rem;"><t t-esc="item.value.toLocaleString()"/></div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ABC Analysis -->
+                        <div class="col-12 col-xl-4">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 pb-0 rounded-top-4">
+                                    <h6 class="mb-3 fw-bold d-flex align-items-center">
+                                        <i class="fa fa-bar-chart me-2" style="color: #6a67f0; font-size: 1.2rem;"></i> ABC Analysis
+                                    </h6>
+                                    <div class="d-flex align-items-center justify-content-between text-muted" style="font-size: 0.75rem;">
+                                        <span class="d-flex align-items-center"><span class="rounded-circle me-1" style="width:8px; height:8px; background-color: #28c76f;"></span> Class A (80%)</span>
+                                        <span class="d-flex align-items-center"><span class="rounded-circle me-1" style="width:8px; height:8px; background-color: #ff9f43;"></span> Class B (15%)</span>
+                                        <span class="d-flex align-items-center"><span class="rounded-circle me-1" style="width:8px; height:8px; background-color: #ea5455;"></span> Class C (5%)</span>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-4 pt-3 d-flex align-items-center">
+                                    <div class="position-relative" style="width: 50%; height: 160px;">
+                                        <canvas t-ref="abcChart"></canvas>
+                                        <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                            <span class="d-block text-muted" style="font-size: 0.8rem;">Total</span>
+                                            <h5 class="mb-0 fw-bold"><t t-esc="state.data.total_products"/></h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center h-100 w-50 ps-3 gap-3">
+                                        <t t-set="abc_colors" t-value="['#28c76f', '#ff9f43', '#ea5455']"/>
+                                        <t t-foreach="state.data.abc_analysis" t-as="item" t-key="item.label">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
+                                                    <span class="rounded-circle me-2" t-attf-style="width:10px; height:10px; background-color: {{ abc_colors[item_index] }};"></span> <t t-esc="item.label"/>
+                                                </div>
+                                                <div class="fw-bold" style="font-size: 0.9rem;"><t t-esc="item.value.toLocaleString()"/></div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row 4 -->
+                    <div class="row g-4 mb-4">
+                        <!-- AVCO vs Standard Cost Breakdown -->
+                        <div class="col-12 col-xl-6">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 pb-0 rounded-top-4">
+                                    <h6 class="mb-3 fw-bold d-flex align-items-center">
+                                        <i class="fa fa-bar-chart me-2" style="color: #6a67f0; font-size: 1.2rem;"></i> AVCO vs Standard Cost Breakdown
+                                    </h6>
+                                </div>
+                                <div class="card-body pb-4 pt-3 d-flex align-items-center">
+                                    <div class="position-relative" style="width: 40%; height: 220px;">
+                                        <canvas t-ref="costMethodChart"></canvas>
+                                        <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+                                            <span class="d-block text-muted" style="font-size: 0.8rem;">Total Value</span>
+                                            <h6 class="mb-0 fw-bold"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.total_value.toLocaleString()"/></h6>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center h-100 ps-4 gap-4" style="flex: 1;">
+                                        <t t-set="cost_colors" t-value="['#29b8c2', '#a05bf2', '#f6bd16']"/>
+                                        <t t-foreach="state.data.value_by_cost_method" t-as="item" t-key="item.label">
+                                            <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                                                <div>
+                                                    <div class="d-flex align-items-center text-muted mb-1" style="font-size: 0.85rem;">
+                                                        <span class="rounded-circle me-2" t-attf-style="width:10px; height:10px; background-color: {{ cost_colors[item_index] }};"></span> <t t-esc="item.label"/>
+                                                    </div>
+                                                    <div class="fw-bold fs-6 ms-3"><t t-esc="state.data.currency_symbol"/> <t t-esc="item.value.toLocaleString()"/></div>
+                                                </div>
+                                                <div class="text-muted" style="font-size: 0.85rem;">
+                                                    <t t-if="state.data.total_value &gt; 0">
+                                                        <t t-esc="((item.value / state.data.total_value) * 100).toFixed(1)"/>%
+                                                    </t>
+                                                    <t t-else="">0.0%</t>
+                                                </div>
+                                            </div>
+                                        </t>
+                                        <div class="d-flex justify-content-between align-items-center pb-2">
+                                            <div>
+                                                <div class="d-flex align-items-center text-muted mb-1" style="font-size: 0.85rem;">
+                                                    <span class="rounded-circle me-2" style="width:10px; height:10px; background-color: #f6bd16;"></span> Variance
+                                                </div>
+                                                <div class="fw-bold fs-6 ms-3"><t t-esc="state.data.currency_symbol"/> 0.00</div>
+                                            </div>
+                                            <div class="text-muted" style="font-size: 0.85rem;">0.0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Top Insights (List) -->
+                        <div class="col-12 col-xl-6">
+                            <div class="card shadow-sm border-0 rounded-4 h-100">
+                                <div class="card-header bg-white border-0 py-3 rounded-top-4">
+                                    <h6 class="mb-0 fw-bold d-flex align-items-center">
+                                        <i class="fa fa-lightbulb-o text-warning me-2" style="font-size: 1.2rem;"></i> Top Insights
+                                    </h6>
+                                </div>
+                                <div class="card-body pt-0 pb-3 d-flex flex-column justify-content-center gap-3">
+                                    <div class="d-flex align-items-center p-3 rounded-3" style="background-color: #f0f4fa;">
+                                        <div class="rounded-3 bg-white shadow-sm d-flex align-items-center justify-content-center me-3" style="width: 35px; height: 35px;">
+                                            <i class="fa fa-cube text-primary"></i>
+                                        </div>
+                                        <span class="text-muted">Inventory value is</span>
+                                        <span class="ms-auto fw-bold text-dark fs-6"><t t-esc="state.data.currency_symbol"/> <t t-esc="state.data.total_value.toLocaleString()"/></span>
+                                    </div>
+                                    <div class="d-flex align-items-center p-3 rounded-3" style="background-color: #eafbf3;">
+                                        <div class="rounded-3 bg-white shadow-sm d-flex align-items-center justify-content-center me-3" style="width: 35px; height: 35px;">
+                                            <i class="fa fa-trophy text-success"></i>
+                                        </div>
+                                        <span class="text-muted">Top product is <span class="fw-bold text-dark"><t t-if="state.data.top_products.length > 0"><t t-esc="state.data.top_products[0].name"/></t><t t-else="">N/A</t></span></span>
+                                        <span class="ms-auto fw-bold text-muted"><i class="fa fa-chevron-right"></i></span>
+                                    </div>
+                                    <div class="d-flex align-items-center p-3 rounded-3" style="background-color: #f6f0fc;">
+                                        <div class="rounded-3 bg-white shadow-sm d-flex align-items-center justify-content-center me-3" style="width: 35px; height: 35px;">
+                                            <i class="fa fa-refresh text-purple" style="color: #9270CA;"></i>
+                                        </div>
+                                        <span class="text-muted">Stock turnover ratio is</span>
+                                        <span class="ms-auto fw-bold text-dark fs-6"><t t-esc="state.data.total_margin"/></span>
+                                    </div>
+                                    <div class="d-flex align-items-center p-3 rounded-3" style="background-color: #fff9e6;">
+                                        <div class="rounded-3 bg-white shadow-sm d-flex align-items-center justify-content-center me-3" style="width: 35px; height: 35px;">
+                                            <i class="fa fa-info text-warning"></i>
+                                        </div>
+                                        <span class="text-muted">Aging stock (90+ days) is <t t-if="state.data.aging_analysis.length > 3 and state.data.total_products > 0"><t t-esc="((state.data.aging_analysis[3].value / state.data.total_products) * 100).toFixed(1)"/></t><t t-else="">0.0</t>% of total inventory value.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

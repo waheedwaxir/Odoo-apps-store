@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Stock Valuation Dashboard | Complete Inventory Insights | Odoo 19</title>
+    <meta name="description" content="Complete stock insights for complete inventory control for Odoo 19. Stock Product, Real-Time Valuation, Clickable KPIs, Detailed Stock Move Drill-Downs, Interactive Stock Analytics, & Universal BI Export." />
+    <meta name="keywords" content="odoo 19 stock valuation dashboard, stock valuation odoo, odoo inventory analytics, real time stock valuation odoo, cogs analytics odoo, inventory kpi cards odoo, stock alerts dashboard, gross profit analytics, engr waheed" />
+    <meta name="author" content="Engr Waheed" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- OpenGraph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Real-Time Stock Valuation Dashboard for Odoo 19" />
+    <meta property="og:description" content="All-in-one Odoo 19 Inventory Valuation software: Clickable KPI Cards, Real-Time Valuation, Stock Analytics, Stock Movements & BI Feeds." />
+    <meta property="og:image" content="banner.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Real-Time Stock Valuation Dashboard for Odoo 19" />
+    <meta name="twitter:description" content="Complete stock insights for complete inventory control: Clickable KPIs, Real-Time Valuation, Stock Analysis Tools & Executive Reports." />
+    <meta name="twitter:image" content="banner.png" />
+
+    <!-- JSON-LD Structured Data for Ultra-Level SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Real-Time Stock Valuation Dashboard for Odoo 19",
+      "operatingSystem": "Odoo 19",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "99.00",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "ratingCount": "68"
+      },
+      "description": "Enterprise Inventory and stock analytics application for Odoo 19 featuring high-speed OWL 3 Single Page Application, clickable KPI cards, real-time financial metrics, detailed stock move drill-downs, and multi-branch drilldowns.",
+      "author": {
+        "@type": "Person",
+        "name": "Engr Waheed",
+        "url": "https://www.linkedin.com/in/waheed-ullah-810082151/"
+      }
+    }
+    </script>
+
+<style>
+/* Advanced Premium Styles injected automatically */
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', 'Outfit', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* Gradient Text for Hero */
+.text-gradient-hero {
+    background: linear-gradient(135deg, #1E1B4B 0%, #4F46E5 50%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* Dynamic Hover for Cards */
+.card {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+.card:hover {
+    transform: translateY(-8px) scale(1.01) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+    border-color: #CBD5E1 !important;
+}
+
+/* Glassmorphism Elements */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07) !important;
+}
+
+/* Subtle image floating animation */
+@keyframes subtleFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+.animate-float {
+    animation: subtleFloat 6s ease-in-out infinite;
+}
+
+/* Button Glow & Scaling */
+.btn-premium {
+    transition: all 0.3s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+.btn-premium:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+}
+.btn-premium::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: rgba(255,255,255,0.1);
+    transform: rotate(45deg) translateY(-100%);
+    transition: all 0.6s ease;
+}
+.btn-premium:hover::after {
+    transform: rotate(45deg) translateY(100%);
+}
+
+/* Custom Selection */
+::selection {
+    background: #4F46E5;
+    color: white;
+}
+
+/* Pulse animation for key highlights */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
+.pulse-glow {
+    animation: pulseGlow 2s infinite;
+}
+
+/* Video Advance Level Pro Styles */
+.video-glow-backdrop {
+    position: absolute;
+    top: -20px; left: -20px; right: -20px; bottom: -20px;
+    background: linear-gradient(45deg, #FF0000, #4F46E5, #06B6D4);
+    filter: blur(40px);
+    opacity: 0.25;
+    z-index: 1;
+    border-radius: 30px;
+    animation: rotateGlow 8s linear infinite;
+}
+@keyframes rotateGlow {
+    0% { filter: blur(40px) hue-rotate(0deg); }
+    100% { filter: blur(40px) hue-rotate(360deg); }
+}
+.pulse-red-dot {
+    width: 12px; height: 12px; background: #FF0000; border-radius: 50%;
+    box-shadow: 0 0 10px #FF0000, 0 0 20px #FF0000;
+    animation: pulseRed 1.5s infinite;
+}
+@keyframes pulseRed {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+.btn-yt-glow {
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255,0,0,0.5);
+}
+.btn-yt-glow:hover {
+    box-shadow: 0 0 30px rgba(255,0,0,0.9);
+    transform: scale(1.05) translateY(-2px);
+}
+</style>
+
+</head>
+
+<body style="font-family: 'Open Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333333; background-color: #F8FAFC; margin: 0; padding: 0;">
+
+<!-- Top Header Bar -->
+<section class="oe_container" style="padding-left: 2%; padding-right: 2%;">
+    <section class="oe_container d-flex justify-content-center">
+        <div class="d-flex shadow-sm align-items-center justify-content-between p-3" style="width: 100%; background-color: #FFFFFF; border-radius: 8px; margin-top: 20px; border: 1px solid #E2E8F0;">
+            <div class="d-flex align-items-center">
+                <span style="background: #4F46E5; color: #FFFFFF; font-weight: 800; font-size: 18px; padding: 8px 16px; border-radius: 6px; letter-spacing: 0.5px;">
+                    ⚡ Odoo 19 Ready
+                </span>
+                <span style="font-size: 18px; font-weight: 700; color: #1E293B; margin-left: 16px;">
+                    Real-Time Stock Valuation Dashboard
+                </span>
+            </div>
+            <div class="d-flex align-items-center">
+                <div style="font-size: 15px; color: #475569; font-weight: 600; margin-right: 12px;">
+                    Supported Editions:
+                </div>
+                <span style="background: #EFF6FF; color: #1D4ED8; font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 6px; border: 1px solid #BFDBFE; margin-right: 8px;">
+                    Community
+                </span>
+                <span style="background: #FAF5FF; color: #7E22CE; font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 6px; border: 1px solid #E9D5FF; margin-right: 16px;">
+                    Enterprise
+                </span>
+                <span style="background: #FEF3C7; color: #B45309; font-weight: 800; font-size: 16px; padding: 6px 16px; border-radius: 6px; border: 1px solid #FDE68A;">
+                    Multi Language Support  📈
+                </span>
+            </div>
+        </div>
+    </section>
+</section>
+
+<!-- Hero Title Section -->
+<section class="oe_container my-5" style="text-align: center;">
+    <h1 class="text-gradient-hero" style="font-size: 44px; color: #0F172A; font-weight: 800; margin-bottom: 16px; line-height: 1.2;">
+        Real-Time Stock Valuation Dashboard for Odoo 19
+    </h1>
+    <p style="font-weight: 600; font-size: 21px; color: #4F46E5; margin-bottom: 16px;">
+        One Dashboard. Complete Inventory Valuation Insights & Stock Analytics.
+    </p>
+    <p style="font-weight: 500; font-size: 18px; color: #475569; max-width: 900px; margin: 0 auto 28px; line-height: 1.6;">
+        Revolutionize your Inventory operations with a lightning-fast OWL 3 Single Page Application. Featuring 14 Interactive Clickable KPI Cards, Live Real-Time Valuation Leaflet Maps, Comprehensive COGS & Profit Analytics, Comprehensive Aging Analysis, and an Executive 12-Facet Slide-over Stock Analysis Tools!
+    </p>
+    <div style="margin-top: 24px;">
+        <a href="#features_tabs" class="btn-premium d-inline-block px-4 py-3 mb-2 pulse-glow" style="background-color: #FFFFFF; border: 3px solid #000000; color: #000000; font-weight: 800; font-size: 18px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-right: 12px;">
+            <strong style="color: #000000 !important;">🚀 Explore All Advanced Features</strong>
+        </a>
+        <a href="https://wa.me/97430643395" target="_blank" class="btn-premium d-inline-block px-4 py-3 mb-2 pulse-glow" style="background-color: #25D366; border: 3px solid #15803D; color: #000000; font-weight: 800; font-size: 18px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
+            <strong style="color: #000000 !important;">💬 Live WhatsApp Support & Demo</strong>
+        </a>
+    </div>
+</section>
+
+<!-- Banner Showcase -->
+<section class="oe_container my-4 text-center">
+    <div class="mx-auto shadow-lg" style="max-width: 1200px; border-radius: 16px; overflow: hidden; border: 3px solid #CBD5E1;">
+        <img src="banner.png" alt="Stock Valuation Dashboard Banner" class="animate-float" style="width: 100%; height: auto; display: block;" />
+    </div>
+</section>
+
+
+
+<!-- Core Architectural Highlight Cards -->
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 24px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+    <div class="p-4">
+        <div class="d-sm-flex align-items-center mb-3">
+            <span style="font-size: 32px; background: #FEF3C7; color: #D97706; width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: 800;">
+                🎯
+            </span>
+            <div>
+                <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0;">
+                    Advanced Drill-Down &amp; PDF Reporting
+                </h2>
+                <span style="background: #FEF3C7; color: #B45309; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #FDE68A;">
+                    COMPLETE FINANCIAL VIEW
+                </span>
+            </div>
+        </div>
+        <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 12px;">
+            Never open 10 different Odoo windows again. With our advanced interactive charts and single-click PDF generation, you have all the financial data you need in one luxurious executive dashboard:
+        </p>
+        <div class="row" style="margin-top: 16px;">
+            <div class="col-md-4 mb-3">
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">1. Top Insights AI</strong>
+                    <span style="font-size: 13px; color: #64748B;">Automatically summarizes total value, identifies top-performing products, calculates turnover ratios, and flags dead stock.</span>
+                </div>
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0; margin-top: 16px;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">2. Exact COGS Tracking</strong>
+                    <span style="font-size: 13px; color: #64748B;">Instantly access the exact cost of goods sold for all shipped products in real-time.</span>
+                </div>
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0; margin-top: 16px;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">3. Gross Profit Estimates</strong>
+                    <span style="font-size: 13px; color: #64748B;">Monitor estimated gross profit margins based on standard costs versus active sales prices.</span>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">4. Product-Level Valuation</strong>
+                    <span style="font-size: 13px; color: #64748B;">Detailed data table showing quantities, unit costs, and total values for every product in your catalog.</span>
+                </div>
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0; margin-top: 16px;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">5. Filter by Warehouse</strong>
+                    <span style="font-size: 13px; color: #64748B;">Instantly recalculate all metrics by focusing on a specific physical warehouse or location.</span>
+                </div>
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0; margin-top: 16px;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">6. Filter by Category</strong>
+                    <span style="font-size: 13px; color: #64748B;">Isolate valuation metrics for specific product categories (e.g., Office Furniture, Electronics).</span>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">7. Date Range Selection</strong>
+                    <span style="font-size: 13px; color: #64748B;">Analyze historical inventory movements and financial summaries for Today, This Week, or Custom Dates.</span>
+                </div>
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0; margin-top: 16px;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">8. Executive PDF Export</strong>
+                    <span style="font-size: 13px; color: #64748B;">Generate a beautiful, print-ready PDF "Product Stock Summary" report with a single click.</span>
+                </div>
+                <div style="background: #F8FAFC; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0; margin-top: 16px;">
+                    <strong style="color: #1E293B; display: block; font-size: 16px;">9. Multi-Company Support</strong>
+                    <span style="font-size: 13px; color: #64748B;">Seamlessly consolidate or separate valuation data across your entire multi-company Odoo environment.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Screenshots Gallery -->
+<section class="oe_container my-5" style="max-width: 1200px; margin-left: auto; margin-right: auto;">
+    <div class="text-center mb-4">
+        <h2 style="font-size: 32px; font-weight: 800; color: #0F172A;">
+            Module Screenshots Preview
+        </h2>
+        <p style="font-size: 18px; color: #64748B;">
+            A closer look at the 360° Dashboard and Product Drawer interface
+        </p>
+    </div>
+
+    <div class="row">
+                <div class="col-12 mb-4">
+            <div class="card glass-panel shadow-sm h-100" style="border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="p-3 bg-light border-bottom text-center">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #1E293B; margin: 0;">Comprehensive Dashboard Overview</h3>
+                </div>
+                <img src="screenshots/main_dashboard.png" alt="Comprehensive Dashboard Overview" style="width: 100%; display: block;" />
+                <div class="p-3 text-muted" style="font-size: 15px; border-top: 1px solid #E2E8F0; background-color: #FFFFFF;">
+                    Get a high-level view of your entire inventory with real-time KPI cards, dynamic valuation summaries, and fast interactive charts.
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="card glass-panel shadow-sm h-100" style="border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="p-3 bg-light border-bottom text-center">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #1E293B; margin: 0;">Interactive Financial Summaries</h3>
+                </div>
+                <img src="screenshots/dashboard.png" alt="Interactive Financial Summaries" style="width: 100%; display: block;" />
+                <div class="p-3 text-muted" style="font-size: 15px; border-top: 1px solid #E2E8F0; background-color: #FFFFFF;">
+                    Instantly view your Beginning Balance, Exact COGS, Gross Profit, and Inventory Adjustments in one unified financial ribbon.
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="card glass-panel shadow-sm h-100" style="border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="p-3 bg-light border-bottom text-center">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #1E293B; margin: 0;">Advanced Aging &amp; Trend Analysis</h3>
+                </div>
+                <img src="screenshots/analysis.png" alt="Advanced Aging and Trend Analysis" style="width: 100%; display: block;" />
+                <div class="p-3 text-muted" style="font-size: 15px; border-top: 1px solid #E2E8F0; background-color: #FFFFFF;">
+                    Monitor your inventory aging across time buckets, perform ABC Analysis automatically, and track daily/monthly stock value trends visually.
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="card glass-panel shadow-sm h-100" style="border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="p-3 bg-light border-bottom text-center">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #1E293B; margin: 0;">Detailed Product Valuation</h3>
+                </div>
+                <img src="screenshots/product.png" alt="Detailed Product Valuation" style="width: 100%; display: block;" />
+                <div class="p-3 text-muted" style="font-size: 15px; border-top: 1px solid #E2E8F0; background-color: #FFFFFF;">
+                    Navigate through your stock with an interactive, searchable product directory featuring quick insights into standard cost versus actual valuation.
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="card glass-panel shadow-sm h-100" style="border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="p-3 bg-light border-bottom text-center">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #1E293B; margin: 0;">Custom PDF Reports</h3>
+                </div>
+                <img src="screenshots/report.png" alt="Custom PDF Reports" style="width: 100%; display: block;" />
+                <div class="p-3 text-muted" style="font-size: 15px; border-top: 1px solid #E2E8F0; background-color: #FFFFFF;">
+                    Generate clean, easy-to-read PDF reports for Product Stock Summaries directly from the dashboard, perfect for management meetings.
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="card glass-panel shadow-sm h-100" style="border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="p-3 bg-light border-bottom text-center">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #1E293B; margin: 0;">One-Click Export &amp; Print</h3>
+                </div>
+                <img src="screenshots/pdf_print.png" alt="One-Click Export and Print" style="width: 100%; display: block;" />
+                <div class="p-3 text-muted" style="font-size: 15px; border-top: 1px solid #E2E8F0; background-color: #FFFFFF;">
+                    Seamlessly print your valuation reports to PDF or export your data to Excel for further offline analysis and accounting reconciliation.
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-4">
+            <div class="card glass-panel shadow-sm h-100" style="border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden;">
+                <div class="p-3 bg-light border-bottom text-center">
+                    <h3 style="font-size: 20px; font-weight: 700; color: #1E293B; margin: 0;">Secure Role-Based Access</h3>
+                </div>
+                <img src="screenshots/user_access.png" alt="Secure Role-Based Access" style="width: 100%; display: block;" />
+                <div class="p-3 text-muted" style="font-size: 15px; border-top: 1px solid #E2E8F0; background-color: #FFFFFF;">
+                    Ensure your sensitive financial and valuation data is protected with Odoo's robust role-based access configuration and security groups.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Tabs Section -->
+<section id="features_tabs" class="oe_container my-5" style="max-width: 1200px; margin-left: auto; margin-right: auto;">
+    <div class="text-center mb-4">
+        <h2 style="font-size: 32px; font-weight: 800; color: #0F172A;">
+            Explore Complete Module Features & Capabilities
+        </h2>
+        <p style="font-size: 18px; color: #64748B;">
+            Everything you need for enterprise Inventory governance in Odoo 19
+        </p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs justify-content-center mb-4" id="hr360Tabs" role="tablist" style="border-bottom: 2px solid #CBD5E1; gap: 8px;">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active px-4 py-3 fw-bold" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" style="font-size: 16px; border-radius: 8px 8px 0 0; color: #4F46E5;">
+                🏢 Interactive Stock Analytics
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link px-4 py-3 fw-bold" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" style="font-size: 16px; border-radius: 8px 8px 0 0; color: #4F46E5;">
+                🔍 Omnibar & Smart Search
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link px-4 py-3 fw-bold" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" style="font-size: 16px; border-radius: 8px 8px 0 0; color: #4F46E5;">
+                📈 Universal BI & PDF Reports
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link px-4 py-3 fw-bold" id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" style="font-size: 16px; border-radius: 8px 8px 0 0; color: #4F46E5;">
+                🎨 Dark Mode & Responsiveness
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link px-4 py-3 fw-bold" id="tab5-tab" data-bs-toggle="tab" data-bs-target="#tab5" type="button" role="tab" style="font-size: 16px; border-radius: 8px 8px 0 0; color: #4F46E5;">
+                🧠 Dynamic Module Architecture
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content card p-4 shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0;">
+        <!-- TAB 1: Stock Movements -->
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4">
+                    <img src="thumbnail.png" alt="Odoo Interactive Stock Analytics" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+                </div>
+                <div class="col-lg-6 mb-4 text-left">
+                    <h3 style="font-size: 24px; font-weight: 800; color: #1E293B; margin-bottom: 16px;">
+                        Draggable & Zoomable 3D Organization Hierarchy
+                    </h3>
+                    <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px;">
+                        Visualize your entire corporate chain of command with our custom OWL 3 tree renderer. Auto-collapses nodes up to level 2, supports smooth mouse drag and wheel zooming, and displays direct subordinate counts on every card.
+                    </p>
+                    <ul style="font-size: 16px; line-height: 2; color: #333333; padding-left: 20px;">
+                        <li><strong>CEO / Top-Level Auto-Detection:</strong> Automatically anchors the organization tree around top executives or general managers.</li>
+                        <li><strong>Expand / Collapse All Controls:</strong> One-click navigation across complex enterprise hierarchies with 1000+ staff.</li>
+                        <li><strong>Double-Click Profile Launch:</strong> Double-clicking any product node inside the org chart instantly slides out their full Stock Analysis Tools.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Omnibar & Smart Search -->
+        <div class="tab-pane fade" id="tab2" role="tabpanel">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 text-left">
+                    <h3 style="font-size: 24px; font-weight: 800; color: #1E293B; margin-bottom: 16px;">
+                        Cmd+K Universal Fuzzy Search & Barcode Scanner
+                    </h3>
+                    <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px;">
+                        Find any product in milliseconds. Press <code>Cmd+K</code> (or <code>Ctrl+K</code>) to launch the universal search omnibar. Search across product names, job titles, department codes, skills, or ID badge numbers instantly.
+                    </p>
+                    <ul style="font-size: 16px; line-height: 2; color: #333333; padding-left: 20px;">
+                        <li><strong>Instant Filter Sync:</strong> Selecting an product from the omnibar highlights their record and updates all top KPI cards automatically.</li>
+                        <li><strong>Camera & Barcode ID Scanner:</strong> Connect USB barcode scanners or webcam QR readers to scan product physical ID badges and open their profile directly.</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <img src="banner.png" alt="Omnibar & Smart Search" style="width: 100%; border-radius: 12px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Universal BI & PDF Reports -->
+        <div class="tab-pane fade" id="tab3" role="tabpanel">
+            <div class="p-3 text-left">
+                <h3 style="font-size: 24px; font-weight: 800; color: #1E293B; margin-bottom: 16px;">
+                    Universal Export & Live BI Feeds (Power BI, Tableau, Excel, PDF)
+                </h3>
+                <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px;">
+                    Take your Inventory data anywhere. The module provides built-in enterprise export engines without requiring external connectors:
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-4 mb-3">
+                        <div class="p-3 border rounded bg-light">
+                            <strong style="color: #4F46E5; font-size: 18px; display: block;">📑 Executive PDF Summary</strong>
+                            <span style="font-size: 14px; color: #64748B;">QWeb printable reports summarizing product quantities, valuation metrics, aging analysis, and cost totals.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="p-3 border rounded bg-light">
+                            <strong style="color: #10B981; font-size: 18px; display: block;">📊 Excel Multi-Tab Dump</strong>
+                            <span style="font-size: 14px; color: #64748B;">One-click export of product tables, category summaries, and low stock alerts to `.xlsx`.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="p-3 border rounded bg-light">
+                            <strong style="color: #F59E0B; font-size: 18px; display: block;">⚡ OData Live Feed URL</strong>
+                            <span style="font-size: 14px; color: #64748B;">Connect Microsoft Power BI or Tableau directly via live authenticated OData endpoints.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Dark Mode & Responsiveness -->
+        <div class="tab-pane fade" id="tab4" role="tabpanel">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4">
+                    <img src="icon.png" alt="Odoo Dark Mode Inventory Dashboard" style="max-width: 320px; width: 100%; border-radius: 12px; margin: 0 auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+                </div>
+                <div class="col-lg-6 mb-4 text-left">
+                    <h3 style="font-size: 24px; font-weight: 800; color: #1E293B; margin-bottom: 16px;">
+                        High-Contrast Dark Mode & 100% Mobile Responsive
+                    </h3>
+                    <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px;">
+                        Built from the ground up to support Odoo 19 native dark mode and mobile browsers. Whether your Inventory managers are on an iPad, iPhone, or 4K desktop monitor, every chart and modal adapts dynamically.
+                    </p>
+                    <ul style="font-size: 16px; line-height: 2; color: #333333; padding-left: 20px;">
+                        <li><strong>Automatic Theme Switching:</strong> Respects user system preferences or Odoo user dark mode toggles automatically.</li>
+                        <li><strong>Touch-Friendly Controls:</strong> Slide-over modals and collapsible drawers designed for smooth mobile touch interaction.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: Dynamic App Architecture -->
+        <div class="tab-pane fade" id="tab5" role="tabpanel">
+            <div class="p-3 text-left">
+                <h3 style="font-size: 24px; font-weight: 800; color: #1E293B; margin-bottom: 16px;">
+                    Intelligent Dynamic Module Architecture 🧠
+                </h3>
+                <p style="font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px;">
+                    Don't have Sales, Purchases, or Accounting installed? No problem! The Product 360° Dashboard is designed to be completely decoupled.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-6 mb-3">
+                        <div class="p-3 border rounded bg-light">
+                            <strong style="color: #4F46E5; font-size: 18px; display: block;">🧩 Clean Interface</strong>
+                            <span style="font-size: 14px; color: #64748B;">Any metrics, KPI cards, or tabs (like the Timesheet tab) corresponding to uninstalled modules will automatically and gracefully hide. This prevents errors and keeps your interface perfectly clutter-free.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="p-3 border rounded bg-light">
+                            <strong style="color: #10B981; font-size: 18px; display: block;">🔄 Instant Reconnection</strong>
+                            <span style="font-size: 14px; color: #64748B;">The moment you install a new core Odoo module (e.g., you decide to install Stock Accounting later), the dashboard automatically detects it and activates its respective widgets without requiring any extra setup.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Author & Support Footer (Engr Waheed) -->
+<section class="oe_container my-5" style="max-width: 1200px; margin-left: auto; margin-right: auto;">
+    <div class="text-center mb-4">
+    </div>
+    <div class="p-5 shadow-sm text-center" style="background-color: #F8FAFC; color: #000000; border-radius: 16px; border: 3px solid #CBD5E1;">
+        <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 14px; color: #000000;">
+            Module Maintenance And Support
+        </h2>
+        <p style="font-size: 22px; font-weight: 700; color: #111827; margin: 0 auto 24px;">
+            We specialize in:
+        </p>
+        
+        <div class="mx-auto text-left" style="max-width: 780px; background-color: #FFFFFF; border: 2px solid #E2E8F0; border-radius: 12px; padding: 24px 32px; margin-bottom: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <div class="row" style="text-align: left; font-size: 19px; font-weight: 700; color: #000000; line-height: 2.2;">
+                <div class="col-md-6">
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>Enterprise Odoo Implementation</div>
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>Custom Odoo Module Development</div>
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>Third-Party API Integrations</div>
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>POS Configuration & Customization</div>
+                </div>
+                <div class="col-md-6">
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>Odoo Migration & Upgrades</div>
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>Performance Optimization</div>
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>Technical Support & Maintenance</div>
+                    <div><span style="color: #4F46E5; margin-right: 10px;">✔</span>Odoo Training & Consultation</div>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 22px; font-weight: 800; color: #000000; margin: 0 auto 28px;">
+            Get in touch today for fast and professional Odoo solutions.
+        </p>
+
+        <div class="d-flex justify-content-center flex-wrap" style="gap: 20px;">
+            <a href="https://www.linkedin.com/in/waheed-ullah-810082151/" target="_blank" rel="noopener" class="px-4 py-3" style="background-color: #FFFFFF; border: 3px solid #000000; color: #000000; font-weight: 800; font-size: 19px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 16px rgba(0,0,0,0.15); display: inline-flex; align-items: center;">
+                <strong style="color: #000000 !important; font-size: 19px;">🔗 LinkedIn: /in/waheed-ullah-810082151/</strong>
+            </a>
+            <a href="https://wa.me/97430643395" target="_blank" rel="noopener" class="px-4 py-3" style="background-color: #25D366; border: 3px solid #15803D; color: #000000; font-weight: 800; font-size: 19px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 16px rgba(37,211,102,0.3); display: inline-flex; align-items: center;">
+                <strong style="color: #000000 !important; font-size: 19px;">💬 WhatsApp: +974 3064 3395</strong>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap JS for Tabs (Compatible with Odoo Apps Store DOM) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

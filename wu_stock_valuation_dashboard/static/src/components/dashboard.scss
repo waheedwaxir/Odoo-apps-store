@@ -1,0 +1,82 @@
+.stock-dashboard {
+    /* Base styling and pastel colors */
+    .bg-light-pastel {
+        background-color: #f7f9fc !important;
+    }
+
+    /* Cards */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .card-header {
+        border-bottom: 1px solid #f0f2f5 !important;
+    }
+
+    /* Custom KPI Cards */
+    .stat-card-pastel {
+        border-radius: 16px !important;
+        border: none !important;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
+        overflow: hidden;
+    }
+    
+    .stat-card-pastel .icon-box {
+        border-radius: 12px !important;
+    }
+    
+    .stat-card-pastel h4 {
+        letter-spacing: -0.5px;
+    }
+
+    /* Table Adjustments */
+    .table-hover tbody tr:hover {
+        background-color: #f9fbfd !important;
+    }
+    
+    .table thead th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        color: #8c98a4;
+        background-color: #f8f9fa;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .table td {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        color: #495057;
+    }
+
+    /* Utilities */
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+
+    /* Text colors */
+    .text-primary { color: #5b8ff9 !important; }
+    .text-success { color: #5ad8a6 !important; }
+    .text-warning { color: #f6bd16 !important; }
+    .text-danger { color: #e8684a !important; }
+    .text-info { color: #6dc8ec !important; }
+
+    /* Custom Backgrounds for Insights/Notifications */
+    .bg-primary.bg-opacity-10 { background-color: rgba(91, 143, 249, 0.1) !important; }
+    .bg-success.bg-opacity-10 { background-color: rgba(90, 216, 166, 0.1) !important; }
+    .bg-warning.bg-opacity-10 { background-color: rgba(246, 189, 22, 0.1) !important; }
+    .bg-danger.bg-opacity-10 { background-color: rgba(232, 104, 74, 0.1) !important; }
+}
