@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="wu_pos_categories.CategorySelector">
+        <t t-if="this.pos.config.iface_single_line_categories">
+            <div class="pos-category-carousel-container position-relative d-flex align-items-center p-1 px-2 mb-1">
+                <!-- Left Arrow Button -->
+                <button type="button"
+                        class="carousel-nav-btn carousel-nav-prev btn btn-light d-flex align-items-center justify-content-center me-1 rounded-3"
+                        t-att-disabled="!this.state.canScrollLeft"
+                        t-att-class="{'opacity-25': !this.state.canScrollLeft}"
+                        t-on-click="() => this.scrollCarousel('left')"
+                        title="Scroll Left">
+                    <i class="fa fa-chevron-left"/>
+                </button>
+
+                <!-- Horizontal Scroll Track -->
+                <div class="category-carousel-track d-flex flex-nowrap align-items-center gap-1 flex-grow-1 overflow-x-auto py-1"
+                     t-ref="categoryScrollTrack"
+                     t-on-scroll="this.onTrackScroll"
+                     t-on-wheel="this.onTrackWheel"
+                     t-on-mousedown="this.onMouseDown"
+                     t-on-mousemove="this.onMouseMove"
+                     t-on-mouseup="this.onMouseUp"
+                     t-on-mouseleave="this.onMouseUp">
+
+                    <!-- Root / All Categories Reset Pill -->
+                    <button t-if="this.pos.selectedCategory"
+                            t-on-click="() => this.selectCategory(0)"
+                            class="category-carousel-pill btn btn-light d-flex align-items-center text-nowrap rounded-3 px-3 py-1 fw-bold border-secondary"
+                            title="All Categories">
+                        <i class="fa fa-home me-1"/>
+                        <span>All</span>
+                    </button>
+
+                    <!-- Category Buttons -->
+                    <t t-foreach="this.getCategoriesAndSub()" t-as="category" t-key="category.id">
+                        <button t-on-click="() => this.selectCategory(category.id)"
+                                t-att-data-category-id="category.id"
+                                t-att-class="this.getCategoryClass(category)"
+                                class="category-carousel-pill btn d-flex align-items-center justify-content-center text-nowrap rounded-3 px-3 py-1 flex-shrink-0"
+                                t-att-title="category.name">
+                            <img t-if="category.imgSrc"
+                                 t-att-src="category.imgSrc"
+                                 class="category-carousel-img rounded me-1"
+                                 alt="Category" />
+                            <span class="category-carousel-name text-truncate" t-esc="category.name" />
+                        </button>
+                    </t>
+                </div>
+
+                <!-- Right Arrow Button -->
+                <button type="button"
+                        class="carousel-nav-btn carousel-nav-next btn btn-light d-flex align-items-center justify-content-center ms-1 rounded-3"
+                        t-att-disabled="!this.state.canScrollRight"
+                        t-att-class="{'opacity-25': !this.state.canScrollRight}"
+                        t-on-click="() => this.scrollCarousel('right')"
+                        title="Scroll Right">
+                    <i class="fa fa-chevron-right"/>
+                </button>
+
+                <!-- Responsive Overflow Dropdown Menu Button -->
+                <div class="category-overflow-dropdown position-relative ms-1">
+                    <button type="button"
+                            class="category-overflow-btn btn btn-light d-flex align-items-center justify-content-center rounded-3"
+                            t-on-click.stop="() => this.toggleOverflow()"
+                            t-att-class="{'active': this.state.isOverflowOpen}"
+                            title="All Categories Menu">
+                        <i class="fa fa-ellipsis-v"/>
+                    </button>
+
+                    <!-- Dropdown Popover / Menu -->
+                    <div t-if="this.state.isOverflowOpen"
+                         class="category-overflow-menu dropdown-menu show position-absolute end-0 mt-1 shadow-lg py-1 rounded-3"
+                         t-on-click.stop="">
+                        <div class="dropdown-header px-3 py-1 fw-bold text-muted border-bottom">
+                            Categories
+                        </div>
+                        <div class="overflow-menu-items overflow-y-auto" style="max-height: 280px;">
+                            <a href="#"
+                               class="dropdown-item d-flex align-items-center px-3 py-2"
+                               t-att-class="{'active': !this.pos.selectedCategory}"
+                               t-on-click.prevent="() => this.selectCategory(0)">
+                                <i class="fa fa-home me-2"/>
+                                <span>All Products</span>
+                            </a>
+                            <t t-foreach="this.getCategoriesAndSub()" t-as="cat" t-key="cat.id">
+                                <a href="#"
+                                   class="dropdown-item d-flex align-items-center justify-content-between px-3 py-2"
+                                   t-att-class="{'active': cat.isSelected}"
+                                   t-on-click.prevent="() => this.selectCategory(cat.id)">
+                                    <div class="d-flex align-items-center text-truncate">
+                                        <span class="category-color-dot me-2 rounded-circle flex-shrink-0"
+                                              t-att-class="this.getCategoryColorDotClass(cat)"/>
+                                        <span class="text-truncate" t-esc="cat.name"/>
+                                    </div>
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+
+        <!-- Default Grid Behavior when single-line categories are disabled -->
+        <t t-else="">
+            <div t-attf-class="{{this.pos.config.show_category_images ? 'category-list' : 'product-list'}} d-grid gap-1 gap-lg-2 p-2">
+                <t t-foreach="this.getCategoriesAndSub()" t-as="category" t-key="category.id">
+                    <button t-on-click="() => this.pos.setSelectedCategory(category.id)"
+                        t-attf-class="o_colorlist_item_color_{{category.color || 'none'}}"
+                        t-att-class="{
+                            'border-0': category.isChildren and !this.isAncestorOrSelected(category), 
+                            'opacity-75 border-0': !category.isChildren and !category.isSelected,
+                            'justify-content-center': ui.isSmall
+                        }"
+                        class="category-button p-1 btn btn-light d-flex justify-content-center align-items-center rounded-3">
+                        <img t-if="category.imgSrc and !ui.isSmall" t-att-src="category.imgSrc"
+                            class="category-img-thumb h-100 rounded-3 object-fit-cover"
+                            alt="Category"
+                        />
+                        <span t-if="category.name"
+                              t-att-class="{'px-2': category.imgSrc, 'px-3': !category.imgSrc and this.pos.config.show_category_images}"
+                              class="text-center text-wrap-categ fs-5" t-esc="category.name" />
+                    </button>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>

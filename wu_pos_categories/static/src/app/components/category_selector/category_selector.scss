@@ -1,0 +1,179 @@
+// Category Carousel SCSS for Odoo 19 POS
+
+.pos-category-carousel-container {
+    width: 100%;
+    min-height: 44px;
+    background: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+
+    .carousel-nav-btn {
+        width: 32px;
+        height: 34px;
+        flex-shrink: 0;
+        padding: 0;
+        border: 1px solid #dee2e6;
+        background-color: #ffffff;
+        color: #495057;
+        transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+
+        &:hover:not(:disabled) {
+            background-color: #e9ecef;
+            color: #212529;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    }
+
+    .category-carousel-track {
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #ced6e0 #f1f2f6;
+
+        &::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f2f6;
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #ced6e0;
+            border-radius: 4px;
+
+            &:hover {
+                background: #a4b0be;
+            }
+        }
+    }
+
+    .category-carousel-pill {
+        height: 36px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.25rem 0.85rem;
+        border-radius: 8px;
+        border-width: 1.5px;
+        border-style: solid;
+        cursor: pointer;
+        transition: transform 0.12s ease, box-shadow 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+
+        &.is-selected {
+            border-color: #212529 !important;
+            font-weight: 700;
+            transform: scale(1.02);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            opacity: 1 !important;
+        }
+
+        &:hover {
+            opacity: 1 !important;
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        .category-carousel-img {
+            height: 22px;
+            width: 22px;
+            object-fit: cover;
+        }
+
+        .category-carousel-name {
+            max-width: 140px;
+        }
+    }
+
+    .category-overflow-dropdown {
+        .category-overflow-btn {
+            width: 32px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid #dee2e6;
+            background-color: #ffffff;
+            color: #495057;
+
+            &:hover,
+            &.active {
+                background-color: #e9ecef;
+                color: #212529;
+            }
+        }
+
+        .category-overflow-menu {
+            min-width: 220px;
+            z-index: 1055;
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+
+            .dropdown-item {
+                font-size: 0.875rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f8f9fa;
+                }
+
+                &.active {
+                    background-color: #e7f1ff;
+                    color: #0d6efd;
+                    font-weight: 600;
+                }
+            }
+
+            .category-color-dot {
+                width: 10px;
+                height: 10px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+// 12 Distinct Pastel Color Badges matching POS Carousel screenshots
+$wu-pos-colors: (
+    1: (#fce4ec, #ad1457, #f48fb1),  // Pink / Rose
+    2: (#e3f2fd, #1565c0, #90caf9),  // Soft Blue
+    3: (#e0f7fa, #00838f, #80deea),  // Cyan / Sky
+    4: (#fbe9e7, #d84315, #ffab91),  // Coral / Salmon
+    5: (#fff3e0, #e65100, #ffcc80),  // Peach / Warm Orange
+    6: (#ede7f6, #4527a0, #b39ddb),  // Periwinkle / Purple
+    7: (#e8eaf6, #283593, #9fa8da),  // Indigo / Slate
+    8: (#f3e5f5, #6a1b9a, #ce93d8),  // Berry / Magenta
+    9: (#e8eaf6, #303f9f, #7986cb),  // Misc / Deep Blue
+    10: (#ffebee, #c62828, #ef9a9a), // Rose / Light Red
+    11: (#fffde7, #b78103, #fff59d), // Cream / Yellow
+    12: (#e8f5e9, #2e7d32, #a5d6a7)  // Mint / Seafoam
+);
+
+@each $idx, $vals in $wu-pos-colors {
+    $bg: nth($vals, 1);
+    $text: nth($vals, 2);
+    $border: nth($vals, 3);
+
+    .wu_pos_categ_color_#{$idx} {
+        background-color: $bg !important;
+        color: $text !important;
+        border-color: $border !important;
+
+        &:hover {
+            background-color: darken($bg, 3%) !important;
+            border-color: darken($border, 5%) !important;
+        }
+    }
+
+    .category-color-dot.wu_pos_categ_color_#{$idx} {
+        background-color: $text !important;
+    }
+}
