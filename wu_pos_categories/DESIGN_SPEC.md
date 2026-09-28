@@ -4,8 +4,9 @@
 **Display Name:** POS Single Line Categories  
 **Odoo Version:** 19.0  
 **License:** LGPL-3  
-**Price:** Free (0.00 EUR)  
+**Price:** 12.00 EUR  
 **Author:** Engr Waheed  
+**Support:** waheed@techman.qa  
 
 ---
 

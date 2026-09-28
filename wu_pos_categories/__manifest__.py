@@ -14,11 +14,12 @@ Transforms the default multi-line category grid in Odoo 19 Point of Sale into an
 - 12 soft pastel color badges for instant category distinction.
 - Responsive quick-jump overflow dropdown menu.
 - Configurable per POS in Point of Sale Settings.
-- 100% Free & Open Source under LGPL-3.
+- Licensed under LGPL-3.
     """,
     'author': 'Engr Waheed',
+    'support': 'waheed@techman.qa',
     'license': 'LGPL-3',
-    'price': 0.0,
+    'price': 12.00,
     'currency': 'EUR',
     'images': [
         'static/description/banner_cat.png',
