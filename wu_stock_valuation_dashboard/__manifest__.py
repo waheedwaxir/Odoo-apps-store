@@ -1,7 +1,7 @@
 {
-    'name': 'Real Time Stock Inventory Valuation Dashboard',
+    'name': ' Real Time Stock Inventory Valuation Dashboard ',
     'version': '19.0.1.1.4',
-    'summary': 'Advanced Stock Valuation, Financial Summaries, & Multilingual Inventory Dashboard',
+    'summary': ' Advanced Stock Valuation Dashboard , Dashboard,  Real Time Stock Dashboard , Stock Inventory , Inventory Valuation , Inventory Valuation Dashboard , Stock Inventory Valuation Dashboard , Stock Dashboard  , Financial Summaries Dashboard , Multilingual Inventory Dashboard , Stock Report , Stock advance Report , Accounting Report , Stock Purchase Report , Sale Report , Inventory In / Out , Inventory Flow',
     'description': """
 Real-Time Stock Inventory Valuation Dashboard
 ===========================================
@@ -18,7 +18,7 @@ Key Features:
 * **Actionable Stock Alerts:** Immediate visibility into Low Stock, Overstock, and Negative Stock with one-click "View All" functionality.
     """,
     'category': 'Inventory/Inventory',
-    'author': 'Engr Waheed',
+    'author': 'Nexora Solutions',
     'depends': ['stock', 'stock_account', 'sale_management', 'purchase', 'account', 'web'],
     'data': [
         'security/security.xml',
@@ -34,7 +34,7 @@ Key Features:
         ],
     },
         'images': ['static/description/banner.png'],
-    'price': 49.00,
+    'price': 59.00,
     'currency': 'USD',
     'support': 'waheedwazir566@gmail.com',
     'installable': True,
