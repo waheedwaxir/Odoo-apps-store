@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Hr Employee Dashboard 360',
+    'name': ' Employee Dashboard 360 ',
     'version': '19.0.2.1.0',
     'category': 'Human Resources/Employees',
-    'summary': 'Complete employee insights from hiring to retirement, GPS Geofencing, Timesheet Intelligence, Smart Alert Center. Features dynamically adapt based on installed modules.HRMS, Payroll , Attendance',
+    'summary': ' Dashboard , Hr Employee Dashboard , Employee Dashboard 360 , Hr Dashboard ,Employee Record, Live loaction, Timesheet,  Hr Employee , Hr Employee Dashboard , Whats app, Time off , Employee Portal , Self Services , Employee Leaves , Manager Access , Access Manager , HRMS, Payroll , Attendance ,Complete employee insights from hiring to retirement, GPS Geofencing, Timesheet Intelligence, Smart Alert Center. Features dynamically adapt based on installed modules.HRMS, Payroll , Attendance',
     'description': """
 Employee 360° Dashboard Enterprise for Odoo 19
 Hr Employee, HRMS, Payroll , Attendance 
@@ -24,9 +24,9 @@ Key Features:
 10. **Universal Export & BI Feeds**: QWeb PDF Executive Summary Reports, Excel dumps, and live OData feeds for Power BI/Tableau.
 11. **Dynamic Module Architecture**: The dashboard intelligently adapts to your installed Odoo Apps. Tabs and KPI cards related to specific modules (like Timesheets, Leaves, Attendance, Recruitment, Payroll, and Appraisals) will automatically hide if the respective module is not installed, preventing clutter and ensuring a seamless experience.
     """,
-    'author': 'Engr Waheed',
+    'author': 'Nexora Solutions',
     'website': 'https://www.techman-solutions.com',
-    'license': 'OPL-1',
+    'license': 'LGPL-3',
     'depends': [
         'base',
         'web',
