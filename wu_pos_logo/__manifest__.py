@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'POS Logo And Screen Saver',
+    'name': ' POS Logo And Screen Saver ',
     'version': '19.0.1.1.0',
     'category': 'Point of Sale',
-    'summary': 'Personalize your POS branding with custom POS header logo, custom receipt printed logo, and idle screen saver background image or GIF.',
+    'summary': ' POS , POS Logo , POS Receipt , POS Design , POS Print ,Personalize your POS branding with custom POS header logo, custom receipt printed logo, and idle screen saver background image or GIF.',
     'description': """
 POS Logo & Screen Saver Configuration
 =====================================
@@ -21,7 +21,7 @@ Developed by Engr Waheed
 LinkedIn: https://www.linkedin.com/in/waheed-ullah-810082151
 WhatsApp: +97430643395
     """,
-    'author': 'Engr Waheed',
+    'author': 'Nexora Solutions',
     'depends': ['point_of_sale'],
     'data': [
         'views/res_config_settings_views.xml',
@@ -45,7 +45,7 @@ WhatsApp: +97430643395
         'static/description/screenshot_receipt.png',
         'static/description/screenshot_navbar.png',
     ],
-    'price': 5.00,
+    'price': '0',
     'currency': 'USD',
     'license': 'OPL-1',
     'installable': True,
