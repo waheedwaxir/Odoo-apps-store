@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ts_membership_root" name="Memberships"
+              parent="point_of_sale.menu_point_root" sequence="40"
+              groups="point_of_sale.group_pos_user"/>
+    <menuitem id="menu_ts_members" name="Members"
+              parent="menu_ts_membership_root" action="action_ts_members" sequence="10"/>
+    <menuitem id="menu_ts_memberships" name="Customer Memberships"
+              parent="menu_ts_membership_root" action="action_ts_membership" sequence="20"/>
+    <menuitem id="menu_ts_membership_plans" name="Membership Plans"
+              parent="menu_ts_membership_root" action="action_ts_membership_plan" sequence="30"
+              groups="point_of_sale.group_pos_manager"/>
+</odoo>

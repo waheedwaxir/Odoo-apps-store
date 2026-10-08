@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_booking_page" name="Techman Salon Booking Page">
+        <t t-call="website.layout">
+            <style>
+                .cursor-pointer {
+                    cursor: pointer !important;
+                }
+                .bg-teal {
+                    background-color: #00bcd4 !important;
+                }
+                .service-card, .branch-card, .staff-card {
+                    border: 1px solid #dee2e6;
+                    border-radius: 8px;
+                    background-color: #fff;
+                    transition: all 0.2s ease-in-out;
+                    position: relative;
+                }
+                .service-card:hover, .branch-card:hover, .staff-card:hover {
+                    border-color: #00bcd4 !important;
+                    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.15);
+                    transform: translateY(-2px);
+                }
+                .service-checkbox:checked + .service-card,
+                .branch-radio:checked + .branch-card,
+                .staff-radio:checked + .staff-card {
+                    border-color: #00bcd4 !important;
+                    border-width: 2px !important;
+                    background-color: rgba(0, 188, 212, 0.05) !important;
+                    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2);
+                }
+                .service-checkbox:checked + .service-card::after,
+                .branch-radio:checked + .branch-card::after,
+                .staff-radio:checked + .staff-card::after {
+                    content: "\f00c";
+                    font-family: FontAwesome;
+                    position: absolute;
+                    top: 10px;
+                    right: 12px;
+                    color: #00bcd4;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+                .avatar-circle {
+                    transition: all 0.2s ease-in-out;
+                }
+                .staff-card:hover .avatar-circle {
+                    transform: scale(1.05);
+                }
+                /* Step indicator */
+                .salon-stepper {
+                    display: flex;
+                    justify-content: space-between;
+                    list-style: none;
+                    padding: 0;
+                    margin: 0 0 2.5rem;
+                    counter-reset: salon-step;
+                }
+                .salon-stepper li {
+                    flex: 1;
+                    text-align: center;
+                    position: relative;
+                    color: #adb5bd;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                }
+                .salon-stepper li::before {
+                    counter-increment: salon-step;
+                    content: counter(salon-step);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 36px;
+                    height: 36px;
+                    margin: 0 auto 0.5rem;
+                    border-radius: 50%;
+                    border: 2px solid #dee2e6;
+                    background: #fff;
+                    position: relative;
+                    z-index: 1;
+                }
+                .salon-stepper li + li::after {
+                    content: "";
+                    position: absolute;
+                    top: 18px;
+                    right: 50%;
+                    width: 100%;
+                    height: 2px;
+                    background: #dee2e6;
+                }
+                .salon-stepper li.active, .salon-stepper li.done {
+                    color: #00bcd4;
+                }
+                .salon-stepper li.active::before {
+                    border-color: #00bcd4;
+                    color: #00bcd4;
+                }
+                .salon-stepper li.done::before {
+                    content: "\f00c";
+                    font-family: FontAwesome;
+                    border-color: #00bcd4;
+                    background: #00bcd4;
+                    color: #fff;
+                }
+                .salon-stepper li.active::after, .salon-stepper li.done::after {
+                    background: #00bcd4;
+                }
+                .salon-stepper li.done {
+                    cursor: pointer;
+                }
+                @media (max-width: 575px) {
+                    .salon-stepper li span { display: none; }
+                }
+                .salon-slot-btn.selected, .salon-slot-btn.selected:hover {
+                    background-color: #00bcd4 !important;
+                    border-color: #00bcd4 !important;
+                    color: #fff !important;
+                    font-weight: 600;
+                }
+                .salon-staff-slots {
+                    background: #fff;
+                    border: 1px solid #dee2e6;
+                    border-radius: 8px;
+                    padding: 1rem;
+                    margin-bottom: 1rem;
+                }
+                .salon-summary dt { font-weight: 600; color: #6c757d; }
+                .salon-summary dd { margin-bottom: 0.75rem; color: #1a1a1a; }
+            </style>
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="pt32 pb32">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10 card shadow-lg p-4 p-md-5 border-0 rounded-4" style="background: #fafafa;">
+                                <h1 class="text-center mb-2 fw-bold" style="color: #1a1a1a;">Book an Appointment</h1>
+                                <p class="text-center text-muted mb-4">Choose your services, your specialist and a free time - then tell us who you are.</p>
+
+                                <t t-if="error">
+                                    <div class="alert alert-danger rounded-3" role="alert">
+                                        <t t-esc="error"/>
+                                    </div>
+                                </t>
+                                <t t-if="success">
+                                    <div class="alert alert-success rounded-3" role="alert">
+                                        <t t-esc="success"/>
+                                    </div>
+                                </t>
+
+                                <ol class="salon-stepper" id="salon_stepper">
+                                    <li data-step="1"><span>Services</span></li>
+                                    <li data-step="2"><span>Beautician</span></li>
+                                    <li data-step="3"><span>Date &amp; Time</span></li>
+                                    <li data-step="4"><span>Your Details</span></li>
+                                </ol>
+
+                                <form action="/salon/booking/submit" method="post" id="salon_booking_form" class="o_mark_required" data-captcha="salon_booking">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                    <!-- Honeypot: hidden from real users; bots fill it and get silently dropped -->
+                                    <div style="position: absolute; left: -9999px; top: -9999px;" aria-hidden="true">
+                                        <label for="contact_url">Do not fill this field</label>
+                                        <input type="text" name="contact_url" id="contact_url" tabindex="-1" autocomplete="off"/>
+                                    </div>
+
+                                    <!-- STEP 1: BRANCH + SERVICES -->
+                                    <div class="salon-step" data-step="1">
+                                        <!-- One branch: nothing to choose, it is simply selected. -->
+                                        <t t-if="len(branches) == 1">
+                                            <input type="radio" name="branch_id" class="branch-radio d-none" t-att-value="branches.id" checked="checked"/>
+                                        </t>
+                                        <t t-else="">
+                                            <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-building-o me-2"></i>Select Branch</h4>
+                                            <div class="row mb-4">
+                                                <t t-foreach="branches" t-as="branch">
+                                                    <div class="col-md-6 mb-3">
+                                                        <input type="radio" name="branch_id" class="branch-radio d-none" t-att-value="branch.id" t-att-id="'branch_' + str(branch.id)" t-att-data-name="branch.name"/>
+                                                        <label t-att-for="'branch_' + str(branch.id)" class="branch-card p-3 d-block border rounded-3 cursor-pointer">
+                                                            <div class="fw-bold fs-5 text-dark"><t t-esc="branch.name"/></div>
+                                                            <div class="text-muted mt-1" style="font-size: 0.85em;"><i class="fa fa-map-marker me-1 text-teal"></i> Salon &amp; Spa Branch</div>
+                                                        </label>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </t>
+
+                                        <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-scissors me-2"></i>Select Services</h4>
+                                        <div class="row mb-3">
+                                            <t t-foreach="services" t-as="service">
+                                                <div class="col-md-6 mb-3">
+                                                    <input type="checkbox" name="service_ids" class="service-checkbox d-none" t-att-value="service.id" t-att-id="'service_' + str(service.id)"
+                                                           t-att-data-name="service.name" t-att-data-price="service.list_price" t-att-data-duration="service.duration"/>
+                                                    <label t-att-for="'service_' + str(service.id)" class="service-card p-3 d-block border rounded-3 cursor-pointer">
+                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                            <span class="service-name fw-bold text-dark fs-5"><t t-esc="service.name"/></span>
+                                                            <span class="service-price badge bg-teal px-3 py-2 fs-6 rounded-pill">QAR <t t-esc="service.list_price"/></span>
+                                                        </div>
+                                                        <div class="service-meta text-muted" style="font-size: 0.85em;">
+                                                            <i class="fa fa-clock-o me-1"></i> <t t-esc="service.duration"/> hrs duration
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </t>
+                                        </div>
+                                        <div class="text-muted mb-3" id="salon_services_total"></div>
+                                    </div>
+
+                                    <!-- STEP 2: BEAUTICIAN -->
+                                    <div class="salon-step d-none" data-step="2">
+                                        <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-user-md me-2"></i>Select Beautician</h4>
+                                        <input type="hidden" name="staff_id" id="salon_staff_id"/>
+                                        <div class="row mb-3">
+                                            <div class="col-md-4 col-sm-6 mb-3">
+                                                <input type="radio" name="staff_choice" class="staff-radio d-none" value="any" id="staff_any" data-name="Any available"/>
+                                                <label for="staff_any" class="staff-card p-4 d-block border rounded-3 text-center cursor-pointer">
+                                                    <div class="avatar-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 188, 212, 0.15); color: #00bcd4;">
+                                                        <i class="fa fa-users" style="font-size: 26px;"></i>
+                                                    </div>
+                                                    <div class="fw-bold text-dark fs-5">Any available</div>
+                                                    <div class="text-muted mt-1" style="font-size: 0.85em;">See everyone at work that day</div>
+                                                </label>
+                                            </div>
+                                            <t t-foreach="beauticians" t-as="staff">
+                                                <div class="col-md-4 col-sm-6 mb-3 salon-staff-col"
+                                                     t-att-data-services="','.join(str(i) for i in staff.effective_service_ids.ids) or 'all'">
+                                                    <input type="radio" name="staff_choice" class="staff-radio d-none" t-att-value="staff.id" t-att-id="'staff_' + str(staff.id)" t-att-data-name="staff.name"/>
+                                                    <label t-att-for="'staff_' + str(staff.id)" class="staff-card p-4 d-block border rounded-3 text-center cursor-pointer">
+                                                        <div class="avatar-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 188, 212, 0.15); color: #00bcd4;">
+                                                            <i class="fa fa-user-md" style="font-size: 28px;"></i>
+                                                        </div>
+                                                        <div class="fw-bold text-dark fs-5"><t t-esc="staff.name"/></div>
+                                                        <div class="text-muted mt-1" style="font-size: 0.85em;">Stylist &amp; Therapist</div>
+                                                    </label>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+
+                                    <!-- STEP 3: DATE & FREE TIME -->
+                                    <div class="salon-step d-none" data-step="3">
+                                        <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-calendar me-2"></i>Pick a Free Time</h4>
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <div id="salon_day_nav" class="d-flex align-items-center justify-content-between p-3 border rounded-3 mb-3" style="background: #fff;">
+                                                    <button type="button" id="salon_prev_day" class="btn btn-outline-secondary rounded-circle" aria-label="Previous day"><i class="fa fa-chevron-left"></i></button>
+                                                    <div class="text-center">
+                                                        <div class="fw-bold fs-5 text-dark" id="salon_date_label">-</div>
+                                                        <button type="button" id="salon_today_btn" class="btn btn-link btn-sm p-0 text-decoration-none">Today</button>
+                                                    </div>
+                                                    <button type="button" id="salon_next_day" class="btn btn-outline-secondary rounded-circle" aria-label="Next day"><i class="fa fa-chevron-right"></i></button>
+                                                </div>
+                                                <div id="salon_slots_hint" class="text-muted mb-2">Loading availability...</div>
+                                                <button type="button" id="salon_next_free_btn" class="btn btn-outline-secondary rounded-pill mb-3 d-none"></button>
+                                                <div id="salon_slots_container"></div>
+                                                <input type="hidden" name="booking_date" id="salon_booking_date"/>
+                                                <input type="hidden" name="booking_time" id="salon_booking_time"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- STEP 4: PERSONAL INFORMATION + SUMMARY -->
+                                    <div class="salon-step d-none" data-step="4">
+                                        <h4 class="mb-4 pb-2 border-bottom fw-bold" style="color: #00bcd4;"><i class="fa fa-user-circle-o me-2"></i>Your Details</h4>
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-semibold" for="customer_name">Your Name</label>
+                                                    <input type="text" class="form-control form-control-lg rounded-3" name="customer_name" id="customer_name" placeholder="e.g. John Doe"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-semibold" for="phone">Phone Number</label>
+                                                    <input type="tel" class="form-control form-control-lg rounded-3" name="phone" id="phone" placeholder="e.g. +974 5555 5555"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-semibold" for="email">Email (Optional)</label>
+                                                    <input type="email" class="form-control form-control-lg rounded-3" name="email" id="email" placeholder="e.g. john.doe@example.com"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <div class="p-3 border rounded-3 bg-white">
+                                                    <div class="fw-bold mb-3">Your Booking</div>
+                                                    <dl class="salon-summary mb-0" id="salon_summary"></dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="salon_step_warning" class="alert alert-warning rounded-3 d-none mt-3" role="alert"></div>
+
+                                    <!-- NAVIGATION -->
+                                    <div class="d-flex justify-content-between align-items-center mt-4">
+                                        <button type="button" id="salon_back_btn" class="btn btn-outline-secondary btn-lg rounded-pill px-4 invisible"><i class="fa fa-chevron-left me-2"></i>Back</button>
+                                        <button type="button" id="salon_next_btn" class="btn btn-primary btn-lg rounded-pill px-5" style="background-color: #00bcd4; border-color: #00bcd4; font-weight: bold;">Next<i class="fa fa-chevron-right ms-2"></i></button>
+                                        <button type="submit" id="salon_submit_btn" class="btn btn-primary btn-lg px-5 shadow rounded-pill d-none" style="background-color: #00bcd4; border-color: #00bcd4; font-weight: bold;">Confirm Booking</button>
+                                    </div>
+                                    <small class="d-block mt-4 text-center text-muted">
+                                        Protected by reCAPTCHA &#8211;
+                                        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+                                        &amp;
+                                        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a> apply.
+                                    </small>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Website Main Menu Link -->
+    <record id="menu_website_salon_booking" model="website.menu">
+        <field name="name">Book Online</field>
+        <field name="url">/salon/booking</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+</odoo>

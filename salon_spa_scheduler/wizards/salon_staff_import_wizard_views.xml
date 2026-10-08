@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salon_staff_import_wizard_form" model="ir.ui.view">
+        <field name="name">salon.staff.import.wizard.form</field>
+        <field name="model">salon.staff.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Employees as Staff">
+                <p class="text-muted">
+                    Select the employees to add as beauticians / staff. Only employees
+                    that are not already staff members are listed.
+                </p>
+                <group>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </group>
+                <field name="employee_ids" nolabel="1">
+                    <list>
+                        <field name="name"/>
+                        <field name="job_title"/>
+                        <field name="department_id"/>
+                        <field name="work_email"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_import" type="object" string="Import" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_salon_staff_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import from Employees</field>
+        <field name="res_model">salon.staff.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <!-- Surfaced via a cog-menu client item (see static/src/js/salon_staff_import_cog_menu.js),
+             not as a record binding. Keep binding_model_id empty. -->
+        <field name="binding_model_id" eval="False"/>
+    </record>
+</odoo>

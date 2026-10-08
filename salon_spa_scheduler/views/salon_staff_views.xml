@@ -7,9 +7,11 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="employee_id"/>
-                <field name="job_title"/>
-                <field name="partner_id"/>
-                <field name="user_id"/>
+                <field name="job_id"/>
+                <field name="department_id" optional="show"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="user_id" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
                 <field name="active"/>
             </list>
         </field>
@@ -21,15 +23,31 @@
             <form>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" type="action" name="%(salon_spa_scheduler.action_salon_staff_tip)d" icon="fa-money" context="{'search_default_staff_id': id, 'default_staff_id': id}">
-                            <field string="Unpaid Tips" name="total_unpaid_tips" widget="statinfo"/>
+                        <button name="action_view_blocks" type="object"
+                                class="oe_stat_button" icon="fa-calendar-times-o">
+                            <field name="block_count" widget="statinfo" string="Blocks"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_appointments" icon="fa-calendar">
+                            <field string="Bookings" name="appointment_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_earnings" icon="fa-line-chart">
+                            <field string="Earned" name="earned_today" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_earnings_session" icon="fa-shopping-cart"
+                                invisible="not last_pos_session_id">
+                            <field name="last_pos_session_id" invisible="1"/>
+                            <field string="Last Session" name="earned_last_session" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_tips" icon="fa-money">
+                            <field string="Tips" name="total_tips" widget="statinfo"/>
                         </button>
                     </div>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
                     <group>
                         <group string="Employee Info">
                             <field name="employee_id"/>
-                            <field name="job_title"/>
+                            <field name="department_id"/>
+                            <field name="job_id" options="{'no_quick_create': True}"/>
                             <field name="phone"/>
                             <field name="email"/>
                         </group>
@@ -37,20 +55,139 @@
                             <field name="partner_id"/>
                             <field name="name"/>
                             <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <field name="active"/>
                         </group>
                     </group>
-                    <group>
-                        <field name="service_ids" widget="many2many_tags"/>
+                    <group string="Services">
+                        <div class="text-muted" colspan="2">
+                            What this beautician does: whole categories, plus single services
+                            outside them. Leave both empty for someone who does everything.
+                        </div>
+                        <field name="service_category_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="service_ids" widget="many2many_tags" options="{'no_create': True}"/>
                     </group>
+                    <notebook>
+                        <page string="Targets" name="targets">
+                            <group>
+                                <group string="Monthly Targets (service sales)">
+                                    <div class="text-muted" colspan="2">From the Position; change them here for this beautician only.</div>
+                                    <field name="target_1"/>
+                                    <field name="target_1_rate"/>
+                                    <field name="target_2"/>
+                                    <field name="target_2_rate"/>
+                                </group>
+                                <group string="This Month">
+                                    <field name="month_reached"/>
+                                    <field name="month_achieved" widget="progressbar"/>
+                                    <field name="month_incentive_rate"/>
+                                    <field name="month_incentive"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
                 <chatter/>
             </form>
         </field>
     </record>
+    <!-- Beautician Targets: every active beautician in one editable list -->
+    <record id="view_salon_staff_targets_list" model="ir.ui.view">
+        <field name="name">salon.staff.targets.list</field>
+        <field name="model">salon.staff</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <list string="Beautician Targets" editable="bottom" create="false" delete="false">
+                <header>
+                    <button name="action_create_last_month_incentives" type="object" display="always"
+                            string="Create Last Month's Incentives" class="btn-secondary"
+                            confirm="Put last month's incentives into Commissions now? Draft ones for that month are recalculated; paid ones are left alone."/>
+                </header>
+                <field name="name" readonly="1"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
+                <field name="job_id" options="{'no_quick_create': True}"/>
+                <field name="target_1"/>
+                <field name="target_1_rate" optional="show"/>
+                <field name="target_2"/>
+                <field name="target_2_rate" optional="show"/>
+                <field name="month_reached" sum="Reached"/>
+                <field name="month_achieved" widget="progressbar"/>
+                <field name="month_incentive_rate"/>
+                <field name="month_incentive" sum="Incentive"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_salon_staff_targets" model="ir.actions.act_window">
+        <field name="name">Beautician Targets</field>
+        <field name="res_model">salon.staff</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_salon_staff_targets_list"/>
+        <field name="domain">[('active', '=', True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No active beauticians</p>
+            <p>Set each beautician's monthly Target 1 and Target 2 here; the month's
+               service sales and the incentive they earn are worked out as you go.</p>
+        </field>
+    </record>
+
+    <!-- Positions (hr.job) with their monthly targets -->
+    <record id="view_hr_job_salon_targets_list" model="ir.ui.view">
+        <field name="name">hr.job.salon.targets.list</field>
+        <field name="model">hr.job</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <list string="Positions" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="department_id" optional="hide"/>
+                <field name="salon_target_1"/>
+                <field name="salon_target_1_rate"/>
+                <field name="salon_target_2"/>
+                <field name="salon_target_2_rate"/>
+                <field name="salon_staff_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hr_job_salon_targets" model="ir.actions.act_window">
+        <field name="name">Positions</field>
+        <field name="res_model">hr.job</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_hr_job_salon_targets_list"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add a position</p>
+            <p>E.g. Junior and Senior, each with its monthly Target 1 / Target 2.
+               A beautician in that position gets those targets.</p>
+        </field>
+    </record>
+
+    <record id="view_salon_staff_search" model="ir.ui.view">
+        <field name="name">salon.staff.search</field>
+        <field name="model">salon.staff</field>
+        <field name="arch" type="xml">
+            <search string="Staff">
+                <field name="name"/>
+                <field name="job_id"/>
+                <field name="service_category_ids"/>
+                <field name="phone"/>
+                <separator/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <filter name="all" string="Active and Archived" domain="['|', ('active', '=', True), ('active', '=', False)]"/>
+                <group>
+                    <filter name="groupby_company" string="Branch" context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter name="groupby_job" string="Position" context="{'group_by': 'job_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="action_salon_staff" model="ir.actions.act_window">
         <field name="name">Staff</field>
         <field name="res_model">salon.staff</field>
         <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_salon_staff_search"/>
     </record>
 </odoo>

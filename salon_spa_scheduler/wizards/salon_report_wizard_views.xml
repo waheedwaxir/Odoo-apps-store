@@ -12,7 +12,7 @@
                             <field name="date_to"/>
                         </group>
                         <group string="Filters">
-                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('id', 'in', allowed_company_ids)]"/>
                             <field name="staff_ids" widget="many2many_tags" options="{'no_create': True}" placeholder="Select Employees..."/>
                         </group>
                     </group>

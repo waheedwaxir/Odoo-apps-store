@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Plans -->
+    <record id="view_ts_membership_plan_list" model="ir.ui.view">
+        <field name="name">ts.membership.plan.list</field>
+        <field name="model">ts.membership.plan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="plan_type"/>
+                <field name="duration_months"/>
+                <field name="price"/>
+                <field name="discount_percentage"/>
+                <field name="min_spend"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ts_membership_plan_form" model="ir.ui.view">
+        <field name="name">ts.membership.plan.form</field>
+        <field name="model">ts.membership.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_memberships" type="object" class="oe_stat_button" icon="fa-users">
+                            <field name="membership_count" widget="statinfo" string="Members"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="plan_type"/>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="duration_months"/>
+                            <field name="discount_percentage"/>
+                            <field name="min_spend"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ts_membership_plan" model="ir.actions.act_window">
+        <field name="name">Membership Plans</field>
+        <field name="res_model">ts.membership.plan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Customer memberships -->
+    <record id="view_ts_membership_list" model="ir.ui.view">
+        <field name="name">ts.membership.list</field>
+        <field name="model">ts.membership</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="partner_id"/>
+                <field name="plan_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-warning="state == 'expired'" decoration-danger="state == 'cancelled'"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ts_membership_form" model="ir.ui.view">
+        <field name="name">ts.membership.form</field>
+        <field name="model">ts.membership</field>
+        <field name="arch" type="xml">
+            <form string="Customer Membership">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="active,expired,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="plan_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ts_membership_search" model="ir.ui.view">
+        <field name="name">ts.membership.search</field>
+        <field name="model">ts.membership</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="plan_id"/>
+                <filter name="active_membership" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="expired_membership" string="Expired" domain="[('state', '=', 'expired')]"/>
+                <filter name="cancelled_membership" string="Cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <group>
+                    <filter name="group_plan" string="Plan" context="{'group_by': 'plan_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ts_membership" model="ir.actions.act_window">
+        <field name="name">Customer Memberships</field>
+        <field name="res_model">ts.membership</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active_membership': 1}</field>
+    </record>
+
+    <!-- Members: every customer holding at least one membership -->
+    <record id="view_partner_list_ts_members" model="ir.ui.view">
+        <field name="name">res.partner.list.ts.members</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list string="Members">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="ts_membership_summary" string="Membership Plans"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_partner_search_ts_members" model="ir.ui.view">
+        <field name="name">res.partner.search.ts.members</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Members">
+                <field name="name" string="Member"
+                       filter_domain="['|', '|', ('name', 'ilike', self), ('phone', 'ilike', self), ('email', 'ilike', self)]"/>
+                <separator/>
+                <filter name="active_membership" string="Active Membership"
+                        domain="[('ts_membership_ids.state', '=', 'active')]"/>
+                <filter name="expired_membership" string="Expired Membership"
+                        domain="[('ts_membership_ids.state', '=', 'expired')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ts_members" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_partner_list_ts_members"/>
+        <field name="search_view_id" ref="view_partner_search_ts_members"/>
+        <field name="domain">[('ts_membership_ids', '!=', False)]</field>
+        <field name="context">{'search_default_active_membership': 1}</field>
+    </record>
+</odoo>

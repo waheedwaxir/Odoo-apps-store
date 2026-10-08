@@ -30,14 +30,14 @@ patch(ControlButtons.prototype, {
                     product = this.pos.models["product.product"].get(tipProducts[0].id);
                 }
                 if (product) {
-                    const staffRecord = this.pos.models["salon.staff"]?.get(payload.staff_id) || { id: payload.staff_id };
+                    // staff_id goes on the line itself: Odoo 19 ignores an
+                    // "extras" key, which left every tip without its beautician.
+                    const staffRecord = this.pos.models["salon.staff"]?.get(payload.staff_id);
                     await this.pos.addLineToCurrentOrder({
                         product_tmpl_id: product.product_tmpl_id,
                         price_unit: payload.amount,
                         qty: 1,
-                        extras: {
-                            staff_id: staffRecord,
-                        },
+                        staff_id: staffRecord,
                     });
                 } else {
                     this.dialog.add(AlertDialog, {

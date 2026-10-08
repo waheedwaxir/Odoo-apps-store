@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Global multi-company record rules. A record with company_id = False is
+         considered shared and visible to every company.
+         Loaded WITHOUT noupdate so domain fixes propagate on module upgrade. -->
+
+    <record id="salon_room_company_rule" model="ir.rule">
+        <field name="name">Salon Chair: multi-company</field>
+        <field name="model_id" ref="model_salon_room"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_service_company_rule" model="ir.rule">
+        <field name="name">Salon Service: multi-company</field>
+        <field name="model_id" ref="model_salon_service"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_service_step_company_rule" model="ir.rule">
+        <field name="name">Salon Service Step: multi-company</field>
+        <field name="model_id" ref="model_salon_service_step"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_staff_company_rule" model="ir.rule">
+        <field name="name">Salon Staff: multi-company</field>
+        <field name="model_id" ref="model_salon_staff"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_appointment_company_rule" model="ir.rule">
+        <field name="name">Salon Appointment: multi-company</field>
+        <field name="model_id" ref="model_salon_appointment"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_appointment_line_company_rule" model="ir.rule">
+        <field name="name">Salon Appointment Line: multi-company</field>
+        <field name="model_id" ref="model_salon_appointment_line"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_appointment_step_company_rule" model="ir.rule">
+        <field name="name">Salon Appointment Step: multi-company</field>
+        <field name="model_id" ref="model_salon_appointment_step"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_package_company_rule" model="ir.rule">
+        <field name="name">Salon Package: multi-company</field>
+        <field name="model_id" ref="model_salon_package"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_package_line_company_rule" model="ir.rule">
+        <field name="name">Salon Package Line: multi-company</field>
+        <field name="model_id" ref="model_salon_package_line"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_membership_company_rule" model="ir.rule">
+        <field name="name">Salon Membership: multi-company</field>
+        <field name="model_id" ref="model_salon_membership"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_membership_line_company_rule" model="ir.rule">
+        <field name="name">Salon Customer Membership: multi-company</field>
+        <field name="model_id" ref="model_salon_membership_line"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_commission_company_rule" model="ir.rule">
+        <field name="name">Salon Commission: multi-company</field>
+        <field name="model_id" ref="model_salon_commission"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_review_company_rule" model="ir.rule">
+        <field name="name">Salon Review: multi-company</field>
+        <field name="model_id" ref="model_salon_review"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_customer_history_company_rule" model="ir.rule">
+        <field name="name">Salon Customer History: multi-company</field>
+        <field name="model_id" ref="model_salon_customer_history"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="salon_staff_tip_company_rule" model="ir.rule">
+        <field name="name">Salon Staff Tip: multi-company</field>
+        <field name="model_id" ref="model_salon_staff_tip"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+
+        <record id="salon_block_company_rule" model="ir.rule">
+            <field name="name">Salon Block: multi-company</field>
+            <field name="model_id" ref="model_salon_block"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="salon_block_type_company_rule" model="ir.rule">
+            <field name="name">Salon Block Type: multi-company</field>
+            <field name="model_id" ref="model_salon_block_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </odoo>

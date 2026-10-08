@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_salon_block_type_list" model="ir.ui.view">
+        <field name="name">salon.block.type.list</field>
+        <field name="model">salon.block.type</field>
+        <field name="arch" type="xml">
+            <list string="Block Types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="default_duration_minutes" string="Default (min)"/>
+                <field name="blocks_booking" widget="boolean_toggle" string="Prevents Booking"/>
+                <field name="create_planning_slot" widget="boolean_toggle" string="Planning"/>
+                <field name="create_leave" widget="boolean_toggle" string="Time Off"/>
+                <field name="target_branch_id" string="Works At" optional="show"/>
+                <field name="block_count" string="Blocks"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_salon_block_type_form" model="ir.ui.view">
+        <field name="name">salon.block.type.form</field>
+        <field name="model">salon.block.type</field>
+        <field name="arch" type="xml">
+            <form string="Block Type">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_blocks" type="object"
+                                class="oe_stat_button" icon="fa-calendar-times-o">
+                            <field name="block_count" widget="statinfo" string="Blocks"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Training"/></h1>
+                    </div>
+                    <group>
+                        <group string="Basics">
+                            <field name="category"/>
+                            <field name="default_duration_minutes"/>
+                            <field name="code" placeholder="Optional short label"/>
+                            <field name="sequence"/>
+                            <field name="color" widget="color_picker"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Behaviour">
+                            <field name="blocks_booking"/>
+                            <field name="target_branch_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="create_planning_slot"/>
+                            <field name="create_leave"/>
+                            <field name="leave_type_id"
+                                   required="create_leave"
+                                   invisible="not create_leave"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <p class="mb-1">
+                            <b>Prevents Booking</b> refuses an appointment that overlaps a
+                            confirmed block of this type. Turn it off for informational
+                            markers such as reminders.
+                        </p>
+                        <p class="mb-1">
+                            <b>Publish as Planning Shift</b> mirrors the block into Planning.
+                            Salon &amp; Spa Management already checks published shifts before
+                            letting anyone be booked, so this is what makes the block visible
+                            to the rest of the scheduling logic.
+                        </p>
+                        <p class="mb-0">
+                            <b>Works At Branch</b> is for duty elsewhere - the beautician is
+                            working, just not here, so the hours count against that branch
+                            instead of reading as idle time.
+                        </p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_salon_block_type_search" model="ir.ui.view">
+        <field name="name">salon.block.type.search</field>
+        <field name="model">salon.block.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="category"/>
+                <filter string="Prevents Booking" name="filter_blocking"
+                        domain="[('blocks_booking', '=', True)]"/>
+                <filter string="Raises Time Off" name="filter_leave"
+                        domain="[('create_leave', '=', True)]"/>
+                <filter string="Archived" name="filter_inactive"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter string="Category" name="groupby_category"
+                            context="{'group_by': 'category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_salon_block_type" model="ir.actions.act_window">
+        <field name="name">Block Types</field>
+        <field name="res_model">salon.block.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Set up your block types</p>
+            <p>
+                Training, staff meetings, breaks, sick leave, a day on duty at another
+                branch. Each type decides its colour, its usual length, and whether it
+                should also show up in Planning or Time Off.
+            </p>
+        </field>
+    </record>
+
+</odoo>

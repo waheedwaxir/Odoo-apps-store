@@ -10,6 +10,7 @@
                 <field name="duration_months"/>
                 <field name="price"/>
                 <field name="discount_percentage"/>
+                <field name="min_spend"/>
             </list>
         </field>
     </record>
@@ -29,6 +30,8 @@
                         <group>
                             <field name="duration_months"/>
                             <field name="discount_percentage"/>
+                            <field name="min_spend"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <field name="active"/>
                         </group>
                     </group>
@@ -51,6 +54,7 @@
             <list>
                 <field name="partner_id"/>
                 <field name="membership_id"/>
+                <field name="membership_number"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="state"/>
@@ -68,11 +72,13 @@
                         <group>
                             <field name="partner_id"/>
                             <field name="membership_id"/>
+                            <field name="membership_number"/>
                         </group>
                         <group>
                             <field name="start_date"/>
                             <field name="end_date"/>
                             <field name="state"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                 </sheet>
@@ -81,9 +87,79 @@
         </field>
     </record>
 
+    <record id="view_salon_membership_line_search" model="ir.ui.view">
+        <field name="name">salon.membership.line.search</field>
+        <field name="model">salon.membership.line</field>
+        <field name="arch" type="xml">
+            <search string="Customer Memberships">
+                <field name="partner_id"/>
+                <field name="membership_id"/>
+                <field name="membership_number"/>
+                <filter name="active" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="expired" string="Expired" domain="[('state', '=', 'expired')]"/>
+                <group>
+                    <filter name="groupby_membership" string="Plan" context="{'group_by': 'membership_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="action_salon_membership_line" model="ir.actions.act_window">
         <field name="name">Customer Memberships</field>
         <field name="res_model">salon.membership.line</field>
         <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_salon_membership_line_search"/>
+    </record>
+
+    <!-- Members: every customer who has at least one membership. -->
+    <record id="view_partner_list_salon_members" model="ir.ui.view">
+        <field name="name">res.partner.list.salon.members</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list string="Members">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="city" optional="show"/>
+                <field name="salon_membership_summary" string="Memberships"/>
+                <field name="salon_membership_number"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_partner_search_salon_members" model="ir.ui.view">
+        <field name="name">res.partner.search.salon.members</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Members">
+                <field name="name" string="Member"
+                       filter_domain="['|', '|', '|', ('name', 'ilike', self), ('phone', 'ilike', self), ('email', 'ilike', self), ('salon_membership_number', 'ilike', self)]"/>
+                <field name="salon_membership_number"/>
+                <separator/>
+                <filter name="active_membership" string="Active Membership"
+                        domain="[('salon_membership_line_ids.state', '=', 'active')]"/>
+                <filter name="expired_membership" string="Expired Membership"
+                        domain="[('salon_membership_line_ids.state', '=', 'expired')]"/>
+                <filter name="cancelled_membership" string="Cancelled Membership"
+                        domain="[('salon_membership_line_ids.state', '=', 'cancelled')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_salon_members" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_partner_list_salon_members"/>
+        <field name="search_view_id" ref="view_partner_search_salon_members"/>
+        <field name="domain">[('salon_membership_line_ids', '!=', False)]</field>
+        <field name="context">{'search_default_active_membership': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No members yet</p>
+            <p>
+                A customer appears here once a membership is added on their
+                contact form, in the "Customer Membership" tab.
+            </p>
+        </field>
     </record>
 </odoo>

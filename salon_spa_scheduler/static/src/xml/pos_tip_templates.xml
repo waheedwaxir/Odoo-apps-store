@@ -13,7 +13,37 @@
                 <i class="fa fa-heart me-1" role="img" aria-label="Tip Staff" title="Tip Staff"/>
                 Tip Staff
             </button>
+            <button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="clickAssignBeautician">
+                <i class="fa fa-user me-1" role="img" aria-label="Beautician" title="Beautician for the selected line"/>
+                Beautician
+            </button>
         </xpath>
+    </t>
+
+    <!-- Beautician for the selected line -->
+    <t t-name="salon_spa_scheduler.BeauticianPopup">
+        <Dialog title="props.title" size="'md'">
+            <div class="d-grid gap-2" style="grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));">
+                <button t-if="props.defaultLabel" class="btn btn-lg text-wrap py-3 btn-light border border-secondary"
+                        t-att-class="!props.currentId ? 'border-2' : ''"
+                        t-on-click="() => this.pickDefault()"
+                        title="Leave the sale with the employee logged in at the till">
+                    <i class="fa fa-desktop me-1"/> Default – <t t-esc="props.defaultLabel"/>
+                </button>
+                <t t-foreach="props.staff" t-as="staff" t-key="staff.id">
+                    <button class="btn btn-lg text-wrap py-3"
+                            t-att-class="staff.id === props.currentId ? 'btn-primary' : 'btn-light border'"
+                            t-on-click="() => this.pick(staff)">
+                        <i class="fa fa-user me-1"/> <t t-esc="staff.name"/>
+                    </button>
+                </t>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-secondary btn-lg lh-lg o-default-button flex-fill" t-on-click="props.close">
+                    Cancel
+                </button>
+            </t>
+        </Dialog>
     </t>
 
     <!-- Tip Staff Popup -->

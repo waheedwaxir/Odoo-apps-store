@@ -15,10 +15,12 @@
                 <div class="header_actions">
                     <!-- Filter Buttons -->
                     <div class="btn-group filter_group">
-                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'all' ? 'active' : '')" t-on-click="() => this.changeFilter('all')">All Time</button>
                         <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'today' ? 'active' : '')" t-on-click="() => this.changeFilter('today')">Today</button>
                         <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'this_week' ? 'active' : '')" t-on-click="() => this.changeFilter('this_week')">This Week</button>
                         <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'this_month' ? 'active' : '')" t-on-click="() => this.changeFilter('this_month')">This Month</button>
+                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'last_6_months' ? 'active' : '')" t-on-click="() => this.changeFilter('last_6_months')">Last 6 Months</button>
+                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'last_year' ? 'active' : '')" t-on-click="() => this.changeFilter('last_year')">Last Year</button>
+                        <button t-att-class="'btn filter_btn ' + (state.dateFilter === 'all' ? 'active' : '')" t-on-click="() => this.changeFilter('all')">All Time</button>
                     </div>
 
                     <!-- Action Shortcuts -->
@@ -59,65 +61,34 @@
                             <i class="fa fa-check-circle"></i>
                         </div>
                         <div class="kpi_details">
-                            <span class="kpi_title">Completed Services</span>
+                            <span class="kpi_title">Completed Bookings</span>
                             <h2 class="kpi_value"><t t-esc="state.data.done_count"/></h2>
                             <div class="kpi_sub_info">
                                 <span class="text_success font_semibold">
-                                    <t t-esc="formatPercent(state.data.done_count, state.data.total_count)"/>
+                                    <!-- Of the bookings that still count: cancelled ones never will be done. -->
+                                    <t t-esc="formatPercent(state.data.done_count, state.data.total_count - state.data.cancel_count)"/>
                                 </span> completion rate
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 3: Active Ongoing -->
-                    <div class="kpi_card glass_panel" t-on-click="() => this.openAppointments('progress')">
-                        <div class="kpi_icon icon_orange">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </div>
-                        <div class="kpi_details">
-                            <span class="kpi_title">Ongoing Sessions</span>
-                            <h2 class="kpi_value"><t t-esc="state.data.ongoing_count"/></h2>
-                            <div class="kpi_sub_info">
-                                <span class="badge badge_confirmed"><t t-esc="state.data.confirmed_count"/> confirmed</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4: Total Revenue -->
-                    <div class="kpi_card glass_panel">
-                        <div class="kpi_icon icon_gold">
-                            <i class="fa fa-money"></i>
-                        </div>
-                        <div class="kpi_details">
-                            <span class="kpi_title">Booked Financials</span>
-                            <h2 class="kpi_value text_gold"><t t-esc="formatMonetary(state.data.total_revenue)"/></h2>
-                            <div class="kpi_sub_info">
-                                <span>Total subtotal revenue</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 5: Realized vs Pending Payments -->
+                    <!-- Card 3: Booked Services - every service in the bookings,
+                         not the bookings (one booking can hold four). -->
                     <div class="kpi_card glass_panel" t-on-click="() => this.openAppointments()">
-                        <div class="kpi_icon icon_purple">
-                            <i class="fa fa-credit-card"></i>
+                        <div class="kpi_icon icon_orange">
+                            <i class="fa fa-list-ul"></i>
                         </div>
                         <div class="kpi_details">
-                            <span class="kpi_title">Payments Status</span>
-                            <div class="dual_values">
-                                <div class="val_col">
-                                    <span class="val_lbl">Paid</span>
-                                    <span class="val_num text_success"><t t-esc="formatMonetary(state.data.paid_revenue)"/></span>
-                                </div>
-                                <div class="val_col">
-                                    <span class="val_lbl">Unpaid</span>
-                                    <span class="val_num text_warning"><t t-esc="formatMonetary(state.data.unpaid_revenue)"/></span>
-                                </div>
+                            <span class="kpi_title">Booked Services</span>
+                            <h2 class="kpi_value"><t t-esc="state.data.services_booked"/></h2>
+                            <div class="kpi_sub_info">
+                                <span class="badge badge_confirmed"><t t-esc="state.data.services_done"/> done</span>
+                                <span class="badge badge_confirmed"><t t-esc="state.data.services_booked - state.data.services_done"/> to do</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 6: Average Booking value -->
+                    <!-- Card 4: Average ticket -->
                     <div class="kpi_card glass_panel">
                         <div class="kpi_icon icon_cyan">
                             <i class="fa fa-calculator"></i>
@@ -127,6 +98,49 @@
                             <h2 class="kpi_value"><t t-esc="formatMonetary(state.data.avg_value)"/></h2>
                             <div class="kpi_sub_info">
                                 <span>Per appointment spend</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Collected - what actually came in, by kind -->
+                    <div class="kpi_card glass_panel" t-on-click="openCollected">
+                        <div class="kpi_icon icon_green">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">Collected</span>
+                            <h2 class="kpi_value text_success"><t t-esc="formatMonetary(state.data.paid_revenue)"/></h2>
+                            <div class="money_rows">
+                                <div class="money_row"><span>Services</span><span><t t-esc="formatMonetary(state.data.collected_services)"/></span></div>
+                                <div class="money_row"><span>Products</span><span><t t-esc="formatMonetary(state.data.collected_products)"/></span></div>
+                                <div t-if="state.data.collected_other" class="money_row"><span>Other</span><span><t t-esc="formatMonetary(state.data.collected_other)"/></span></div>
+                                <div t-if="state.data.collected_discounts" class="money_row"><span>Discounts</span><span class="text_danger"><t t-esc="formatMonetary(state.data.collected_discounts)"/></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: To collect - finished but unpaid first, then upcoming -->
+                    <div class="kpi_card glass_panel">
+                        <div class="kpi_icon icon_orange">
+                            <i class="fa fa-hourglass-half"></i>
+                        </div>
+                        <div class="kpi_details">
+                            <span class="kpi_title">To Collect</span>
+                            <h2 class="kpi_value text_warning"><t t-esc="formatMonetary(state.data.unpaid_revenue)"/></h2>
+                            <div class="money_rows">
+                                <div t-att-class="'money_row money_row_link' + (state.data.unpaid_done_ids.length ? ' text_warning font_semibold' : '')"
+                                     t-on-click.stop="() => this.openAppointmentIds(state.data.unpaid_done_ids, 'Done, not paid')"
+                                     title="Finished but not paid yet - open them">
+                                    <span><i t-if="state.data.unpaid_done_ids.length" class="fa fa-exclamation-triangle me-1"/>Done, not paid (<t t-esc="state.data.unpaid_done_ids.length"/>)</span>
+                                    <span><t t-esc="formatMonetary(state.data.unpaid_done_amount)"/></span>
+                                </div>
+                                <div class="money_row money_row_link"
+                                     t-on-click.stop="() => this.openAppointmentIds(state.data.unpaid_upcoming_ids, 'Upcoming, not paid')"
+                                     title="Confirmed and in progress - open them">
+                                    <span>Upcoming (<t t-esc="state.data.unpaid_upcoming_ids.length"/>)</span>
+                                    <span><t t-esc="formatMonetary(state.data.unpaid_upcoming_amount)"/></span>
+                                </div>
+                                <div class="money_row money_row_total"><span>Expected total</span><span><t t-esc="formatMonetary(state.data.total_revenue)"/></span></div>
                             </div>
                         </div>
                     </div>
@@ -352,11 +366,19 @@
                             </div>
                             <div class="card_info">
                                 <span class="card_label">Customer Ratings</span>
-                                <div class="rating_stars">
-                                    <span class="star_text font_semibold text_light mr-2"><t t-esc="state.data.avg_rating"/></span>
-                                    <span class="text_gold stars_symbol"><t t-esc="getStars(state.data.avg_rating)"/></span>
-                                </div>
-                                <p class="card_desc">Based on verified reviews</p>
+                                <t t-if="state.data.avg_rating">
+                                    <div class="rating_stars">
+                                        <span class="star_text font_semibold text_light mr-2"><t t-esc="state.data.avg_rating"/></span>
+                                        <span class="text_gold stars_symbol"><t t-esc="getStars(state.data.avg_rating)"/></span>
+                                    </div>
+                                    <p class="card_desc">Based on <t t-esc="state.data.review_count"/> verified reviews</p>
+                                </t>
+                                <t t-else="">
+                                    <div class="rating_stars">
+                                        <span class="star_text font_semibold text_light mr-2">-</span>
+                                    </div>
+                                    <p class="card_desc">No reviews yet</p>
+                                </t>
                             </div>
                         </div>
 

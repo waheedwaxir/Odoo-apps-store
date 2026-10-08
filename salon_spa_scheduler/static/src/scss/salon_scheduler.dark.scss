@@ -1,0 +1,185 @@
+// Dark-mode overrides for the Salon scheduler. Loaded only through
+// web.assets_web_dark, after the light stylesheet, so it just re-colours
+// the surfaces that hardcode light values. Appointment cards keep their
+// status colours.
+$salon-bg: #1b1d21;
+$salon-surface: #23262b;
+$salon-surface-2: #2b2f36;
+$salon-border: #3a3f47;
+$salon-text: #e4e6eb;
+$salon-muted: #9aa3b2;
+
+.o_salon_scheduler {
+    background: $salon-bg;
+    color: $salon-text;
+
+    .o_salon_grid_wrapper { background: $salon-bg; }
+
+    .o_salon_grid {
+        th {
+            background: $salon-surface;
+            color: $salon-text;
+            border-color: $salon-border;
+        }
+        td { border-color: $salon-border; }
+        .time_col {
+            background: $salon-surface;
+            color: $salon-muted;
+        }
+    }
+
+    .staff_header:hover { background: $salon-surface-2; }
+    .staff_appt_count, .staff_status { border-color: $salon-surface; }
+    .staff_avatar { background-color: $salon-surface-2; }
+    .staff_shift_hint { color: $salon-muted; }
+    .staff_off_badge {
+        background: $salon-surface-2;
+        color: $salon-muted;
+    }
+    .staff_header.staff_off_shift .staff_status { background-color: #4b5563; }
+
+    .slot_cell { background-color: $salon-bg; }
+    .slot_cell:hover { background: $salon-surface; }
+    .slot_cell_off,
+    .slot_cell_off:hover {
+        background-color: $salon-surface;
+        background-image: repeating-linear-gradient(
+            45deg,
+            rgba(148, 163, 184, 0.10) 0,
+            rgba(148, 163, 184, 0.10) 6px,
+            transparent 6px,
+            transparent 12px
+        );
+    }
+
+    .o_salon_sidebar {
+        background-color: $salon-surface;
+        border-color: $salon-border;
+    }
+    .sidebar_btn { border-color: $salon-border; }
+
+    .o_salon_header {
+        background-color: $salon-surface;
+        border-color: $salon-border;
+
+        .btn {
+            background-color: $salon-surface-2;
+            color: $salon-text;
+            border-color: $salon-border;
+
+            &:hover { background-color: lighten($salon-surface-2, 6%); }
+        }
+    }
+    .legend_item { color: $salon-muted; }
+    .current_date_display { color: $salon-text; }
+
+    .header_date_input,
+    .header_branch_picker,
+    .header_customer_search {
+        background: $salon-surface-2;
+        border-color: $salon-border;
+        color: $salon-text;
+    }
+    .header_branch_input,
+    .header_search_input { color: $salon-text; }
+    .header_branch_input option {
+        background: $salon-surface-2;
+        color: $salon-text;
+    }
+
+    .search_results_dropdown {
+        background: $salon-surface;
+        border-color: $salon-border;
+    }
+    .search_result_item {
+        border-color: $salon-border;
+        &:hover { background: $salon-surface-2; }
+        .customer_phone { color: $salon-muted; }
+    }
+
+    .appt_badge.badge_rebook_btn {
+        background: $salon-surface-2;
+        color: $salon-text;
+        &:hover { background: lighten($salon-surface-2, 8%); }
+    }
+
+    .o_salon_grid_wrapper::-webkit-scrollbar-track { background: $salon-bg; }
+    .o_salon_grid_wrapper::-webkit-scrollbar-thumb { background: $salon-border; }
+    .o_salon_grid_wrapper::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+}
+
+// Customer modal (rendered inside the scheduler component)
+.customer_modal_content {
+    background: $salon-surface;
+    border-color: $salon-border;
+}
+.customer_modal_body { background: $salon-bg; }
+.modal_section_card {
+    background: $salon-surface;
+    border-color: $salon-border;
+}
+.card_title { border-color: $salon-border; }
+.info_label { color: $salon-muted; }
+.editable_textarea {
+    background: $salon-surface-2;
+    border-color: $salon-border;
+    color: $salon-text;
+}
+.modal_history_table {
+    th {
+        background: $salon-surface-2;
+        color: $salon-muted;
+        border-color: $salon-border;
+    }
+    td {
+        border-color: $salon-border;
+        color: $salon-text;
+    }
+    tr:hover td { background: $salon-surface-2; }
+}
+.customer_modal_footer {
+    background: $salon-surface;
+    border-color: $salon-border;
+}
+.modal_btn:not(.btn_primary) {
+    background: $salon-surface-2;
+    border-color: $salon-border;
+    color: $salon-text;
+    &:hover { background: lighten($salon-surface-2, 6%); }
+}
+
+// Appointment info popup
+.appt_popup {
+    background: $salon-surface;
+    color: $salon-text;
+    border-color: $salon-border;
+}
+.appt_popup_header,
+.appt_popup_section { border-color: $salon-border; }
+.appt_popup_label,
+.appt_popup_phone { color: $salon-muted; }
+.appt_popup_status {
+    background: $salon-surface-2;
+    color: $salon-text;
+}
+.o_salon_scheduler .o_salon_grid .time_col.time_col_selected {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+.appt_popup_footer .modal_btn.btn_checkout {
+    background: #14b8a6;
+    border-color: #14b8a6;
+    color: #ffffff;
+    &:hover { background: #0d9488; }
+}
+
+.slot_chooser_duration input {
+    background: transparent;
+    color: inherit;
+    border-color: $salon-border;
+}
+
+.appt_popup_footer {
+    background: transparent;
+    border-top: 1px solid $salon-border;
+}

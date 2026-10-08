@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Section headers (Services / Products) in the order lines -->
+    <t t-inherit="point_of_sale.OrderDisplay" t-inherit-mode="extension">
+        <xpath expr="//t[@t-foreach='lines']/t[1]" position="before">
+            <div t-if="membershipSectionTitle(line)" class="px-2 py-1 fw-bolder text-uppercase text-muted bg-light border-bottom fs-6">
+                <t t-esc="membershipSectionTitle(line)"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

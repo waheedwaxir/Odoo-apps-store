@@ -1,15 +1,46 @@
-from odoo import models, fields, api
+# -*- coding: utf-8 -*-
+###############################################################################
+#    Techman Solutions W.L.L. - Qatar
+#
+#    Copyright (C) 2026-TODAY Techman Solutions W.L.L.
+#    Author: Engr. Waheed Ullah
+#    Website: https://www.techman.qa
+#    Email: waheed@techman.qa
+#    Phone: +97430643395
+#
+#    Salon & Spa Management System
+#
+#    This software is a commercial product developed by Techman Solutions
+#    W.L.L. It is not free software and is provided under the applicable
+#    commercial license and terms of use.
+#
+#    Unauthorized copying, distribution, modification, or resale of this
+#    software is prohibited unless expressly authorized by Techman Solutions
+#    W.L.L.
+#    For licensing, complete Salon & Spa modules, customization,
+#    implementation, integration, or support, please contact:
+#
+###############################################################################
+
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class PosOrderLine(models.Model):
     _inherit = 'pos.order.line'
 
     staff_id = fields.Many2one('salon.staff', string='Staff Member (Tip)')
+    # Who performs the service: set at checkout ("Beautician on POS Lines")
+    # or picked at the till with Beautician. Separate from staff_id, which
+    # makes a line a tip.
+    salon_beautician_id = fields.Many2one('salon.staff', string='Beautician', index='btree_not_null')
+    salon_beautician_name = fields.Char(string='Beautician Name')
 
     @api.model
     def _load_pos_data_fields(self, config):
         fields_list = super(PosOrderLine, self)._load_pos_data_fields(config)
-        if 'staff_id' not in fields_list:
-            fields_list.append('staff_id')
+        for name in ('staff_id', 'salon_beautician_id', 'salon_beautician_name'):
+            if name not in fields_list:
+                fields_list.append(name)
         return fields_list
 
     @api.model
@@ -50,6 +81,7 @@ class PosOrder(models.Model):
                         ], limit=1)
                         if not existing_tip:
                             self.env['salon.staff.tip'].create({
+                                'company_id': order.company_id.id,
                                 'staff_id': line.staff_id.id,
                                 'amount': tip_amt,
                                 'order_id': order.id,
@@ -74,3 +106,31 @@ class PosOrder(models.Model):
         if vals.get('state') in ['paid', 'done', 'invoiced']:
             self._create_staff_tips()
         return res
+
+
+class PosSession(models.Model):
+    _inherit = 'pos.session'
+
+    @api.model
+    def _load_pos_data_models(self, config):
+        # Beauticians, so a line can be given the one who does it.
+        return super()._load_pos_data_models(config) + ['salon.staff']
+
+    @api.model
+    def action_open_salon_pos(self):
+        """Jump straight into the current company's open POS session - the
+        same session lookup and act_url redirect salon.appointment's "Send to
+        POS" button uses - instead of the POS app's config-picker kanban.
+        """
+        domain = [('state', '=', 'opened'), ('company_id', '=', self.env.company.id)]
+        session = self.search(domain + [('user_id', '=', self.env.user.id)], limit=1)
+        if not session:
+            session = self.search(domain, limit=1)
+        if not session:
+            raise UserError(_(
+                "Please open a Point of Sale session for %s first.", self.env.company.display_name))
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/pos/ui/%d/' % session.config_id.id,
+            'target': 'self',
+        }

@@ -7,11 +7,39 @@
             <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
+                <field name="category_id" optional="show"/>
+                <field name="staff_names"/>
                 <field name="duration"/>
                 <field name="list_price"/>
                 <field name="product_ids" widget="many2many_tags"/>
                 <field name="is_addon"/>
+                <field name="has_steps" column_invisible="1"/>
+                <field name="step_count" string="Steps"
+                       decoration-muted="step_count == 0"
+                       decoration-success="step_count &gt; 0"/>
             </list>
+        </field>
+    </record>
+    <record id="view_salon_service_search" model="ir.ui.view">
+        <field name="name">salon.service.search</field>
+        <field name="model">salon.service</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="product_ids"/>
+                <filter string="Has Steps" name="filter_has_steps" domain="[('has_steps', '=', True)]"/>
+                <filter string="No Steps" name="filter_no_steps" domain="[('has_steps', '=', False)]"/>
+                <separator/>
+                <filter string="Add-on" name="filter_is_addon" domain="[('is_addon', '=', True)]"/>
+                <filter string="Archived" name="filter_inactive" domain="[('active', '=', False)]"/>
+                <!-- Group By -->
+                <group>
+                    <filter string="Category" name="groupby_category" context="{'group_by': 'category_id'}"/>
+                    <filter string="Has Steps" name="groupby_has_steps" context="{'group_by': 'has_steps'}"/>
+                    <filter string="Number of Steps" name="groupby_step_count" context="{'group_by': 'step_count'}"/>
+                </group>
+            </search>
         </field>
     </record>
     <record id="view_salon_service_form" model="ir.ui.view">
@@ -23,6 +51,8 @@
                     <group>
                         <group>
                             <field name="name"/>
+                            <field name="category_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <field name="duration"/>
                             <field name="list_price"/>
                         </group>
@@ -43,9 +73,15 @@
                             <field name="step_ids">
                                 <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
-                                    <field name="name"/>
+                                    <field name="source_service_id"
+                                           options="{'no_create': True}"
+                                           domain="[('id', '!=', parent.id)]"
+                                           placeholder="Pick an existing service..."/>
+                                    <field name="name" placeholder="Step label"/>
                                     <field name="duration_minutes"/>
+                                    <field name="is_processing_break" widget="boolean_toggle" string="Processing"/>
                                     <field name="need_staff"/>
+                                    <field name="run_parallel" widget="boolean_toggle" string="Parallel"/>
                                 </list>
                             </field>
                         </page>
@@ -59,5 +95,6 @@
         <field name="name">Services</field>
         <field name="res_model">salon.service</field>
         <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_salon_service_search"/>
     </record>
 </odoo>

@@ -1,7 +1,12 @@
-.o_salon_scheduler { 
+.o_salon_scheduler {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    // 100% of the flex-sized .o_content (viewport minus the top app bar), not
+    // 100vh: 100vh ignored the app bar's height, so the component's bottom
+    // edge sat that many pixels below the visible viewport with no way to
+    // scroll to it - the day's last couple of rows were unreachable.
+    height: 100%;
+    overflow: hidden;
     background: #ffffff;
     color: #2c3e50;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -20,9 +25,11 @@
     overflow: hidden;
 }
 
-.o_salon_grid_wrapper { 
+.o_salon_grid_wrapper {
     flex: 1;
-    overflow: auto; 
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: auto;
     background: #ffffff;
 }
 
@@ -53,6 +60,34 @@
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 4px 6px;
+    transition: background 0.12s ease;
+
+    &:hover {
+        background: #eef2ff;
+
+        .staff_name { text-decoration: underline; }
+    }
+}
+
+.staff_appt_count {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    box-sizing: border-box;
+    border-radius: 9px;
+    background: #6366f1;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+    border: 2px solid #f8f9fa;
 }
 
 .staff_avatar_wrapper {
@@ -83,25 +118,55 @@
     font-weight: 500;
 }
 
-.o_salon_grid td { 
-    border-bottom: 1px solid #e2e8f0; 
-    border-right: 1px solid #e2e8f0; 
-    height: 40px; 
-    vertical-align: top; 
+.staff_shift_hint {
+    font-size: 10px;
+    font-weight: 500;
+    color: #64748b;
+    white-space: nowrap;
+
+    .fa { margin-right: 2px; }
+}
+
+.staff_off_badge {
+    display: inline-block;
+    margin-top: 2px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    color: #64748b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.staff_header.staff_off_shift {
+    opacity: 0.55;
+
+    .staff_status { background-color: #cbd5e1; }
+}
+
+.o_salon_grid td {
+    border-bottom: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+    height: var(--salon-slot-h, 24px);
+    vertical-align: top;
     position: relative;
 }
 
-.o_salon_grid .time_col { 
-    position: sticky; 
-    left: 0; 
-    z-index: 3; 
-    width: 60px; 
-    background: #f8f9fa; 
-    color: #7f8c8d; 
-    text-align: right; 
-    padding-right: 10px;
-    font-weight: 500; 
-    font-size: 11px;
+.o_salon_grid .time_col {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    width: 60px;
+    background: #f8f9fa;
+    color: #7f8c8d;
+    text-align: right;
+    padding: 0 10px 0 0;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 .slot_cell {
@@ -109,6 +174,22 @@
 }
 
 .slot_cell:hover { background: #f8fafc; cursor: pointer; }
+
+/* Slot is outside the beautician's published Planning shift - dimmed with a
+   faint diagonal hatch and not bookable (quick-create / drop are refused). */
+.slot_cell_off {
+    background-color: #f8fafc;
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(148, 163, 184, 0.12) 0,
+        rgba(148, 163, 184, 0.12) 6px,
+        transparent 6px,
+        transparent 12px
+    );
+    cursor: not-allowed;
+}
+
+.slot_cell_off:hover { background-color: #f8fafc; cursor: not-allowed; }
 
 /* Right Sidebar */
 .o_salon_sidebar {
@@ -147,12 +228,14 @@
 
 /* Header Controls */
 .o_salon_header {
-    height: 50px;
+    min-height: 50px;
     background-color: #f8f9fa;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 6px 15px;
     border-bottom: 1px solid #e2e8f0;
 }
 
@@ -165,6 +248,209 @@
 .header_right {
     display: flex;
     align-items: center;
+    gap: 12px;
+}
+
+/* Colour legend */
+.o_salon_legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    // Items carry their own padding (they are buttons), so the gap is small
+    // and the legend is as wide as it was before it became clickable.
+    gap: 4px 2px;
+}
+
+.legend_item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748b;
+    white-space: nowrap;
+    // Clickable status filter
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 1px 5px;
+    cursor: pointer;
+    transition: opacity 0.15s ease, background-color 0.15s ease;
+
+    &:hover { background: rgba(100, 116, 139, 0.12); }
+}
+
+.legend_filtering .legend_item { opacity: 0.45; }
+// Same size on and off (no bold): switching a status on must not make the
+// legend wider and push it onto the next line.
+.legend_filtering .legend_item.legend_active {
+    opacity: 1;
+    border-color: currentColor;
+    background: rgba(100, 116, 139, 0.12);
+}
+
+// Bookings outside the legend filter: still there, but in the background.
+.appt_block.appt_filtered_out {
+    opacity: 0.2;
+    filter: grayscale(0.6);
+
+    &:hover { opacity: 0.6; }
+}
+
+.legend_dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.legend_dot.color_1 { background: #ef4444; }
+.legend_dot.color_2 { background: #f97316; }
+.legend_dot.color_3 { background: #eab308; }
+.legend_dot.color_4 { background: #10b981; }
+.legend_dot.color_5 { background: #3b82f6; }
+.legend_dot.color_6 { background: #8b5cf6; }
+.legend_dot.color_9 { background: #64748b; }
+
+/* Appointment kanban cards: solid state color fill, no strip/border/dot -
+   same "one accent, not two" treatment as the scheduler's appointment blocks. */
+.o_salon_appt_card {
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.o_salon_appt_card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+}
+
+.o_salon_appt_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.o_salon_appt_customer {
+    font-size: 14px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.o_salon_appt_state {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.o_salon_appt_row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    opacity: 0.95;
+    margin-bottom: 4px;
+}
+
+.o_salon_appt_icon {
+    width: 14px;
+    font-size: 11px;
+    text-align: center;
+    opacity: 0.85;
+}
+
+.o_salon_appt_time {
+    font-weight: 600;
+}
+
+.o_salon_appt_footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.o_salon_appt_ref {
+    font-size: 10px;
+    opacity: 0.75;
+    margin-right: auto;
+}
+
+.o_salon_appt_pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.o_salon_appt_rebook {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+
+    &:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.32);
+    }
+}
+
+.o_salon_appt_card.color_3 .o_salon_appt_rebook {
+    color: #1f2937;
+    border-color: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.08);
+
+    &:hover {
+        color: #1f2937;
+        background: rgba(0, 0, 0, 0.16);
+    }
+}
+
+.o_salon_appt_card.color_1 { background: #ef4444; }
+.o_salon_appt_card.color_2 { background: #f97316; }
+.o_salon_appt_card.color_3 { background: #eab308; }
+.o_salon_appt_card.color_4 { background: #10b981; }
+.o_salon_appt_card.color_5 { background: #3b82f6; }
+.o_salon_appt_card.color_6 { background: #8b5cf6; }
+.o_salon_appt_card.color_9 { background: #64748b; }
+
+/* Yellow needs dark text/overlays to stay readable */
+.o_salon_appt_card.color_3 {
+    color: #422006;
+}
+.o_salon_appt_card.color_3 .o_salon_appt_state,
+.o_salon_appt_card.color_3 .o_salon_appt_pill {
+    background: rgba(0, 0, 0, 0.12);
+}
+.o_salon_appt_card.color_3 .o_salon_appt_footer {
+    border-top-color: rgba(0, 0, 0, 0.15);
 }
 
 .o_salon_header .btn {
@@ -255,19 +541,21 @@
     z-index: 10;
 }
 
-.appt_status_strip {
-    width: 4px;
-    height: 100%;
-    flex-shrink: 0;
-}
-
 .appt_content {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 4px 6px;
     overflow: hidden;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.appt_title {
+    /* On very short (e.g. 15-minute) blocks there isn't room for every row;
+       the customer name + note/general-notes icons must stay the one row
+       that's never clipped, so it can't shrink to make room for the rows
+       below it (service/footer/phone). */
+    flex: none;
 }
 
 .appt_title, .appt_service, .appt_phone {
@@ -282,6 +570,67 @@
 
 .appt_customer_name {
     font-weight: 600;
+}
+
+.appt_req_badge {
+    flex: none;
+    font-size: 8px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    background: #dc2626;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+.appt_note_icon {
+    flex: none;
+    font-size: 11px;
+    color: #fde68a;
+    cursor: pointer;
+    padding: 1px 2px;
+
+    &:hover {
+        color: #ffffff;
+    }
+}
+
+.appt_general_notes_badge {
+    flex: none;
+    font-size: 8px;
+    line-height: 1;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 3px;
+    background: #dc2626;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+
+    &:hover {
+        background: #b91c1c;
+    }
+}
+
+.note_modal_content {
+    max-width: 520px;
+}
+
+.appt_note_text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1e293b;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    padding: 12px 14px;
+    max-height: 50vh;
+    overflow-y: auto;
 }
 
 .appt_service {
@@ -344,40 +693,124 @@
     background: rgba(16, 185, 129, 0.45);
     color: #ffffff;
 }
+.appt_badge.badge_rebook_btn {
+    background: #ffffff;
+    color: #1e293b;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+
+    &:hover { background: #e2e8f0; }
+}
 
 /* Colors with transparency */
 .appt_block.color_1 { background: rgba(239, 68, 68, 0.9); }
-.appt_block.color_1 .appt_status_strip { background: #ef4444; }
-
 .appt_block.color_2 { background: rgba(249, 115, 22, 0.9); }
-.appt_block.color_2 .appt_status_strip { background: #f97316; }
 
-.appt_block.color_3 { background: rgba(245, 158, 11, 0.9); }
-.appt_block.color_3 .appt_status_strip { background: #f59e0b; }
+.appt_block.color_3 { background: rgba(234, 179, 8, 0.9); }
+.appt_block.color_3 .appt_content { color: #422006; }
 
 .appt_block.color_4 { background: rgba(16, 185, 129, 0.9); }
-.appt_block.color_4 .appt_status_strip { background: #10b981; }
-
 .appt_block.color_5 { background: rgba(59, 130, 246, 0.9); }
-.appt_block.color_5 .appt_status_strip { background: #3b82f6; }
-
 .appt_block.color_6 { background: rgba(139, 92, 246, 0.9); }
-.appt_block.color_6 .appt_status_strip { background: #8b5cf6; }
-
 .appt_block.color_7 { background: rgba(236, 72, 153, 0.9); }
-.appt_block.color_7 .appt_status_strip { background: #ec4899; }
-
 .appt_block.color_8 { background: rgba(6, 182, 212, 0.9); }
-.appt_block.color_8 .appt_status_strip { background: #06b6d4; }
-
 .appt_block.color_9 { background: rgba(100, 116, 139, 0.9); }
-.appt_block.color_9 .appt_status_strip { background: #64748b; }
-
 .appt_block.color_10 { background: rgba(52, 211, 153, 0.9); }
-.appt_block.color_10 .appt_status_strip { background: #34d399; }
-
 .appt_block.color_0 { background: rgba(148, 163, 184, 0.9); }
-.appt_block.color_0 .appt_status_strip { background: #94a3b8; }
+
+/* Cancelled appointments stay visible but read as inactive. They're not
+   draggable (t-att-draggable="appt.state != 'cancel'"), so don't show the
+   "move" cursor that would suggest otherwise. */
+.appt_block.state_cancel {
+    opacity: 0.55;
+    cursor: default;
+}
+.appt_block.state_cancel .appt_customer_name,
+.appt_block.state_cancel .appt_service_name {
+    text-decoration: line-through;
+}
+
+/* Time blocks: same colour family as their type, but hatched so a block never
+   reads as a customer booking at a glance. */
+.appt_block.appt_is_block {
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.18) 0,
+        rgba(255, 255, 255, 0.18) 6px,
+        transparent 6px,
+        transparent 12px
+    );
+    border: 1px dashed rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+}
+.appt_block.appt_is_block.state_draft { opacity: 0.6; }
+
+/* ---- Block chooser (right-click on an empty slot) ------------------------ */
+.appt_popup.slot_chooser { width: 420px; }
+
+
+.slot_chooser_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    .appt_popup_label { margin-bottom: 0; }
+}
+
+.slot_chooser_duration {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #64748b;
+
+    input {
+        width: 52px;
+        font-size: 13px;
+        padding: 3px 6px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #1e293b;
+        text-align: right;
+    }
+}
+
+.slot_chooser_hint {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+
+.slot_chooser_types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.slot_chooser_type {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    background: #94a3b8;
+    &:hover { filter: brightness(1.1); }
+    &.color_1 { background: #ef4444; }
+    &.color_2 { background: #f97316; }
+    &.color_3 { background: #eab308; color: #422006; }
+    &.color_4 { background: #10b981; }
+    &.color_5 { background: #3b82f6; }
+    &.color_6 { background: #8b5cf6; }
+    &.color_7 { background: #ec4899; }
+    &.color_8 { background: #06b6d4; }
+    &.color_9 { background: #64748b; }
+    &.color_10 { background: #34d399; }
+    &.color_11 { background: #a855f7; }
+}
 
 /* Custom Scrollbar */
 .o_salon_grid_wrapper::-webkit-scrollbar {
@@ -722,6 +1155,11 @@
     color: #0369a1;
 }
 
+.status_badge.status_cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
 .customer_modal_footer {
     padding: 15px 20px;
     border-top: 1px solid #e2e8f0;
@@ -760,3 +1198,337 @@
     background: #5c3b53;
 }
 
+
+/* ---- Selected appointment: highlighted block + its time range ---------- */
+.appt_block.appt_selected {
+    outline: 2px solid #0ea5e9;
+    outline-offset: 1px;
+    z-index: 11;
+}
+
+.o_salon_grid .time_col.time_col_selected {
+    background: #0ea5e9;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* ---- Appointment info popup (single click on a block) ------------------ */
+/* Transparent backdrop: only catches the click-outside-to-close, so the grid
+   and the highlighted time range stay fully visible behind the popup. */
+.appt_popup_backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+.appt_popup {
+    width: 640px;
+    max-width: calc(100% - 32px);
+    max-height: 85%;
+    overflow-y: auto;
+    background: #ffffff;
+    color: #1e293b;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+    animation: modalSlideUp 0.2s ease-out;
+    text-align: left;
+}
+
+.appt_popup_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 14px 18px 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.appt_popup_customer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.appt_popup_name_row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+// Small icons next to the customer's name in the booking popup; each opens
+// its notes. Red "!" = General Notes, yellow note = this booking's note.
+.appt_popup_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.appt_popup_general_notes {
+    background: #dc2626;
+    color: #ffffff;
+
+    &:hover { background: #b91c1c; }
+}
+
+.appt_popup_booking_note {
+    background: #facc15;
+    color: #422006;
+
+    &:hover { background: #eab308; }
+}
+
+.appt_popup_name {
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    .fa { font-size: 13px; color: #0ea5e9; }
+    &:hover { color: #714B67; }
+}
+
+.appt_popup_phone {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.appt_popup_close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    color: #0ea5e9;
+    cursor: pointer;
+}
+
+.appt_popup_section {
+    padding: 10px 18px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.appt_popup_label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.appt_popup_text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.appt_popup_services {
+    width: 100%;
+    font-size: 13px;
+
+    td { padding: 3px 8px 3px 0; vertical-align: top; }
+    .appt_popup_time { white-space: nowrap; font-weight: 600; }
+    .appt_popup_staff { text-align: right; white-space: nowrap; text-transform: uppercase; }
+    tr.appt_popup_current td { color: #0284c7; }
+}
+
+.appt_popup_meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 13px;
+
+    .appt_popup_label { display: inline; margin: 0 6px 0 0; }
+}
+
+.appt_popup_status {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #e2e8f0;
+    color: #334155;
+
+    &.status_confirmed { background: #dbeafe; color: #1d4ed8; }
+    &.status_progress { background: #fef3c7; color: #b45309; }
+    &.status_done, &.status_paid { background: #d1fae5; color: #047857; }
+    &.status_cancel { background: #fee2e2; color: #b91c1c; }
+}
+
+.appt_popup_footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border-radius: 0 0 10px 10px;
+
+    .modal_btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+        height: 38px;
+        padding: 0 16px;
+        font-weight: 600;
+    }
+    .modal_btn.btn_small {
+        height: 32px;
+        padding: 0 12px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    .btn_checkout {
+        background: #14b8a6;
+        border-color: #14b8a6;
+        color: #ffffff;
+        padding: 0 22px;
+
+        &:hover { background: #0d9488; }
+    }
+}
+
+/* Less frequent actions on the left, the two that finish the job on the right. */
+.appt_popup_actions,
+.appt_popup_main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.appt_popup_main { margin-left: auto; }
+
+.appt_popup_arrived {
+    color: #0ea5e9;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+// Add / Edit Note in the booking popup: yellow, like a sticky note.
+.modal_btn.btn_note {
+    background: #facc15;
+    border-color: #eab308;
+    color: #422006;
+
+    &:hover { background: #eab308; color: #422006; }
+}
+
+// Confirm in the booking popup: the green of a confirmed booking.
+.modal_btn.btn_confirm {
+    background: #10b981;
+    border-color: #059669;
+    color: #ffffff;
+
+    &:hover { background: #059669; color: #ffffff; }
+}
+
+// Start Service in the booking popup: the blue of an arrived / in-progress booking.
+.modal_btn.btn_start {
+    background: #3b82f6;
+    border-color: #2563eb;
+    color: #ffffff;
+
+    &:hover { background: #2563eb; color: #ffffff; }
+}
+
+// Booking note in the popup: click it (or Edit) to change it.
+.appt_popup_note_section {
+    cursor: pointer;
+
+    &:hover { background: #fefce8; }
+}
+
+.appt_popup_note_edit {
+    background: #facc15;
+    border: 1px solid #eab308;
+    border-radius: 6px;
+    color: #422006;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 8px;
+    cursor: pointer;
+
+    &:hover { background: #eab308; }
+}
+
+// Add a note: the yellow note icon, faded, with a small plus - it turns into
+// the full yellow icon once the booking has a note.
+.appt_popup_add_note {
+    position: relative;
+    background: #fef9c3;
+    color: #a16207;
+    border: 1px dashed #eab308;
+
+    &:hover { background: #facc15; color: #422006; }
+}
+
+.appt_popup_add_note_plus {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    font-size: 8px;
+    background: #eab308;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 1px 2px;
+}
+
+// Popup header, right side: all statuses of the booking, then the close X.
+.appt_popup_header_right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.appt_popup_statuses {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.appt_popup_status.status_arrived { background: #3b82f6; color: #ffffff; }
+
+// Completed in the booking popup: the work is finished, Checkout comes next.
+.modal_btn.btn_complete {
+    background: #10b981;
+    border-color: #059669;
+    color: #ffffff;
+
+    &:hover { background: #059669; color: #ffffff; }
+}
+
+
+.appt_popup_status.status_unpaid { background: #fee2e2; color: #b91c1c; }
+
+// Booking card: a Done booking still to be paid.
+.appt_badge.badge_unpaid { background: #dc2626; color: #ffffff; }
+
+// A beautician's own note under their line in the booking popup.
+.appt_popup_line_note {
+    font-size: 12px;
+    font-style: italic;
+    color: #854d0e;
+    white-space: pre-wrap;
+    margin-top: 2px;
+}
+
+.appt_popup_line_note_btn {
+    width: 30px;
+    text-align: right;
+
+    .appt_popup_icon { width: 22px; height: 22px; font-size: 11px; }
+}

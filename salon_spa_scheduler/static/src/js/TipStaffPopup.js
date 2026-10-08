@@ -1,6 +1,6 @@
 import { Component, onWillStart, useState } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
-import { useService } from "@web/core/utils/hooks";
+import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 import { _t } from "@web/core/l10n/translation";
 
 export class TipStaffPopup extends Component {
@@ -16,7 +16,7 @@ export class TipStaffPopup extends Component {
     };
 
     setup() {
-        this.orm = useService("orm");
+        this.pos = usePos();
         this.state = useState({
             staffList: [],
             selectedStaffId: null,
@@ -24,11 +24,11 @@ export class TipStaffPopup extends Component {
         });
 
         onWillStart(async () => {
-            this.state.staffList = await this.orm.searchRead(
-                "salon.staff",
-                [["active", "=", true]],
-                ["id", "name"]
-            );
+            // The beauticians loaded in the POS, so the tip line gets a real
+            // salon.staff record that is saved with the order.
+            this.state.staffList = (this.pos.models["salon.staff"]?.getAll() || [])
+                .slice()
+                .sort((a, b) => (a.name || "").localeCompare(b.name || ""));
             if (this.state.staffList.length > 0) {
                 this.state.selectedStaffId = this.state.staffList[0].id;
             }

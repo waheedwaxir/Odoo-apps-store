@@ -6,6 +6,10 @@
         <field name="model">salon.staff.tip</field>
         <field name="arch" type="xml">
             <list string="Staff Tips" create="0" edit="0">
+                <header>
+                    <button name="action_mark_paid" string="Mark as Paid" type="object" class="btn-primary"/>
+                    <button name="action_mark_unpaid" string="Mark as Unpaid" type="object"/>
+                </header>
                 <field name="date"/>
                 <field name="staff_id"/>
                 <field name="order_id"/>
@@ -39,6 +43,7 @@
                         <group>
                             <field name="date" readonly="1"/>
                             <field name="order_id" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
                         </group>
                     </group>
                 </sheet>
@@ -55,6 +60,8 @@
                 <field name="order_id"/>
                 <filter string="Unpaid" name="unpaid" domain="[('state', '=', 'unpaid')]"/>
                 <filter string="Paid" name="paid" domain="[('state', '=', 'paid')]"/>
+                <separator/>
+                <filter string="Date" name="filter_date" date="date"/>
                 <group>
                     <filter string="Staff" name="group_by_staff" context="{'group_by': 'staff_id'}"/>
                     <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>

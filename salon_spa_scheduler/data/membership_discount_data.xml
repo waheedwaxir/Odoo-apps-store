@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Product used for the "membership discount" line in POS orders -->
+        <record id="product_product_membership_discount" model="product.product">
+            <field name="name">Membership Discount</field>
+            <field name="default_code">SALON_MEMBER_DISC</field>
+            <field name="type">service</field>
+            <field name="list_price">0.0</field>
+            <field name="available_in_pos">True</field>
+            <field name="taxes_id" eval="[(5, 0, 0)]"/>
+            <field name="supplier_taxes_id" eval="[(5, 0, 0)]"/>
+            <field name="description_sale">Discount granted to salon members</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_salon_block_list" model="ir.ui.view">
+        <field name="name">salon.block.list</field>
+        <field name="model">salon.block</field>
+        <field name="arch" type="xml">
+            <list string="Time Blocks" sample="1"
+                  decoration-muted="state == 'cancel'"
+                  decoration-info="state == 'draft'">
+                <field name="start_datetime"/>
+                <field name="end_datetime" optional="show"/>
+                <field name="duration_hours" string="Hours" sum="Hours"/>
+                <field name="staff_id"/>
+                <field name="block_type_id"/>
+                <field name="category" optional="hide"/>
+                <field name="name" string="Title" optional="show"/>
+                <field name="works_at_branch_id" string="Working At" optional="show"
+                       groups="base.group_multi_company"/>
+                <field name="note" optional="hide"/>
+                <field name="planning_slot_id" optional="hide"/>
+                <field name="leave_id" optional="hide"/>
+                <field name="branch_id" optional="hide" groups="base.group_multi_company"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'confirmed'"
+                       decoration-info="state == 'draft'"
+                       decoration-danger="state == 'cancel'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_salon_block_form" model="ir.ui.view">
+        <field name="name">salon.block.form</field>
+        <field name="model">salon.block</field>
+        <field name="arch" type="xml">
+            <form string="Time Block">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="btn-primary" invisible="state == 'confirmed'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state == 'cancel'"/>
+                    <button name="action_draft" type="object" string="Reset to Draft"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_planning_slot" type="object"
+                                class="oe_stat_button" icon="fa-calendar"
+                                invisible="not planning_slot_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Planning</span>
+                                <span class="o_stat_text">Shift</span>
+                            </div>
+                        </button>
+                        <button name="action_open_leave" type="object"
+                                class="oe_stat_button" icon="fa-plane"
+                                invisible="not leave_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Time</span>
+                                <span class="o_stat_text">Off</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Product training - THALGO"/></h1>
+                    </div>
+                    <group>
+                        <group string="What &amp; Who">
+                            <field name="block_type_id"
+                                   options="{'no_quick_create': True}"/>
+                            <field name="staff_id"/>
+                            <field name="employee_id" readonly="1"
+                                   invisible="not employee_id"/>
+                            <field name="category" invisible="1"/>
+                        </group>
+                        <group string="When">
+                            <field name="start_datetime"/>
+                            <field name="duration_minutes"/>
+                            <field name="end_datetime"/>
+                            <field name="duration_hours" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Where" groups="base.group_multi_company">
+                            <field name="company_id"/>
+                            <field name="branch_id"/>
+                            <field name="works_at_branch_id"
+                                   placeholder="Only for duty elsewhere"/>
+                        </group>
+                        <group string="Links">
+                            <field name="planning_slot_id" readonly="1"/>
+                            <field name="leave_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="note" placeholder="What is this block about?"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_salon_block_search" model="ir.ui.view">
+        <field name="name">salon.block.search</field>
+        <field name="model">salon.block</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="staff_id"/>
+                <field name="block_type_id"/>
+                <field name="note"/>
+                <filter string="Confirmed" name="filter_confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Cancelled" name="filter_cancelled"
+                        domain="[('state', '=', 'cancel')]"/>
+                <separator/>
+                <filter string="Absences" name="filter_absence"
+                        domain="[('category', '=', 'absence')]"/>
+                <filter string="Duty Elsewhere" name="filter_duty"
+                        domain="[('works_at_branch_id', '!=', False)]"/>
+                <filter string="Training" name="filter_training"
+                        domain="[('category', '=', 'training')]"/>
+                <separator/>
+                <filter string="Upcoming" name="filter_upcoming"
+                        domain="[('start_datetime', '&gt;=', 'today')]"/>
+                <filter string="Date" name="filter_date" date="start_datetime"/>
+                <group>
+                    <filter string="Beautician" name="groupby_staff"
+                            context="{'group_by': 'staff_id'}"/>
+                    <filter string="Type" name="groupby_type"
+                            context="{'group_by': 'block_type_id'}"/>
+                    <filter string="Category" name="groupby_category"
+                            context="{'group_by': 'category'}"/>
+                    <filter string="Working At" name="groupby_branch"
+                            context="{'group_by': 'works_at_branch_id'}"/>
+                    <filter string="Month" name="groupby_month"
+                            context="{'group_by': 'start_datetime:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_salon_block" model="ir.actions.act_window">
+        <field name="name">Time Blocks</field>
+        <field name="res_model">salon.block</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_filter_confirmed': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Block out time</p>
+            <p>
+                Training, a staff meeting, a photoshoot, a day on duty at another
+                branch, or simply "do not book". Everything that takes a beautician
+                off the floor without a customer behind it.
+            </p>
+        </field>
+    </record>
+
+</odoo>

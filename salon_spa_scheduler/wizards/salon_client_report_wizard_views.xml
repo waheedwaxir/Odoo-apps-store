@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salon_client_report_form" model="ir.ui.view">
+        <field name="name">salon.client.report.form</field>
+        <field name="model">salon.client.report</field>
+        <field name="arch" type="xml">
+            <form string="Client Report">
+                <header>
+                    <button name="action_view_appointments" type="object" string="Open Appointments"
+                            class="btn-primary" invisible="not partner_id"/>
+                    <button name="action_open_partner" type="object" string="Open Client"
+                            class="btn-secondary" invisible="not partner_id"/>
+                </header>
+                <sheet>
+                    <div class="oe_title mb-3">
+                        <h2>Client Report</h2>
+                        <p class="text-muted">Pick a client to see their activity: appointment counts by
+                            status, cancellations, spend and profile highlights.</p>
+                    </div>
+                    <group>
+                        <group string="Client">
+                            <field name="partner_id" options="{'no_create': True}"/>
+                        </group>
+                        <group string="Period (optional)">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <group invisible="not partner_id">
+                        <group string="Appointments" col="2">
+                            <field name="appointment_count" string="Total"/>
+                            <field name="done_count"/>
+                            <field name="cancel_count"/>
+                            <field name="noshow_count"/>
+                            <field name="draft_count"/>
+                            <field name="confirmed_count"/>
+                            <field name="progress_count"/>
+                            <field name="arrived_count"/>
+                            <field name="cancel_rate"/>
+                        </group>
+                        <group string="Financials">
+                            <field name="total_spent" widget="monetary"/>
+                            <field name="paid_amount" widget="monetary"/>
+                            <field name="unpaid_amount" widget="monetary"/>
+                            <field name="avg_ticket" widget="monetary"/>
+                        </group>
+                        <group string="Profile">
+                            <field name="first_visit"/>
+                            <field name="last_visit"/>
+                            <field name="favorite_staff_id"/>
+                            <field name="favorite_service_id"/>
+                            <field name="avg_rating"/>
+                            <field name="review_count"/>
+                            <field name="membership_summary"/>
+                        </group>
+                    </group>
+
+                    <notebook invisible="not partner_id">
+                        <page string="Appointments" name="appointments">
+                            <field name="appointment_ids" readonly="1">
+                                <list>
+                                    <field name="start_datetime"/>
+                                    <field name="name"/>
+                                    <field name="service_id"/>
+                                    <field name="staff_id"/>
+                                    <field name="state"/>
+                                    <field name="payment_state"/>
+                                    <field name="amount_subtotal" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Client History" name="client_history">
+                            <field name="history_ids" readonly="1">
+                                <list decoration-success="state == 'Completed'" decoration-info="state == 'Paid'" decoration-danger="state == 'Cancelled'">
+                                    <field name="date"/>
+                                    <field name="service_name"/>
+                                    <field name="staff_name"/>
+                                    <field name="state"/>
+                                    <field name="price_unit" sum="Total"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="origin"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_salon_client_report" model="ir.actions.act_window">
+        <field name="name">Client Report</field>
+        <field name="res_model">salon.client.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

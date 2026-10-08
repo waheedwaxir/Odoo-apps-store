@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Starting set, matching how a salon floor actually loses hours.
+         noupdate so a module upgrade never overwrites what the salon renamed
+         or reconfigured. The Shortcuts migration matches these by name before
+         creating anything, so importing does not duplicate them. -->
+    <data noupdate="1">
+
+        <record id="block_type_do_not_book" model="salon.block.type">
+            <field name="name">Do Not Book</field>
+            <field name="category">block</field>
+            <field name="sequence">1</field>
+            <field name="color">1</field>
+            <field name="default_duration_minutes">60</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="block_type_training" model="salon.block.type">
+            <field name="name">Training</field>
+            <field name="category">training</field>
+            <field name="sequence">10</field>
+            <field name="color">4</field>
+            <field name="default_duration_minutes">180</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="block_type_meeting" model="salon.block.type">
+            <field name="name">Staff Meeting</field>
+            <field name="category">meeting</field>
+            <field name="sequence">20</field>
+            <field name="color">5</field>
+            <field name="default_duration_minutes">90</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="block_type_duty_other_branch" model="salon.block.type">
+            <field name="name">Duty - Other Branch</field>
+            <field name="category">duty</field>
+            <field name="sequence">30</field>
+            <field name="color">7</field>
+            <field name="default_duration_minutes">540</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="block_type_break" model="salon.block.type">
+            <field name="name">Break</field>
+            <field name="category">break</field>
+            <field name="sequence">40</field>
+            <field name="color">3</field>
+            <field name="default_duration_minutes">60</field>
+            <field name="create_planning_slot" eval="False"/>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="block_type_sick_leave" model="salon.block.type">
+            <field name="name">Sick Leave</field>
+            <field name="category">absence</field>
+            <field name="sequence">50</field>
+            <field name="color">2</field>
+            <field name="default_duration_minutes">540</field>
+            <field name="create_planning_slot" eval="False"/>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="block_type_consultation" model="salon.block.type">
+            <field name="name">Consultation</field>
+            <field name="category">block</field>
+            <field name="sequence">60</field>
+            <field name="color">6</field>
+            <field name="default_duration_minutes">45</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

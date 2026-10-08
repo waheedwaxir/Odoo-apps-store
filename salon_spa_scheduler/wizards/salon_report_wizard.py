@@ -7,7 +7,7 @@ class SalonReportWizard(models.TransientModel):
 
     date_from = fields.Date(string='Start Date', required=True, default=fields.Date.context_today)
     date_to = fields.Date(string='End Date', required=True, default=fields.Date.context_today)
-    branch_ids = fields.Many2many('salon.branch', string='Branches')
+    branch_ids = fields.Many2many('res.company', string='Branches')
     staff_ids = fields.Many2many('salon.staff', string='Employees')
     
     # State Filters

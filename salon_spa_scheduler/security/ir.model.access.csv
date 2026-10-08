@@ -3,19 +3,18 @@ access_salon_service_view,salon.service view,model_salon_service,salon_spa_sched
 access_salon_staff_view,salon.staff view,model_salon_staff,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_appointment_view,salon.appointment view,model_salon_appointment,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_appointment_line_view,salon.appointment.line view,model_salon_appointment_line,salon_spa_scheduler.group_salon_view,1,0,0,0
-access_salon_branch_view,salon.branch view,model_salon_branch,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_room_view,salon.room view,model_salon_room,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_package_view,salon.package view,model_salon_package,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_package_line_view,salon.package.line view,model_salon_package_line,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_membership_view,salon.membership view,model_salon_membership,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_membership_line_view,salon.membership.line view,model_salon_membership_line,salon_spa_scheduler.group_salon_view,1,0,0,0
+access_salon_membership_line_creator,salon.membership.line creator,model_salon_membership_line,salon_spa_scheduler.group_salon_create_appointment,1,1,1,1
 access_salon_commission_view,salon.commission view,model_salon_commission,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_review_view,salon.review view,model_salon_review,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_appointment_creator,salon.appointment creator,model_salon_appointment,salon_spa_scheduler.group_salon_create_appointment,1,1,1,1
 access_salon_appointment_line_creator,salon.appointment.line creator,model_salon_appointment_line,salon_spa_scheduler.group_salon_create_appointment,1,1,1,1
 access_salon_service_mgr,salon.service mgr,model_salon_service,salon_spa_scheduler.group_salon_manager,1,1,1,1
 access_salon_staff_mgr,salon.staff mgr,model_salon_staff,salon_spa_scheduler.group_salon_manager,1,1,1,1
-access_salon_branch_mgr,salon.branch mgr,model_salon_branch,salon_spa_scheduler.group_salon_manager,1,1,1,1
 access_salon_room_mgr,salon.room mgr,model_salon_room,salon_spa_scheduler.group_salon_manager,1,1,1,1
 access_salon_package_mgr,salon.package mgr,model_salon_package,salon_spa_scheduler.group_salon_manager,1,1,1,1
 access_salon_package_line_mgr,salon.package.line mgr,model_salon_package_line,salon_spa_scheduler.group_salon_manager,1,1,1,1
@@ -27,6 +26,9 @@ access_salon_report_wizard_mgr,salon.report.wizard mgr,model_salon_report_wizard
 access_salon_report_wizard_user,salon.report.wizard user,model_salon_report_wizard,base.group_user,1,1,1,1
 access_salon_staff_report_wizard_mgr,salon.staff.report.wizard mgr,model_salon_staff_report_wizard,salon_spa_scheduler.group_salon_manager,1,1,1,1
 access_salon_staff_report_wizard_user,salon.staff.report.wizard user,model_salon_staff_report_wizard,base.group_user,1,1,1,1
+access_salon_client_report_mgr,salon.client.report mgr,model_salon_client_report,salon_spa_scheduler.group_salon_manager,1,1,1,1
+access_salon_client_report_user,salon.client.report user,model_salon_client_report,base.group_user,1,1,1,1
+access_salon_staff_import_wizard_mgr,salon.staff.import.wizard mgr,model_salon_staff_import_wizard,salon_spa_scheduler.group_salon_manager,1,1,1,1
 access_salon_customer_history_view,salon.customer.history view,model_salon_customer_history,salon_spa_scheduler.group_salon_view,1,0,0,0
 access_salon_customer_history_creator,salon.customer.history creator,model_salon_customer_history,salon_spa_scheduler.group_salon_create_appointment,1,1,1,1
 access_salon_customer_history_mgr,salon.customer.history mgr,model_salon_customer_history,salon_spa_scheduler.group_salon_manager,1,1,1,1
@@ -41,5 +43,15 @@ access_salon_staff_tip_creator,salon.staff.tip creator,model_salon_staff_tip,sal
 access_salon_staff_tip_payment,salon.staff.tip payment,model_salon_staff_tip,salon_spa_scheduler.group_salon_create_payment,1,1,1,1
 access_salon_staff_tip_pos,salon.staff.tip pos,model_salon_staff_tip,point_of_sale.group_pos_user,1,1,1,0
 access_salon_staff_tip_mgr,salon.staff.tip mgr,model_salon_staff_tip,salon_spa_scheduler.group_salon_manager,1,1,1,1
-
-
+access_salon_customer_note_view,salon.customer.note view,model_salon_customer_note,salon_spa_scheduler.group_salon_view,1,0,0,0
+access_salon_customer_note_creator,salon.customer.note creator,model_salon_customer_note,salon_spa_scheduler.group_salon_create_appointment,1,1,1,0
+access_salon_customer_note_mgr,salon.customer.note mgr,model_salon_customer_note,salon_spa_scheduler.group_salon_manager,1,1,1,1
+access_salon_block_type_view,salon.block.type view,model_salon_block_type,salon_spa_scheduler.group_salon_view,1,0,0,0
+access_salon_block_type_mgr,salon.block.type mgr,model_salon_block_type,salon_spa_scheduler.group_salon_manager,1,1,1,1
+access_salon_block_view,salon.block view,model_salon_block,salon_spa_scheduler.group_salon_view,1,0,0,0
+access_salon_block_creator,salon.block creator,model_salon_block,salon_spa_scheduler.group_salon_create_appointment,1,1,1,1
+access_salon_block_mgr,salon.block mgr,model_salon_block,salon_spa_scheduler.group_salon_manager,1,1,1,1
+access_salon_service_category_view,salon.service.category view,model_salon_service_category,salon_spa_scheduler.group_salon_view,1,0,0,0
+access_salon_service_category_mgr,salon.service.category manager,model_salon_service_category,salon_spa_scheduler.group_salon_manager,1,1,1,1
+access_salon_appointment_add_service_creator,salon.appointment.add.service creator,model_salon_appointment_add_service,salon_spa_scheduler.group_salon_create_appointment,1,1,1,1
+access_hr_job_salon_mgr,hr.job salon manager,hr.model_hr_job,salon_spa_scheduler.group_salon_manager,1,1,1,0

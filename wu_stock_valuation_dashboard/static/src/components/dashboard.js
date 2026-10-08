@@ -14,19 +14,41 @@ export class StockValuationDashboard extends Component {
         this.orm = useService("orm");
         this.action = useService("action");
         this.state = useState({
+<<<<<<< HEAD
             currentTab: 'overview',
+=======
+<<<<<<< HEAD
+=======
+            currentTab: 'overview',
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             data: {
                 total_value: 0,
                 total_sales_value: 0,
                 total_qty: 0,
+<<<<<<< HEAD
                 total_reserved_qty: 0,
                 total_available_qty: 0,
                 total_products: 0,
                 low_stock_count: 0,
+=======
+<<<<<<< HEAD
+                total_products: 0,
+                low_stock_count: 0,
+=======
+                total_reserved_qty: 0,
+                total_available_qty: 0,
+                total_products: 0,
+                low_stock_count: 0,
+>>>>>>> eacad6a (updated salon and spa)
                 late_deliveries: 0,
                 backorders: 0,
                 total_scrap_value: 0,
                 total_landed_costs: 0,
+<<<<<<< HEAD
+=======
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                 incoming: 0,
                 outgoing: 0,
                 internal_transfers: 0,
@@ -62,10 +84,19 @@ export class StockValuationDashboard extends Component {
             autoRefreshEnabled: false
         });
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> eacad6a (updated salon and spa)
     this.setTab = (tabName) => {
         this.state.currentTab = tabName;
     }
 
+<<<<<<< HEAD
+=======
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
         this.categoryChartRef = useRef("categoryChart");
         this.warehouseChartRef = useRef("warehouseChart");
         this.movementChartRef = useRef("movementChart");
@@ -288,6 +319,7 @@ export class StockValuationDashboard extends Component {
             if (companyId) domain.push(['company_id', '=', companyId]);
             if (categoryId) domain.push(['product_id.categ_id', 'child_of', categoryId]);
             if (warehouseId) domain.push(['location_id.warehouse_id', '=', warehouseId]);
+<<<<<<< HEAD
         } else if (type === 'reserved_quantity') {
             model = 'stock.quant';
             name = 'Reserved Quantities';
@@ -325,13 +357,66 @@ export class StockValuationDashboard extends Component {
         } else if (type === 'incoming') {
             model = 'stock.move';
             name = 'Receipts';
+=======
+<<<<<<< HEAD
+        } else if (type === 'incoming') {
+            model = 'stock.move';
+            name = 'Incoming Moves';
+=======
+        } else if (type === 'reserved_quantity') {
+            model = 'stock.quant';
+            name = 'Reserved Quantities';
+            domain = [['location_id.usage', '=', 'internal'], ['reserved_quantity', '>', 0]];
+            if (companyId) domain.push(['company_id', '=', companyId]);
+            if (categoryId) domain.push(['product_id.categ_id', 'child_of', categoryId]);
+            if (warehouseId) domain.push(['location_id.warehouse_id', '=', warehouseId]);
+        } else if (type === 'available_quantity') {
+            model = 'stock.quant';
+            name = 'Available Quantities';
+            domain = [['location_id.usage', '=', 'internal']];
+            if (companyId) domain.push(['company_id', '=', companyId]);
+            if (categoryId) domain.push(['product_id.categ_id', 'child_of', categoryId]);
+            if (warehouseId) domain.push(['location_id.warehouse_id', '=', warehouseId]);
+        } else if (type === 'late_deliveries') {
+            model = 'stock.picking';
+            name = 'Late Deliveries';
+            // scheduled_date < NOW() in JS would require luxon, but we can just let Odoo backend handle domain if we send a date string.
+            // A simpler static domain:
+            const today = new Date().toISOString().split('T')[0] + ' 00:00:00';
+            domain = [['state', 'in', ['confirmed', 'assigned', 'waiting']], ['scheduled_date', '<', today], ['picking_type_id.code', '=', 'outgoing']];
+            if (companyId) domain.push(['company_id', '=', companyId]);
+            if (warehouseId) domain.push(['picking_type_id.warehouse_id', '=', warehouseId]);
+        } else if (type === 'backorders') {
+            model = 'stock.picking';
+            name = 'Open Backorders';
+            domain = [['state', 'in', ['confirmed', 'assigned', 'waiting']], ['backorder_id', '!=', false]];
+            if (companyId) domain.push(['company_id', '=', companyId]);
+            if (warehouseId) domain.push(['picking_type_id.warehouse_id', '=', warehouseId]);
+        } else if (type === 'scrap') {
+            model = 'stock.scrap';
+            name = 'Scrap Orders';
+            domain = [['state', '=', 'done']];
+            if (companyId) domain.push(['company_id', '=', companyId]);
+        } else if (type === 'incoming') {
+            model = 'stock.move';
+            name = 'Receipts';
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             domain = [['picking_type_id.code', '=', 'incoming'], ['state', 'in', ['confirmed', 'assigned', 'partially_available']]];
             if (companyId) domain.push(['company_id', '=', companyId]);
             if (categoryId) domain.push(['product_id.categ_id', 'child_of', categoryId]);
             if (warehouseId) domain.push(['picking_type_id.warehouse_id', '=', warehouseId]);
         } else if (type === 'outgoing') {
             model = 'stock.move';
+<<<<<<< HEAD
             name = 'Deliveries';
+=======
+<<<<<<< HEAD
+            name = 'Outgoing Moves';
+=======
+            name = 'Deliveries';
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             domain = [['picking_type_id.code', '=', 'outgoing'], ['state', 'in', ['confirmed', 'assigned', 'partially_available']]];
             if (companyId) domain.push(['company_id', '=', companyId]);
             if (categoryId) domain.push(['product_id.categ_id', 'child_of', categoryId]);
@@ -386,8 +471,17 @@ export class StockValuationDashboard extends Component {
             if (this.categoryChart) this.categoryChart.destroy();
             this.categoryChart = new Chart(this.categoryChartRef.el, {
                 type: 'doughnut',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.value_by_category.map(d => d.label),
                     datasets: [{
                         data: this.state.data.value_by_category.map(d => d.value),
@@ -404,8 +498,17 @@ export class StockValuationDashboard extends Component {
             if (this.warehouseChart) this.warehouseChart.destroy();
             this.warehouseChart = new Chart(this.warehouseChartRef.el, {
                 type: 'bar',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.value_by_warehouse.map(d => d.label),
                     datasets: [{
                         data: this.state.data.value_by_warehouse.map(d => d.value),
@@ -422,12 +525,29 @@ export class StockValuationDashboard extends Component {
             if (this.movementChart) this.movementChart.destroy();
             this.movementChart = new Chart(this.movementChartRef.el, {
                 type: 'line',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
                     labels: this.state.data.movements.map(d => d.label),
                     datasets: [
                         { label: _t('Receipts'), data: this.state.data.movements.map(d => d.incoming), borderColor: '#5ad8a6', backgroundColor: '#5ad8a6', fill: false, pointRadius: 4 },
                         { label: _t('Deliveries'), data: this.state.data.movements.map(d => d.outgoing), borderColor: '#e8684a', backgroundColor: '#e8684a', fill: false, pointRadius: 4 }
+=======
+<<<<<<< HEAD
+                data: {
+                    labels: this.state.data.movements.map(d => d.label),
+                    datasets: [
+                        { label: _t('Incoming'), data: this.state.data.movements.map(d => d.incoming), borderColor: '#5ad8a6', backgroundColor: '#5ad8a6', fill: false, pointRadius: 4 },
+                        { label: _t('Outgoing'), data: this.state.data.movements.map(d => d.outgoing), borderColor: '#e8684a', backgroundColor: '#e8684a', fill: false, pointRadius: 4 }
+=======
+                currentTab: 'overview',
+            data: {
+                    labels: this.state.data.movements.map(d => d.label),
+                    datasets: [
+                        { label: _t('Receipts'), data: this.state.data.movements.map(d => d.incoming), borderColor: '#5ad8a6', backgroundColor: '#5ad8a6', fill: false, pointRadius: 4 },
+                        { label: _t('Deliveries'), data: this.state.data.movements.map(d => d.outgoing), borderColor: '#e8684a', backgroundColor: '#e8684a', fill: false, pointRadius: 4 }
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     ]
                 },
                 options: { responsive: true, maintainAspectRatio: false, legend: { position: 'top', align: 'end' }, scales: { x: { gridLines: { display: false } }, y: { gridLines: { borderDash: [2, 4] } } } }
@@ -439,8 +559,17 @@ export class StockValuationDashboard extends Component {
             if (this.trendChart) this.trendChart.destroy();
             this.trendChart = new Chart(this.trendChartRef.el, {
                 type: 'line',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.trend.map(d => d.label),
                     datasets: [{
                         label: _t('Inventory Value'),
@@ -461,8 +590,17 @@ export class StockValuationDashboard extends Component {
             if (this.abcChart) this.abcChart.destroy();
             this.abcChart = new Chart(this.abcChartRef.el, {
                 type: 'doughnut',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.abc_analysis.map(d => d.label),
                     datasets: [{
                         data: this.state.data.abc_analysis.map(d => d.value),
@@ -479,8 +617,17 @@ export class StockValuationDashboard extends Component {
             if (this.agingChart) this.agingChart.destroy();
             this.agingChart = new Chart(this.agingChartRef.el, {
                 type: 'doughnut',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.aging_analysis.map(d => d.label),
                     datasets: [{
                         data: this.state.data.aging_analysis.map(d => d.value),
@@ -497,8 +644,17 @@ export class StockValuationDashboard extends Component {
             if (this.costSalesChart) this.costSalesChart.destroy();
             this.costSalesChart = new Chart(this.costSalesChartRef.el, {
                 type: 'bar',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.top_products.slice(0, 5).map(d => d.name.substring(0, 10)),
                     datasets: [
                         { label: _t('Cost Value'), data: this.state.data.top_products.slice(0, 5).map(d => d.total_cost), backgroundColor: '#5b8ff9' },
@@ -514,8 +670,17 @@ export class StockValuationDashboard extends Component {
             if (this.profitChart) this.profitChart.destroy();
             this.profitChart = new Chart(this.profitChartRef.el, {
                 type: 'doughnut',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.profit_by_category.map(d => d.label),
                     datasets: [{
                         data: this.state.data.profit_by_category.map(d => d.value),
@@ -532,8 +697,17 @@ export class StockValuationDashboard extends Component {
             if (this.costMethodChart) this.costMethodChart.destroy();
             this.costMethodChart = new Chart(this.costMethodChartRef.el, {
                 type: 'doughnut',
+<<<<<<< HEAD
                 currentTab: 'overview',
             data: {
+=======
+<<<<<<< HEAD
+                data: {
+=======
+                currentTab: 'overview',
+            data: {
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
                     labels: this.state.data.value_by_cost_method.map(d => d.label),
                     datasets: [{
                         data: this.state.data.value_by_cost_method.map(d => d.value),

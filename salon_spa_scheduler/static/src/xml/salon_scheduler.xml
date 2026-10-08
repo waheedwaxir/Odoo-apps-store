@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-name="salon_spa_scheduler.Scheduler">
-        <div class="o_salon_scheduler">
+        <div class="o_salon_scheduler" t-att-style="'--salon-slot-h: ' + state.slotHeight + 'px;'">
             <!-- Header Controls -->
             <div class="o_salon_header">
                 <div class="header_left">
@@ -18,8 +18,8 @@
                         <input type="date" t-att-value="state.date" t-on-change="onDateChange" class="header_date_input"/>
                     </div>
 
-                    <!-- Branch Selector -->
-                    <t t-if="state.branches.length &gt; 0">
+                    <!-- Branch Selector (only when the user works in more than one company/branch) -->
+                    <t t-if="state.branches.length &gt; 1">
                         <div class="header_branch_picker">
                             <i class="fa fa-building branch_icon"></i>
                             <select class="header_branch_input" t-on-change="onBranchChange">
@@ -52,34 +52,51 @@
                     </div>
                 </div>
                 <div class="header_right">
+                    <div t-att-class="'o_salon_legend' + (state.colorFilter.length ? ' legend_filtering' : '')"
+                         title="Click a status to highlight those bookings; click again to remove it">
+                        <t t-foreach="legendItems" t-as="item" t-key="item.color">
+                            <button type="button"
+                                    t-att-class="'legend_item' + (state.colorFilter.includes(item.color) ? ' legend_active' : '')"
+                                    t-att-data-color="item.color" t-on-click="toggleColorFilter">
+                                <span t-att-class="'legend_dot color_' + item.color"></span><t t-esc="item.label"/>
+                            </button>
+                        </t>
+                    </div>
                     <button class="btn refresh_btn" t-on-click="loadData">
                         <i class="fa fa-refresh"></i> Refresh
                     </button>
                 </div>
             </div>
-            
+
             <div class="o_salon_body">
                 <div class="o_salon_main">
                     <div class="o_salon_grid_wrapper">
                         <!-- Current Time Line Indicator -->
                         <t t-if="state.currentTimeTop &gt;= 0">
-                            <div class="o_salon_current_time_line" t-att-style="'top: ' + (state.currentTimeTop + 70) + 'px;'">
+                            <div class="o_salon_current_time_line" t-att-style="'top: ' + (state.currentTimeTop + state.headHeight) + 'px;'">
                                 <div class="time_indicator_dot"></div>
                                 <div class="time_indicator_bar"></div>
                             </div>
                         </t>
-                        <table class="o_salon_grid">
+                        <table class="o_salon_grid" t-ref="grid">
                             <thead>
                                 <tr>
                                     <th class="time_col">Time</th>
-                                    <t t-foreach="state.staff" t-as="staff" t-key="staff.id">
+                                    <t t-foreach="visibleStaff" t-as="staff" t-key="staff.id">
                                         <th>
-                                            <div class="staff_header">
+                                            <div t-att-class="'staff_header' + (staff.on_shift ? '' : ' staff_off_shift')" t-att-data-id="staff.id" t-on-click="openStaff" t-att-title="staff.on_shift ? ('Open profile: ' + staff.name) : (staff.name + ' - not scheduled on this day (Planning)')">
                                                 <div class="staff_avatar_wrapper">
                                                     <img t-att-src="'/web/image?model=salon.staff&amp;id=' + staff.id + '&amp;field=image_1920'" class="staff_avatar" alt="Staff"/>
                                                     <div class="staff_status"></div>
+                                                    <span class="staff_appt_count" t-att-title="staff.appt_count + ' appointment(s) today'"><t t-esc="staff.appt_count"/></span>
                                                 </div>
                                                 <span class="staff_name"><t t-esc="staff.name"/></span>
+                                                <t t-if="staff.on_shift and staff.shift_hint">
+                                                    <span class="staff_shift_hint" t-att-title="'Planning shift: ' + staff.shift_hint"><i class="fa fa-clock-o"></i> <t t-esc="staff.shift_hint"/></span>
+                                                </t>
+                                                <t t-if="!staff.on_shift">
+                                                    <span class="staff_off_badge" title="No published Planning shift on this day">OFF</span>
+                                                </t>
                                             </div>
                                         </th>
                                     </t>
@@ -88,16 +105,39 @@
                             <tbody>
                                 <t t-foreach="state.slots" t-as="slot" t-key="slot.key">
                                     <tr>
-                                        <td class="time_col"><t t-esc="slot.label"/></td>
-                                        <t t-foreach="state.staff" t-as="staff" t-key="staff.id">
-                                            <td class="slot_cell" t-att-data-staff-id="staff.id" t-att-data-start="slot.datetime" t-on-click="quickCreate" t-on-dragover.prevent="() => {}" t-on-drop="dropAppointment">
+                                        <td t-att-class="'time_col' + (slotInSelection(slot.datetime) ? ' time_col_selected' : '')"><t t-esc="slot.label"/></td>
+                                        <t t-foreach="visibleStaff" t-as="staff" t-key="staff.id">
+                                            <td t-att-class="'slot_cell' + (slotOffShift(staff, slot.datetime) ? ' slot_cell_off' : '')" t-att-data-staff-id="staff.id" t-att-data-start="slot.datetime" t-on-click="quickCreate" t-on-contextmenu.prevent="openBlockChooser" t-on-dragover.prevent="() => {}" t-on-drop="dropAppointment">
                                                 <t t-foreach="appointmentsFor(staff.id, slot.datetime)" t-as="appt" t-key="appt.id">
-                                                    <div t-att-class="'appt_block color_' + appt.color + ' state_' + appt.state" t-att-style="'height: ' + (appt.duration * 4 * 40 - 2) + 'px;'" draggable="true" t-att-data-id="appt.id" t-on-dragstart="dragStart" t-on-click.stop="openAppointment">
-                                                        <div class="appt_status_strip"></div>
-                                                        <div class="appt_content">
+                                                    <div t-att-class="'appt_block color_' + appt.color + ' state_' + appt.state + (appt.is_block ? ' appt_is_block' : '') + (state.selectedApptId === appt.id ? ' appt_selected' : '') + (isFilteredOut(appt) ? ' appt_filtered_out' : '')" t-att-style="'height: ' + (appt.duration * 4 * state.slotHeight - 2) + 'px;'" t-att-draggable="appt.state != 'cancel' ? 'true' : 'false'" t-att-data-id="appt.id" t-on-dragstart="dragStart" t-on-click.stop="selectAppointment" t-on-dblclick.stop="openAppointment" title="Click for details, double-click to open">
+                                                        <div t-if="appt.is_block" class="appt_content">
+                                                            <div class="appt_title" t-att-title="appt.name">
+                                                                <i class="fa fa-ban appt_icon"></i>
+                                                                <span class="appt_customer_name"><t t-esc="appt.name"/></span>
+                                                            </div>
+                                                            <div class="appt_service">
+                                                                <i class="fa fa-clock-o appt_icon"></i>
+                                                                <span class="appt_service_name"><t t-esc="timeRange(appt)"/></span>
+                                                            </div>
+                                                            <div t-if="appt.note" class="appt_service" t-att-title="appt.note">
+                                                                <i class="fa fa-sticky-note appt_icon"></i>
+                                                                <span class="appt_service_name"><t t-esc="appt.note"/></span>
+                                                            </div>
+                                                            <div class="appt_resize_handle" t-on-mousedown.stop="startResize" t-att-data-id="appt.id" style="height: 8px; width: 100%; position: absolute; bottom: 0; left: 0; cursor: ns-resize; z-index: 10;"></div>
+                                                        </div>
+                                                        <div t-else="" class="appt_content">
                                                             <div class="appt_title" t-att-title="appt.customer">
                                                                 <i class="fa fa-user appt_icon"></i>
                                                                 <span class="appt_customer_name"><t t-esc="appt.customer"/></span>
+                                                                <t t-if="appt.staff_required">
+                                                                    <span class="appt_req_badge" title="Customer specifically requested this beautician">R</span>
+                                                                </t>
+                                                                <t t-if="appt.note or appt.step_note">
+                                                                    <i class="fa fa-sticky-note appt_note_icon" title="Notes for this booking / beautician - click to read" t-att-data-id="appt.id" t-on-click.stop="showNote"></i>
+                                                                </t>
+                                                                <t t-if="appt.has_general_notes">
+                                                                    <span class="appt_general_notes_badge" title="Customer has general notes (allergies, preferences or comments) - click to view" t-att-data-id="appt.id" t-on-click.stop="showGeneralNotes">i</span>
+                                                                </t>
                                                             </div>
                                                             <div class="appt_service" t-att-title="appt.service">
                                                                 <i class="fa fa-scissors appt_icon"></i>
@@ -108,15 +148,17 @@
                                                                     <span class="appt_phone"><i class="fa fa-phone appt_icon"></i> <t t-esc="appt.phone"/></span>
                                                                 </t>
                                                                 <div class="appt_badges">
-                                                                    <span t-att-class="'appt_badge badge_' + appt.state"><t t-esc="appt.state"/></span>
+                                                                    <!-- No status label: the card's colour is the status (see the
+                                                                         legend). Arrival is handled in the booking popup; the card
+                                                                         only says whether a finished booking is paid. -->
                                                                     <t t-if="appt.payment_state == 'paid'">
                                                                         <span class="appt_badge badge_paid"><i class="fa fa-check"></i> Paid</span>
                                                                     </t>
-                                                                    <t t-if="appt.is_arrived">
-                                                                        <span class="appt_badge badge_arrived" style="background-color: #17a2b8; color: white;"><i class="fa fa-check-square"></i> Arrived</span>
+                                                                    <t t-elif="appt.state == 'done'">
+                                                                        <span class="appt_badge badge_unpaid"><i class="fa fa-exclamation-circle"></i> Not Paid</span>
                                                                     </t>
-                                                                    <t t-else="">
-                                                                        <button class="appt_badge badge_arrived_btn" t-on-click.stop="markArrived" t-att-data-id="appt.id" style="background-color: #6c757d; color: white; border: none; cursor: pointer;">Mark Arrived</button>
+                                                                    <t t-if="appt.state == 'done' or appt.state == 'cancel'">
+                                                                        <button class="appt_badge badge_rebook_btn" t-on-click.stop="rebook" t-att-data-id="appt.id"><i class="fa fa-repeat"></i> Rebook</button>
                                                                     </t>
                                                                 </div>
                                                             </div>
@@ -139,7 +181,7 @@
                     <div class="customer_modal_content" t-on-click.stop="">
                         <div class="customer_modal_header">
                             <h3>Customer Profile &amp; History</h3>
-                            <button class="modal_close_btn" t-on-click="closeCustomerModal">&amp;times;</button>
+                            <button class="modal_close_btn" t-on-click="closeCustomerModal">×</button>
                         </div>
                         <div class="customer_modal_body">
                             <!-- Customer Info Card -->
@@ -185,6 +227,45 @@
                                 </div>
                             </div>
 
+                            <!-- Note History Card: a dated log of every past save above,
+                                 so an older note isn't lost when it gets overwritten. -->
+                            <div class="modal_section_card">
+                                <div class="card_title">
+                                    <i class="fa fa-history"></i> Note History
+                                </div>
+                                <div class="history_table_wrapper" style="overflow-x: auto; max-height: 200px; overflow-y: auto;">
+                                    <table class="modal_history_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>By</th>
+                                                <th>Allergies / Medical Notes</th>
+                                                <th>Preferences / Styling Notes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-if="state.noteHistory.length === 0">
+                                                <tr>
+                                                    <td colspan="4" style="text-align: center; color: #64748b; padding: 20px;">
+                                                        No note history yet - it fills in the first time Save Notes is used.
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-foreach="state.noteHistory" t-as="note" t-key="note.id">
+                                                    <tr>
+                                                        <td><t t-esc="note.date"/></td>
+                                                        <td><t t-esc="note.user_id and note.user_id[1] || ''"/></td>
+                                                        <td><t t-esc="note.allergies || ''"/></td>
+                                                        <td><t t-esc="note.preferences || ''"/></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                             <!-- Service History Card -->
                             <div class="modal_section_card">
                                 <div class="card_title">
@@ -218,7 +299,7 @@
                                                         <td style="font-weight: 500;"><t t-esc="history.service_name"/></td>
                                                         <td><t t-esc="history.staff_name || 'N/A'"/></td>
                                                         <td>
-                                                            <span t-att-class="'status_badge ' + (history.state === 'Completed' ? 'status_completed' : 'status_paid')">
+                                                            <span t-att-class="'status_badge ' + (history.state === 'Completed' ? 'status_completed' : (history.state === 'Cancelled' ? 'status_cancelled' : 'status_paid'))">
                                                                 <t t-esc="history.state"/>
                                                             </span>
                                                         </td>
@@ -238,6 +319,240 @@
                                 <i class="fa fa-calendar-plus-o"></i> Book Appointment
                             </button>
                             <button class="modal_btn" t-on-click="closeCustomerModal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <!-- Appointment Info Popup (single click on a block). The backdrop is
+                 transparent so the highlighted time range stays visible. -->
+            <t t-set="popAppt" t-value="selectedAppt"/>
+            <!-- Time block popup (single click on a block card). -->
+            <t t-if="popAppt and popAppt.is_block">
+                <div class="appt_popup_backdrop" t-on-click="closeApptPopup">
+                    <div class="appt_popup" t-on-click.stop="">
+                        <div class="appt_popup_header">
+                            <div class="appt_popup_customer">
+                                <span class="appt_popup_name" t-on-click="popupEditBlock" title="Edit block">
+                                    <i class="fa fa-ban"></i> <t t-esc="popAppt.name"/> <i class="fa fa-pencil"></i>
+                                </span>
+                                <span class="appt_popup_phone"><t t-esc="popAppt.block_type"/></span>
+                            </div>
+                            <button class="appt_popup_close" t-on-click="closeApptPopup" title="Close">×</button>
+                        </div>
+                        <div class="appt_popup_section">
+                            <table class="appt_popup_services">
+                                <tr>
+                                    <td class="appt_popup_time"><t t-esc="timeRange(popAppt)"/></td>
+                                    <td class="appt_popup_staff"><t t-esc="staffName(popAppt.staff_id)"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div t-if="popAppt.works_at" class="appt_popup_section">
+                            <div class="appt_popup_label"><i class="fa fa-building"></i> Working At</div>
+                            <div class="appt_popup_text"><t t-esc="popAppt.works_at"/></div>
+                        </div>
+                        <div t-if="popAppt.note" class="appt_popup_section">
+                            <div class="appt_popup_label"><i class="fa fa-sticky-note"></i> Notes</div>
+                            <div class="appt_popup_text"><t t-esc="popAppt.note"/></div>
+                        </div>
+                        <div class="appt_popup_section appt_popup_meta">
+                            <span t-if="popAppt.blocks_booking"><i class="fa fa-lock"></i> No bookings in this time</span>
+                            <span t-else=""><i class="fa fa-info-circle"></i> Informational - bookings allowed</span>
+                        </div>
+                        <div class="appt_popup_footer">
+                            <button class="modal_btn" t-on-click="popupRemoveBlock"><i class="fa fa-trash"></i> Remove Block</button>
+                            <button class="modal_btn btn_primary" t-on-click="popupEditBlock"><i class="fa fa-pencil"></i> Edit Block</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <!-- Right-click on an empty slot: block the time. -->
+            <t t-set="chooser" t-value="state.slotChooser"/>
+            <t t-if="chooser">
+                <div class="appt_popup_backdrop" t-on-click="closeSlotChooser">
+                    <div class="appt_popup slot_chooser" t-on-click.stop="">
+                        <div class="appt_popup_header">
+                            <div class="appt_popup_customer">
+                                <span class="appt_popup_name"><t t-esc="staffName(chooser.staffId)"/></span>
+                                <span class="appt_popup_phone"><t t-esc="timeRange({start: chooser.start})"/></span>
+                            </div>
+                            <button class="appt_popup_close" t-on-click="closeSlotChooser" title="Close">×</button>
+                        </div>
+                        <div class="appt_popup_section">
+                            <div class="slot_chooser_head">
+                                <span class="appt_popup_label">Block Time</span>
+                                <div class="slot_chooser_duration">
+                                    <input type="number" min="0" max="24" step="1" placeholder="0" t-ref="blockHours" t-att-value="state.blockHours" t-on-input="onBlockHoursInput"/>
+                                    <span>h</span>
+                                    <input type="number" min="0" max="59" step="5" placeholder="0" t-att-value="state.blockMins" t-on-input="onBlockMinsInput"/>
+                                    <span>min</span>
+                                </div>
+                            </div>
+                            <div class="slot_chooser_hint">Leave empty to use the type's usual length.</div>
+                            <div class="slot_chooser_types">
+                                <t t-foreach="state.blockTypes" t-as="bt" t-key="bt.id">
+                                    <button t-att-class="'slot_chooser_type color_' + bt.color" t-on-click="() => this.chooserCreateBlock(bt)">
+                                        <t t-esc="bt.name"/>
+                                    </button>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-if="popAppt and !popAppt.is_block">
+                <div class="appt_popup_backdrop" t-on-click="closeApptPopup">
+                    <div class="appt_popup" t-on-click.stop="">
+                        <div class="appt_popup_header">
+                            <div class="appt_popup_customer">
+                                <div class="appt_popup_name_row">
+                                    <span class="appt_popup_name" t-on-click="popupOpenAppointment" title="Open appointment">
+                                        <t t-esc="popAppt.customer"/> <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <button t-if="popAppt.general_notes" class="appt_popup_icon appt_popup_general_notes"
+                                            t-att-data-id="popAppt.id" t-on-click.stop="showGeneralNotes"
+                                            title="General Notes (allergies, preferences or comments) - click to read">
+                                        <i class="fa fa-exclamation"></i>
+                                    </button>
+                                    <button t-if="popAppt.note" class="appt_popup_icon appt_popup_booking_note"
+                                            t-att-data-id="popAppt.id" t-on-click.stop="showNote"
+                                            title="Booking note - click to read">
+                                        <i class="fa fa-sticky-note"></i>
+                                    </button>
+                                    <button t-elif="noteEditable(popAppt)" class="appt_popup_icon appt_popup_add_note"
+                                            t-on-click.stop="popupEditNote" title="Add a note to this booking">
+                                        <i class="fa fa-sticky-note-o"></i><i class="fa fa-plus appt_popup_add_note_plus"></i>
+                                    </button>
+                                </div>
+                                <span t-if="popAppt.phone" class="appt_popup_phone"><i class="fa fa-phone"></i> <t t-esc="popAppt.phone"/></span>
+                            </div>
+                            <div class="appt_popup_header_right">
+                                <!-- Only the latest status: Draft, Confirmed, Arrived, In Progress, Done, Paid (or Cancelled) -->
+                                <div class="appt_popup_statuses">
+                                    <t t-set="lastStatus" t-value="popupLastStatus(popAppt)"/>
+                                    <span t-att-class="'appt_popup_status status_' + lastStatus.key">
+                                        <i t-if="lastStatus.icon" t-att-class="'fa ' + lastStatus.icon"></i> <t t-esc="lastStatus.label"/>
+                                    </span>
+                                    <!-- Done but not paid yet (client pays later): Checkout is still open -->
+                                    <span t-if="popAppt.state == 'done' and popAppt.payment_state != 'paid'"
+                                          class="appt_popup_status status_unpaid">
+                                        <i class="fa fa-exclamation-circle"></i> Not Paid
+                                    </span>
+                                </div>
+                                <button class="appt_popup_close" t-on-click="closeApptPopup" title="Close">×</button>
+                            </div>
+                        </div>
+                        <t t-if="popAppt.note">
+                            <div t-att-class="'appt_popup_section' + (noteEditable(popAppt) ? ' appt_popup_note_section' : '')"
+                                 t-on-click="popupEditNote"
+                                 t-att-title="noteEditable(popAppt) ? 'Click to edit the booking note' : ''">
+                                <div class="appt_popup_label d-flex align-items-center justify-content-between">
+                                    <span><i class="fa fa-sticky-note"></i> Booking Notes</span>
+                                    <button t-if="noteEditable(popAppt)" class="appt_popup_note_edit"
+                                            t-on-click.stop="popupEditNote" title="Edit note">
+                                        <i class="fa fa-pencil"></i> Edit
+                                    </button>
+                                </div>
+                                <div class="appt_popup_text"><t t-esc="popAppt.note"/></div>
+                            </div>
+                        </t>
+                        <div class="appt_popup_section">
+                            <div class="appt_popup_label">Services</div>
+                            <table class="appt_popup_services">
+                                <t t-foreach="selectedApptLines()" t-as="line" t-key="line.id">
+                                    <tr t-att-class="line.id === popAppt.id ? 'appt_popup_current' : ''">
+                                        <td class="appt_popup_time"><t t-esc="timeRange(line)"/></td>
+                                        <td>
+                                            <t t-esc="line.service"/>
+                                            <div t-if="line.step_note" class="appt_popup_line_note">
+                                                <i class="fa fa-sticky-note"></i> <t t-esc="line.step_note"/>
+                                            </div>
+                                        </td>
+                                        <td class="appt_popup_staff">
+                                            <t t-esc="staffName(line.staff_id)"/><t t-if="line.staff_required"> (REQ)</t>
+                                        </td>
+                                        <td class="appt_popup_line_note_btn">
+                                            <button t-if="line.step_id and noteEditable(popAppt)"
+                                                    t-att-class="'appt_popup_icon ' + (line.step_note ? 'appt_popup_booking_note' : 'appt_popup_add_note')"
+                                                    t-on-click.stop="() => this.openStepNoteEditor(line)"
+                                                    t-att-title="line.step_note ? 'Edit the note for ' + staffName(line.staff_id) : 'Add a note for ' + staffName(line.staff_id)">
+                                                <i t-att-class="line.step_note ? 'fa fa-sticky-note' : 'fa fa-sticky-note-o'"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                        <div class="appt_popup_section appt_popup_meta">
+                            <span><span class="appt_popup_label">Estimated Cost</span> <strong><t t-esc="formatAmount(popAppt.amount)"/></strong></span>
+                        </div>
+                        <div class="appt_popup_footer">
+                            <div class="appt_popup_actions">
+                                <!-- One step at a time: Confirm -> Arrived -> Start -> Completed -> Checkout -->
+                                <t t-if="popAppt.state == 'draft'">
+                                    <button class="modal_btn btn_small btn_confirm" t-on-click="popupConfirm"><i class="fa fa-check"></i> Confirm</button>
+                                </t>
+                                <t t-elif="popAppt.state == 'confirmed' and !popAppt.is_arrived">
+                                    <button class="modal_btn btn_small" t-on-click="popupMarkArrived" title="Tick when the customer has arrived"><i class="fa fa-square-o"></i> Arrived</button>
+                                </t>
+                                <t t-elif="popAppt.state == 'confirmed'">
+                                    <button class="modal_btn btn_small btn_start" t-on-click="popupStartService"><i class="fa fa-play"></i> Start</button>
+                                </t>
+                                <t t-elif="popAppt.state == 'progress'">
+                                    <button class="modal_btn btn_small btn_complete" t-on-click="popupComplete"><i class="fa fa-check-circle"></i> Completed</button>
+                                </t>
+                                <t t-if="popAppt.can_add_service">
+                                    <button class="modal_btn btn_small" t-on-click="popupAddService"><i class="fa fa-plus"></i> Add Service</button>
+                                </t>
+                                <t t-if="popAppt.state == 'done' or popAppt.state == 'cancel'">
+                                    <button class="modal_btn btn_small" t-on-click="popupRebook"><i class="fa fa-repeat"></i> Rebook</button>
+                                </t>
+                            </div>
+                            <div class="appt_popup_main">
+                                <t t-if="state.userCanCheckout and popAppt.can_checkout">
+                                    <button class="modal_btn btn_checkout" t-on-click="popupCheckout"><i class="fa fa-shopping-cart"></i> Checkout</button>
+                                </t>
+                                <button class="modal_btn btn_primary" t-on-click="popupOpenAppointment"><i class="fa fa-external-link"></i> Open Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <!-- Booking note editor (popup's Add / Edit Note) -->
+            <t t-if="state.noteEdit">
+                <div class="customer_modal_backdrop" t-on-click="closeNoteEdit">
+                    <div class="customer_modal_content note_modal_content" t-on-click.stop="">
+                        <div class="customer_modal_header">
+                            <h3><i class="fa fa-sticky-note"></i> <t t-esc="state.noteEdit.title || 'Booking Note'"/> - <t t-esc="state.noteEdit.customer"/></h3>
+                            <button class="modal_close_btn" t-on-click="closeNoteEdit">×</button>
+                        </div>
+                        <div class="customer_modal_body">
+                            <textarea class="editable_textarea" t-model="state.noteEdit.text" rows="5"
+                                      placeholder="Note for this booking only..."></textarea>
+                        </div>
+                        <div class="customer_modal_footer">
+                            <button class="modal_btn" t-on-click="closeNoteEdit">Cancel</button>
+                            <button class="modal_btn btn_primary" t-on-click="saveNoteEdit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <!-- Appointment Note Modal -->
+            <t t-if="state.showNoteModal">
+                <div class="customer_modal_backdrop" t-on-click="closeNoteModal">
+                    <div class="customer_modal_content note_modal_content" t-on-click.stop="">
+                        <div class="customer_modal_header">
+                            <h3><i class="fa fa-sticky-note"></i> <t t-esc="state.activeNoteTitle"/><t t-if="state.activeNoteCustomer"> - <t t-esc="state.activeNoteCustomer"/></t></h3>
+                            <button class="modal_close_btn" t-on-click="closeNoteModal">×</button>
+                        </div>
+                        <div class="customer_modal_body">
+                            <div class="appt_note_text"><t t-esc="state.activeNote"/></div>
+                        </div>
+                        <div class="customer_modal_footer">
+                            <button t-if="state.activeNoteAppt" class="modal_btn btn_note" t-on-click="editActiveNote">
+                                <i class="fa fa-pencil"></i> Edit Note
+                            </button>
+                            <button class="modal_btn" t-on-click="closeNoteModal">Close</button>
                         </div>
                     </div>
                 </div>

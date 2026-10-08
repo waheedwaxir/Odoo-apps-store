@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salon & Spa Online Website Booking | Website Add-On | Odoo 19</title>
+    <meta name="description" content="Website online booking add-on for the Salon & Spa Management app on Odoo 19. Adds a customer-facing 24/7 self-service appointment page (/salon/booking) that syncs instantly with the front-desk timeline scheduler. Auto-installs with the Odoo Website app; requires the salon_spa_scheduler core module." />
+    <meta name="keywords" content="odoo 19 salon online booking, odoo website appointment booking, salon self service booking odoo, spa online reservation odoo, salon_spa_scheduler website add-on, /salon/booking odoo, beauty salon website booking form, odoo website booking page" />
+    <meta name="author" content="Engr Waheed, Techman Solutions" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- OpenGraph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Salon & Spa Online Website Booking Add-On for Odoo 19" />
+    <meta property="og:description" content="Companion module for Salon & Spa Management: a 24/7 customer self-booking website page that syncs straight to the front-desk scheduler. Auto-installs with the Odoo Website app." />
+    <meta property="og:image" content="banner.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Salon & Spa Online Website Booking Add-On for Odoo 19" />
+    <meta name="twitter:description" content="Add a 24/7 customer online booking page to your Salon & Spa Management app. Requires salon_spa_scheduler; installs automatically with the Website app." />
+    <meta name="twitter:image" content="banner.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Salon & Spa Online Website Booking Add-On for Odoo 19",
+      "operatingSystem": "Odoo 19",
+      "applicationCategory": "BusinessApplication",
+      "softwareRequirements": "salon_spa_scheduler, Odoo Website app",
+      "isAccessoryOrSparePartFor": "Salon & Spa Management Suite for Odoo 19",
+      "description": "Website online booking add-on for the Salon & Spa Management application on Odoo 19. Adds a customer-facing 24/7 self-service appointment page that syncs instantly with the front-desk timeline scheduler. Auto-installs alongside the Odoo Website app and requires the salon_spa_scheduler core module.",
+      "author": {
+        "@type": "Person",
+        "name": "Engr Waheed",
+        "url": "https://www.linkedin.com/in/waheed-ullah-810082151/"
+      }
+    }
+    </script>
+</head>
+<body style="font-family: 'Open Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333333; background-color: #F8FAFC; margin: 0; padding: 0;">
+
+<!-- Top Header Bar -->
+<section class="oe_container" style="padding-left: 2%; padding-right: 2%;">
+    <section class="oe_container d-flex justify-content-center">
+        <div class="d-flex shadow-sm align-items-center justify-content-between p-3" style="width: 100%; background-color: #FFFFFF; border-radius: 8px; margin-top: 20px; border: 1px solid #E2E8F0;">
+            <div class="d-flex align-items-center">
+                <span style="background: #0F766E; color: #FFFFFF; font-weight: 800; font-size: 18px; padding: 8px 16px; border-radius: 6px; letter-spacing: 0.5px;">
+                    ✨ Odoo 19 Ready
+                </span>
+                <span style="font-size: 18px; font-weight: 700; color: #1E293B; margin-left: 16px;">
+                    Salon &amp; Spa &mdash; Online Website Booking Add-On
+                </span>
+            </div>
+            <div class="d-flex align-items-center">
+                <span style="background: #EFF6FF; color: #1D4ED8; font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 6px; border: 1px solid #BFDBFE; margin-right: 8px;">
+                    Community
+                </span>
+                <span style="background: #FAF5FF; color: #7E22CE; font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 6px; border: 1px solid #E9D5FF; margin-right: 16px;">
+                    Enterprise
+                </span>
+                <span style="background: #FEF3C7; color: #B45309; font-weight: 800; font-size: 16px; padding: 6px 16px; border-radius: 6px; border: 1px solid #FDE68A;">
+                    Companion Module
+                </span>
+            </div>
+        </div>
+    </section>
+</section>
+
+<!-- Hero -->
+<section class="oe_container my-5" style="text-align: center;">
+    <h1 style="font-size: 36px; color: #0F172A; font-weight: 800; margin-bottom: 16px; line-height: 1.2;">
+        Salon &amp; Spa &mdash; Online Website Booking Add-On for Odoo 19
+    </h1>
+    <p style="font-weight: 500; font-size: 19px; color: #475569; max-width: 820px; margin: 0 auto; line-height: 1.6;">
+        The customer-facing half of the <strong>Salon &amp; Spa Management</strong> app. It turns your Odoo 19
+        website into a 24/7 self-service reservation portal at <code>/salon/booking</code>: clients pick a branch,
+        services and a specialist, and the appointment lands on the front-desk timeline scheduler in real time.
+    </p>
+</section>
+
+<!-- What this add-on is -->
+<section class="oe_container mb-4 mw-100" style="margin-bottom: 24px;">
+    <div class="p-4 shadow-sm" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 6px solid #2563EB; border-radius: 12px;">
+        <h2 style="font-weight: 800; color: #1E3A8A; font-size: 22px; margin: 0 0 10px;">
+            📦 A companion add-on &mdash; not a standalone app
+        </h2>
+        <p style="font-size: 16px; line-height: 1.8; color: #1E293B; margin: 0 0 10px;">
+            <strong>Technical name:</strong> <code>salon_spa_scheduler_website</code>. It adds only the public booking
+            page and the "Book Online" website menu. Everything else &mdash; the timeline scheduler, POS checkout,
+            staff tips, memberships, commissions, reports and multi-company support &mdash; lives in the core
+            <code>salon_spa_scheduler</code> module and is documented on that module's page.
+        </p>
+        <ul style="font-size: 15px; line-height: 1.9; color: #334155; margin: 0; padding-left: 22px;">
+            <li><strong>Requires</strong> the <code>salon_spa_scheduler</code> core module and the Odoo <strong>Website</strong> app.</li>
+            <li><strong>Installs automatically</strong> the moment both of those are present &mdash; nothing to configure.</li>
+            <li>The core app has <strong>no Website dependency</strong>: uninstall this add-on to remove the public page and keep everything else.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Screenshot -->
+<section class="oe_container my-5" style="text-align: center;">
+    <img class="img-responsive shadow-sm" style="width: 100%; max-width: 900px; border-radius: 12px; border: 1px solid #E2E8F0;"
+         src="screenshots/14_website_online_booking.png"
+         alt="Odoo 19 salon and spa website online booking form" />
+</section>
+
+<!-- How the booking page works -->
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 24px;">
+    <div class="p-4">
+        <div class="d-sm-flex align-items-center mb-3">
+            <span style="font-size: 32px; background: #EFF6FF; color: #2563EB; width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: 800;">
+                🌐
+            </span>
+            <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0;">
+                What the online booking page does
+            </h2>
+        </div>
+        <ul style="font-size: 16px; line-height: 2; color: #333333; margin-left: 20px;">
+            <li><strong>3-step reservation flow:</strong> personal info &rarr; branch &rarr; services &amp; specialist &rarr; date &amp; time.</li>
+            <li><strong>Contact matching:</strong> existing customers are recognised by phone or email; new visitors get a contact record automatically.</li>
+            <li><strong>Real-time sync:</strong> the booking appears immediately on the receptionist's timeline scheduler and is subject to the same overlap / double-booking checks as backend appointments.</li>
+            <li><strong>Timezone-aware:</strong> the chosen local time is converted to the specialist's timezone before saving.</li>
+            <li><strong>Multi-company aware:</strong> the page shows only the branches, services and beauticians of the website's company (plus shared records), and the created appointment is stamped with that company.</li>
+            <li><strong>Spam protection:</strong> Google reCAPTCHA v3 (activates once reCAPTCHA keys are set in <em>Settings &rarr; Website</em>) plus a honeypot field.</li>
+            <li><strong>Safe by default:</strong> web bookings are created in <strong>Draft</strong> so your team confirms them before any customer email is sent; the customer gets a booking reference on submit.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Package -->
+<section class="oe_container mb-4 mw-100 card shadow-sm" style="background: #FFFFFF; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 24px;">
+    <div class="p-4">
+        <h2 style="font-weight: 700; color: #0F172A; font-size: 24px; margin: 0 0 16px;">📦 The three-module package</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div style="background: #F8FAFC; padding: 16px; border-radius: 8px; border-top: 4px solid #0D9488; height: 100%;">
+                    <strong style="color: #0F172A; display: block; font-size: 15px;">salon_spa_scheduler</strong>
+                    <span style="font-size: 13px; color: #0D9488; font-weight: 700;">You install it</span>
+                    <p style="font-size: 14px; color: #64748B; margin: 8px 0 0;">Core application (scheduler, POS, tips, memberships, commissions, reports, multi-company). No dependency on Website.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div style="background: #F8FAFC; padding: 16px; border-radius: 8px; border-top: 4px solid #2563EB; height: 100%;">
+                    <strong style="color: #0F172A; display: block; font-size: 15px;">salon_spa_scheduler_website</strong>
+                    <span style="font-size: 13px; color: #2563EB; font-weight: 700;">Auto-installs with the Website app</span>
+                    <p style="font-size: 14px; color: #64748B; margin: 8px 0 0;"><strong>This module.</strong> The public <code>/salon/booking</code> page and the "Book Online" menu.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div style="background: #F8FAFC; padding: 16px; border-radius: 8px; border-top: 4px solid #7C3AED; height: 100%;">
+                    <strong style="color: #0F172A; display: block; font-size: 15px;">salon_spa_scheduler_data</strong>
+                    <span style="font-size: 13px; color: #7C3AED; font-weight: 700;">Optional</span>
+                    <p style="font-size: 14px; color: #64748B; margin: 8px 0 0;">Ready-to-use sample data with <em>Import</em> / <em>Remove Sample Data</em> menu actions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Credit / support -->
+<section class="oe_container my-4">
+    <div class="p-4 shadow-sm text-center" style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px;">
+        <p style="font-size: 15px; color: #475569; margin: 0 0 12px; line-height: 1.8;">
+            <strong style="color: #0F172A;">salon_spa_scheduler_website</strong> &mdash; online booking add-on for the
+            <strong style="color: #0F172A;">Salon &amp; Spa Management</strong> app (<code>salon_spa_scheduler</code>).<br/>
+            Authored by <strong>Engr Waheed</strong> &amp; <strong>Techman Solutions</strong> &middot;
+            <a href="https://www.techmansolutions.com" target="_blank" rel="noopener" style="color: #0D9488; font-weight: 700; text-decoration: none;">techmansolutions.com</a>
+        </p>
+        <a href="https://wa.me/97430643395" target="_blank" rel="noopener" class="d-inline-block px-4 py-2"
+           style="background-color: #25D366; border: 2px solid #15803D; color: #000000; font-weight: 800; font-size: 16px; border-radius: 999px; text-decoration: none;">
+            💬 WhatsApp Support: +974 3064 3395
+        </a>
+    </div>
+</section>
+
+</body>
+</html>

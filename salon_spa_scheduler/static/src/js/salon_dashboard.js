@@ -11,18 +11,28 @@ export class SalonDashboard extends Component {
         this.orm = useService("orm");
         this.action = useService("action");
         this.state = useState({
-            dateFilter: 'all', // 'today', 'this_week', 'this_month', 'all'
+            dateFilter: 'today', // 'today', 'this_week', 'this_month', 'last_6_months', 'last_year', 'all'
             data: {
                 total_count: 0,
                 draft_count: 0,
                 confirmed_count: 0,
                 ongoing_count: 0,
+                services_booked: 0,
+                services_done: 0,
                 done_count: 0,
                 cancel_count: 0,
                 total_revenue: 0.0,
                 paid_revenue: 0.0,
                 unpaid_revenue: 0.0,
                 avg_value: 0.0,
+                collected_services: 0.0,
+                collected_products: 0.0,
+                collected_discounts: 0.0,
+                collected_other: 0.0,
+                unpaid_done_amount: 0.0,
+                unpaid_done_ids: [],
+                unpaid_upcoming_amount: 0.0,
+                unpaid_upcoming_ids: [],
                 total_commissions: 0.0,
                 paid_commissions: 0.0,
                 pending_commissions: 0.0,
@@ -30,7 +40,8 @@ export class SalonDashboard extends Component {
                 paid_tips: 0.0,
                 unpaid_tips: 0.0,
                 waitlist_count: 0,
-                avg_rating: 5.0,
+                avg_rating: false,
+                review_count: 0,
                 staff_stats: [],
                 service_stats: [],
                 recent_appointments: [],
@@ -52,7 +63,15 @@ export class SalonDashboard extends Component {
     }
 
     formatMonetary(amount) {
-        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+        const cur = this.state.data.currency;
+        if (!cur) {
+            return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount || 0);
+        }
+        const number = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: cur.decimal_places,
+            maximumFractionDigits: cur.decimal_places,
+        }).format(amount || 0);
+        return cur.position === 'before' ? `${cur.symbol}\u00a0${number}` : `${number}\u00a0${cur.symbol}`;
     }
 
     formatPercent(value, total) {
@@ -89,6 +108,25 @@ export class SalonDashboard extends Component {
             domain: domain,
             target: "current",
         });
+    }
+
+    // A list of the given bookings, e.g. those behind "Done, not paid".
+    openAppointmentIds(ids, name) {
+        this.action.doAction({
+            type: "ir.actions.act_window",
+            name: name,
+            res_model: "salon.appointment",
+            views: [[false, "list"], [false, "form"]],
+            domain: [["id", "in", ids]],
+            target: "current",
+        });
+    }
+
+    async openCollected() {
+        const action = await this.orm.call("salon.appointment", "dashboard_collected_action", [], {
+            date_filter: this.state.dateFilter,
+        });
+        this.action.doAction(action);
     }
 
     openAppointment(id) {

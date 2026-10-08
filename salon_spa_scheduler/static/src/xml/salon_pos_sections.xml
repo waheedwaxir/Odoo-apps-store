@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Section headers (Services / Products) in the order lines -->
+    <t t-inherit="point_of_sale.OrderDisplay" t-inherit-mode="extension">
+        <xpath expr="//t[@t-foreach='lines']/t[1]" position="before">
+            <div t-if="salonSectionTitle(line)" class="salon-section-title d-flex justify-content-between px-2 py-1 fw-bolder text-uppercase text-muted bg-light border-bottom fs-6">
+                <span t-esc="salonSectionTitle(line)"/>
+                <span t-if="salonSectionArabic(line)" dir="rtl" lang="ar" t-esc="salonSectionArabic(line)"/>
+            </div>
+        </xpath>
+    </t>
+    <!-- Beautician under a booked service ("Beautician on POS Lines") -->
+    <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//li[hasclass('customer-note')]" position="before">
+            <li t-if="line.salon_beautician_name" class="salon-beautician text-muted">
+                <i class="fa fa-user me-1" role="img" aria-label="Beautician" title="Beautician"/>
+                <t t-esc="line.salon_beautician_name"/>
+            </li>
+            <!-- Who a staff tip is for -->
+            <li t-if="line.staff_id and line.staff_id.name" class="salon-beautician text-muted">
+                <i class="fa fa-user me-1" role="img" aria-label="Tip for" title="Tip for"/>
+                <t t-esc="line.staff_id.name"/>
+            </li>
+        </xpath>
+    </t>
+</templates>

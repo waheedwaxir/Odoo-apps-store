@@ -3,7 +3,8 @@
 .o_salon_dashboard {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    // 100% of the flex-sized .o_content, not 100vh (see salon_scheduler.scss).
+    height: 100%;
     background: #1a1a1a;
     color: #eaeaea;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -118,7 +119,8 @@
 }
 
 .kpi_card {
-    padding: 20px;
+    position: relative;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -129,14 +131,18 @@
     transform: translateY(-3px);
 }
 
+/* A small badge in the top-right corner: the figures get the card's width. */
 .kpi_icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 13px;
 }
 
 .icon_blue { background: rgba(0, 188, 212, 0.12); color: #00bcd4; border: 1px solid rgba(0, 188, 212, 0.2); }
@@ -153,6 +159,7 @@
 }
 
 .kpi_title {
+    padding-right: 32px; /* clear of the corner icon */
     font-size: 12px;
     color: #a0a0a0;
     text-transform: uppercase;
@@ -185,6 +192,36 @@
 .badge_draft { background: rgba(255, 255, 255, 0.1); color: #d1d5db; }
 .badge_confirmed { background: rgba(147, 197, 253, 0.15); color: #93c5fd; }
 .badge_cancel { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+
+/* Collected / To Collect: label on the left, amount on the right. */
+.money_rows {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 4px;
+    min-width: 170px;
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+.money_row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.money_row_link {
+    cursor: pointer;
+    &:hover { text-decoration: underline; }
+}
+
+.money_row_total {
+    margin-top: 2px;
+    padding-top: 3px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 11px;
+    color: #808080;
+}
 
 .dual_values {
     display: flex;

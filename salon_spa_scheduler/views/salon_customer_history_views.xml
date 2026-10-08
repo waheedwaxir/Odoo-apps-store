@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_salon_customer_history_list" model="ir.ui.view">
+        <field name="name">salon.customer.history.list</field>
+        <field name="model">salon.customer.history</field>
+        <field name="arch" type="xml">
+            <list string="Sales History" create="false" sample="1">
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="service_name" string="Item"/>
+                <field name="category_id"/>
+                <field name="item_type"/>
+                <field name="staff_id"/>
+                <field name="discount_amount" sum="Discount"/>
+                <field name="discount_reason"/>
+                <field name="price_override" sum="Price Override"/>
+                <field name="payment_method"/>
+                <field name="price_unit" string="Net" sum="Net"/>
+                <field name="quantity" optional="hide" sum="Qty"/>
+                <field name="price_gross" optional="hide" sum="Gross"/>
+                <field name="cost_amount" optional="hide" sum="Cost"/>
+                <field name="margin" optional="hide" sum="Margin"/>
+                <field name="reduction_total" optional="hide" sum="Total Reduction"/>
+                <field name="sale_ref" optional="hide"/>
+                <field name="pos_session_id" optional="hide"/>
+                <field name="appointment_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_salon_customer_history_search" model="ir.ui.view">
+        <field name="name">salon.customer.history.search</field>
+        <field name="model">salon.customer.history</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="service_name"/>
+                <field name="staff_id"/>
+                <field name="category_id"/>
+                <field name="discount_reason"/>
+                <field name="payment_method"/>
+                <field name="sale_ref"/>
+                <field name="pos_session_id"/>
+                <filter string="Services" name="filter_services"
+                        domain="[('item_type', '=', 'service')]"/>
+                <filter string="Retail" name="filter_products"
+                        domain="[('item_type', '=', 'product')]"/>
+                <separator/>
+                <filter string="Discounted" name="filter_discounted"
+                        domain="[('discount_amount', '&gt;', 0)]"/>
+                <filter string="Price Overridden" name="filter_override"
+                        domain="[('price_override', '!=', 0)]"/>
+                <filter string="Refunds" name="filter_refunds"
+                        domain="[('state', '=', 'Refunded')]"/>
+                <separator name="filter_date_separator"/>
+                <filter string="Today" name="filter_today"
+                        domain="[('date', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0, 0, 0)).to_utc().strftime('%Y-%m-%d %H:%M:%S')),
+                                 ('date', '&lt;', datetime.datetime.combine(context_today() + relativedelta(days=1), datetime.time(0, 0, 0)).to_utc().strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <filter string="Date" name="filter_date" date="date"/>
+                <group>
+                    <filter string="Customer" name="groupby_partner"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter string="Category" name="groupby_category"
+                            context="{'group_by': 'category_id'}"/>
+                    <filter string="Beautician" name="groupby_staff"
+                            context="{'group_by': 'staff_id'}"/>
+                    <filter string="Item Type" name="groupby_item_type"
+                            context="{'group_by': 'item_type'}"/>
+                    <filter string="Discount Reason" name="groupby_discount_reason"
+                            context="{'group_by': 'discount_reason'}"/>
+                    <filter string="POS Session" name="groupby_pos_session"
+                            context="{'group_by': 'pos_session_id'}"/>
+                    <filter string="Payment Method" name="groupby_payment"
+                            context="{'group_by': 'payment_method'}"/>
+                    <filter string="Month" name="groupby_month"
+                            context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_salon_customer_history" model="ir.actions.act_window">
+        <field name="name">Sales History</field>
+        <field name="res_model">salon.customer.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_salon_customer_history_search"/>
+        <field name="context">{'search_default_groupby_month': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No history yet</p>
+            <p>
+                Every service and retail line the salon sold - who had it, who did
+                it, what it was discounted by and what it cost.
+            </p>
+        </field>
+    </record>
+
+</odoo>

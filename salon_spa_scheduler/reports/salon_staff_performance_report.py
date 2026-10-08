@@ -13,7 +13,8 @@ class ReportSalonStaffPerformance(models.AbstractModel):
         staff_ids = data.get('staff_ids') or []
         branch_ids = data.get('branch_ids') or []
 
-        staff_domain = []
+        company_ids = self.env.companies.ids
+        staff_domain = [('company_id', 'in', company_ids)]
         if staff_ids:
             staff_domain.append(('id', 'in', staff_ids))
         if branch_ids:
@@ -114,7 +115,8 @@ class ReportSalonStaffPerformance(models.AbstractModel):
             ]
             reviews = self.env['salon.review'].sudo().search(review_domain)
             review_count = len(reviews)
-            avg_rating = sum(reviews.mapped('rating')) / review_count if review_count > 0 else 0.0
+            rating_values = [int(r) for r in reviews.mapped('rating') if r]
+            avg_rating = sum(rating_values) / review_count if review_count > 0 else 0.0
 
             cancel_rate = (cancel_appts / total_appts * 100.0) if total_appts > 0 else 0.0
             staff_branch_names = list(set(appts.mapped('branch_id.name')))
@@ -123,7 +125,7 @@ class ReportSalonStaffPerformance(models.AbstractModel):
             staff_performance.append({
                 'id': staff.id,
                 'name': staff.name,
-                'role': staff.job_title or 'Beautician / Specialist',
+                'role': staff.job_id.name or staff.job_title or 'Beautician / Specialist',
                 'branch_name': branch_name_str,
                 'total_appts': total_appts,
                 'done_appts': done_appts,
@@ -147,11 +149,11 @@ class ReportSalonStaffPerformance(models.AbstractModel):
             grand_total_commissions += total_comm
             grand_total_done += done_appts
             if review_count > 0:
-                total_ratings_sum += sum(reviews.mapped('rating'))
+                total_ratings_sum += sum(rating_values)
                 total_ratings_count += review_count
 
         grand_avg_rating = round(total_ratings_sum / total_ratings_count, 1) if total_ratings_count > 0 else 0.0
-        branch_names = [b.name for b in self.env['salon.branch'].sudo().browse(branch_ids)] if branch_ids else ['All Branches']
+        branch_names = [b.name for b in self.env['res.company'].sudo().browse(branch_ids)] if branch_ids else ['All Branches']
 
         return {
             'doc_ids': docids,

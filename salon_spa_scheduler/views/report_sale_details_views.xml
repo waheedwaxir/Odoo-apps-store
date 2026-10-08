@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sales Details (PDF and the POS closing report): discounts by kind -
+         each membership plan, the global discount, % off lines - "4 x" and
+         the amount, with the total underneath; then the tips, per beautician. -->
+    <template id="pos_session_sales_details_salon_discounts" inherit_id="point_of_sale.pos_session_sales_details">
+        <xpath expr="//div[@id='discounts']" position="replace">
+            <div id="discounts" style="break-inside: avoid; page-break-inside: avoid;">
+                <h6 class="bg-secondary p-1 fw-bold">Discounts</h6>
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                        <tr t-foreach="salon_discounts or []" t-as="disc">
+                            <td class="ps-2"><span t-out="disc['name']">Gold Member</span></td>
+                            <td class="text-end"><span t-out="disc['count']">4</span> x</td>
+                            <td class="text-end">
+                                <t t-if="currency['position']">
+                                    <span t-out="disc['amount']" t-options="{'widget': 'float', 'precision': currency['precision']}">120.00</span><span t-out="currency['symbol']">$</span>
+                                </t>
+                                <t t-else="">
+                                    <span t-out="currency['symbol']">$</span><span t-out="disc['amount']" t-options="{'widget': 'float', 'precision': currency['precision']}">120.00</span>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr class="border-top">
+                            <td class="ps-2"><strong>Total</strong></td>
+                            <td class="text-end"><strong><span t-out="discount_number">12</span> x</strong></td>
+                            <td class="text-end">
+                                <strong>
+                                    <t t-if="currency['position']">
+                                        <span t-out="discount_amount" t-options="{'widget': 'float', 'precision': currency['precision']}">300.00</span><span t-out="currency['symbol']">$</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-out="currency['symbol']">$</span><span t-out="discount_amount" t-options="{'widget': 'float', 'precision': currency['precision']}">300.00</span>
+                                    </t>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="salon_tips" style="break-inside: avoid; page-break-inside: avoid;">
+                <h6 class="bg-secondary p-1 fw-bold">Tips</h6>
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                        <tr t-foreach="salon_tips or []" t-as="tip">
+                            <td class="ps-2"><span t-out="tip['name']">NATASA LAOVSKI</span></td>
+                            <td class="text-end"><span t-out="tip['count']">2</span> x</td>
+                            <td class="text-end">
+                                <t t-if="currency['position']">
+                                    <span t-out="tip['amount']" t-options="{'widget': 'float', 'precision': currency['precision']}">20.00</span><span t-out="currency['symbol']">$</span>
+                                </t>
+                                <t t-else="">
+                                    <span t-out="currency['symbol']">$</span><span t-out="tip['amount']" t-options="{'widget': 'float', 'precision': currency['precision']}">20.00</span>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr class="border-top">
+                            <td class="ps-2"><strong>Total</strong></td>
+                            <td class="text-end"><strong><span t-out="salon_tips_count or 0">3</span> x</strong></td>
+                            <td class="text-end">
+                                <strong>
+                                    <t t-if="currency['position']">
+                                        <span t-out="salon_tips_total or 0.0" t-options="{'widget': 'float', 'precision': currency['precision']}">30.00</span><span t-out="currency['symbol']">$</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-out="currency['symbol']">$</span><span t-out="salon_tips_total or 0.0" t-options="{'widget': 'float', 'precision': currency['precision']}">30.00</span>
+                                    </t>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>

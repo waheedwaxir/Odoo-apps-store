@@ -11,5 +11,17 @@
             <field name="interval_number">5</field>
             <field name="interval_type">minutes</field>
         </record>
+        <!-- 1st of every month: last month's incentives into Commissions -->
+        <record forcecreate="True" id="ir_cron_monthly_incentives" model="ir.cron">
+            <field name="name">Salon &amp; Spa: Monthly Beautician Incentives</field>
+            <field name="model_id" ref="salon_spa_scheduler.model_salon_staff"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_monthly_incentives()</field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall" eval="(DateTime.today().replace(day=1) + relativedelta(months=1)).strftime('%Y-%m-%d 00:30:00')"/>
+        </record>
     </data>
 </odoo>

@@ -17,7 +17,7 @@
                         </group>
                         <group string="Filters">
                             <field name="staff_ids" widget="many2many_tags" options="{'no_create': True}" placeholder="Select Employees (All if blank)..."/>
-                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}" placeholder="Filter Branches (Optional)..."/>
+                            <field name="branch_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('id', 'in', allowed_company_ids)]" placeholder="Filter Branches (Optional)..."/>
                         </group>
                     </group>
                     <footer>

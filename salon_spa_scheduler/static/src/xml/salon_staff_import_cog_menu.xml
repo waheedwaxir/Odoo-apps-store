@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="salon_spa_scheduler.SalonStaffImportCogMenu">
+        <DropdownItem class="'o_salon_staff_import_menu'" onSelected.bind="openImportWizard">
+            <i class="fa fa-fw fa-users me-1"/>Import from Employees
+        </DropdownItem>
+    </t>
+
+</templates>

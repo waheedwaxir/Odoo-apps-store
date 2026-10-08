@@ -8,4 +8,14 @@
         <field name="name">Dashboard</field>
         <field name="tag">salon_spa_scheduler.dashboard</field>
     </record>
+
+    <!-- Jumps straight into the open POS session (same lookup/redirect as the
+         appointment's "Send to POS" button) instead of the POS app's config
+         picker kanban. -->
+    <record id="action_salon_open_pos" model="ir.actions.server">
+        <field name="name">POS</field>
+        <field name="model_id" ref="point_of_sale.model_pos_session"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_salon_pos()</field>
+    </record>
 </odoo>

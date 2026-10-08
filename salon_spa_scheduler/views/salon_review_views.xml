@@ -29,6 +29,7 @@
                         <group>
                             <field name="date"/>
                             <field name="rating" widget="priority"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                     <group string="Comment">

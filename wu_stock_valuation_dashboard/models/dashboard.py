@@ -88,7 +88,15 @@ class StockValuationDashboard(models.AbstractModel):
 
         # 2. Total Stock Quantity (from stock.quant internal locations)
         query_quant = f"""
+<<<<<<< HEAD
             SELECT SUM(sq.quantity), SUM(sq.reserved_quantity) 
+=======
+<<<<<<< HEAD
+            SELECT SUM(sq.quantity) 
+=======
+            SELECT SUM(sq.quantity), SUM(sq.reserved_quantity) 
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             FROM stock_quant sq
             JOIN stock_location sl ON sq.location_id = sl.id
             { "JOIN product_product pp ON sq.product_id = pp.id JOIN product_template pt ON pp.product_tmpl_id = pt.id" if category_id else "" }
@@ -102,9 +110,19 @@ class StockValuationDashboard(models.AbstractModel):
             params_quant.append(warehouse_id)
             
         self.env.cr.execute(query_quant, tuple(params_quant))
+<<<<<<< HEAD
         res_quant = self.env.cr.fetchone()
         total_qty = res_quant[0] or 0.0
         total_reserved_qty = res_quant[1] or 0.0
+=======
+<<<<<<< HEAD
+        total_qty = self.env.cr.fetchone()[0] or 0.0
+=======
+        res_quant = self.env.cr.fetchone()
+        total_qty = res_quant[0] or 0.0
+        total_reserved_qty = res_quant[1] or 0.0
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
 
                 # 3. Total Products & Low Stock
         domain_prod = ['|', ('type', '=', 'product'), ('is_storable', '=', True)]
@@ -196,6 +214,11 @@ class StockValuationDashboard(models.AbstractModel):
         internal_transfers = self.env['stock.move'].search_count(domain_int)
         returns = self.env['stock.move'].search_count(domain_ret)
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> eacad6a (updated salon and spa)
         # 4b. Late Deliveries and Backorders
         domain_late = [('state', 'in', ['confirmed', 'assigned', 'waiting']), ('scheduled_date', '<', fields.Datetime.now()), ('picking_type_id.code', '=', 'outgoing'), ('company_id', '=', company_id)]
         domain_backorder = [('state', 'in', ['confirmed', 'assigned', 'waiting']), ('backorder_id', '!=', False), ('company_id', '=', company_id)]
@@ -207,6 +230,10 @@ class StockValuationDashboard(models.AbstractModel):
         late_deliveries = self.env['stock.picking'].search_count(domain_late)
         backorders = self.env['stock.picking'].search_count(domain_backorder)
 
+<<<<<<< HEAD
+=======
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
         # Previous counts
         domain_in_prev = [('picking_type_id.code', '=', 'incoming'), ('state', 'in', ['confirmed', 'assigned', 'partially_available']), ('company_id', '=', company_id)]
         domain_out_prev = [('picking_type_id.code', '=', 'outgoing'), ('state', 'in', ['confirmed', 'assigned', 'partially_available']), ('company_id', '=', company_id)]
@@ -265,7 +292,15 @@ class StockValuationDashboard(models.AbstractModel):
 
         # 6. Warehouse Value, Product Table & Cost vs Sales
         query_quants_data = f"""
+<<<<<<< HEAD
             SELECT sw.name as wh_name, sq.product_id, SUM(sq.quantity) as quantity, SUM(sq.reserved_quantity) as reserved_quantity
+=======
+<<<<<<< HEAD
+            SELECT sw.name as wh_name, sq.product_id, SUM(sq.quantity) as quantity
+=======
+            SELECT sw.name as wh_name, sq.product_id, SUM(sq.quantity) as quantity, SUM(sq.reserved_quantity) as reserved_quantity
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             FROM stock_quant sq
             JOIN stock_location sl ON sq.location_id = sl.id
             JOIN stock_warehouse sw ON sl.warehouse_id = sw.id
@@ -310,7 +345,14 @@ class StockValuationDashboard(models.AbstractModel):
         for q in quants_data:
             pid = q['product_id']
             qty = q['quantity']
+<<<<<<< HEAD
             res_qty = q['reserved_quantity'] or 0.0
+=======
+<<<<<<< HEAD
+=======
+            res_qty = q['reserved_quantity'] or 0.0
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             wh_name = q['wh_name']
             cost = price_map.get(pid, 0.0)
             sales = sales_map.get(pid, 0.0)
@@ -323,10 +365,23 @@ class StockValuationDashboard(models.AbstractModel):
             automation_totals[automation] = automation_totals.get(automation, 0.0) + val
             
             if pid not in product_totals:
+<<<<<<< HEAD
                 product_totals[pid] = {'id': pid, 'name': name_map.get(pid, 'Unknown'), 'category': categ_map.get(pid, 'Unknown'), 'qty': 0.0, 'reserved_qty': 0.0, 'cost': cost, 'sales': sales, 'total_cost': 0.0, 'total_sales': 0.0}
             
             product_totals[pid]['qty'] += qty
             product_totals[pid]['reserved_qty'] += res_qty
+=======
+<<<<<<< HEAD
+                product_totals[pid] = {'id': pid, 'name': name_map.get(pid, 'Unknown'), 'category': categ_map.get(pid, 'Unknown'), 'qty': 0.0, 'cost': cost, 'sales': sales, 'total_cost': 0.0, 'total_sales': 0.0}
+            
+            product_totals[pid]['qty'] += qty
+=======
+                product_totals[pid] = {'id': pid, 'name': name_map.get(pid, 'Unknown'), 'category': categ_map.get(pid, 'Unknown'), 'qty': 0.0, 'reserved_qty': 0.0, 'cost': cost, 'sales': sales, 'total_cost': 0.0, 'total_sales': 0.0}
+            
+            product_totals[pid]['qty'] += qty
+            product_totals[pid]['reserved_qty'] += res_qty
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             product_totals[pid]['total_cost'] += val
             product_totals[pid]['total_sales'] += (qty * sales)
             total_sales_value += (qty * sales)
@@ -609,6 +664,11 @@ class StockValuationDashboard(models.AbstractModel):
         exact_cogs = self.env.cr.fetchone()[0] or 0.0
         
         gross_profit = total_sales_value - exact_cogs
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> eacad6a (updated salon and spa)
         
         # --- NEW FEATURES: Scrap Valuation & Capacity Utilization ---
         
@@ -633,6 +693,10 @@ class StockValuationDashboard(models.AbstractModel):
                     domain_lc.append(('create_date', '<=', date_to))
                 lcs = self.env['stock.valuation.layer'].search(domain_lc)
                 total_landed_costs = sum(l.value for l in lcs)
+<<<<<<< HEAD
+=======
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
 
         return {
             'beginning_balance': round(beginning_balance, 2),
@@ -646,10 +710,19 @@ class StockValuationDashboard(models.AbstractModel):
             'total_sales_value': round(total_sales_value, 2),
             'total_qty': round(total_qty, 2),
             'prev_total_qty': round(prev_total_qty, 2),
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> eacad6a (updated salon and spa)
             'total_reserved_qty': round(total_reserved_qty, 2),
             'prev_total_reserved_qty': 0,
             'total_available_qty': round(total_qty - total_reserved_qty, 2),
             'prev_total_available_qty': round(prev_total_qty, 2),
+<<<<<<< HEAD
+=======
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             'total_products': total_products,
             'prev_total_products': prev_total_products,
             'low_stock_count': low_stock_count,
@@ -658,6 +731,11 @@ class StockValuationDashboard(models.AbstractModel):
             'prev_incoming': prev_incoming,
             'outgoing': outgoing,
             'prev_outgoing': prev_outgoing,
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> eacad6a (updated salon and spa)
             'late_deliveries': late_deliveries,
             'prev_late_deliveries': 0,
             'backorders': backorders,
@@ -665,6 +743,10 @@ class StockValuationDashboard(models.AbstractModel):
             'total_scrap_value': round(total_scrap_value, 2),
             'prev_total_scrap_value': 0,
             'total_landed_costs': round(total_landed_costs, 2),
+<<<<<<< HEAD
+=======
+>>>>>>> 2b4db09 (Update manifest for free module)
+>>>>>>> eacad6a (updated salon and spa)
             'internal_transfers': internal_transfers,
             'prev_internal_transfers': prev_internal_transfers,
             'returns': returns,

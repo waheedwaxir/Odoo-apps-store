@@ -1,38 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Root Menu -->
-    <menuitem id="menu_salon_root" name="Salon &amp; Spa" sequence="5" web_icon="salon_spa_scheduler,static/description/icon.png"/>
+    <!-- Branches are the companies configured for the database. The salon has no
+         separate branch model: a branch == an Odoo company (Settings > Companies
+         / branches). This action just surfaces them under the Salon menu. -->
+    <record id="action_salon_branch" model="ir.actions.act_window">
+        <field name="name">Branches</field>
+        <field name="res_model">res.company</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('id', 'in', allowed_company_ids)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add a branch</p>
+            <p>
+                Each branch is an Odoo company. Create or edit companies from
+                Settings &gt; Users &amp; Companies &gt; Companies to manage your branches.
+            </p>
+        </field>
+    </record>
+
+    <!-- Same as contacts.action_contacts, but defaults the "Individuals" filter
+         on open - salon customers are (almost) never companies, and this keeps
+         the shared Contacts app action/menu untouched. -->
+    <record id="action_salon_customers" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,kanban,form,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="context">{'default_is_company': True, 'search_default_type_person': 1}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a Contact in your address book
+          </p><p>
+            Odoo helps you track all activities related to your contacts.
+          </p>
+        </field>
+    </record>
+
+    <!-- Root Menu - opens straight to the Scheduler -->
+    <menuitem id="menu_salon_root" name="Salon &amp; Spa" sequence="5" web_icon="salon_spa_scheduler,static/description/icon.png" action="action_salon_scheduler_client"/>
 
     <!-- Left Submenus -->
-    <menuitem id="menu_salon_dashboard" name="Dashboard" parent="menu_salon_root" action="action_salon_dashboard_client" sequence="0"/>
-    <menuitem id="menu_salon_scheduler" name="Scheduler" parent="menu_salon_root" action="action_salon_scheduler_client" sequence="1"/>
+    <menuitem id="menu_salon_scheduler" name="Scheduler" parent="menu_salon_root" action="action_salon_scheduler_client" sequence="0"/>
+    <menuitem id="menu_salon_pos" name="POS" parent="menu_salon_root" action="action_salon_open_pos" sequence="1"/>
     <menuitem id="menu_salon_appointments" name="Appointments" parent="menu_salon_root" action="action_salon_appointment" sequence="2"/>
-    <menuitem id="menu_salon_customers" name="Customers" parent="menu_salon_root" action="contacts.action_contacts" sequence="3"/>
+    <menuitem id="menu_salon_customers" name="Customers" parent="menu_salon_root" action="action_salon_customers" sequence="3"/>
     <menuitem id="menu_salon_products" name="Products" parent="menu_salon_root" action="product.product_template_action_all" sequence="4"/>
 
     <!-- Configurations & Tables -->
     <menuitem id="menu_salon_config" name="Configuration" parent="menu_salon_root" sequence="90"/>
-    <menuitem id="menu_salon_settings" name="Settings" parent="menu_salon_config" action="action_salon_config_settings" sequence="0"/>
-    <menuitem id="menu_salon_branches" name="Branches" parent="menu_salon_config" action="action_salon_branch" sequence="1"/>
-    <menuitem id="menu_salon_rooms" name="Chairs" parent="menu_salon_config" action="action_salon_room" sequence="2"/>
-    <menuitem id="menu_salon_staff" name="Beauticians / Staff" parent="menu_salon_config" action="action_salon_staff" sequence="3"/>
-    <menuitem id="menu_salon_staff_tips" name="Staff Tips" parent="menu_salon_config" action="action_salon_staff_tip" sequence="20"/>
-    <menuitem id="menu_salon_services" name="Services" parent="menu_salon_config" action="action_salon_service" sequence="4"/>
-    <menuitem id="menu_salon_packages" name="Packages" parent="menu_salon_config" action="action_salon_package" sequence="5"/>
+    <!-- Configuration is grouped into sections (alphabetical inside each);
+         Data Migration and Sample Data (other modules) come last. -->
+    <menuitem id="menu_salon_config_salon" name="Salon" parent="menu_salon_config" sequence="10"/>
+    <menuitem id="menu_salon_config_services" name="Services" parent="menu_salon_config" sequence="20"/>
+    <menuitem id="menu_salon_config_staff" name="Staff" parent="menu_salon_config" sequence="30"/>
+    <menuitem id="menu_salon_config_pay" name="Commissions &amp; Tips" parent="menu_salon_config" sequence="40"/>
+    <menuitem id="menu_salon_config_customers" name="Customers" parent="menu_salon_config" sequence="50"/>
+    <menuitem id="menu_salon_settings" name="Settings" parent="menu_salon_config" action="action_salon_config_settings" sequence="1"/>
+    <menuitem id="menu_salon_branches" name="Branches" parent="menu_salon_config_salon" action="action_salon_branch" sequence="2"/>
+    <menuitem id="menu_salon_rooms" name="Chairs" parent="menu_salon_config_salon" action="action_salon_room" sequence="3"/>
+    <menuitem id="menu_salon_staff" name="Beauticians / Staff" parent="menu_salon_config_staff" action="action_salon_staff" sequence="2"/>
+    <!-- Beautician shifts are managed in the Planning app; this just opens the
+         Planning "Schedule" gantt from inside the Salon menu. Needs Planning
+         access rights (Planning / User or Administrator). -->
+    <menuitem id="menu_salon_shifts" name="Shifts" parent="menu_salon_config_staff"
+              action="planning.planning_action_schedule_by_resource"
+              groups="planning.group_planning_user,planning.group_planning_manager"
+              sequence="4"/>
+    <menuitem id="menu_salon_staff_tips" name="Staff Tips" parent="menu_salon_config_pay" action="action_salon_staff_tip" sequence="2"/>
+    <menuitem id="menu_salon_block_types" name="Block Types" parent="menu_salon_config_salon" action="action_salon_block_type" sequence="1"/>
+    <menuitem id="menu_salon_duplicate_customers" name="Duplicate Customers" parent="menu_salon_config_customers" action="action_salon_find_duplicates" sequence="1" groups="salon_spa_scheduler.group_salon_manager"/>
+    <menuitem id="menu_salon_blocks" name="Time Block History" parent="menu_salon_config_salon" action="action_salon_block" sequence="4"/>
+    <menuitem id="menu_salon_services" name="Services" parent="menu_salon_config_services" action="action_salon_service" sequence="3"/>
+    <menuitem id="menu_salon_service_categories" name="Service Categories" parent="menu_salon_config_services" action="action_salon_service_category" sequence="2"/>
+    <menuitem id="menu_salon_packages" name="Packages" parent="menu_salon_config_services" action="action_salon_package" sequence="1"/>
     
     <!-- Memberships & Loyalty -->
-    <menuitem id="menu_salon_membership_root" name="Memberships &amp; Loyalty" parent="menu_salon_config" sequence="10"/>
-    <menuitem id="menu_salon_membership_plans" name="Membership Plans" parent="menu_salon_membership_root" action="action_salon_membership" sequence="1"/>
-    <menuitem id="menu_salon_membership_lines" name="Customer Memberships" parent="menu_salon_membership_root" action="action_salon_membership_line" sequence="2"/>
+    <menuitem id="menu_salon_membership_root" name="Memberships &amp; Loyalty" parent="menu_salon_config" sequence="60"/>
+    <menuitem id="menu_salon_membership_plans" name="Membership Plans" parent="menu_salon_membership_root" action="action_salon_membership" sequence="2"/>
+    <menuitem id="menu_salon_members" name="Members" parent="menu_salon_membership_root" action="action_salon_members" sequence="1"/>
+    <!-- The same two in Point of Sale > Configuration, under their own
+         "Memberships" heading (no action on it: a child menu would hide it). -->
+    <menuitem id="menu_pos_salon_membership_root" name="Memberships"
+              parent="point_of_sale.menu_point_config_product" sequence="60"/>
+    <menuitem id="menu_pos_salon_members" name="Members" parent="menu_pos_salon_membership_root"
+              action="action_salon_members" sequence="1"/>
+    <menuitem id="menu_pos_salon_membership_plans" name="Membership Plans" parent="menu_pos_salon_membership_root"
+              action="action_salon_membership" sequence="2"/>
+    <!-- A customer's own memberships are managed from the "Customer Membership" tab on
+         their contact form; the previously shipped "Customer Memberships" menu
+         (id menu_salon_membership_lines) is removed on upgrade by the standard
+         module data cleanup. -->
     <!-- <menuitem id="menu_salon_loyalty" name="Loyalty Ledger" parent="menu_salon_membership_root" action="action_salon_loyalty" sequence="3"/> -->
 
     <!-- Commissions, Waitlist & Reviews -->
-    <menuitem id="menu_salon_commissions" name="Commissions" parent="menu_salon_config" action="action_salon_commission" sequence="15"/>
+    <menuitem id="menu_salon_commissions" name="Commissions" parent="menu_salon_config_pay" action="action_salon_commission" sequence="1"/>
+    <menuitem id="menu_salon_positions" name="Positions" parent="menu_salon_config_staff" action="action_hr_job_salon_targets" sequence="3"
+              groups="salon_spa_scheduler.group_salon_manager"/>
+    <menuitem id="menu_salon_staff_targets" name="Beautician Targets" parent="menu_salon_config_staff" action="action_salon_staff_targets" sequence="1"
+              groups="salon_spa_scheduler.group_salon_manager"/>
     <!-- <menuitem id="menu_salon_waitlist" name="Waitlist" parent="menu_salon_config" action="action_salon_waitlist" sequence="20"/> -->
-    <menuitem id="menu_salon_reviews" name="Reviews" parent="menu_salon_config" action="action_salon_review" sequence="25"/>
+    <menuitem id="menu_salon_reviews" name="Reviews" parent="menu_salon_config_customers" action="action_salon_review" sequence="2"/>
     
+    <!-- Dashboard & Reports -->
+
     <!-- Reports Submenu -->
+    <!-- Reports is grouped into sections (alphabetical inside each); the
+         Dashboard lives here rather than in the top bar. -->
     <menuitem id="menu_salon_report_root" name="Reports" parent="menu_salon_root" sequence="30"/>
-    <menuitem id="menu_salon_sales_report" name="Sales &amp; Appointments Report" parent="menu_salon_report_root" action="action_salon_report_wizard" sequence="1"/>
-    <menuitem id="menu_salon_staff_performance_report" name="Employee Performance Report" parent="menu_salon_report_root" action="action_salon_staff_report_wizard" sequence="2"/>
+    <menuitem id="menu_salon_report_overview" name="Overview" parent="menu_salon_report_root" sequence="10"/>
+    <menuitem id="menu_salon_report_printed" name="Printed Reports" parent="menu_salon_report_root" sequence="20"/>
+    <menuitem id="menu_salon_dashboard" name="Dashboard" parent="menu_salon_report_overview" action="action_salon_dashboard_client" sequence="1"/>
+    <menuitem id="menu_salon_client_report" name="Client Report" parent="menu_salon_report_printed" action="action_salon_client_report" sequence="1"/>
+    <menuitem id="menu_salon_staff_performance_report" name="Employee Performance Report" parent="menu_salon_report_printed" action="action_salon_staff_report_wizard" sequence="2"/>
+    <menuitem id="menu_salon_sales_report" name="Sales &amp; Appointments Report" parent="menu_salon_report_printed" action="action_salon_report_wizard" sequence="3"/>
+    <!-- Not under Customers: a child menu would turn Customers into a dropdown
+         and its own action would no longer open. -->
+    <menuitem id="menu_salon_sales_history" name="Sales History" parent="menu_salon_report_overview" action="action_salon_customer_history" sequence="2"/>
 </odoo>

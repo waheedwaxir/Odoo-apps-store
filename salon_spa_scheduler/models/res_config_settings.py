@@ -1,38 +1,62 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+###############################################################################
+#    Techman Solutions W.L.L. - Qatar
+#
+#    Copyright (C) 2026-TODAY Techman Solutions W.L.L.
+#    Author: Engr. Waheed Ullah
+#    Website: https://www.techman.qa
+#    Email: waheed@techman.qa
+#    Phone: +97430643395
+#
+#    Salon & Spa Management System
+#
+#    This software is a commercial product developed by Techman Solutions
+#    W.L.L. It is not free software and is provided under the applicable
+#    commercial license and terms of use.
+#
+#    Unauthorized copying, distribution, modification, or resale of this
+#    software is prohibited unless expressly authorized by Techman Solutions
+#    W.L.L.
+#    For licensing, complete Salon & Spa modules, customization,
+#    implementation, integration, or support, please contact:
+#
+###############################################################################
+from odoo import fields, models
+
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
+    # Per-company scheduler settings. Stored on res.company; the settings form
+    # exposes them for the company selected in its header (company_id).
     salon_start_hour = fields.Integer(
         string="Scheduler Start Hour",
-        config_parameter='salon_spa_scheduler.start_hour',
-        default=8
-    )
+        related='company_id.salon_start_hour', readonly=False)
     salon_end_hour = fields.Integer(
         string="Scheduler End Hour",
-        config_parameter='salon_spa_scheduler.end_hour',
-        default=22
-    )
+        related='company_id.salon_end_hour', readonly=False)
     salon_max_cancellations = fields.Integer(
         string="Max Cancellations Allowed",
-        config_parameter='salon_spa_scheduler.max_cancellations',
-        default=3
-    )
+        related='company_id.salon_max_cancellations', readonly=False)
+    salon_allow_reset_cancelled = fields.Boolean(
+        string="Managers Can Reset Cancelled to Draft",
+        related='company_id.salon_allow_reset_cancelled', readonly=False)
+    salon_allow_done_without_payment = fields.Boolean(
+        string="Allow Done Without POS Payment",
+        related='company_id.salon_allow_done_without_payment', readonly=False)
+    salon_allow_edit_done_staff = fields.Boolean(
+        string="Managers Can Edit Bookings After Start",
+        related='company_id.salon_allow_edit_done_staff', readonly=False)
+    salon_general_notes_warning = fields.Boolean(
+        string="Warn About General Notes",
+        related='company_id.salon_general_notes_warning', readonly=False)
+    salon_allow_extend_started = fields.Boolean(
+        string="Add Services to Started Appointments",
+        related='company_id.salon_allow_extend_started', readonly=False)
 
-    @api.constrains('salon_start_hour', 'salon_end_hour')
-    def _check_scheduler_hours(self):
-        for record in self:
-            if not (0 <= record.salon_start_hour <= 23):
-                raise ValidationError(_("Start hour must be between 0 and 23."))
-            if not (0 <= record.salon_end_hour <= 23):
-                raise ValidationError(_("End hour must be between 0 and 23."))
-            if record.salon_start_hour >= record.salon_end_hour:
-                raise ValidationError(_("Start hour must be strictly less than end hour."))
-
-    @api.constrains('salon_max_cancellations')
-    def _check_max_cancellations(self):
-        for record in self:
-            if record.salon_max_cancellations < 0:
-                raise ValidationError(_("Max Cancellations Allowed must be 0 (disabled) or greater."))
+    pos_salon_discount_services_only = fields.Boolean(
+        related='pos_config_id.salon_discount_services_only', readonly=False)
+    pos_salon_show_beautician = fields.Boolean(
+        related='pos_config_id.salon_show_beautician', readonly=False)
+    pos_salon_arabic_sections = fields.Boolean(
+        related='pos_config_id.salon_arabic_sections', readonly=False)

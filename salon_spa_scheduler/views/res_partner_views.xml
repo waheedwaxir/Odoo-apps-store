@@ -5,11 +5,35 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+            <xpath expr="(//field[@name='phone'])[1]/.." position="after">
+                <div class="d-flex align-items-baseline w-md-50">
+                    <i class="fa fa-fw me-1 fa-phone-square text-primary" title="Other Phones"/>
+                    <field name="salon_other_phones" class="w-100" placeholder="Other phones"/>
+                </div>
+            </xpath>
             <xpath expr="//page[@name='internal_notes']" position="after">
-                <page string="Salon Info">
-                    <separator string="Service History"/>
+                <page name="salon_notes" string="General Notes">
+                    <group>
+                        <field name="salon_allergies" placeholder="Describe any allergies..."/>
+                        <field name="salon_preferences" placeholder="Describe styling preferences..."/>
+                        <field name="salon_favorite_staff_id"/>
+                        <field name="salon_first_visit_date"/>
+                        <field name="salon_membership_number"/>
+                    </group>
+                    <separator string="Comments"/>
+                    <field name="salon_comment_ids">
+                        <list editable="top" delete="0">
+                            <field name="date" readonly="id"/>
+                            <field name="user_id" readonly="1" force_save="1"/>
+                            <field name="comment_type" readonly="id"/>
+                            <field name="comment" required="1" readonly="id"
+                                   placeholder="e.g. was rude to reception, complained about the colour, left without paying..."/>
+                        </list>
+                    </field>
+                </page>
+                <page name="salon_info" string="Service History">
                     <field name="customer_history_ids" readonly="1">
-                        <list>
+                        <list decoration-success="state == 'Completed'" decoration-info="state == 'Paid'" decoration-danger="state == 'Cancelled'">
                             <field name="date"/>
                             <field name="service_name"/>
                             <field name="staff_name"/>
@@ -20,7 +44,41 @@
                         </list>
                     </field>
                 </page>
+                <page name="salon_membership" string="Customer Membership">
+                    <field name="salon_membership_line_ids">
+                        <list editable="bottom">
+                            <field name="membership_id"/>
+                            <field name="membership_number"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="state"/>
+                            <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                        </list>
+                    </field>
+                </page>
             </xpath>
         </field>
+    </record>
+    <!-- Typing a number in Contacts search also finds the customer's other numbers. -->
+    <record id="view_res_partner_filter_salon_phones" model="ir.ui.view">
+        <field name="name">res.partner.search.salon.phones</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <!-- Anchored on email: phone_validation replaces the phone field here. -->
+            <field name="email" position="after">
+                <field name="salon_phone_search" string="Any Phone"/>
+                <field name="salon_membership_number"/>
+            </field>
+        </field>
+    </record>
+    <!-- Configuration > Duplicate Customers: group customers that share a
+         phone number, then merge the real duplicates with Action > Merge. -->
+    <record id="action_salon_find_duplicates" model="ir.actions.server">
+        <field name="name">Duplicate Customers</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_find_salon_duplicates()</field>
+        <field name="group_ids" eval="[(4, ref('salon_spa_scheduler.group_salon_manager'))]"/>
     </record>
 </odoo>

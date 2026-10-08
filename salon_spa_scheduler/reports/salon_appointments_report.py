@@ -20,10 +20,13 @@ class ReportSalonAppointments(models.AbstractModel):
         if data.get('filter_done'): states.append('done')
         if data.get('filter_cancel'): states.append('cancel')
 
+        company_ids = self.env.companies.ids
+
         domain = [
             ('start_datetime', '>=', date_from),
             ('start_datetime', '<=', f"{date_to} 23:59:59"),
-            ('state', 'in', states)
+            ('state', 'in', states),
+            ('company_id', 'in', company_ids),
         ]
         if branch_ids:
             domain.append(('branch_id', 'in', branch_ids))
@@ -37,13 +40,13 @@ class ReportSalonAppointments(models.AbstractModel):
         state_summary = {s: {'count': 0, 'revenue': 0.0} for s in states}
         branch_summary = {}
 
-        # Prepopulate branches if filtered
+        # Prepopulate branches (companies) if filtered
         if branch_ids:
-            branches = self.env['salon.branch'].sudo().browse(branch_ids)
+            branches = self.env['res.company'].sudo().browse(branch_ids)
             for b in branches:
                 branch_summary[b.id] = {'name': b.name, 'count': 0, 'revenue': 0.0, 'appointments': []}
         else:
-            all_branches = self.env['salon.branch'].sudo().search([])
+            all_branches = self.env['res.company'].sudo().browse(company_ids)
             for b in all_branches:
                 branch_summary[b.id] = {'name': b.name, 'count': 0, 'revenue': 0.0, 'appointments': []}
 
@@ -77,7 +80,7 @@ class ReportSalonAppointments(models.AbstractModel):
             for st in staffs:
                 staff_summary[st.id] = {'name': st.name}
         else:
-            all_staffs = self.env['salon.staff'].sudo().search([])
+            all_staffs = self.env['salon.staff'].sudo().search([('company_id', 'in', company_ids)])
             for st in all_staffs:
                 staff_summary[st.id] = {'name': st.name}
 

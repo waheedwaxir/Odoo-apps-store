@@ -29,6 +29,26 @@
                                 </div>
                             </div>
                         </setting>
+                        <setting id="salon_allow_done_without_payment_setting" string="Payment Policy" help="Let staff mark a service Done before it has been paid, for clients who pay later.">
+                            <field name="salon_allow_done_without_payment"/>
+                            <label for="salon_allow_done_without_payment"/>
+                        </setting>
+                        <setting id="salon_allow_edit_done_staff_setting" string="Edit Bookings After Start" help="Beauticians &amp; Services lines are editable until a booking starts (Draft, Confirmed). With this on, a Salon manager can also edit them In Progress and Done, until it is paid. On a Done booking the Sales History and commissions are rewritten to match.">
+                            <field name="salon_allow_edit_done_staff"/>
+                            <label for="salon_allow_edit_done_staff"/>
+                        </setting>
+                        <setting id="salon_allow_extend_started_setting" string="Extend Started Appointments" help="Let staff add services to an appointment that is already confirmed or in progress. It is extended on the scheduler and the extra service is billed at checkout.">
+                            <field name="salon_allow_extend_started"/>
+                            <label for="salon_allow_extend_started"/>
+                        </setting>
+                        <setting id="salon_general_notes_warning_setting" string="General Notes Warning" help="Pop up a customer's General Notes (allergies, preferences) once, when they are picked on a booking.">
+                            <field name="salon_general_notes_warning"/>
+                            <label for="salon_general_notes_warning"/>
+                        </setting>
+                        <setting id="salon_allow_reset_cancelled_setting" string="Cancelled Appointments" help="Let Salon Managers move a cancelled appointment back to Draft.">
+                            <field name="salon_allow_reset_cancelled"/>
+                            <label for="salon_allow_reset_cancelled"/>
+                        </setting>
                     </block>
                 </app>
             </xpath>
@@ -40,5 +60,31 @@
         <field name="res_model">res.config.settings</field>
         <field name="view_mode">form</field>
         <field name="context">{'module': 'salon_spa_scheduler'}</field>
+    </record>
+
+    <!-- POS settings: limit the global Discount button to services -->
+    <record id="res_config_settings_view_form_pos_salon_discount" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.pos.salon.discount</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='pos_global_discount']" position="after">
+                <setting id="pos_salon_discount_services_only"
+                         help="Apply the Discount button to salon services only. Untick it to discount services and products."
+                         invisible="not pos_module_pos_discount">
+                    <field name="pos_salon_discount_services_only"/>
+                </setting>
+                <setting id="pos_salon_show_beautician"
+                         string="Beautician on POS Lines"
+                         help="Bookings checked out to this POS show, under each service, the beautician who does it - on the POS screen and on the receipt.">
+                    <field name="pos_salon_show_beautician"/>
+                </setting>
+                <setting id="pos_salon_arabic_sections"
+                         string="Arabic Section Titles"
+                         help="Show the Services / Products / Tips headings in English and Arabic - on the POS screen and on the receipt.">
+                    <field name="pos_salon_arabic_sections"/>
+                </setting>
+            </xpath>
+        </field>
     </record>
 </odoo>

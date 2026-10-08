@@ -8,7 +8,7 @@ class SalonStaffReportWizard(models.TransientModel):
     date_from = fields.Date(string='Start Date', required=True, default=fields.Date.context_today)
     date_to = fields.Date(string='End Date', required=True, default=fields.Date.context_today)
     staff_ids = fields.Many2many('salon.staff', string='Employees')
-    branch_ids = fields.Many2many('salon.branch', string='Branches')
+    branch_ids = fields.Many2many('res.company', string='Branches')
 
     def action_print_staff_report(self):
         data = {

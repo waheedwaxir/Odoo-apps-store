@@ -8,6 +8,7 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="branch_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
                 <field name="room_type"/>
                 <field name="capacity"/>
                 <field name="active"/>
@@ -25,6 +26,7 @@
                             <field name="name"/>
                             <field name="code"/>
                             <field name="branch_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                         <group>
                             <field name="room_type"/>
