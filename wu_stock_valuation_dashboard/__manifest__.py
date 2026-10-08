@@ -1,19 +1,7 @@
 {
-<<<<<<< HEAD
     'name': ' Real Time Stock Inventory Valuation Dashboard ',
     'version': '19.0.1.1.4',
     'summary': ' Advanced Stock Valuation Dashboard , Dashboard,  Real Time Stock Dashboard , Stock Inventory , Inventory Valuation , Inventory Valuation Dashboard , Stock Inventory Valuation Dashboard , Stock Dashboard  , Financial Summaries Dashboard , Multilingual Inventory Dashboard , Stock Report , Stock advance Report , Accounting Report , Stock Purchase Report , Sale Report , Inventory In / Out , Inventory Flow',
-=======
-<<<<<<< HEAD
-    'name': 'Real Time Stock Inventory Valuation Dashboard',
-    'version': '19.0.1.1.4',
-    'summary': 'Advanced Stock Valuation, Financial Summaries, & Multilingual Inventory Dashboard',
-=======
-    'name': ' Real Time Stock Inventory Valuation Dashboard ',
-    'version': '19.0.1.1.4',
-    'summary': ' Advanced Stock Valuation Dashboard , Dashboard,  Real Time Stock Dashboard , Stock Inventory , Inventory Valuation , Inventory Valuation Dashboard , Stock Inventory Valuation Dashboard , Stock Dashboard  , Financial Summaries Dashboard , Multilingual Inventory Dashboard , Stock Report , Stock advance Report , Accounting Report , Stock Purchase Report , Sale Report , Inventory In / Out , Inventory Flow',
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
     'description': """
 Real-Time Stock Inventory Valuation Dashboard
 ===========================================
@@ -30,19 +18,12 @@ Key Features:
 * **Actionable Stock Alerts:** Immediate visibility into Low Stock, Overstock, and Negative Stock with one-click "View All" functionality.
     """,
     'category': 'Inventory/Inventory',
-<<<<<<< HEAD
     'author': 'Nexora Solutions',
-=======
-<<<<<<< HEAD
-    'author': 'Engr Waheed',
-=======
-    'author': 'Nexora Solutions',
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
     'depends': ['stock', 'stock_account', 'sale_management', 'purchase', 'account', 'web'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        'data/cron_data.xml',
         'views/dashboard_views.xml',
         'reports/product_report.xml',
     ],
@@ -54,15 +35,7 @@ Key Features:
         ],
     },
         'images': ['static/description/banner.png'],
-<<<<<<< HEAD
     'price': 59.00,
-=======
-<<<<<<< HEAD
-    'price': 49.00,
-=======
-    'price': 59.00,
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
     'currency': 'USD',
     'support': 'waheedwazir566@gmail.com',
     'installable': True,

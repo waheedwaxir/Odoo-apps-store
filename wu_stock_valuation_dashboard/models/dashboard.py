@@ -88,15 +88,7 @@ class StockValuationDashboard(models.AbstractModel):
 
         # 2. Total Stock Quantity (from stock.quant internal locations)
         query_quant = f"""
-<<<<<<< HEAD
             SELECT SUM(sq.quantity), SUM(sq.reserved_quantity) 
-=======
-<<<<<<< HEAD
-            SELECT SUM(sq.quantity) 
-=======
-            SELECT SUM(sq.quantity), SUM(sq.reserved_quantity) 
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
             FROM stock_quant sq
             JOIN stock_location sl ON sq.location_id = sl.id
             { "JOIN product_product pp ON sq.product_id = pp.id JOIN product_template pt ON pp.product_tmpl_id = pt.id" if category_id else "" }
@@ -110,19 +102,9 @@ class StockValuationDashboard(models.AbstractModel):
             params_quant.append(warehouse_id)
             
         self.env.cr.execute(query_quant, tuple(params_quant))
-<<<<<<< HEAD
         res_quant = self.env.cr.fetchone()
         total_qty = res_quant[0] or 0.0
         total_reserved_qty = res_quant[1] or 0.0
-=======
-<<<<<<< HEAD
-        total_qty = self.env.cr.fetchone()[0] or 0.0
-=======
-        res_quant = self.env.cr.fetchone()
-        total_qty = res_quant[0] or 0.0
-        total_reserved_qty = res_quant[1] or 0.0
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
 
                 # 3. Total Products & Low Stock
         domain_prod = ['|', ('type', '=', 'product'), ('is_storable', '=', True)]
@@ -214,11 +196,6 @@ class StockValuationDashboard(models.AbstractModel):
         internal_transfers = self.env['stock.move'].search_count(domain_int)
         returns = self.env['stock.move'].search_count(domain_ret)
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> eacad6a (updated salon and spa)
         # 4b. Late Deliveries and Backorders
         domain_late = [('state', 'in', ['confirmed', 'assigned', 'waiting']), ('scheduled_date', '<', fields.Datetime.now()), ('picking_type_id.code', '=', 'outgoing'), ('company_id', '=', company_id)]
         domain_backorder = [('state', 'in', ['confirmed', 'assigned', 'waiting']), ('backorder_id', '!=', False), ('company_id', '=', company_id)]
@@ -230,10 +207,6 @@ class StockValuationDashboard(models.AbstractModel):
         late_deliveries = self.env['stock.picking'].search_count(domain_late)
         backorders = self.env['stock.picking'].search_count(domain_backorder)
 
-<<<<<<< HEAD
-=======
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
         # Previous counts
         domain_in_prev = [('picking_type_id.code', '=', 'incoming'), ('state', 'in', ['confirmed', 'assigned', 'partially_available']), ('company_id', '=', company_id)]
         domain_out_prev = [('picking_type_id.code', '=', 'outgoing'), ('state', 'in', ['confirmed', 'assigned', 'partially_available']), ('company_id', '=', company_id)]
@@ -292,15 +265,7 @@ class StockValuationDashboard(models.AbstractModel):
 
         # 6. Warehouse Value, Product Table & Cost vs Sales
         query_quants_data = f"""
-<<<<<<< HEAD
             SELECT sw.name as wh_name, sq.product_id, SUM(sq.quantity) as quantity, SUM(sq.reserved_quantity) as reserved_quantity
-=======
-<<<<<<< HEAD
-            SELECT sw.name as wh_name, sq.product_id, SUM(sq.quantity) as quantity
-=======
-            SELECT sw.name as wh_name, sq.product_id, SUM(sq.quantity) as quantity, SUM(sq.reserved_quantity) as reserved_quantity
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
             FROM stock_quant sq
             JOIN stock_location sl ON sq.location_id = sl.id
             JOIN stock_warehouse sw ON sl.warehouse_id = sw.id
@@ -318,14 +283,14 @@ class StockValuationDashboard(models.AbstractModel):
         self.env.cr.execute(query_quants_data, tuple(params_quants_data))
         quants_data = self.env.cr.dictfetchall()
         
-        product_ids = list(set(q['product_id'] for q in quants_data))
+        product_ids = list(set(q['product_id'] for q in quants_data if q.get('product_id')))
         products = self.env['product.product'].browse(product_ids)
-        price_map = {p.id: p.standard_price for p in products}
-        sales_map = {p.id: p.list_price for p in products}
-        name_map = {p.id: p.display_name for p in products}
-        method_map = {p.id: p.cost_method for p in products}
-        valuation_map = {p.id: p.valuation for p in products}
-        categ_map = {p.id: p.categ_id.name for p in products}
+        price_map = {p.id: (p.standard_price or 0.0) for p in products}
+        sales_map = {p.id: (p.list_price or 0.0) for p in products}
+        name_map = {p.id: (p.display_name or 'Unknown') for p in products}
+        method_map = {p.id: (p.cost_method or 'standard') for p in products}
+        valuation_map = {p.id: (p.valuation or 'periodic') for p in products}
+        categ_map = {p.id: (p.categ_id.name or 'Unknown') for p in products}
         
         # Fetch orderpoints for Over/Under stock calculation
         self.env.cr.execute("""
@@ -334,7 +299,7 @@ class StockValuationDashboard(models.AbstractModel):
             WHERE company_id = %s
             GROUP BY product_id
         """, (company_id,))
-        orderpoints = {row['product_id']: row for row in self.env.cr.dictfetchall()}
+        orderpoints = {row['product_id']: row for row in self.env.cr.dictfetchall() if row.get('product_id')}
         
         warehouse_values = {}
         total_sales_value = 0.0
@@ -343,19 +308,14 @@ class StockValuationDashboard(models.AbstractModel):
         automation_totals = {}
         
         for q in quants_data:
-            pid = q['product_id']
-            qty = q['quantity']
-<<<<<<< HEAD
-            res_qty = q['reserved_quantity'] or 0.0
-=======
-<<<<<<< HEAD
-=======
-            res_qty = q['reserved_quantity'] or 0.0
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
-            wh_name = q['wh_name']
-            cost = price_map.get(pid, 0.0)
-            sales = sales_map.get(pid, 0.0)
+            pid = q.get('product_id')
+            if not pid:
+                continue
+            qty = q.get('quantity') or 0.0
+            res_qty = q.get('reserved_quantity') or 0.0
+            wh_name = q.get('wh_name') or 'Unknown'
+            cost = price_map.get(pid) or 0.0
+            sales = sales_map.get(pid) or 0.0
             method = method_map.get(pid) or 'standard'
             automation = valuation_map.get(pid) or 'periodic'
             
@@ -365,23 +325,10 @@ class StockValuationDashboard(models.AbstractModel):
             automation_totals[automation] = automation_totals.get(automation, 0.0) + val
             
             if pid not in product_totals:
-<<<<<<< HEAD
                 product_totals[pid] = {'id': pid, 'name': name_map.get(pid, 'Unknown'), 'category': categ_map.get(pid, 'Unknown'), 'qty': 0.0, 'reserved_qty': 0.0, 'cost': cost, 'sales': sales, 'total_cost': 0.0, 'total_sales': 0.0}
             
             product_totals[pid]['qty'] += qty
             product_totals[pid]['reserved_qty'] += res_qty
-=======
-<<<<<<< HEAD
-                product_totals[pid] = {'id': pid, 'name': name_map.get(pid, 'Unknown'), 'category': categ_map.get(pid, 'Unknown'), 'qty': 0.0, 'cost': cost, 'sales': sales, 'total_cost': 0.0, 'total_sales': 0.0}
-            
-            product_totals[pid]['qty'] += qty
-=======
-                product_totals[pid] = {'id': pid, 'name': name_map.get(pid, 'Unknown'), 'category': categ_map.get(pid, 'Unknown'), 'qty': 0.0, 'reserved_qty': 0.0, 'cost': cost, 'sales': sales, 'total_cost': 0.0, 'total_sales': 0.0}
-            
-            product_totals[pid]['qty'] += qty
-            product_totals[pid]['reserved_qty'] += res_qty
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
             product_totals[pid]['total_cost'] += val
             product_totals[pid]['total_sales'] += (qty * sales)
             total_sales_value += (qty * sales)
@@ -390,18 +337,32 @@ class StockValuationDashboard(models.AbstractModel):
         value_by_warehouse.sort(key=lambda x: x['value'], reverse=True)
         value_by_warehouse = value_by_warehouse[:5]
 
+        total_inventory_cost = sum((p['total_cost'] or 0.0) for p in product_totals.values())
+        if not total_value:
+            if 'stock.valuation.layer' in self.env:
+                domain_svl = [('company_id', '=', company_id)]
+                if category_id:
+                    domain_svl.append(('product_id.categ_id', 'child_of', category_id))
+                if date_to:
+                    domain_svl.append(('create_date', '<=', date_to))
+                svl_recs = self.env['stock.valuation.layer'].search(domain_svl)
+                svl_val = sum((l.value or 0.0) for l in svl_recs)
+                total_value = svl_val if svl_val else total_inventory_cost
+            else:
+                total_value = total_inventory_cost
+
         category_margins = {}
         negative_stock_count = 0
         overstock_count = 0
         understock_count = 0
         
         for pid, p_data in product_totals.items():
-            qty = p_data['qty']
-            val = p_data['total_cost']
-            sales = p_data['total_sales']
+            qty = p_data['qty'] or 0.0
+            val = p_data['total_cost'] or 0.0
+            sales = p_data['total_sales'] or 0.0
             margin = sales - val
             
-            categ = p_data['category']
+            categ = p_data['category'] or 'Unknown'
             category_margins[categ] = category_margins.get(categ, 0.0) + margin
             
             if qty < 0:
@@ -409,9 +370,11 @@ class StockValuationDashboard(models.AbstractModel):
             elif qty > 0:
                 op = orderpoints.get(pid)
                 if op:
-                    if qty < op['min_qty']:
+                    min_q = op.get('min_qty') or 0.0
+                    max_q = op.get('max_qty') or 0.0
+                    if qty < min_q:
                         understock_count += 1
-                    elif qty > op['max_qty']:
+                    elif qty > max_q:
                         overstock_count += 1
                         
         profit_by_category = [{'label': k, 'value': v} for k, v in category_margins.items()]
@@ -466,7 +429,7 @@ class StockValuationDashboard(models.AbstractModel):
 
         # 8. Aging Analysis (FIFO)
         aging_buckets = {'0-30': 0.0, '31-60': 0.0, '61-90': 0.0, '90+': 0.0}
-        active_products = [pid for pid, p in product_totals.items() if p['qty'] > 0]
+        active_products = [pid for pid, p in product_totals.items() if (p.get('qty') or 0.0) > 0]
         
         if active_products:
             self.env.cr.execute("""
@@ -479,23 +442,29 @@ class StockValuationDashboard(models.AbstractModel):
             
             moves_by_product = {}
             for m in moves_in:
-                moves_by_product.setdefault(m['product_id'], []).append(m)
+                if m.get('product_id'):
+                    moves_by_product.setdefault(m['product_id'], []).append(m)
                 
             today_dt = datetime.today()
             for pid in active_products:
-                remaining_qty = product_totals[pid]['qty']
-                cost = product_totals[pid]['cost']
+                remaining_qty = product_totals[pid]['qty'] or 0.0
+                cost = product_totals[pid]['cost'] or 0.0
                 moves = moves_by_product.get(pid, [])
                 
                 for move in moves:
                     if remaining_qty <= 0:
                         break
                     
-                    move_qty = move['quantity']
+                    move_qty = move.get('quantity') or 0.0
                     assigned_qty = min(remaining_qty, move_qty)
                     remaining_qty -= assigned_qty
                     
-                    days_old = (today_dt.date() - move['date'].date()).days
+                    m_date = move.get('date')
+                    if m_date:
+                        date_val = m_date.date() if isinstance(m_date, datetime) else m_date
+                        days_old = (today_dt.date() - date_val).days if hasattr(date_val, 'days') or hasattr(today_dt.date() - date_val, 'days') else 0
+                    else:
+                        days_old = 0
                     val = assigned_qty * cost
                     
                     if days_old <= 30:
@@ -619,56 +588,99 @@ class StockValuationDashboard(models.AbstractModel):
         prev_total_qty = total_qty - net_qty_change
 
         # --- NEW FINANCIAL METRICS ---
-        # Beginning Balance (Value up to prev_dt_to if date_from provided, else 0 or all time)
+        # Beginning Balance (Value up to prev_dt_to if date_from provided, else 0 for all time)
         beginning_balance = 0.0
         if date_from:
             prev_dt = datetime.strptime(date_from, '%Y-%m-%d') - timedelta(days=1)
-            query_bb = f"SELECT SUM(CASE WHEN is_out = TRUE THEN -value ELSE value END) FROM stock_move {move_join} WHERE stock_move.state = 'done' AND (is_in = TRUE OR is_out = TRUE) AND stock_move.company_id = %s {move_where_cat} AND DATE(stock_move.date) <= %s"
+            query_bb = f"SELECT sm.product_id, sm.product_uom_qty, sm.value, sl.usage as src_usage, sld.usage as dest_usage FROM stock_move sm {move_join} JOIN stock_location sl ON sm.location_id = sl.id JOIN stock_location sld ON sm.location_dest_id = sld.id WHERE sm.state = 'done' AND sm.company_id = %s {move_where_cat} AND DATE(sm.date) <= %s"
             params_bb = [company_id]
             if category_id:
                 params_bb.append(tuple(categ_ids))
             params_bb.append(prev_dt.strftime('%Y-%m-%d'))
             
             self.env.cr.execute(query_bb, tuple(params_bb))
-            beginning_balance = self.env.cr.fetchone()[0] or 0.0
+            bb_moves = self.env.cr.dictfetchall()
+            
+            bb_pids = list(set(m['product_id'] for m in bb_moves if m.get('product_id')))
+            bb_products = self.env['product.product'].browse(bb_pids)
+            bb_price_map = {p.id: (p.standard_price or 0.0) for p in bb_products}
+            
+            for m in bb_moves:
+                pid = m.get('product_id')
+                qty = m.get('product_uom_qty') or 0.0
+                val = (m.get('value') or 0.0) if (m.get('value') or 0.0) != 0.0 else (qty * bb_price_map.get(pid, 0.0))
+                
+                if m.get('dest_usage') == 'internal' and m.get('src_usage') != 'internal':
+                    beginning_balance += val
+                elif m.get('src_usage') == 'internal' and m.get('dest_usage') != 'internal':
+                    beginning_balance -= val
 
         ending_balance = total_value
         internal_balance = total_value
         
         # Inventory Adjustments in selected period
-        query_adj = f"SELECT SUM(value) FROM stock_move {move_join} JOIN stock_location sl ON stock_move.location_id = sl.id JOIN stock_location sld ON stock_move.location_dest_id = sld.id WHERE stock_move.state = 'done' AND stock_move.company_id = %s {move_where_cat} AND (sl.usage = 'inventory' OR sld.usage = 'inventory')"
+        query_adj = f"SELECT sm.product_id, sm.product_uom_qty, sm.value FROM stock_move sm {move_join} JOIN stock_location sl ON sm.location_id = sl.id JOIN stock_location sld ON sm.location_dest_id = sld.id WHERE sm.state = 'done' AND sm.company_id = %s {move_where_cat} AND (sl.usage = 'inventory' OR sld.usage = 'inventory')"
         params_adj = [company_id]
         if category_id:
             params_adj.append(tuple(categ_ids))
         if date_from:
-            query_adj += " AND DATE(stock_move.date) >= %s"
+            query_adj += " AND DATE(sm.date) >= %s"
             params_adj.append(date_from)
         if date_to:
-            query_adj += " AND DATE(stock_move.date) <= %s"
+            query_adj += " AND DATE(sm.date) <= %s"
             params_adj.append(date_to)
+            
         self.env.cr.execute(query_adj, tuple(params_adj))
-        inventory_adjustments = self.env.cr.fetchone()[0] or 0.0
+        adj_moves = self.env.cr.dictfetchall()
         
-        # Exact COGS in selected period (Customer shipments)
-        query_cogs = f"SELECT SUM(value) FROM stock_move {move_join} JOIN stock_location sld ON stock_move.location_dest_id = sld.id WHERE stock_move.state = 'done' AND stock_move.company_id = %s {move_where_cat} AND sld.usage = 'customer'"
+        adj_pids = list(set(m['product_id'] for m in adj_moves if m.get('product_id')))
+        adj_products = self.env['product.product'].browse(adj_pids)
+        adj_price_map = {p.id: (p.standard_price or 0.0) for p in adj_products}
+        
+        inventory_adjustments = sum(
+            (m.get('value') or 0.0) if (m.get('value') or 0.0) != 0.0
+            else ((m.get('product_uom_qty') or 0.0) * adj_price_map.get(m['product_id'], 0.0))
+            for m in adj_moves
+        )
+        
+        # Exact COGS & Sales Revenue in selected period (Customer shipments)
+        query_cogs = f"SELECT sm.product_id, sm.product_uom_qty, sm.value FROM stock_move sm {move_join} JOIN stock_location sld ON sm.location_dest_id = sld.id WHERE sm.state = 'done' AND sm.company_id = %s {move_where_cat} AND sld.usage = 'customer'"
         params_cogs = [company_id]
         if category_id:
             params_cogs.append(tuple(categ_ids))
         if date_from:
-            query_cogs += " AND DATE(stock_move.date) >= %s"
+            query_cogs += " AND DATE(sm.date) >= %s"
             params_cogs.append(date_from)
         if date_to:
-            query_cogs += " AND DATE(stock_move.date) <= %s"
+            query_cogs += " AND DATE(sm.date) <= %s"
             params_cogs.append(date_to)
+            
         self.env.cr.execute(query_cogs, tuple(params_cogs))
-        exact_cogs = self.env.cr.fetchone()[0] or 0.0
+        cogs_moves = self.env.cr.dictfetchall()
+        
+        cogs_pids = list(set(m['product_id'] for m in cogs_moves if m.get('product_id')))
+        cogs_products = self.env['product.product'].browse(cogs_pids)
+        cogs_price_map = {p.id: (p.standard_price or 0.0) for p in cogs_products}
+        cogs_sales_map = {p.id: (p.list_price or 0.0) for p in cogs_products}
+        
+        exact_cogs = sum(
+            (m.get('value') or 0.0) if (m.get('value') or 0.0) != 0.0
+            else ((m.get('product_uom_qty') or 0.0) * cogs_price_map.get(m['product_id'], 0.0))
+            for m in cogs_moves
+        )
+        
+        shipped_sales_revenue = sum(
+            (m.get('product_uom_qty') or 0.0) * cogs_sales_map.get(m['product_id'], 0.0)
+            for m in cogs_moves
+        )
+        
+        # If shipped sales revenue is available, use it as sales revenue; otherwise fallback to positive on-hand stock sales value
+        if shipped_sales_revenue > 0:
+            total_sales_value = shipped_sales_revenue
+        else:
+            total_sales_value = sum(max(p['qty'], 0.0) * (p['sales'] or 0.0) for p in product_totals.values())
         
         gross_profit = total_sales_value - exact_cogs
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> eacad6a (updated salon and spa)
         
         # --- NEW FEATURES: Scrap Valuation & Capacity Utilization ---
         
@@ -680,7 +692,7 @@ class StockValuationDashboard(models.AbstractModel):
             domain_scrap.append(('date_done', '<=', date_to))
         
         scraps = self.env['stock.scrap'].search(domain_scrap)
-        total_scrap_value = sum(s.scrap_qty * s.product_id.standard_price for s in scraps)
+        total_scrap_value = sum((s.scrap_qty or 0.0) * (s.product_id.standard_price or 0.0) for s in scraps)
 
         # Landed Costs Impact
         total_landed_costs = 0.0
@@ -692,11 +704,7 @@ class StockValuationDashboard(models.AbstractModel):
                 if date_to:
                     domain_lc.append(('create_date', '<=', date_to))
                 lcs = self.env['stock.valuation.layer'].search(domain_lc)
-                total_landed_costs = sum(l.value for l in lcs)
-<<<<<<< HEAD
-=======
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
+                total_landed_costs = sum((l.value or 0.0) for l in lcs)
 
         return {
             'beginning_balance': round(beginning_balance, 2),
@@ -710,19 +718,10 @@ class StockValuationDashboard(models.AbstractModel):
             'total_sales_value': round(total_sales_value, 2),
             'total_qty': round(total_qty, 2),
             'prev_total_qty': round(prev_total_qty, 2),
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> eacad6a (updated salon and spa)
             'total_reserved_qty': round(total_reserved_qty, 2),
             'prev_total_reserved_qty': 0,
             'total_available_qty': round(total_qty - total_reserved_qty, 2),
             'prev_total_available_qty': round(prev_total_qty, 2),
-<<<<<<< HEAD
-=======
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
             'total_products': total_products,
             'prev_total_products': prev_total_products,
             'low_stock_count': low_stock_count,
@@ -731,11 +730,6 @@ class StockValuationDashboard(models.AbstractModel):
             'prev_incoming': prev_incoming,
             'outgoing': outgoing,
             'prev_outgoing': prev_outgoing,
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> eacad6a (updated salon and spa)
             'late_deliveries': late_deliveries,
             'prev_late_deliveries': 0,
             'backorders': backorders,
@@ -743,10 +737,6 @@ class StockValuationDashboard(models.AbstractModel):
             'total_scrap_value': round(total_scrap_value, 2),
             'prev_total_scrap_value': 0,
             'total_landed_costs': round(total_landed_costs, 2),
-<<<<<<< HEAD
-=======
->>>>>>> 2b4db09 (Update manifest for free module)
->>>>>>> eacad6a (updated salon and spa)
             'internal_transfers': internal_transfers,
             'prev_internal_transfers': prev_internal_transfers,
             'returns': returns,
@@ -773,3 +763,11 @@ class StockValuationDashboard(models.AbstractModel):
             'notifications': notifications,
             'insights': insights,
         }
+
+    @api.model
+    def cron_update_dashboard_metrics(self):
+        """Cron job to periodically update stock valuation dashboard metrics for all companies."""
+        companies = self.env['res.company'].search([])
+        for company in companies:
+            self.get_dashboard_data(company_id=company.id)
+        return True
