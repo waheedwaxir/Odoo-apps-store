@@ -14,9 +14,11 @@ It is installed automatically whenever both **Salon & Spa Management**
 module no longer needs a hard dependency on ``website``. Uninstall this module
 to remove the public booking page while keeping the rest of the app intact.
     """,
-    'author': 'Engr Waheed, Techman Solutions',
+    'author': 'Engr Waheed,',
     'website': 'https://www.techmansolutions.com',
-    'license': 'LGPL-3',
+     'license': 'LGPL-3',
+    'price': 0.00,
+    'currency': 'USD',
     'images': [
         'static/description/banner.png',
         'static/description/icon.png',
